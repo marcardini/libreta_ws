@@ -45,3 +45,47 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+Servers/Tomcat v8.0 Server at localhost-config/web.xml
+*.project
+Servers/.settings/org.eclipse.wst.server.core.prefs
+*.policy
+Servers/Tomcat v8.0 Server at localhost-config/catalina.properties
+
+*target*
+*.jar
+*.war
+*.ear
+*.class
+
+# eclipse specific git ignore
+*.pydevproject
+.project
+.metadata
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+Servers/Tomcat v8.0 Server at localhost-config/context.xml
+
+# Code Recommenders
+.recommenders/
+*.classpath
+*.classpath
+libretaDigital.rar
+*.tern-project
+*.MF
+Servers/Tomcat v8.0 Server at localhost-config/server.xml
+Servers/Tomcat v8.0 Server at localhost-config/tomcat-users.xml
