@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="entities">
+ 	
+	<class name="Notebook" table="notebook">
+	
+		<id column="oid" name="oid" type="long" unsaved-value="null">
+			<generator class="native" />
+		</id>
+		
+		<property name="currentYear" column="current_year" type="int" />
+		
+		<property name="courseType" column="course_type">
+			<type name="org.hibernate.type.EnumType">
+				<param name="enumClass">utils.CourseType</param>
+				<param name="type">12</param>
+				<param name="useNamed">true</param>
+			</type>
+		</property>
+		
+		<property name="reformulationPlan" length="100" column="reformulation_plan" />
+	
+		<list name="professors" table="professor" lazy="false" cascade="all">
+			<key column="notebook_id" />
+			 <list-index column="order" base="0" />
+			<one-to-many class="entities.Professor" />
+		</list>
+		
+		<many-to-one name="subject" />
+		
+		<many-to-one name="group" />
+		
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:seam="http://jboss.com/products/seam/spring-seam"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/integration/ws http://www.springframework.org/schema/integration/ws/spring-integration-ws-2.0.xsd
+		 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+    	 http://www.springframework.org/schema/util  http://www.springframework.org/schema/util/spring-util-3.1.xsd
+		http://jboss.com/products/seam/spring-seam http://jboss.com/products/seam/spring-seam-2.2.xsd">
+	
+	<bean name="genericDAO" class="hibernate.GenericDAO">
+		<property name="sessionFactory" ref="hibernateSessionFactory" />
+	</bean>
+	
+	<bean id="professorDAO" class="dao.professorDAO" parent="genericDAO" />
+
+	<bean id="md5Encoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
+	
+	<bean id="professorService" class="services.ProfessorServiceImpl" >
+		<property name="professorDAO" ref="professorDAO"/>
+		<property name="encoder" ref="md5Encoder" />
+	</bean>
+	
+	<bean id="fileUploadService" class="services.FileUploadServiceImpl" >
+		<property name="professorDAO" ref="professorDAO"/>
+	</bean>
+	
+	<util:list id="libretadigital.mapping.resources">
+		<value>hbm/ClassDayProfessor.hbm.xml</value>
+		<value>hbm/ClassDayStudent.hbm.xml</value>
+		<value>hbm/Course.hbm.xml</value>
+		<value>hbm/Group.hbm.xml</value>
+		<value>hbm/Institution.hbm.xml</value>
+		<value>hbm/Notebook.hbm.xml</value>
+		<value>hbm/Period.hbm.xml</value>
+		<value>hbm/Professor.hbm.xml</value>
+		<value>hbm/Student.hbm.xml</value>
+		<value>hbm/Subject.hbm.xml</value>
+	</util:list>
+
+</beans>
