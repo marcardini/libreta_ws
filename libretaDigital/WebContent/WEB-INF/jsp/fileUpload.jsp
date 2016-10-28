@@ -1,7 +1,6 @@
 <%@ page import="org.codehaus.jackson.*"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html ng-app="app">
 <head>
@@ -27,39 +26,33 @@
 
 			<div class="col-md-3">
 
-				<h3>Select files</h3>
+				<h3>Depósito de archivos</h3>
 
 				<div ng-show="uploader.isHTML5">
-					<!-- 3. nv-file-over uploader="link" over-class="className" -->
-					<div class="well my-drop-zone" nv-file-over="" uploader="uploader">Base drop zone</div>
-
-					<!-- Example: nv-file-drop="" uploader="{Object}" options="{Object}" filters="{String}" -->
-					<div nv-file-drop="" uploader="uploader" options="{ url: '/foo' }">
-						<div nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well my-drop-zone">Another drop
-							zone with its own settings</div>
+					<div class="well my-drop-zone" nv-file-over="" uploader="uploader">
 					</div>
+					
 				</div>
 
-				<!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
-				Multiple <input type="file" nv-file-select="" uploader="uploader" multiple /><br /> Single <input type="file"
-					nv-file-select="" uploader="uploader" />
+				<br/> 
+				
+				<input type="file" nv-file-select="" uploader="uploader" />
 			</div>
 
 			<div class="col-md-9" style="margin-bottom: 40px">
 
-				<h3>Upload queue</h3>
-				<p>Queue length: {{ uploader.queue.length }}</p>
+				<h3>Cola de Carga</h3>
+				<p>Tamaño: {{ uploader.queue.length }}</p>
 
 				<table class="table">
 					<thead>
 						<tr>
-							<th width="50%">Name</th>
-							<th ng-show="uploader.isHTML5">Size</th>
-							<th ng-show="uploader.isHTML5">Progress</th>
-							<th>Status</th>
-							<th>Actions</th>
+							<th width="50%">Nombre</th>
+							<th ng-show="uploader.isHTML5">Tamaño</th>
+							<th ng-show="uploader.isHTML5">Progreso</th>
+							<th>Estado</th>
+							<th>Acciones</th>
 						</tr>
-					</thead>
 					<tbody>
 						<tr ng-repeat="item in uploader.queue">
 							<td><strong>{{ item.file.name }}</strong></td>
@@ -75,13 +68,13 @@
 							<td nowrap>
 								<button type="button" class="btn btn-success btn-xs" ng-click="item.upload()"
 									ng-disabled="item.isReady || item.isUploading || item.isSuccess">
-									<span class="glyphicon glyphicon-upload"></span> Upload
+									<span class="glyphicon glyphicon-upload"></span> Subir
 								</button>
 								<button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
-									<span class="glyphicon glyphicon-ban-circle"></span> Cancel
+									<span class="glyphicon glyphicon-ban-circle"></span> Cancelar
 								</button>
 								<button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
-									<span class="glyphicon glyphicon-trash"></span> Remove
+									<span class="glyphicon glyphicon-trash"></span> Remover
 								</button>
 							</td>
 						</tr>
@@ -90,20 +83,20 @@
 
 				<div>
 					<div>
-						Queue progress:
+						Progreso:
 						<div class="progress" style="">
 							<div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
 						</div>
 					</div>
 					<button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()"
 						ng-disabled="!uploader.getNotUploadedItems().length">
-						<span class="glyphicon glyphicon-upload"></span> Upload all
+						<span class="glyphicon glyphicon-upload"></span> Cargar
 					</button>
 					<button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
-						<span class="glyphicon glyphicon-ban-circle"></span> Cancel all
+						<span class="glyphicon glyphicon-ban-circle"></span> Cancelar
 					</button>
 					<button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
-						<span class="glyphicon glyphicon-trash"></span> Remove all
+						<span class="glyphicon glyphicon-trash"></span> Remover
 					</button>
 				</div>
 
