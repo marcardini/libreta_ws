@@ -20,8 +20,13 @@ var codMenu = "<%=codMenu%>";
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav">
+<<<<<<< HEAD
 				<li class="{{home}}"><a href="#">Inicio</a></li>
 				<li class="dropdown {{datos}}"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Gestión de datos<span class="caret"></span></a>
+=======
+				<li class="{{home}}"><a href="home.jsp">Home</a></li>
+				<li class="dropdown {{datos}}"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Datos <span class="caret"></span></a>
+>>>>>>> 1a1035444c2c352afa46d1174906073f811ab5b2
 					<ul class="dropdown-menu">
 						<li class="{{datos1}}"><a href="fileUpload.jsp">Carga Masiva</a></li>
 						<li><a href="#">Docentes</a></li>
