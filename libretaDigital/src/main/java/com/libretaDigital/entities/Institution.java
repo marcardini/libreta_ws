@@ -9,7 +9,7 @@ public class Institution {
 	private List<Course> courseList;
 	private List<Group> groupsList;
 	private List<Professor> professorsList;
-	private List<Student> studendentsList;
+	private List<Student> studentsList;
 	
 	public Institution(){}
 	
@@ -32,14 +32,14 @@ public class Institution {
 		this.name = name;
 		this.courseList = courses;
 		this.professorsList = professors;
-		this.studendentsList = students;
+		this.studentsList = students;
 	}
 	
 	public Institution(String name, List<Course> courses, List<Professor> professors, List<Student> students, List<Group> groups){
 		this.name = name;
 		this.courseList = courses;
 		this.professorsList = professors;
-		this.studendentsList = students;
+		this.studentsList = students;
 		this.groupsList = groups;
 	}
 	
@@ -94,11 +94,14 @@ public class Institution {
 	public void setProfessorsList(List<Professor> professorsList) {
 		this.professorsList = professorsList;
 	}
-	public List<Student> getStudendentsList() {
-		return studendentsList;
+
+	public List<Student> getStudentsList() {
+		return studentsList;
 	}
-	public void setStudendentsList(List<Student> studendentsList) {
-		this.studendentsList = studendentsList;
+
+	public void setStudentsList(List<Student> studentsList) {
+		this.studentsList = studentsList;
 	}
+
 	
 }

@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
 	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
-<hibernate-mapping package="entities">
+<hibernate-mapping package="com.libretaDigital.entities">
  	
 	<class name="Course" table="course">
 	
@@ -13,13 +13,13 @@
 		<list name="groupsList" table="group" lazy="false" cascade="all">
 			<key column="course_id" />
 			 <list-index column="order" base="0" />
-			<one-to-many class="entities.Group" />
+			<one-to-many class="com.libretaDigital.entities.Group" />
 		</list>
 		
 		<list name="subjectsList" table="subject" lazy="false" cascade="all">
 			<key column="course_id" />
 			 <list-index column="order" base="0" />
-			<one-to-many class="entities.Subject" />
+			<one-to-many class="com.libretaDigital.entities.Subject" />
 		</list>
 		
 	</class>

@@ -1,6 +1,5 @@
 package com.libretaDigital.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.security.authentication.encoding.MessageDigestPasswordEncoder;
@@ -16,7 +15,7 @@ public class ProfessorServiceImpl implements IProfessorService{
 	private MessageDigestPasswordEncoder encoder;
 	
 	public List<Professor> getAllProfessors() {
-		return new ArrayList<Professor>();
+		return professorDAO.getAllProfessors();
 	}
 	
 	public void addProfessor(Professor dtProfessor) throws ProfessorAlreadyExists, InvalidProfessorInformation {

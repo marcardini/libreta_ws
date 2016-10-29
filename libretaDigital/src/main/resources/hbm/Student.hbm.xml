@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
 	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
-<hibernate-mapping package="entities">
+<hibernate-mapping package="com.libretaDigital.entities">
  	
 	<class name="Student" table="student">
 	
@@ -20,7 +20,7 @@
 		
 		<property name="gender" column="gender">
 			<type name="org.hibernate.type.EnumType">
-				<param name="enumClass">utils.Gender</param>
+				<param name="enumClass">com.libretaDigital.utils.Gender</param>
 				<param name="type">12</param>
 				<param name="useNamed">true</param>
 			</type>
@@ -37,7 +37,7 @@
 		<list name="calendar" table="calendar" lazy="false" cascade="all">
 			<key column="student_id" />
 			 <list-index column="order" base="0" />
-			<one-to-many class="entities.ClassDayStudent" />
+			<one-to-many class="com.libretaDigital.entities.ClassDayStudent" />
 		</list>
 		
 	</class>

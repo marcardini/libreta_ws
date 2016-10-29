@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
 	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
-<hibernate-mapping package="entities">
+<hibernate-mapping package="com.libretaDigital.entities">
  	
 	<class name="Group" table="group">
 	
@@ -19,7 +19,7 @@
 		<list name="studentsList" table="student" lazy="false" cascade="all">
 			<key column="group_id" />
 			 <list-index column="order" base="0" />
-			<one-to-many class="entities.Student" />
+			<one-to-many class="com.libretaDigital.entities.Student" />
 		</list>
 		
 	</class>

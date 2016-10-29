@@ -9,20 +9,22 @@
     	 http://www.springframework.org/schema/util  http://www.springframework.org/schema/util/spring-util-3.1.xsd
 		http://jboss.com/products/seam/spring-seam http://jboss.com/products/seam/spring-seam-2.2.xsd">
 	
-	<bean name="genericDAO" class="hibernate.GenericDAO">
+	<import resource="classpath:hibernate-config.xml" />
+	
+	<bean name="genericDAO" class="com.libretaDigital.hibernate.GenericDAO">
 		<property name="sessionFactory" ref="hibernateSessionFactory" />
 	</bean>
 	
-	<bean id="professorDAO" class="dao.professorDAO" parent="genericDAO" />
+	<bean id="professorDAO" class="com.libretaDigital.DAO.ProfessorDAO" parent="genericDAO" />
 
 	<bean id="md5Encoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
 	
-	<bean id="professorService" class="services.ProfessorServiceImpl" >
+	<bean id="professorService" class="com.libretaDigital.services.ProfessorServiceImpl" >
 		<property name="professorDAO" ref="professorDAO"/>
 		<property name="encoder" ref="md5Encoder" />
 	</bean>
 	
-	<bean id="fileUploadService" class="services.FileUploadServiceImpl" >
+	<bean id="fileUploadService" class="com.libretaDigital.services.FileUploadServiceImpl" >
 		<property name="professorDAO" ref="professorDAO"/>
 	</bean>
 	

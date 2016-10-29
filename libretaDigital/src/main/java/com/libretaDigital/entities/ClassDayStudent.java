@@ -1,6 +1,7 @@
 package com.libretaDigital.entities;
 
 
-public class ClassDayStudent{
+public class ClassDayStudent extends ClassDay{
+	
 
 }
