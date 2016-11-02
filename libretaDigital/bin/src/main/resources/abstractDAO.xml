@@ -1,0 +1,30 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="abstractDAO" abstract="true">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<bean name="genericDAO" abstract="true">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	 <bean name="staticHubInitializer" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="staticMethod" value="uy.com.geocom.utils.dao.hibernate4.GenericDAO.setDbms"/>
+        <property name="arguments">
+            <list>
+                <ref bean="dbms"/>
+            </list>
+       </property>
+    </bean>
+
+    <bean id="dbms" class="java.lang.String">
+        <constructor-arg type="String" value="${db.name}"/>
+    </bean>
+    
+    <bean id="databaseDateMask" class="java.lang.String">
+        <constructor-arg type="String" value="${db.date_mask}"/>
+    </bean>
+</beans>
