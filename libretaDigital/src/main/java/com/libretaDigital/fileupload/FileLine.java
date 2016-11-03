@@ -1,5 +1,6 @@
 package com.libretaDigital.fileupload;
 
+
 public class FileLine {
 	
 	protected long lineNumber;		//The number of the line in the file
@@ -27,4 +28,6 @@ public class FileLine {
 	public String getUpoloadProcessorId() {
 		return upoloadProcessorId;
 	}
+	
+	
 }

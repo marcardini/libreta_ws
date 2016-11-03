@@ -16,7 +16,7 @@ import com.libretaDigital.entities.*;
 import com.libretaDigital.exceptions.InvalidURLException;
 import com.libretaDigital.fileupload.*;
 import com.libretaDigital.interfaces.*;
-
+import com.libretaDigital.utils.FileUploadType;
 import com.libretaDigital.fileupload.FileUploadBlockManager.BlockManagerStatus;
 
 

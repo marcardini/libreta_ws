@@ -1,53 +1,37 @@
 package com.libretaDigital.fileupload;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
+import java.io.Serializable;
+import java.util.concurrent.atomic.AtomicBoolean;
 
-@XmlAccessorType(XmlAccessType.FIELD)
-public class FileUploadSummary {
+public class FileUploadSummaryDTO  implements Serializable{
 
-	@XmlElement(required = true)
+	private static final long serialVersionUID = 1L;
+		
 	private String status;
-	
-	@XmlElement(required = true)
 	private String fileName;
-	
-	@XmlElement(required = true)
 	private String user;
-	
-	private boolean charge;
-	
-	@XmlElement(required = true, type = Long.class, nillable = true)
+	private boolean resetBalance;
 	private Long fileLines;
 	
-	@XmlElement(required = true, type = Long.class, nillable = true)
 	private Long startTimestamp;
-	
-	@XmlElement(required = true, type = Long.class, nillable = true)
 	private Long endTimestamp;
 	
-	@XmlElement(required = true, type = Long.class, nillable = true)
 	private Long processedLines;
-	
-	@XmlElement(required = true, type = Long.class, nillable = true)
 	private Long estimatedRemainingSeconds;
 	
-	@XmlElement(required = true, type = Long.class, nillable = true)
 	private Long wrongLinesCounter;
-	
-	@XmlElement(required = true)
 	private String logFileName;
 	
+	private AtomicBoolean showFile;
 	
-	private boolean showFile;
-
-	
+	public FileUploadSummaryDTO() {
+		resetBalance = true;
+		showFile = new AtomicBoolean(false);
+	}
 	
 	public String getStatus() {
 		return status;
 	}
-	
 	public void setStatus(String status) {
 		this.status = status;
 	}
@@ -55,7 +39,6 @@ public class FileUploadSummary {
 	public String getFileName() {
 		return fileName;
 	}
-	
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
@@ -63,7 +46,6 @@ public class FileUploadSummary {
 	public String getUser() {
 		return user;
 	}
-	
 	public void setUser(String user) {
 		this.user = user;
 	}
@@ -71,7 +53,6 @@ public class FileUploadSummary {
 	public Long getFileLines() {
 		return fileLines;
 	}
-	
 	public void setFileLines(Long fileLines) {
 		this.fileLines = fileLines;
 	}
@@ -79,7 +60,6 @@ public class FileUploadSummary {
 	public Long getStartTimestamp() {
 		return startTimestamp;
 	}
-	
 	public void setStartTimestamp(Long startTimestamp) {
 		this.startTimestamp = startTimestamp;
 	}
@@ -87,7 +67,6 @@ public class FileUploadSummary {
 	public Long getEndTimestamp() {
 		return endTimestamp;
 	}
-	
 	public void setEndTimestamp(Long endTimestamp) {
 		this.endTimestamp = endTimestamp;
 	}
@@ -95,7 +74,6 @@ public class FileUploadSummary {
 	public Long getProcessedLines() {
 		return processedLines;
 	}
-	
 	public void setProcessedLines(Long processedLines) {
 		this.processedLines = processedLines;
 	}
@@ -103,7 +81,6 @@ public class FileUploadSummary {
 	public Long getEstimatedRemainingSeconds() {
 		return estimatedRemainingSeconds;
 	}
-	
 	public void setEstimatedRemainingSeconds(Long estimatedRemainingSeconds) {
 		this.estimatedRemainingSeconds = estimatedRemainingSeconds;
 	}
@@ -111,7 +88,6 @@ public class FileUploadSummary {
 	public String getLogFileName() {
 		return logFileName;
 	}
-	
 	public void setLogFileName(String logFileName) {
 		this.logFileName = logFileName;
 	}
@@ -119,30 +95,21 @@ public class FileUploadSummary {
 	public Long getWrongLinesCounter() {
 		return wrongLinesCounter;
 	}
-	
 	public void setWrongLinesCounter(Long wrongLinesCounter) {
 		this.wrongLinesCounter = wrongLinesCounter;
 	}
 	
-	public boolean isCharge() {
-		return charge;
+	public boolean isResetBalance() {
+		return resetBalance;
 	}
-	
-	public void setCharge(boolean charge) {
-		this.charge = charge;
+	public void setResetBalance(boolean resetBalance) {
+		this.resetBalance = resetBalance;
 	}
-	
 	public boolean isShowFile() {
-		return showFile;
+		return showFile.get();
 	}
-	
-	public void setShowFile(boolean showFile) {
+	public void setShowFile(AtomicBoolean showFile) {
 		this.showFile = showFile;
 	}
 	
-    @Override
-	public String toString() {
-		return ""; 
-	}
-    
 }

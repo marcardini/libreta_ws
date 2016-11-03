@@ -13,7 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.libretaDigital.exceptions.BuildLineException;
+import com.libretaDigital.fileupload.FileLine;
 import com.libretaDigital.interfaces.IFileParser;
+
 
 public class FileUploadBlockManager {
 
@@ -42,6 +44,7 @@ public class FileUploadBlockManager {
 	private ProcessorContext context;
 	private IFileParser parser;
 
+
 	public FileUploadBlockManager(String urlFile, String originalFileName, String user, IFileParser fileParser,
 			UploaderProperties properties, boolean localFile) throws MalformedURLException, IOException  {
 		
@@ -63,8 +66,12 @@ public class FileUploadBlockManager {
 		startTimestamp = System.currentTimeMillis();
 		status = BlockManagerStatus.QUEUED;
 		currentLine = 0;
-		deliveredBlocks = 0;
+		setDeliveredBlocks(0);
+		
+		
+		
 	}
+
 
 	public void setStartProcess() throws IOException  {
 		startTimestamp = System.currentTimeMillis();
@@ -72,6 +79,7 @@ public class FileUploadBlockManager {
 		String logFileName = "";
 		if (properties.isDumpFileErrors()) {
 			String[] splitFileName = originalFileName.split("\\.");
+			//.concat((new Timestamp(System.currentTimeMillis())).toString())
 			logFileName =  "_LUC_".concat(splitFileName[0]).concat(".txt");
 		}
 		context = new ProcessorContext(logFileName, properties);
@@ -84,6 +92,7 @@ public class FileUploadBlockManager {
 
 		status = BlockManagerStatus.RUNNING;
 	}
+
 
 	public List<FileLine> getNextBlock() {
 		List<FileLine> lines = new ArrayList<FileLine>();
@@ -107,7 +116,7 @@ public class FileUploadBlockManager {
 			currentLine++;
 			context.addError(currentLine , line, properties.getExceptionReadingBlock() + e.getLocalizedMessage());
 		}
-		this.deliveredBlocks++;
+		this.setDeliveredBlocks(this.getDeliveredBlocks() + 1);
 		if (line == null) {
 			//The upload was successfully  completed
 			status = BlockManagerStatus.FINISHED;
@@ -120,6 +129,8 @@ public class FileUploadBlockManager {
 		checkCutProcessConditions();
 		return (status == BlockManagerStatus.RUNNING);
 	}
+	
+
 	
 	public void setBlockSize(long blockSize) {
 		this.blockSize = blockSize;
@@ -207,6 +218,8 @@ public class FileUploadBlockManager {
 		// Can nott estimate because there is not enough information
 		return -1;
 	}
+	
+	
 
 	/**
 	 * This method copy the file that will be uploaded to  a server located file, and count the lines on the file
@@ -280,10 +293,15 @@ public class FileUploadBlockManager {
 		return parser.getBlockSizeParameterName();
 	}
 
+
 	public long getDeliveredBlocks() {
 		return deliveredBlocks;
 	}
+
+
 	public void setDeliveredBlocks(long deliveredBlocks) {
 		this.deliveredBlocks = deliveredBlocks;
 	}
+
+
 }

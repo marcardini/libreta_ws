@@ -2,8 +2,7 @@ package com.libretaDigital.utils;
 
 public enum Gender {
 	
-	/*We base ourselves in the Humans rights Commission of Nueva York
-	 * to develop the list of genders*/
+	/*We base ourselves in the Humans rights Commission of Nueva York to develop the list of genders*/
 	
 	MALE,
 	FEMALE,
@@ -26,5 +25,7 @@ public enum Gender {
 	TRANS,
 	AGENDER,
 	THIRD_SEX,
-	FLUID_SEX;
+	FLUID_SEX,
+	
+	PENDING;
 }

@@ -13,6 +13,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.log4j.Logger;
 
+
 public class ProcessorContext {
 	
 	public static Logger logger = Logger.getLogger(ProcessorContext.class);
@@ -76,6 +77,7 @@ public class ProcessorContext {
 	}
 	
 	public void addProcessedBlock(long timeInMillis, long blockInitLine, long blockEndLine) {
+		//processedBlockTimes.add(Long.valueOf(time));
 		endBlockTimestamp = System.currentTimeMillis();
 		processedBlockCount++;
 		if (blockProcessSecondsPondeatedAverage == -1){
@@ -85,6 +87,7 @@ public class ProcessorContext {
 		}
 		
 		if (properties.isDumpFileErrors()){
+			//fileWriter.println((new Timestamp(endBlockTimestamp)).toString() + " - El Bloque [" + String.valueOf(blockInitLine) + "-" + String.valueOf(blockEndLine) + "] se proceso completamente en " + decFormat.format((double)timeInMillis/1000) + " segundos ----------");
 			fileWriter.println((new Timestamp(endBlockTimestamp)).toString() + properties.getEndBlockMSG().replace(":blockInitLine", String.valueOf(blockInitLine)).replace(":blockEndLine", String.valueOf(blockEndLine)).replace(":blockTime", String.valueOf(decFormat.format((double)timeInMillis/1000))));
 			fileWriter.flush();
 		}

@@ -8,15 +8,20 @@ import org.springframework.beans.factory.annotation.Required;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import com.libretaDigital.fileupload.FileUploadBlockManager.BlockManagerStatus;
-import com.libretaDigital.parameters.*;
+import com.libretaDigital.interfaces.BlockProcessor;
+import com.libretaDigital.parameters.ParameterControl;
+import com.libretaDigital.parameters.ParameterId;
+import com.libretaDigital.parameters.ParametersControlFacade;
 
 public class FileImporter  {
 	
 	public static Logger logger = Logger.getLogger(FileImporter.class);
+	
 	private ThreadPoolTaskExecutor taskExecutor;
 	private BlockProcessor blockProcessor;
-	private boolean inTheEnd;
 	private ParametersControlFacade parametersFacade;
+	
+	private boolean inTheEnd;
 	private int uploadConcurrentThreads;
 	private long cycleSleepMillis;
 	
@@ -74,6 +79,7 @@ public class FileImporter  {
 		}
 	}
 	
+	
 	public List<ItemError> processFileImport(FileUploadBlockManager blockManager) throws IOException {
 		//We refresh from the DB the key Ranges we keep in memory during the upload.
 		uploadConcurrentThreads = taskExecutor.getMaxPoolSize();
@@ -82,7 +88,7 @@ public class FileImporter  {
 		blockManager.setStartProcess();
 		
 		//logger.debug("Starting process file " + urlFilgetFileURL()e + ", at " + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date(blockManager.getStartTime())));
-		logger.info("Comenzando a importar archivo de cupones: ".concat(blockManager.getFileName()));
+		logger.info("Comenzando a importar archivo: ".concat(blockManager.getFileName()));
 		
 		ProcessorContext context = blockManager.getContext();
 		
@@ -148,6 +154,8 @@ public class FileImporter  {
 		 });
 	 }
 	
+	
+	 
 	 protected void checkBlockSizeParameter(FileUploadBlockManager blockManager) {
 		 try {
 			 if (blockManager.getBlockSizeParameterName()!=null) {
@@ -189,6 +197,8 @@ public class FileImporter  {
 		}
 		cycleSleepMillis = (newCycleSleepMillis>0)?newCycleSleepMillis:DEFAULT_cycleSleepMillis;
 	}
+
+	//******************Seters de bean*********************************************************
 	 
 	@Required
 	public void setBlockProcessor(BlockProcessor blockProcessor) {

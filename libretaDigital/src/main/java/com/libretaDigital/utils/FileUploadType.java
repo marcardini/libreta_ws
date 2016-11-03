@@ -1,11 +1,11 @@
-package com.libretaDigital.fileupload;
+package com.libretaDigital.utils;
 
 public enum FileUploadType {
 
-	PROFESSORS("Profesores"),
-	STUDENTS("Estudiantes"),
-	GROUPS("Grupos"), 
-	PROGRAM("Programas");
+	PROFESSORS("PROFESSORS"), 
+	STUDENTS("STUDENTS"),
+	GROUPS("GROUPS"),
+	PROGRAM("PROGRAM");
 	
 	private final String value;
 
