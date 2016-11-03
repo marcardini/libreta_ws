@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.libretaDigital.entities">
+ 	
+	<class name="Subject" table="subject">
+	
+		<id column="oid" name="oid" type="long" unsaved-value="null">
+			<generator class="native" />
+		</id>
+		
+		<list name="notebooksList" table="notebook" lazy="false" cascade="all">
+			<key column="subject_id" />
+			 <list-index column="order" base="0" />
+			<one-to-many class="com.libretaDigital.entities.Subject" />
+		</list>
+		
+		<list name="periods" table="period" lazy="false" cascade="all">
+			<key column="subject_id" />
+			 <list-index column="order" base="0" />
+			<one-to-many class="com.libretaDigital.entities.Period" />
+		</list>
+		
+		<property name="name" length="100" />	
+		
+	</class>
+</hibernate-mapping>

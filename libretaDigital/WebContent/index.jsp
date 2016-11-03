@@ -19,6 +19,7 @@ var pageTitle = <%=pageTitle%>;
 
 <title><%=pageTitle%></title>
 <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="resources/css/style.css">
 
 </head>
 
@@ -41,7 +42,7 @@ var pageTitle = <%=pageTitle%>;
 </body>
 
 
-<jsp:include page="/WEB-INF/jsp/parts/footer.jsp" />
+<jsp:include page="/WEB-INF/jsp/parts/scripts.jsp" />
 
 
 </html>

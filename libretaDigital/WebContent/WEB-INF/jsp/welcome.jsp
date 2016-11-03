@@ -14,7 +14,7 @@
 %>
 <title><%=pageTitle%></title>
 <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-
+<link rel="stylesheet" href="/resources/css/style.css">
 </head>
 
 <body ng-controller="fileUploadCtrl" nv-file-drop="" uploader="uploader"
@@ -36,5 +36,5 @@
 	</div>
 </body>
 
-<jsp:include page="/WEB-INF/jsp/parts/footer.jsp" />
+<jsp:include page="/WEB-INF/jsp/parts/scripts.jsp" />
 </html>
