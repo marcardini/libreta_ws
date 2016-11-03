@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF8)" pageEncoding="UTF8"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html ng-app="app" >
+<html ng-app="app">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <%
@@ -24,10 +24,27 @@
 
 	<jsp:include page="/WEB-INF/jsp/parts/menu-head.jsp" />
 
-	<div class="container"></div>
-	
-	
-	
+	<div class="container">
+
+		<div class="multi-sortable" sv-root>
+			<div class="sortable-container" sv-part="data.items6">
+				<div sv-helper class="helper-left">custom left helper</div>
+				<div ng-repeat="item in data.items6" sv-element class="well multi">{{item}}</div>
+			</div>
+			<div class="sortable-container" sv-part="data.items7">
+				<div ng-repeat="item in data.items7" sv-element class="well multi">
+					<div sv-helper class="helper-right">custom right helper {{item}}</div>
+					{{item}}
+				</div>
+			</div>
+		</div>
+
+
+
+	</div>
+
+
+
 </body>
 
 <jsp:include page="/WEB-INF/jsp/parts/scripts.jsp" />

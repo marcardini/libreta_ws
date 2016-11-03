@@ -1,9 +1,5 @@
-
-
 /* PAGINA */
-
-
-.container{
+.container {
 	margin-top: 5em;
 }
 
@@ -12,12 +8,71 @@
 	border: dotted 5px lightgray;
 	height: 100%
 }
-.drop-zone{
+
+.drop-zone {
 	height: 200px;
 }
+
 .btn-dropzone {
-    margin-top: 10px;
+	margin-top: 10px;
 }
-.well{
+
+.well {
 	padding: 9px 19px 9px 19px;
+}
+
+.multi-sortable .sortable-container {
+	width: 46%;
+	margin: 0 2%;
+	float: left;
+	height: 100%;
+	padding: 10px 10px;
+}
+
+.sortable-container {
+	max-height: 600px;
+	overflow: auto;
+	padding: 10px 50px;
+	background: hsl(60, 80%, 90%);
+}
+
+.multi {
+	display: inline-block;
+	width: 90%;
+}
+
+.well {
+	padding-top: 8px;
+	padding-bottom: 8px;
+	margin-bottom: 5px;
+}
+
+.helper-left, .helper-right {
+	width: 200px;
+	height: 30px;
+	border-radius: 3px;
+	text-align: center;
+}
+
+.helper-left {
+	border: 1px solid crimson;
+	background-color: hsl(120, 100%, 90%);
+}
+
+.helper-right {
+	border: 1px solid teal;
+	background-color: hsl(0, 100%, 90%);
+}
+
+.placeholder-left, .placeholder-right {
+	width: 100%;
+	height: 38px;
+	text-align: center;
+	background: whitesmoke;
+	border: 3px dashed gray;
+	box-sizing: border-box;
+	display: table;
+	margin-bottom: 5px; & > span { display : table-cell;
+	vertical-align: middle;
+}
 }
