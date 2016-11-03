@@ -1,6 +1,7 @@
 /* PAGINA */
 .container {
 	margin-top: 5em;
+	width: 98%;
 }
 
 /* FILE UPLOAD ANGULAR */
@@ -21,6 +22,9 @@
 	padding: 9px 19px 9px 19px;
 }
 
+
+
+/* CONTROL DE ASISTENCIAS*/
 .multi-sortable .sortable-container {
 	width: 46%;
 	margin: 0 2%;

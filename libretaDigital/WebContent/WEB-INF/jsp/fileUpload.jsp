@@ -22,24 +22,35 @@
 
 
 
-		<jsp:include page="/WEB-INF/jsp/parts/menu-head.jsp" />
+	<jsp:include page="/WEB-INF/jsp/parts/menu-head.jsp" />
 
 	<div class="container">
-		<h3>Depósito de archivos</h3>
+
+		<div class="page-header">
+			<h1>Carga Masiva de Datos</h1>
+		</div>
+
 
 		<div class="row">
-			<div class="col-md-12">
-				<div class="">
-					<form action="api/upload" class="my-drop-zone drop-zone dropzone" dropzone="" id="dropzone">
-						<div class="dz-default dz-message"></div>
-						<div class="dz-progress">
-							<span class="dz-upload" data-dz-uploadprogress></span>
-						</div>
-					</form>
-					<div class="btn-dropzone">
-						<button class="btn btn-success btn-sm" ng-click="uploadFile()">Upload File</button>
-						<button class="btn btn-danger btn-sm" ng-click="reset()">Reset Dropzone</button>
+
+			<div class="col-md-4">
+				<h3>Carga de Archivos</h3>
+				<form action="api/upload" class="my-drop-zone drop-zone dropzone" dropzone="" id="dropzone">
+					<div class="dz-default dz-message"></div>
+					<div class="dz-progress">
+						<span class="dz-upload" data-dz-uploadprogress></span>
 					</div>
+				</form>
+				<div class="btn-dropzone">
+					<button class="btn btn-success btn-sm" ng-click="uploadFile()">Subir Archivo</button>
+					<button class="btn btn-danger btn-sm" ng-click="reset()">Limpiar</button>
+				</div>
+			</div>
+
+			<div class="col-md-8">
+				<h3>Informacion</h3>
+				<div class="panel panel-default">
+					<div class="panel-body">Panel Content</div>
 				</div>
 			</div>
 		</div>
@@ -115,7 +126,7 @@
 
 		<!-- 		</div> -->
 
-		 	</div> 
+	</div>
 </body>
 
 <jsp:include page="/WEB-INF/jsp/parts/scripts.jsp" />
