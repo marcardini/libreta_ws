@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF8)" pageEncoding="UTF8"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html ng-app="app" flow-init>
+<html ng-app="app">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <%
@@ -20,11 +20,11 @@
 
 <body ng-controller="fileUploadCtrl" ng-cloak>
 
-	<div class="container">
+
 
 		<jsp:include page="/WEB-INF/jsp/parts/menu-head.jsp" />
 
-
+	<div class="container">
 		<h3>Depósito de archivos</h3>
 
 		<div class="row">
@@ -115,10 +115,12 @@
 
 		<!-- 		</div> -->
 
-		<!-- 	</div> -->
+		 	</div> 
 </body>
 
-<jsp:include page="/WEB-INF/jsp/parts/footer.jsp" />
+<jsp:include page="/WEB-INF/jsp/parts/scripts.jsp" />
+
+<script src="resources/app/controllers/fileUploadController.js"></script>
 
 <script type="text/javascript">
 	Dropzone.autoDiscover = false;

@@ -42,7 +42,7 @@ var pageTitle = <%=pageTitle%>;
 </body>
 
 
-<jsp:include page="/WEB-INF/jsp/parts/footer.jsp" />
+<jsp:include page="/WEB-INF/jsp/parts/scripts.jsp" />
 
 
 </html>

@@ -8,9 +8,11 @@
 
 <script type="text/javascript">
 var codMenu = "<%=codMenu%>";
+
+
 </script>
 
-<nav class="navbar navbar-inverse" ng-controller="menuCtrl">
+<nav class=" navbar navbar-inverse navbar-fixed-top" ng-controller="menuCtrl">
 	<div class="container-fluid">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -25,13 +27,13 @@ var codMenu = "<%=codMenu%>";
 						class="caret"></span></a>
 
 					<ul class="dropdown-menu">
-						<li class="{{datos1}}"><a href="fileUpload.jsp">Carga Masiva</a></li>
+						<li class="{{datosD1}}"><a href="fileUpload.jsp">Carga Masiva</a></li>
 						<li><a href="#">Docentes</a></li>
 						<li><a href="#">Alumnos</a></li>
 						<li><a href="#">Grupos</a></li>
 						<li><a href="#">Programa</a></li>
 					</ul></li>
-				<li><a href="#">Control de asistencias</a></li>
+				<li class="{{control}}"><a href="assistControl.jsp">Control de asistencias</a></li>
 <!-- 				<li><button ng-click = "test()">Test</button></li> -->
 			</ul>
 			<ul class="nav navbar-nav navbar-right">

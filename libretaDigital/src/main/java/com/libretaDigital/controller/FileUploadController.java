@@ -1,6 +1,5 @@
 package com.libretaDigital.controller;
 
-
 import java.util.Iterator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,43 +22,30 @@ public class FileUploadController {
 		return page;
 	}
 
-	@RequestMapping(value = "/api/test", method = RequestMethod.GET)
-	public ResponseEntity<Void> test() {
-		// System.out.println("------------------------------------------------");
-		// System.out.println("------------------------------------------------");
-		// System.out.println("------------------------------------------------");
-		// System.out.println("--- TEST ----");
-		return ResponseEntity.ok().build();
+	@RequestMapping(value = "fileUpload/upload", method = RequestMethod.POST)
+	public ResponseEntity uploadFile(MultipartHttpServletRequest request) {
+
+		try {
+			Iterator<String> itr = request.getFileNames();
+
+			while (itr.hasNext()) {
+				String uploadedFile = itr.next();
+				MultipartFile file = request.getFile(uploadedFile);
+				String mimeType = file.getContentType();
+				String filename = file.getOriginalFilename();
+				byte[] bytes = file.getBytes();
+
+				FileUploadBean newFile = new FileUploadBean(filename, bytes, mimeType);
+				System.out.println("------------------------------------------------");
+				System.out.println("------ FILE:" + newFile.getFilename() + " ------");
+				System.out.println("------------------------------------------------");
+
+			}
+		} catch (Exception e) {
+			return new ResponseEntity<>("{}", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		return new ResponseEntity<>("{}", HttpStatus.OK);
 	}
-
-	@RequestMapping(
-            value = "api/upload",
-            method = RequestMethod.POST
-        )
-        public ResponseEntity uploadFile(MultipartHttpServletRequest request) {
-
-            try {
-                Iterator<String> itr = request.getFileNames();
-
-                while (itr.hasNext()) {
-                    String uploadedFile = itr.next();
-                    MultipartFile file = request.getFile(uploadedFile);
-                    String mimeType = file.getContentType();
-                    String filename = file.getOriginalFilename();
-                    byte[] bytes = file.getBytes();
-
-                    FileUploadBean newFile = new FileUploadBean(filename, bytes, mimeType);
-                    System.out.println("------------------------------------------------");        
-            		System.out.println("------ FILE:" + newFile.getFilename() + " ------");            		
-             		System.out.println("------------------------------------------------");
-                    
-                }
-            }
-            catch (Exception e) {
-                return new ResponseEntity<>("{}", HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-
-            return new ResponseEntity<>("{}", HttpStatus.OK);
-        }
 
 }

@@ -3,12 +3,9 @@
 /* PAGINA */
 
 
-
-
-
-
-
-
+.container{
+	margin-top: 5em;
+}
 
 /* FILE UPLOAD ANGULAR */
 .my-drop-zone {

@@ -10,10 +10,9 @@
 <script src="bower_components/dropzone/dist/dropzone.js"></script>
 <script src="resources/app/app.js"></script>
 <script src="resources/app/controllers/menuController.js"></script>
-<script src="resources/app/controllers/fileUploadController.js"></script>
-<!-- <script src="resources/app/directives/fileUploadDirectives.js"></script> -->
+
 
 		
-<footer> </footer>
+
 
 

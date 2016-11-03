@@ -63,7 +63,7 @@ app.directive('dropzone', function() {
         link: function(scope, element, attrs) {
 
             var config = {
-                url: 'api/upload',
+                url: 'fileUpload/upload',
                 maxFilesize: 100,
                 paramName: "uploadfile",
                 maxThumbnailFilesize: 10,
