@@ -1,5 +1,5 @@
 //var app = angular.module("app", []);
-var app = angular.module('app', ['ui.bootstrap', 'smart-table', 'angular-sortable-view'])
+var app = angular.module('app', ['ui.bootstrap', 'smart-table', 'dndLists', 'percentCircle-directive'])
 
 .filter('capitalize', function() {
     return function(input, all) {
