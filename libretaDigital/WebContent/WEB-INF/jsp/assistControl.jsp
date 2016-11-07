@@ -14,33 +14,77 @@
 <title><%=pageTitle%></title>
 <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="bower_components/dropzone/dist/basic.css">
-<link rel="stylesheet" href="bower_components/dropzone/dist/dropzone.css">
+<link rel="stylesheet" href="bower_components/angular-percent-circle-directive/dist/percent-circle.css">
 <link rel="stylesheet" href="resources/css/style.css">
 </head>
 
 <body ng-controller="assistControlCtrl">
 
-
-
 	<jsp:include page="/WEB-INF/jsp/parts/menu-head.jsp" />
 
-	<div class="container">
-
-		<div class="multi-sortable" sv-root>
-			<div class="sortable-container" sv-part="data.items6">
-				<div sv-helper class="helper-left">custom left helper</div>
-				<div ng-repeat="item in data.items6" sv-element class="well multi">{{item}}</div>
-			</div>
-			<div class="sortable-container" sv-part="data.items7">
-				<div ng-repeat="item in data.items7" sv-element class="well multi">
-					<div sv-helper class="helper-right">custom right helper {{item}}</div>
-					{{item}}
-				</div>
-			</div>
+	<div class="container" ng-init="">
+		<div class="page-header">
+			<h1>Control de Asistencia</h1>
 		</div>
 
+		<div class=row">
+			<div class="col-md-6">
+				<!-- 				<h3>Lista</h3> -->
 
+				<div class="col-md-6" ng-repeat="list in models">
+					<div class="panel {{listType(list.listName)}}" ng-class="">
+						<div class="panel-heading">
+							<h1 class="panel-title title-lista">
+								{{title(list.listName)}} <span class="badge">{{cantidad(list.listName)}}</span>
+								<div class="btn-group btn-lista">
+									<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown"
+										aria-haspopup="true" aria-expanded="false">
+										Acciones <span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu">
+										<li><a href="#" ng-click="selAll(list.items)">Seleccionar Todo</a></li>
+										<li><a href="#" ng-click="deSelAll(list.items)">Deseleccionar Todo</a></li>
+										<li><a href="#" ng-click="invertirSel(list.items)">Invertir Seleccion</a></li>
+										<li><a href="#">Something else here</a></li>
+										<li role="separator" class="divider"></li>
+										<li><a href="#">Separated link</a></li>
+									</ul>
+								</div>
 
+							</h1>
+
+						</div>
+						<div class="panel-body">
+							<ul dnd-list dnd-drop="onDrop(list, item, index)">
+								<li ng-repeat="item in list.items" dnd-draggable="getSelectedItemsIncluding(list, item)"
+									dnd-dragstart="onDragstart(list, event)" dnd-moved="onMoved(list)" dnd-dragend="list.dragging = false"
+									dnd-selected="item.selected = !item.selected" ng-class="{'selected': item.selected}"
+									ng-hide="list.dragging && item.selected">{{item.label}}</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="col-md-6">
+
+				<!-- 				<div class="panel panel-default">				 -->
+				<div class="panel-body">
+					<div class=row">
+						<div class="col-md-3 porcentaje">
+							<h3 class="text-center">Asistencia</h3>
+							<percent-circle percent="presentesPer" colors="presentesColor"></percent-circle>
+						</div>
+						<div class="col-md-3 porcentaje">
+							<h3 class="text-center">Ausencia</h3>
+							<percent-circle percent="ausentesPer" colors="ausentesColor"></percent-circle>
+						</div>
+					</div>
+				</div>
+				<!-- 				</div> -->
+			</div>
+
+		</div>
 	</div>
 
 

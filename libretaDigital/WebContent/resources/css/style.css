@@ -1,6 +1,7 @@
 /* PAGINA */
 .container {
 	margin-top: 5em;
+	width: 98%;
 }
 
 /* FILE UPLOAD ANGULAR */
@@ -21,58 +22,73 @@
 	padding: 9px 19px 9px 19px;
 }
 
-.multi-sortable .sortable-container {
-	width: 46%;
-	margin: 0 2%;
-	float: left;
-	height: 100%;
-	padding: 10px 10px;
+
+
+/* CONTROL DE ASISTENCIAS*/
+
+
+
+.btn-lista{
+	float: right;
+	margin-top: 5px !important;
 }
 
-.sortable-container {
-	max-height: 600px;
-	overflow: auto;
-	padding: 10px 50px;
-	background: hsl(60, 80%, 90%);
+.title-lista{
+	font-size: 36px;
+}
+/**
+ * For the correct positioning of the placeholder element, the dnd-list and
+ * it's children must have position: relative
+ */
+ul[dnd-list],
+ul[dnd-list] > li {
+  position: relative;
 }
 
-.multi {
-	display: inline-block;
-	width: 90%;
+/**
+ * The dnd-list should always have a min-height,
+ * otherwise you can't drop into it once it's empty
+ */
+ul[dnd-list] {
+    min-height: 42px;
+    padding-left: 0px;
 }
 
-.well {
-	padding-top: 8px;
-	padding-bottom: 8px;
-	margin-bottom: 5px;
+/**
+ * An element with .dndPlaceholder class will be
+ * added to the dnd-list while the user is dragging
+ * over it.
+ */
+ul[dnd-list] .dndPlaceholder {
+    display: block;
+    background-color: #ddd;
+    min-height: 42px;
 }
 
-.helper-left, .helper-right {
-	width: 200px;
-	height: 30px;
-	border-radius: 3px;
-	text-align: center;
+/**
+ * The dnd-lists's child elements currently MUST have
+ * position: relative. Otherwise we can not determine
+ * whether the mouse pointer is in the upper or lower
+ * half of the element we are dragging over. In other
+ * browsers we can use event.offsetY for this.
+ */
+ ul[dnd-list] li {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: -1px;
 }
 
-.helper-left {
-	border: 1px solid crimson;
-	background-color: hsl(120, 100%, 90%);
-}
-
-.helper-right {
-	border: 1px solid teal;
-	background-color: hsl(0, 100%, 90%);
-}
-
-.placeholder-left, .placeholder-right {
-	width: 100%;
-	height: 38px;
-	text-align: center;
-	background: whitesmoke;
-	border: 3px dashed gray;
-	box-sizing: border-box;
-	display: table;
-	margin-bottom: 5px; & > span { display : table-cell;
-	vertical-align: middle;
-}
+/**
+ * Show selected elements in green
+ */
+ ul[dnd-list] li.selected {
+	background-color: #a5ef8566;
+	color: #000000;
+	font-size: 1.13em;
+	font-weight: bold;
+	border: 2px solid #a6e789;
 }
