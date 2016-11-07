@@ -1,9 +1,9 @@
 package com.libretaDigital.fileupload;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
@@ -14,18 +14,21 @@ import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class FileUtilities {
 
 	private static final String CATALINA_HOME = System.getenv("CATALINA_HOME");
 
-	public static void copyFile(File sourceFile, String uploadDir) throws IOException {
+	public static void copyFile(MultipartFile sourceFile, String uploadDir) throws IOException {
 
 
-		String uploadDirectory = CATALINA_HOME.replace("\\", "/")+uploadDir ;
+		//String uploadDirectory = CATALINA_HOME.replace("\\", "/")+uploadDir ;
 
 		try {
-			File targetFile = new File(uploadDirectory, sourceFile.getName());
-			InputStream in = new FileInputStream(sourceFile);
+			File targetFile = new File(uploadDir, sourceFile.getName());
+			
+			InputStream in =  new BufferedInputStream(sourceFile.getInputStream());
 
 			OutputStream out = new FileOutputStream(targetFile);
 

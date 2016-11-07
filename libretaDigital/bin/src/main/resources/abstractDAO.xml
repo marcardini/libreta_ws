@@ -12,7 +12,7 @@
 	</bean>
 	
 	 <bean name="staticHubInitializer" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
-        <property name="staticMethod" value="uy.com.geocom.utils.dao.hibernate4.GenericDAO.setDbms"/>
+<!--         <property name="staticMethod" value="uy.com.geocom.utils.dao.hibernate4.GenericDAO.setDbms"/> -->
         <property name="arguments">
             <list>
                 <ref bean="dbms"/>

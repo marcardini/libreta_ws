@@ -1,0 +1,172 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+				
+				
+	<bean id="fileUploadProfessorParser" class="com.libretaDigital.fileupload.FileUploadProfessorParser">
+		<property name="splitChar" value="${fileupload.split.char}" />
+		<property name="subClassSplitChar" value="${fileupload.subclass.split.char}" />
+		<property name="fieldsInvalidMsg" value="${fileupload.invalid.field.message}" />
+		<property name="errorMsgs" ref="errorMsgsMap" />
+		<property name="gradeFieldLenght" value="${fileupload.gradeFieldLenght}" />
+	</bean>
+	
+			
+	<bean id="uploadcontroller" class="com.libretaDigital.controller.FileUploadController">
+		<property name="fileUploadFacadeImpl" ref="fileuploadfacade" />
+	</bean>
+
+	<bean id="upload.fileMgrFactory" class="com.libretaDigital.fileupload.FileUploadBlockManagerFactory">
+		<property name="allowedErrorRate" value="0.5" />
+		<property name="minRecordsToCheckErrorAverage" value="2000" />
+		<property name="dumpFileErrors" value="true" />
+		<property name="blockSize" value="${uploader.uploadBlockSize}" />
+		<property name="switchTEMPFolderPath" value="${uploader.switchTEMPFolderPath}" />
+		<property name="consoleLOGSFolderPath" value="${uploader.consoleLOGSFolderPath}" />
+		<property name="properties" ref="upload.properties" />
+	</bean>
+
+
+
+	<util:map id="errorMsgsMap" key-type="java.lang.String" value-type="java.lang.String">
+		<entry key="genericError" value="${upload.genericError}" />
+	</util:map>
+
+
+
+
+	<bean id="upload.fileImporter" class="com.libretaDigital.fileupload.FileImporter">
+		<property name="taskExecutor" ref="upload.taskExecutor" />
+		<property name="blockProcessor" ref="upload.blockProcessor" />
+<!-- 		<property name="parametersFacade" ref="unimarc.parametersFacade" /> -->
+	</bean>
+
+<!-- 	<bean name="unimarc.parametersFacade" class="uy.com.geocom.geoswitch.usecontrol.genericservice.parameters.ParametersControlFacadeImpl"> -->
+<!-- 		<property name="parametersProvider" ref="unimarc.ParametersProvider" /> -->
+<!-- 	</bean> -->
+
+
+	
+	<bean id="upload.taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor" >
+	     <property name="corePoolSize" value="1" />
+	     <property name="maxPoolSize" value="1" />
+	     <property name="queueCapacity" value="1" />
+	     <property name="rejectedExecutionHandler" >
+	     	<bean class="com.libretaDigital.fileupload.UploadsRejectedExecutionHandler"/>
+	     </property>
+	</bean>
+	
+	<!--Este bean configura un Task executor para encolar tareas asíncronas	(utilizado para importaciones y exportaciones)-->
+<!--Las tareas encoladas seran ejecutadas una vez que halla disponibilidad, comparten una única cola-->
+	<bean id="asynchTaskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor" >
+	     <property name="corePoolSize" value="1" />
+	     <property name="maxPoolSize" value="1" />
+	     <property name="queueCapacity" value="100" />
+	</bean>
+
+	<bean name="uploaderFacade" class="com.libretaDigital.fileupload.UploaderFacadeImpl">
+		<property name="uploadHistorySize" value="${uploader.uploadHistorySize}" />
+		<property name="fileImporter" ref="upload.fileImporter" />
+		<property name="fileUploadManagerFactory" ref="upload.fileMgrFactory" />
+		<!-- This is the queue of the elements that will be imported asinchronically, 
+			could be joined with other proceses, so we ensure that only one module will 
+			be working -->
+		<property name="asynchTaskExcecutor" ref="asynchTaskExecutor" />
+	</bean>
+
+	<bean id="fileUploadService" class="com.libretaDigital.services.FileUploadServiceImpl">
+		<property name="professorDAO" ref="professorDAO" />
+	</bean>
+
+	<bean id="upload.properties" class="com.libretaDigital.fileupload.UploaderProperties">
+		<property name="dumpFileErrors" value="${uploader.dumpFileErrors}" />
+		<property name="allowedErrorRate" value="${uploader.allowedErrorRate}" />
+		<property name="minRecordsToCheckErrorAverage" value="${uploader.minRecordsToCheckErrorAverage}" />
+
+		<property name="blockSize" value="${uploader.uploadBlockSize}" />
+		<property name="switchTEMPFolderPath" value="${uploader.switchTEMPFolderPath}" />
+		<property name="consoleLOGSFolderPath" value="${uploader.consoleLOGSFolderPath}" />
+
+		<property name="startFileUploadMSG" value="${uploader.startFileUploadMSG}" />
+		<property name="errorOnLineMSG" value="${uploader.errorOnLineMSG}" />
+		<property name="endBlockMSG" value="${uploader.endBlockMSG}" />
+		<property name="abortFileUploadMSG" value="${uploader.abortFileUploadMSG}" />
+		<property name="endFileUploadMSG" value="${uploader.endFileUploadMSG}" />
+
+		<property name="invalidFormatLine" value="${uploader.invalidFormatLine}" />
+		<property name="exceptionReadingBlock" value="${uploader.exceptionReadingBlock}" />
+	</bean>
+
+
+	<bean id="fileUploadLineProcessor" class="com.libretaDigital.fileupload.FileUploadLineProcessor">
+		 <property name="professorDAO" ref="professorDAO"/>
+	</bean>
+	
+	<bean id="libretaDigital.upload.transactionProcessor" class="com.libretaDigital.fileupload.TransactionProcessorImpl">
+		<property name="uploadProcessorMap">
+			<map>
+				<entry>
+					<key>
+						<util:constant static-field="com.libretaDigital.fileupload.UploadProcessorId.PROFESSOR" />
+					</key>
+					<ref bean="fileUploadLineProcessor" />
+				</entry>
+				<entry>
+					<key>
+						<util:constant static-field="com.libretaDigital.fileupload.UploadProcessorId.STUDENT" />
+					</key>
+					<ref bean="fileUploadLineProcessor" />
+				</entry>
+				<entry>
+					<key>
+						<util:constant static-field="com.libretaDigital.fileupload.UploadProcessorId.GROUP" />
+					</key>
+					<ref bean="fileUploadLineProcessor" />
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<util:map id="upload.ProcessorMap">
+		<entry>
+			<key>
+				<util:constant static-field="com.libretaDigital.fileupload.UploadProcessorId.PROFESSOR" />
+			</key>
+			<ref bean="fileUploadLineProcessor" />
+		</entry>
+		<entry>
+			<key>
+				<util:constant static-field="com.libretaDigital.fileupload.UploadProcessorId.STUDENT" />
+			</key>
+			<ref bean="fileUploadLineProcessor" />
+		</entry>
+		<entry>
+			<key>
+				<util:constant static-field="com.libretaDigital.fileupload.UploadProcessorId.GROUP" />
+			</key>
+			<ref bean="fileUploadLineProcessor" />
+		</entry>
+	</util:map>
+	
+	
+	<bean id="upload.blockProcessor" class="com.libretaDigital.fileupload.BlockProcessorImpl">
+		<property name="transactionProcessor" ref="libretaDigital.upload.transactionProcessor"/>
+		<property name="errorMapList">
+			<map>
+				
+			</map>	
+		</property>
+	</bean>
+	
+	
+	<bean name="fileuploadfacade" class="com.libretaDigital.fileupload.FileUploadFacadeImpl">
+		<property name="uploaderFacade" ref="uploaderFacade" />
+		<property name="fileUploadProfessorParser" ref="fileUploadProfessorParser" />
+		<property name="folderTempPath" value="${uploader.switchTEMPFolderPath}" />
+		<property name="publishFileAddress" value="${publish_file_address}" />
+	</bean>
+	
+
+</beans>

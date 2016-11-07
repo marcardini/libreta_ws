@@ -17,6 +17,10 @@ public class Professor extends Person {
 		super(name, lastName);
 	}
 		
+	public Professor(String name, String lastName, Date birthDate, Gender gender){
+		super(name, lastName, birthDate, gender);
+	}
+	
 	public Professor(String password, String name, String lastName, Date birthDate, Gender gender, String email, Date employeeSince){
 		super(name, lastName, birthDate, gender, email);
         this.password = password;

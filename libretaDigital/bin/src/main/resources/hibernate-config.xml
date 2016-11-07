@@ -14,14 +14,14 @@
 			<list>
 				<value>hbm/ClassDayProfessor.hbm.xml</value>
 				<value>hbm/ClassDayStudent.hbm.xml</value>
-<!-- 				<value>hbm/Course.hbm.xml</value> -->
-<!-- 				<value>hbm/Group.hbm.xml</value> -->
+				<value>hbm/Course.hbm.xml</value>
+				<value>hbm/Group.hbm.xml</value>
 				<value>hbm/Institution.hbm.xml</value>
-<!-- 				<value>hbm/Notebook.hbm.xml</value> -->
-<!-- 				<value>hbm/Period.hbm.xml</value> -->
-<!-- 				<value>hbm/Professor.hbm.xml</value> -->
-<!-- 				<value>hbm/Student.hbm.xml</value> -->
-<!-- 				<value>hbm/Subject.hbm.xml</value> -->
+				<value>hbm/Notebook.hbm.xml</value>
+				<value>hbm/Period.hbm.xml</value>
+				<value>hbm/Professor.hbm.xml</value>
+				<value>hbm/Student.hbm.xml</value>
+				<value>hbm/Subject.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -30,8 +30,7 @@
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.format_sql">true</prop>
 				<prop key="hibernate.connection.autocommit">true</prop>
-				<prop key="hibernate.hbm2ddl.auto">create</prop>
-				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2dll.auto">create</prop>
 			</props>
 		</property>
 

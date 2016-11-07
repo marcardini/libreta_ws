@@ -36,11 +36,11 @@
 			<type name="org.hibernate.type.DateType"/>
 		</property>
 		
-		<list name="subjectsList" table="subject" lazy="false" cascade="all">
-			<key column="professor_id" />
-			 <list-index column="order" base="0" />
-			<one-to-many class="com.libretaDigital.entities.Subject" />
-		</list>
+<!-- 		<list name="subjectsList" table="subject" lazy="false" cascade="all"> -->
+<!-- 			<key column="professor_id" /> -->
+<!-- 			 <list-index column="order" base="0" /> -->
+<!-- 			<one-to-many class="com.libretaDigital.entities.Subject" /> -->
+<!-- 		</list> -->
 		
 	</class>
 </hibernate-mapping>

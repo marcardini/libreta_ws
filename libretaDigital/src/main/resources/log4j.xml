@@ -40,7 +40,7 @@
 		<level value="INFO" />
 	</logger>
 	
-	<logger name="uy.com.geocom">
+	<logger name="com.libretaDigital">
 		<level value="DEBUG" />
 	</logger>
 	

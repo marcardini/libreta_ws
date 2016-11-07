@@ -37,7 +37,9 @@ public class FileImporter  {
 		boolean crearParam = false;
 		long paramValue;
 		try {
-			ParameterControl parameter = parametersFacade.getParameterByName(ParameterId.UPLOAD_CONCURRENT_THREADS);
+			ParameterControl parameter = null;
+			if(parametersFacade != null) 
+				parametersFacade.getParameterByName(ParameterId.UPLOAD_CONCURRENT_THREADS);
 			paramValue = parameter.getValue().intValue();
 		} catch (Throwable tr) { 
 			crearParam = true;
@@ -59,7 +61,10 @@ public class FileImporter  {
 		crearParam = false;
 		paramValue = -1;
 		try {
-			ParameterControl parameter = parametersFacade.getParameterByName(ParameterId.CYCLE_SLEEP_MILLIS);
+			ParameterControl parameter = null;
+					
+			if(parametersFacade != null)
+				parametersFacade.getParameterByName(ParameterId.CYCLE_SLEEP_MILLIS);
 			paramValue = parameter.getValue().intValue();
 		} catch (Throwable tr) { 
 			crearParam = true;
@@ -94,7 +99,23 @@ public class FileImporter  {
 		
 		while(blockManager.hasMoreBlocks()) {
 			int threadsDiff = uploadConcurrentThreads;
-			refreshParameters();
+			
+			
+			
+			
+			
+			
+			
+//refreshParameters();
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			threadsDiff =  threadsDiff - uploadConcurrentThreads;
 			//Se setea al thread pool el numero de hilos segun el parametro configurado
 			if (threadsDiff!=0 || blockManager.getConcurrentThreads()!=uploadConcurrentThreads ) {
@@ -160,7 +181,9 @@ public class FileImporter  {
 		 try {
 			 if (blockManager.getBlockSizeParameterName()!=null) {
 				
-				 ParameterControl blkSize = this.parametersFacade.getParameterByName(blockManager.getBlockSizeParameterName());
+				 ParameterControl blkSize = null;
+				 if(parametersFacade != null)
+					 blkSize = this.parametersFacade.getParameterByName(blockManager.getBlockSizeParameterName());
 				 if (blkSize == null) {
 					 blkSize = new ParameterControl();
 					 blkSize.setName(blockManager.getBlockSizeParameterName());
@@ -179,7 +202,10 @@ public class FileImporter  {
 	 protected void refreshParameters(){
 		int newUploadConcurrentThreads = DEFAULT_uploadConcurrentThreads;
 		try {
-			ParameterControl parameter = parametersFacade.getParameterByName(ParameterId.UPLOAD_CONCURRENT_THREADS);
+			ParameterControl parameter = null;
+			
+			if(parametersFacade != null)
+				parametersFacade.getParameterByName(ParameterId.UPLOAD_CONCURRENT_THREADS);
 			newUploadConcurrentThreads = parameter.getValue().intValue();
 		} catch (Throwable tr) { 
 			newUploadConcurrentThreads = DEFAULT_uploadConcurrentThreads;

@@ -128,20 +128,20 @@ public class FileUploadProfessorParser implements IFileParser {
 			if (!field.equals("")) {
 
 				int day = Integer.parseInt(field.substring(0, 2));
-				int month = Integer.parseInt(field.substring(3, 5));
-				int year = Integer.parseInt(field.substring(6, 10));
-				int hour = Integer.parseInt(field.substring(11, 13));
-				int minute = Integer.parseInt(field.substring(14, 16));
-				int seconds = Integer.parseInt(field.substring(17, 19));
+				int month = Integer.parseInt(field.substring(2, 4));
+				int year = Integer.parseInt(field.substring(4, 8));
+				/*int hour = Integer.parseInt(field.substring(11, 13));
+				/int minute = Integer.parseInt(field.substring(14, 16));
+				/int seconds = Integer.parseInt(field.substring(17, 19));*/
 
 				Calendar calendar = Calendar.getInstance();
 
 				calendar.set(Calendar.YEAR, year);
 				calendar.set(Calendar.MONTH, month - 1);
 				calendar.set(Calendar.DAY_OF_MONTH, day);
-				calendar.set(Calendar.HOUR_OF_DAY, hour);
-				calendar.set(Calendar.MINUTE, minute);
-				calendar.set(Calendar.SECOND, seconds);
+				calendar.set(Calendar.HOUR_OF_DAY, 00);
+				calendar.set(Calendar.MINUTE, 00);
+				calendar.set(Calendar.SECOND, 00);
 
 				createdDate = new Timestamp(calendar.getTimeInMillis());
 
@@ -231,6 +231,14 @@ public class FileUploadProfessorParser implements IFileParser {
 	@Override
 	public String getBlockSizeParameterName() {
 		return null;
+	}
+
+	public int getGradeFieldLenght() {
+		return gradeFieldLenght;
+	}
+
+	public void setGradeFieldLenght(int gradeFieldLenght) {
+		this.gradeFieldLenght = gradeFieldLenght;
 	}
 
 }

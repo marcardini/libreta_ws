@@ -58,5 +58,13 @@ public class FileUploadFacadeImpl implements FileUploadFacade {
 	public void setFileUploadProfessorParser(FileUploadProfessorParser fileUploadProfessorParser) {
 		this.fileUploadProfessorParser = fileUploadProfessorParser;
 	}
+
+	public UploaderFacade getUploaderFacade() {
+		return uploaderFacade;
+	}
+
+	public void setUploaderFacade(UploaderFacade uploaderFacade) {
+		this.uploaderFacade = uploaderFacade;
+	}
 	
 }
