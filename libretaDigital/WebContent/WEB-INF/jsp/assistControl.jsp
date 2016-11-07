@@ -24,7 +24,9 @@
 
 	<div class="container" ng-init="">
 		<div class="page-header">
-			<h1>Control de Asistencias<small class="date-small"> {{date | date:'dd-MM-yyyy'}}</small></h1>
+			<h1>
+				Control de Asistencias <small>Grupo 4°A : Matematicas </small><small class="date-small"> {{date | date:'dd-MM-yyyy'}}</small>
+			</h1>
 		</div>
 
 		<div class=row">
@@ -35,30 +37,40 @@
 					<div class="panel {{listType(list.listName)}}" ng-class="">
 						<div class="panel-heading">
 							<h1 class="panel-title pull-left title-lista">
-								{{title(list.listName)}} <span class="badge">{{cantidad(list.listName)}}</span></h1>
-								<div class="btn-group pull-right">
-									<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown"
-										aria-haspopup="true" aria-expanded="false">
-										Acciones <span class="caret"></span>
-									</button>
-									<ul class="dropdown-menu">
-										<li><a href="#" ng-click="selAll(list.items)">Seleccionar Todo</a></li>
-										<li><a href="#" ng-click="deSelAll(list.items)">Deseleccionar Todo</a></li>
-										<li><a href="#" ng-click="invertirSel(list.items)">Invertir Seleccion</a></li>
-										<li><a href="#" ng-click="llegadaTarde(list.items, list.listName)">LLegada Tarde</a></li>
-										<li role="separator" class="divider"></li>
-										<li><a href="#">Separated link</a></li>
-									</ul>
-								</div>
-								<div class="clearfix"></div>					
+								{{title(list.listName)}} <span class="badge">{{cantidad(list.listName)}}</span>
+							</h1>
+
+
+							<div class="btn-group pull-right">
+								<button id="btn-late" class="btn btn-danger" ng-click="llegadaTarde(list.items, list.listName)">
+									<span class="glyphicon glyphicon-time"></span>
+								</button>
+								<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown"
+									aria-haspopup="true" aria-expanded="false">
+									Seleccion <span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu">
+									<li><a href="#" ng-click="selAll(list.items)">Seleccionar Todo</a></li>
+									<li><a href="#" ng-click="deSelAll(list.items)">Deseleccionar Todo</a></li>
+									<li><a href="#" ng-click="invertirSel(list.items)">Invertir Seleccion</a></li>									
+									<li role="separator" class="divider"></li>
+									<li><a href="#">Separated link</a></li>
+								</ul>
+							</div>
+							<div class="clearfix"></div>
 
 						</div>
 						<div class="panel-body">
+						
+							<button class="btn btn-{{invertlistType(list.listName)}} btn-move" ng-click="mover(list.items, list.listName)">
+									<span class="glyphicon glyphicon-arrow-{{arrowType(list.listName)}}"></span>
+								</button>
 							<ul dnd-list dnd-drop="onDrop(list, item, index)">
 								<li ng-repeat="item in list.items" dnd-draggable="getSelectedItemsIncluding(list, item)"
 									dnd-dragstart="onDragstart(list, event)" dnd-moved="onMoved(list)" dnd-dragend="list.dragging = false"
 									dnd-selected="item.selected = !item.selected" ng-class="{'selected': item.selected}"
-									ng-hide="list.dragging && item.selected">{{item.label}} <span ng-show="item.late" class="glyphicon glyphicon-time late-icon pull-right" aria-hidden="true"></span></li>
+									ng-hide="list.dragging && item.selected">{{item.label}} <span id="late-icon" ng-show="item.late"
+									class="glyphicon glyphicon-time pull-right" aria-hidden="true"></span></li>
 							</ul>
 						</div>
 					</div>
@@ -67,7 +79,7 @@
 			</div>
 			<div class="col-md-4">
 
-				<!-- 				<div class="panel panel-default">				 -->
+
 				<div class="panel-body">
 					<div class=row">
 						<div class="col-md-3 porcentaje">
@@ -80,7 +92,7 @@
 						</div>
 					</div>
 				</div>
-				<!-- 				</div> -->
+
 			</div>
 
 		</div>

@@ -20,6 +20,22 @@ app.controller('assistControlCtrl', ['$scope', function ($scope) {
 		 }
 	 }
 	 
+	 $scope.invertlistType = function(name){
+		 if(name === "B"){			 
+			 return "primary";
+		 }else{
+			 return "danger";
+		 }
+	 }
+	 
+	 $scope.arrowType = function(name){
+		 if(name === "B"){			 
+			 return "left";
+		 }else{
+			 return "right";
+		 }
+	 }
+	 
 	 $scope.title = function (name){
 		 if(name === "A"){			 
 			 return "Presentes";
@@ -64,21 +80,58 @@ app.controller('assistControlCtrl', ['$scope', function ($scope) {
 			 angular.forEach(items, function(item) { item.selected = !item.selected; });
 		 	}
 		
-		$scope.llegadaTarde = function (items, name){
-			angular.forEach(items, function(item) { 				
+		$scope.getSeleccionados = function(items){
+			var array = [];
+			angular.forEach(items, function(item) {				
 				if(item.selected){
-					item.late = !item.late;
-				}
 				item.selected = false;
-				if(name === "B"){
-					$scope.models[0].items.push(item);					
-					for(var i = $scope.models[1].items.length - 1; i >= 0; i--) {
-					    if( JSON.stringify($scope.models[1].items[i]) ===  JSON.stringify(item)) {
-					    	$scope.models[1].items.splice(i, 1);
-					    }
-					}
-				}
+				array.push(item);
+			}
 			});
+			return array;			
+		}
+		
+		$scope.exchange = function (item, name){
+			var entra = 1;
+			var sale = 0;
+			if(name === "B"){
+				entra = 0;
+				sale = 1;
+			}			
+			$scope.models[entra].items.push(item);					
+			for(var i = $scope.models[sale].items.length-1; i >= 0; i--) {
+			   	if( $scope.models[sale].items[i].id ===  item.id) {
+			   		$scope.models[sale].items.splice(i, 1);
+			   	}
+			}		
+		}
+		
+		$scope.BtoA = function (item){			
+			$scope.models[0].items.push(item);					
+			for(var i = $scope.models[1].items.length-1; i >= 0; i--) {
+			   	if( $scope.models[1].items[i].id ===  item.id) {
+			   		$scope.models[1].items.splice(i, 1);
+			   	}
+			}		
+		}
+		
+		$scope.llegadaTarde = function (items, name){
+			var array = $scope.getSeleccionados(items);			
+			for(var x = 0; x < array.length; x++){
+				tmp = array[x];
+				tmp.late = true;
+				if(name === "B"){					
+					$scope.exchange(tmp, name);
+				}
+			}
+		}
+		
+		$scope.mover = function (items, name){
+			var array = $scope.getSeleccionados(items);			
+			for(var x = array.length-1; x >= 0; x--){
+				tmp = array[x];				
+				$scope.exchange(tmp, name);
+			}			
 		}
 	 
 	    $scope.$watch('models', function() {
@@ -142,8 +195,12 @@ app.controller('assistControlCtrl', ['$scope', function ($scope) {
 	    // Generate the initial model
 	    angular.forEach($scope.models, function(list) {
 	      for (var i = 1; i <= 8; ++i) {
-	    	  var item = {label: "Item " + list.listName + i,
-	    			  	  late: false};
+	    	  var item = {
+	    			  id: i,
+	    			  label: "Item " + list.listName + i,	    	  
+	    			  late: false
+	    			  	  
+	    	  };
 	    	  
 	          list.items.push(item);
 	    
