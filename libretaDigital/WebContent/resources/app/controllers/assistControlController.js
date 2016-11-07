@@ -1,5 +1,10 @@
 app.controller('assistControlCtrl', ['$scope', function ($scope) {
 	
+	$scope.date = new Date();
+	
+	
+	
+	/* LISTAS */
 	
 	 $scope.models = [
 	      {listName: "A", items: [], dragging: false},
@@ -58,6 +63,23 @@ app.controller('assistControlCtrl', ['$scope', function ($scope) {
 		$scope.invertirSel = function (items){
 			 angular.forEach(items, function(item) { item.selected = !item.selected; });
 		 	}
+		
+		$scope.llegadaTarde = function (items, name){
+			angular.forEach(items, function(item) { 				
+				if(item.selected){
+					item.late = !item.late;
+				}
+				item.selected = false;
+				if(name === "B"){
+					$scope.models[0].items.push(item);					
+					for(var i = $scope.models[1].items.length - 1; i >= 0; i--) {
+					    if( JSON.stringify($scope.models[1].items[i]) ===  JSON.stringify(item)) {
+					    	$scope.models[1].items.splice(i, 1);
+					    }
+					}
+				}
+			});
+		}
 	 
 	    $scope.$watch('models', function() {
 	    	$scope.presentes = $scope.models[0].items.length;
@@ -65,6 +87,10 @@ app.controller('assistControlCtrl', ['$scope', function ($scope) {
 	        $scope.total = 16;
 	        $scope.presentesPer = ($scope.presentes * 100)/$scope.total;
 	        $scope.ausentesPer = ($scope.ausentes * 100)/$scope.total;
+	        
+	        angular.forEach($scope.models[1].items, function(item) { item.late = false; });
+	        
+	        
 	    }, true);
 
 	    /**
@@ -116,7 +142,11 @@ app.controller('assistControlCtrl', ['$scope', function ($scope) {
 	    // Generate the initial model
 	    angular.forEach($scope.models, function(list) {
 	      for (var i = 1; i <= 8; ++i) {
-	          list.items.push({label: "Item " + list.listName + i});
+	    	  var item = {label: "Item " + list.listName + i,
+	    			  	  late: false};
+	    	  
+	          list.items.push(item);
+	    
 	      }
 	    });
 

@@ -22,19 +22,37 @@
 	padding: 9px 19px 9px 19px;
 }
 
-
+.panel-heading h1{
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: normal;
+    width: 70%;
+    padding-top: 8px;
+}
 
 /* CONTROL DE ASISTENCIAS*/
 
+pc-percent{
+	font-size: 2.3em;
+}
 
+.late-icon{
+	color: red;
+}
+
+.date-small{
+	float: right;
+    font-size: 100%;
+}
 
 .btn-lista{
-	float: right;
-	margin-top: 5px !important;
+/* 	float: right; */
+/* 	margin-top: 5px !important; */
 }
 
 .title-lista{
-	font-size: 36px;
+	font-size: 1.6em;
 }
 /**
  * For the correct positioning of the placeholder element, the dnd-list and

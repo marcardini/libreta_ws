@@ -24,19 +24,19 @@
 
 	<div class="container" ng-init="">
 		<div class="page-header">
-			<h1>Control de Asistencia</h1>
+			<h1>Control de Asistencias<small class="date-small"> {{date | date:'dd-MM-yyyy'}}</small></h1>
 		</div>
 
 		<div class=row">
-			<div class="col-md-6">
+			<div class="col-md-8">
 				<!-- 				<h3>Lista</h3> -->
 
 				<div class="col-md-6" ng-repeat="list in models">
 					<div class="panel {{listType(list.listName)}}" ng-class="">
 						<div class="panel-heading">
-							<h1 class="panel-title title-lista">
-								{{title(list.listName)}} <span class="badge">{{cantidad(list.listName)}}</span>
-								<div class="btn-group btn-lista">
+							<h1 class="panel-title pull-left title-lista">
+								{{title(list.listName)}} <span class="badge">{{cantidad(list.listName)}}</span></h1>
+								<div class="btn-group pull-right">
 									<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown"
 										aria-haspopup="true" aria-expanded="false">
 										Acciones <span class="caret"></span>
@@ -45,13 +45,12 @@
 										<li><a href="#" ng-click="selAll(list.items)">Seleccionar Todo</a></li>
 										<li><a href="#" ng-click="deSelAll(list.items)">Deseleccionar Todo</a></li>
 										<li><a href="#" ng-click="invertirSel(list.items)">Invertir Seleccion</a></li>
-										<li><a href="#">Something else here</a></li>
+										<li><a href="#" ng-click="llegadaTarde(list.items, list.listName)">LLegada Tarde</a></li>
 										<li role="separator" class="divider"></li>
 										<li><a href="#">Separated link</a></li>
 									</ul>
 								</div>
-
-							</h1>
+								<div class="clearfix"></div>					
 
 						</div>
 						<div class="panel-body">
@@ -59,14 +58,14 @@
 								<li ng-repeat="item in list.items" dnd-draggable="getSelectedItemsIncluding(list, item)"
 									dnd-dragstart="onDragstart(list, event)" dnd-moved="onMoved(list)" dnd-dragend="list.dragging = false"
 									dnd-selected="item.selected = !item.selected" ng-class="{'selected': item.selected}"
-									ng-hide="list.dragging && item.selected">{{item.label}}</li>
+									ng-hide="list.dragging && item.selected">{{item.label}} <span ng-show="item.late" class="glyphicon glyphicon-time late-icon pull-right" aria-hidden="true"></span></li>
 							</ul>
 						</div>
 					</div>
 				</div>
 
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-4">
 
 				<!-- 				<div class="panel panel-default">				 -->
 				<div class="panel-body">
