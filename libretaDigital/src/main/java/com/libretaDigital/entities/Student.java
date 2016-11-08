@@ -12,7 +12,11 @@ public class Student extends Person {
 	private Group group;
 	private List<ClassDayStudent> calendar;
 	private boolean currentStudent;
-		
+	
+	public Student(String name, String lastName){
+		super(name, lastName);
+	}
+	
 	public Student(String name, String lastName, Date birthDate, Gender gender, String email){
 		super(name, lastName, birthDate, gender, email);
     }

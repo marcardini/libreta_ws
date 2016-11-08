@@ -70,8 +70,9 @@ public class FileUploadController {
 									String http_address = rb.getString("http_address");
 									String tomcat_address = http_address+":"+ localPort + "/files/";
 									
-									//fileUploadFacadeImpl.fileUpload(tomcat_address + file.getName(), file.getName(), "admin", selectedFileType.name());
-									fileUploadFacadeImpl.fileUpload(tomcat_address + file.getName(), file.getName(), "admin", "PROFESSORS");
+									selectedFileType = FileUploadType.STUDENTS;
+									
+									fileUploadFacadeImpl.fileUpload(tomcat_address + file.getName(), file.getName(), "admin", selectedFileType.name());
 										
 								} else {
 									logger.error("Error archivo vacio");
@@ -102,6 +103,16 @@ public class FileUploadController {
 
 	public void setFileUploadFacadeImpl(FileUploadFacadeImpl fileUploadFacadeImpl) {
 		this.fileUploadFacadeImpl = fileUploadFacadeImpl;
+	}
+
+
+	public FileUploadType getSelectedFileType() {
+		return selectedFileType;
+	}
+
+
+	public void setSelectedFileType(FileUploadType selectedFileType) {
+		this.selectedFileType = selectedFileType;
 	}
 
 		

@@ -20,12 +20,21 @@
 
 	<bean id="professorDAO" class="com.libretaDigital.DAO.ProfessorDAO"
 		parent="genericDAO" />
+		
+	<bean id="studentDAO" class="com.libretaDigital.DAO.StudentDAO"
+		parent="genericDAO" />
+		
 
 	<bean id="md5Encoder"
 		class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
 
 	<bean id="professorService" class="com.libretaDigital.services.ProfessorServiceImpl">
 		<property name="professorDAO" ref="professorDAO" />
+		<property name="encoder" ref="md5Encoder" />
+	</bean>
+	
+	<bean id="studentService" class="com.libretaDigital.services.StudentServiceImpl">
+		<property name="studentDAO" ref="studentDAO" />
 		<property name="encoder" ref="md5Encoder" />
 	</bean>
 

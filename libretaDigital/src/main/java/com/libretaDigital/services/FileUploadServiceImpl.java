@@ -22,9 +22,10 @@ import com.libretaDigital.fileupload.FileUploadBlockManager.BlockManagerStatus;
 
 public class FileUploadServiceImpl implements FileUploadService {
 
-	ProfessorDAO professorDAO;
-	IFileParser cvsSplitBy;
-	String csvFile = "/files/docentes_cvs.csv";
+	private ProfessorDAO professorDAO;
+	private StudentDAO studentDAO;
+	private IFileParser cvsSplitBy;
+	private String csvFile = "/files/docentes_cvs.csv";
 	
 	private int uploadHistorySize;
 	private FileUploadBlockManagerFactory  fileUploadManagerFactory;
@@ -77,7 +78,19 @@ public class FileUploadServiceImpl implements FileUploadService {
 	}
 
 	private void addStudents() {
+		String line = "";
+		String splitter = cvsSplitBy.toString();
 
+		try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+			while ((line = br.readLine()) != null) {
+
+				String[] studentLine = line.split(splitter);
+				Student student = new Student(studentLine[0], studentLine[1]);
+				studentDAO.save(student);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void addGroups() {
@@ -195,5 +208,13 @@ public class FileUploadServiceImpl implements FileUploadService {
 	@Required
 	public void setUploadHistorySize(int uploadHistorySize) {
 		this.uploadHistorySize = uploadHistorySize;
+	}
+
+	public StudentDAO getStudentDAO() {
+		return studentDAO;
+	}
+
+	public void setStudentDAO(StudentDAO studentDAO) {
+		this.studentDAO = studentDAO;
 	}
 }

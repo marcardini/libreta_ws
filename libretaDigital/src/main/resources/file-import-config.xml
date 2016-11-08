@@ -13,6 +13,13 @@
 		<property name="gradeFieldLenght" value="${fileupload.gradeFieldLenght}" />
 	</bean>
 	
+	<bean id="fileUploadStudentParser" class="com.libretaDigital.fileupload.FileUploadStudentParser">
+		<property name="splitChar" value="${fileupload.split.char}" />
+		<property name="subClassSplitChar" value="${fileupload.subclass.split.char}" />
+		<property name="fieldsInvalidMsg" value="${fileupload.invalid.field.message}" />
+		<property name="errorMsgs" ref="errorMsgsMap" />
+	</bean>
+	
 			
 	<bean id="uploadcontroller" class="com.libretaDigital.controller.FileUploadController">
 		<property name="fileUploadFacadeImpl" ref="fileuploadfacade" />
@@ -78,6 +85,7 @@
 
 	<bean id="fileUploadService" class="com.libretaDigital.services.FileUploadServiceImpl">
 		<property name="professorDAO" ref="professorDAO" />
+		<property name="studentDAO" ref="studentDAO" />
 	</bean>
 
 	<bean id="upload.properties" class="com.libretaDigital.fileupload.UploaderProperties">
@@ -102,6 +110,7 @@
 
 	<bean id="fileUploadLineProcessor" class="com.libretaDigital.fileupload.FileUploadLineProcessor">
 		 <property name="professorDAO" ref="professorDAO"/>
+		 <property name="studentDAO" ref="studentDAO"/>
 	</bean>
 	
 	<bean id="libretaDigital.upload.transactionProcessor" class="com.libretaDigital.fileupload.TransactionProcessorImpl">
@@ -164,6 +173,7 @@
 	<bean name="fileuploadfacade" class="com.libretaDigital.fileupload.FileUploadFacadeImpl">
 		<property name="uploaderFacade" ref="uploaderFacade" />
 		<property name="fileUploadProfessorParser" ref="fileUploadProfessorParser" />
+		<property name="fileUploadStudentParser" ref="fileUploadStudentParser" />
 		<property name="folderTempPath" value="${uploader.switchTEMPFolderPath}" />
 		<property name="publishFileAddress" value="${publish_file_address}" />
 	</bean>
