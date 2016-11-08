@@ -22,19 +22,48 @@
 	padding: 9px 19px 9px 19px;
 }
 
-
+.panel-heading h1{
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: normal;
+    width: 70%;
+    padding-top: 8px;
+}
 
 /* CONTROL DE ASISTENCIAS*/
 
+.pc-percent{
+	font-size: 2.3em;
+}
 
+#late-icon{
+	color: red;
+	font-size: 20px;
+}
+
+#btn-late{
+	font-size: 20px;
+}
+
+.btn-move{
+	font-size: 20px;
+	width: 100%;
+	margin-bottom: 20px;
+}
+
+.date-small{
+	float: right;
+    font-size: 100%;
+}
 
 .btn-lista{
-	float: right;
-	margin-top: 5px !important;
+/* 	float: right; */
+/* 	margin-top: 5px !important; */
 }
 
 .title-lista{
-	font-size: 36px;
+	font-size: 1.6em;
 }
 /**
  * For the correct positioning of the placeholder element, the dnd-list and
@@ -61,7 +90,7 @@ ul[dnd-list] {
  */
 ul[dnd-list] .dndPlaceholder {
     display: block;
-    background-color: #ddd;
+    background-color: #fbfe7a;
     min-height: 42px;
 }
 
@@ -91,4 +120,33 @@ ul[dnd-list] .dndPlaceholder {
 	font-size: 1.13em;
 	font-weight: bold;
 	border: 2px solid #a6e789;
+}
+
+/* CALENDAR */
+.btn-calendar{
+	font-size : 3em ;
+}
+
+.calendar-container{
+	width : 95%;
+}
+
+#cal-week-box{
+	font-size : 0.5em !important;
+}
+
+.cal-day-today {    
+    font-size: 2em !important;
+}
+
+.cal-month-day {    
+    font-size: 2em;
+}
+
+.cal-year-box [class*="span"] {   
+    font-size: 1.5em;
+}
+
+span[data-cal-date]:hover {    
+    cursor: pointer;
 }

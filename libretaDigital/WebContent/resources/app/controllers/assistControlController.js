@@ -1,5 +1,10 @@
 app.controller('assistControlCtrl', ['$scope', function ($scope) {
 	
+	$scope.date = new Date();
+	
+	
+	
+	/* LISTAS */
 	
 	 $scope.models = [
 	      {listName: "A", items: [], dragging: false},
@@ -12,6 +17,22 @@ app.controller('assistControlCtrl', ['$scope', function ($scope) {
 			 return "panel-primary";
 		 }else{
 			 return "panel-danger";
+		 }
+	 }
+	 
+	 $scope.invertlistType = function(name){
+		 if(name === "B"){			 
+			 return "primary";
+		 }else{
+			 return "danger";
+		 }
+	 }
+	 
+	 $scope.arrowType = function(name){
+		 if(name === "B"){			 
+			 return "left";
+		 }else{
+			 return "right";
 		 }
 	 }
 	 
@@ -58,6 +79,60 @@ app.controller('assistControlCtrl', ['$scope', function ($scope) {
 		$scope.invertirSel = function (items){
 			 angular.forEach(items, function(item) { item.selected = !item.selected; });
 		 	}
+		
+		$scope.getSeleccionados = function(items){
+			var array = [];
+			angular.forEach(items, function(item) {				
+				if(item.selected){
+				item.selected = false;
+				array.push(item);
+			}
+			});
+			return array;			
+		}
+		
+		$scope.exchange = function (item, name){
+			var entra = 1;
+			var sale = 0;
+			if(name === "B"){
+				entra = 0;
+				sale = 1;
+			}			
+			$scope.models[entra].items.push(item);					
+			for(var i = $scope.models[sale].items.length-1; i >= 0; i--) {
+			   	if( $scope.models[sale].items[i].id ===  item.id) {
+			   		$scope.models[sale].items.splice(i, 1);
+			   	}
+			}		
+		}
+		
+		$scope.BtoA = function (item){			
+			$scope.models[0].items.push(item);					
+			for(var i = $scope.models[1].items.length-1; i >= 0; i--) {
+			   	if( $scope.models[1].items[i].id ===  item.id) {
+			   		$scope.models[1].items.splice(i, 1);
+			   	}
+			}		
+		}
+		
+		$scope.llegadaTarde = function (items, name){
+			var array = $scope.getSeleccionados(items);			
+			for(var x = 0; x < array.length; x++){
+				tmp = array[x];
+				tmp.late = true;
+				if(name === "B"){					
+					$scope.exchange(tmp, name);
+				}
+			}
+		}
+		
+		$scope.mover = function (items, name){
+			var array = $scope.getSeleccionados(items);			
+			for(var x = array.length-1; x >= 0; x--){
+				tmp = array[x];				
+				$scope.exchange(tmp, name);
+			}			
+		}
 	 
 	    $scope.$watch('models', function() {
 	    	$scope.presentes = $scope.models[0].items.length;
@@ -65,6 +140,10 @@ app.controller('assistControlCtrl', ['$scope', function ($scope) {
 	        $scope.total = 16;
 	        $scope.presentesPer = ($scope.presentes * 100)/$scope.total;
 	        $scope.ausentesPer = ($scope.ausentes * 100)/$scope.total;
+	        
+	        angular.forEach($scope.models[1].items, function(item) { item.late = false; });
+	        
+	        
 	    }, true);
 
 	    /**
@@ -87,7 +166,7 @@ app.controller('assistControlCtrl', ['$scope', function ($scope) {
 	       list.dragging = true;
 	       if (event.dataTransfer.setDragImage) {
 	         var img = new Image();
-	         img.src = 'framework/vendor/ic_content_copy_black_24dp_2x.png';
+	         img.src = 'resources/img/drag.png';
 	         event.dataTransfer.setDragImage(img, 0, 0);
 	       }
 	    };
@@ -116,7 +195,15 @@ app.controller('assistControlCtrl', ['$scope', function ($scope) {
 	    // Generate the initial model
 	    angular.forEach($scope.models, function(list) {
 	      for (var i = 1; i <= 8; ++i) {
-	          list.items.push({label: "Item " + list.listName + i});
+	    	  var item = {
+	    			  id: i,
+	    			  label: "Item " + list.listName + i,	    	  
+	    			  late: false
+	    			  	  
+	    	  };
+	    	  
+	          list.items.push(item);
+	    
 	      }
 	    });
 
