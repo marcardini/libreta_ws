@@ -166,7 +166,7 @@ app.controller('assistControlCtrl', ['$scope', function ($scope) {
 	       list.dragging = true;
 	       if (event.dataTransfer.setDragImage) {
 	         var img = new Image();
-	         img.src = 'framework/vendor/ic_content_copy_black_24dp_2x.png';
+	         img.src = 'resources/img/drag.png';
 	         event.dataTransfer.setDragImage(img, 0, 0);
 	       }
 	    };

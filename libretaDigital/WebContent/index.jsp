@@ -13,36 +13,37 @@
 	}
 %>
 
-<script type="text/javascript">
-var pageTitle = <%=pageTitle%>;
-</script>
-
 <title><%=pageTitle%></title>
 <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="bower_components/angular-bootstrap-calendar/dist/css/angular-bootstrap-calendar.min.css">
 <link rel="stylesheet" href="resources/css/style.css">
 
 </head>
 
 <body>
-
+	<jsp:include page="/WEB-INF/jsp/parts/menu-head.jsp" />
 	<div class="container">
-		<jsp:include page="/WEB-INF/jsp/parts/menu-head.jsp" />
 
-		<br>
-		<div style="text-align: center">
-			<h2>
-				Hey You..!! This is your 1st Spring MCV Tutorial..<br> <br>
-			</h2>
-			<h3>
-				<a href="welcome.jsp">Click here to See Welcome Message... </a>(to check Spring MVC Controller... @RequestMapping("/welcome"))
-			</h3>
+		<div class="container calendar-container">
+			<div ng-controller="calendarCtrl as vm">
+				<div class="text-center">
+					<div class="btn-group">
+						<label class="btn btn-primary btn-lg btn-calendar" ng-model="vm.calendarView" uib-btn-radio="'year'">Año</label>
+						<label class="btn btn-primary btn-lg btn-calendar" ng-model="vm.calendarView" uib-btn-radio="'month'">Mes</label>
+						<!-- 					 <label	class="btn btn-primary" ng-model="vm.calendarView" uib-btn-radio="'week'">Semana</label>					   -->
+					</div>
+				</div>
+				<br>
+				<mwl-calendar events="vm.events" view="vm.calendarView" view-date="vm.viewDate"
+					on-view-change-click="vm.viewChangeClicked(calendarNextView)"> </mwl-calendar>
+			</div>
 		</div>
-
 	</div>
 </body>
 
 
 <jsp:include page="/WEB-INF/jsp/parts/scripts.jsp" />
-
+<script src="resources/app/controllers/calendarController.js"></script>
 
 </html>

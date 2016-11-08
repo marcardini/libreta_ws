@@ -22,7 +22,7 @@ var codMenu = "<%=codMenu%>";
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav">
-				<li class="{{home}}"><a href="#">Inicio</a></li>
+				<li class="{{home}}"><a href="index.jsp">Inicio</a></li>
 				<li class="dropdown {{datos}}"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Gestión de datos<span
 						class="caret"></span></a>
 
