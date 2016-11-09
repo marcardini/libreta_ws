@@ -2,8 +2,10 @@ package com.libretaDigital.fileupload;
 
 import org.apache.log4j.Logger;
 
+import com.libretaDigital.DAO.GroupDAO;
 import com.libretaDigital.DAO.ProfessorDAO;
 import com.libretaDigital.DAO.StudentDAO;
+import com.libretaDigital.entities.Group;
 import com.libretaDigital.entities.Professor;
 import com.libretaDigital.entities.Student;
 import com.libretaDigital.interfaces.UploadProcessor;
@@ -14,6 +16,7 @@ public class FileUploadLineProcessor implements UploadProcessor {
 
 	private ProfessorDAO professorDAO;
 	private StudentDAO studentDAO;
+	private GroupDAO groupDAO;
 	
 	@Override
 	public void invoke(BlockUploadContext context) {
@@ -34,6 +37,13 @@ public class FileUploadLineProcessor implements UploadProcessor {
 			log.info("about to insert or update Student in FileUploadLineProcessor");
 			studentDAO.save(student);
 		}
+		
+		if(line.getUpoloadProcessorId().equals(UploadProcessorId.GROUP)){
+			Group group = new Group(line.getGroupName(), line.getYear());
+			
+			log.info("about to insert or update Group in FileUploadLineProcessor");
+			groupDAO.save(group);
+		}
 	}
 		
 	@Override
@@ -53,6 +63,14 @@ public class FileUploadLineProcessor implements UploadProcessor {
 
 	public void setStudentDAO(StudentDAO studentDAO) {
 		this.studentDAO = studentDAO;
+	}
+
+	public GroupDAO getGroupDAO() {
+		return groupDAO;
+	}
+
+	public void setGroupDAO(GroupDAO groupDAO) {
+		this.groupDAO = groupDAO;
 	}
 
 }

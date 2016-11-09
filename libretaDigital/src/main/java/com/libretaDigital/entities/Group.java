@@ -12,6 +12,11 @@ public class Group {
 	
 	public Group(){}
 	
+	public Group(String name, int year){
+		this.name = name;
+		this.year = year;
+	}
+	
 	public Group(Course course, String name, int year){
 		this.course = course;
 		this.name = name;

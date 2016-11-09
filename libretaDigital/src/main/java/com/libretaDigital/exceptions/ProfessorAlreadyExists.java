@@ -2,7 +2,7 @@ package com.libretaDigital.exceptions;
 
 public class ProfessorAlreadyExists extends Exception {
 
-	private static final long serialVersionUID = 8189089746414552064L;
+	private static final long serialVersionUID = 1L;
 
 	public ProfessorAlreadyExists() {
 		super();

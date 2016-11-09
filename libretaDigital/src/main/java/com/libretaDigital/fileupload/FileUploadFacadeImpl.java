@@ -8,6 +8,7 @@ public class FileUploadFacadeImpl implements FileUploadFacade {
 	private UploaderFacade uploaderFacade;
 	private FileUploadProfessorParser fileUploadProfessorParser;
 	private FileUploadStudentParser fileUploadStudentParser;
+	private FileUploadGroupParser fileUploadGroupParser;
 	private String publishFileAddress;
 	private String folderTempPath;
 	
@@ -27,7 +28,8 @@ public class FileUploadFacadeImpl implements FileUploadFacade {
 						if(selectedUploadType.equals("STUDENTS"))
 							uploaderFacade.asynchImportLocalFile(url, fileName, userName, false, getFileUploadStudentParser());
 						
-						
+						if(selectedUploadType.equals("GROUPS"))
+							uploaderFacade.asynchImportLocalFile(url, fileName, userName, false, getFileUploadGroupParser());
 						
 					} catch (Exception e) {
 						throw new RuntimeException(e);
@@ -79,6 +81,14 @@ public class FileUploadFacadeImpl implements FileUploadFacade {
 
 	public void setFileUploadStudentParser(FileUploadStudentParser fileUploadStudentParser) {
 		this.fileUploadStudentParser = fileUploadStudentParser;
+	}
+
+	public FileUploadGroupParser getFileUploadGroupParser() {
+		return fileUploadGroupParser;
+	}
+
+	public void setFileUploadGroupParser(FileUploadGroupParser fileUploadGroupParser) {
+		this.fileUploadGroupParser = fileUploadGroupParser;
 	}
 	
 }

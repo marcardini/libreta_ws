@@ -24,6 +24,9 @@
 	<bean id="studentDAO" class="com.libretaDigital.DAO.StudentDAO"
 		parent="genericDAO" />
 		
+	<bean id="groupDAO" class="com.libretaDigital.DAO.GroupDAO"
+		parent="genericDAO" />
+		
 
 	<bean id="md5Encoder"
 		class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
@@ -35,6 +38,11 @@
 	
 	<bean id="studentService" class="com.libretaDigital.services.StudentServiceImpl">
 		<property name="studentDAO" ref="studentDAO" />
+		<property name="encoder" ref="md5Encoder" />
+	</bean>
+	
+	<bean id="groupService" class="com.libretaDigital.services.GroupServiceImpl">
+		<property name="groupDAO" ref="groupDAO" />
 		<property name="encoder" ref="md5Encoder" />
 	</bean>
 

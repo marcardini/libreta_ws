@@ -20,6 +20,13 @@
 		<property name="errorMsgs" ref="errorMsgsMap" />
 	</bean>
 	
+	<bean id="fileUploadGroupParser" class="com.libretaDigital.fileupload.FileUploadGroupParser">
+		<property name="splitChar" value="${fileupload.split.char}" />
+		<property name="subClassSplitChar" value="${fileupload.subclass.split.char}" />
+		<property name="fieldsInvalidMsg" value="${fileupload.invalid.field.message}" />
+		<property name="errorMsgs" ref="errorMsgsMap" />
+	</bean>
+	
 			
 	<bean id="uploadcontroller" class="com.libretaDigital.controller.FileUploadController">
 		<property name="fileUploadFacadeImpl" ref="fileuploadfacade" />
@@ -111,6 +118,7 @@
 	<bean id="fileUploadLineProcessor" class="com.libretaDigital.fileupload.FileUploadLineProcessor">
 		 <property name="professorDAO" ref="professorDAO"/>
 		 <property name="studentDAO" ref="studentDAO"/>
+		 <property name="groupDAO" ref="groupDAO"/>
 	</bean>
 	
 	<bean id="libretaDigital.upload.transactionProcessor" class="com.libretaDigital.fileupload.TransactionProcessorImpl">
@@ -174,6 +182,7 @@
 		<property name="uploaderFacade" ref="uploaderFacade" />
 		<property name="fileUploadProfessorParser" ref="fileUploadProfessorParser" />
 		<property name="fileUploadStudentParser" ref="fileUploadStudentParser" />
+		<property name="fileUploadGroupParser" ref="fileUploadGroupParser" />
 		<property name="folderTempPath" value="${uploader.switchTEMPFolderPath}" />
 		<property name="publishFileAddress" value="${publish_file_address}" />
 	</bean>

@@ -4,23 +4,23 @@
 
 <hibernate-mapping package="com.libretaDigital.entities">
  	
-	<class name="Group" table="group">
+	<class name="Group" table="group_">
 	
 		<id column="oid" name="oid" type="long" unsaved-value="null">
 			<generator class="native" />
 		</id>
 		
-		<many-to-one name="course" column="course_id" />
+<!-- 		<many-to-one name="course" column="course_id" /> -->
 		
 		<property name="name" length="100" />
 		
 		<property name="year" type="int" />
 		
-		<list name="studentsList" table="student" lazy="false" cascade="all">
-			<key column="group_id" />
-			 <list-index column="order" base="0" />
-			<one-to-many class="com.libretaDigital.entities.Student" />
-		</list>
+<!-- 		<list name="studentsList" table="student" lazy="false" cascade="all"> -->
+<!-- 			<key column="group_id" /> -->
+<!-- 			 <list-index column="order" base="0" /> -->
+<!-- 			<one-to-many class="com.libretaDigital.entities.Student" /> -->
+<!-- 		</list> -->
 		
 	</class>
 </hibernate-mapping>
