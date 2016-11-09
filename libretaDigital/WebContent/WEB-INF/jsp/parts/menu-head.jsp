@@ -38,7 +38,7 @@ var codMenu = "<%=codMenu%>";
 			</ul>
 			
 			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown {{datos}}"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Juan Jose Sosa<span
+				<li class="dropdown {{datos}}"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Emanuel Thompson<span
 						class="caret"></span></a>
 
 					<ul class="dropdown-menu">
