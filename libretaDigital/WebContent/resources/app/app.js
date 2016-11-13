@@ -57,26 +57,25 @@ app.directive('validNumber', function() {
   };
 });
 
-app.directive('dropzone', function() {
+app.directive('dropzone', function($parse) {
     return {
         restrict: 'C',
         link: function(scope, element, attrs) {
-
+        	
+        	element.val("value=" + $parse(attrs.selectedType)(scope));
+        	
             var config = {
-                url: 'fileUpload/upload',
+                url: 'fileUpload/upload?type=',
                 maxFilesize: 100,
-                paramName: "uploadfile",
+                paramName: "uploadFile",
                 maxThumbnailFilesize: 10,
                 parallelUploads: 1,
                 autoProcessQueue: false
             };
-
+                                    
             var eventHandlers = {
-                'addedfile': function(file) {
-                    scope.file = file;
-                    console.log(file);
-                    //config.paramName = file.selectedType;
-                    console.log(config.paramName);
+                'addedfile': function(file) {                	
+                    scope.file = file;                     
                     if (this.files[1]!=null) {
                         this.removeFile(this.files[0]);
                     }
@@ -91,16 +90,20 @@ app.directive('dropzone', function() {
             };
 
             dropzone = new Dropzone(element[0], config);
-
+            
+                    
             angular.forEach(eventHandlers, function(handler, event) {
-                dropzone.on(event, handler);
+                dropzone.on(event, handler);                
             });
+            
+            
 
-            scope.processDropzone = function() {
+            scope.processDropzone = function() {            	
+            	dropzone.options.url = "fileUpload/upload?type=" + scope.selectedType;            	
                 dropzone.processQueue();
             };
 
-            scope.resetDropzone = function() {
+            scope.resetDropzone = function() {            
                 dropzone.removeAllFiles();
             }
         }
