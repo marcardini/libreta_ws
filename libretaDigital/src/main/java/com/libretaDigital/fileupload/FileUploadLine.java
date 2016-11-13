@@ -7,7 +7,6 @@ import com.libretaDigital.entities.Group;
 import com.libretaDigital.utils.Gender;
 import com.libretaDigital.utils.Grade;
 
-
 public class FileUploadLine extends FileLine{
 
 	FileUploadLine (){}
@@ -30,10 +29,10 @@ public class FileUploadLine extends FileLine{
 	private boolean currentStudent;
 	
 	//Group
-	//private Course course;
 	private String groupName;
 	private int year;
-	
+	private Long courseId;
+	private Long institutionId;
 	
 	
 	
@@ -114,5 +113,17 @@ public class FileUploadLine extends FileLine{
 	}
 	public void setYear(int year) {
 		this.year = year;
+	}
+	public Long getCourseId() {
+		return courseId;
+	}
+	public void setCourseId(Long courseId) {
+		this.courseId = courseId;
+	}
+	public Long getInstitutionId() {
+		return institutionId;
+	}
+	public void setInstitutionId(Long institutionId) {
+		this.institutionId = institutionId;
 	}
 }

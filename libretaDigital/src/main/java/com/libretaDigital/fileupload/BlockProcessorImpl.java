@@ -19,7 +19,8 @@ public class BlockProcessorImpl implements BlockProcessor  {
 	Map<String, String> errorMapList;
 	
 	public void importBlock(List<FileLine> lines, ProcessorContext context) {
-		if (lines!= null && lines.size()>0){
+		
+		if (lines != null && lines.size() > 0){
 			long blockStartTimestamp = System.currentTimeMillis();
 			
 			BlockUploadContext blockUploadContext = new BlockUploadContext(lines.iterator(), lines.size());
@@ -40,9 +41,6 @@ public class BlockProcessorImpl implements BlockProcessor  {
 						//We clean what got to be cleaned because of the transaction fail 
 						transactionProcessor.transactionFailed(blockUploadContext);
 						
-						//We resolve the exception message.
-						//Esto quedó tan complejo debido a que el mensaje original queda dentro de la excepcion que hizo saltar la transaccion
-						//Es un mapa en el que se busca que parte del mensaje este en la key y se devuelve el value correspondiente en español (que es lo qu va como mensaje de )
 						String originalMessageError;
 						if (e.getLocalizedMessage() == null ){
 							log.warn("Exception without localizedMessaage, stacktrace: ", e);

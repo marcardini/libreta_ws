@@ -99,23 +99,7 @@ public class FileImporter  {
 		
 		while(blockManager.hasMoreBlocks()) {
 			int threadsDiff = uploadConcurrentThreads;
-			
-			
-			
-			
-			
-			
-			
-//refreshParameters();
-			
-			
-			
-			
-			
-			
-			
-			
-			
+
 			threadsDiff =  threadsDiff - uploadConcurrentThreads;
 			//Se setea al thread pool el numero de hilos segun el parametro configurado
 			if (threadsDiff!=0 || blockManager.getConcurrentThreads()!=uploadConcurrentThreads ) {
@@ -224,7 +208,6 @@ public class FileImporter  {
 		cycleSleepMillis = (newCycleSleepMillis>0)?newCycleSleepMillis:DEFAULT_cycleSleepMillis;
 	}
 
-	//******************Seters de bean*********************************************************
 	 
 	@Required
 	public void setBlockProcessor(BlockProcessor blockProcessor) {

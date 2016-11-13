@@ -1,10 +1,8 @@
 package com.libretaDigital.fileupload;
 
-
 import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadPoolExecutor;
-
 
 public class UploadsRejectedExecutionHandler implements RejectedExecutionHandler {	
 	
@@ -16,7 +14,3 @@ public class UploadsRejectedExecutionHandler implements RejectedExecutionHandler
 		 }
 	}
  }
-
-	 
-	
-

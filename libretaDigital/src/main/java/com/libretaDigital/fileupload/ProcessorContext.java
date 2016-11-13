@@ -13,24 +13,17 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.log4j.Logger;
 
-
 public class ProcessorContext {
 	
 	public static Logger logger = Logger.getLogger(ProcessorContext.class);
 
 	AtomicBoolean showFile;
-	
 	UploaderProperties properties;
 	private long errorCount;
-	
 	private long processedBlockCount;
 	private double blockProcessSecondsPondeatedAverage;
 	private long endBlockTimestamp;
-	
-	// if its an dumpFileErrors = true upload the errors will be loged on a file else will be loged on List errors
-	//private boolean dumpFileErrors;
 	private List<ItemError> errors;
-	
 	private String logFileName;
 	private String logFileNameConsole;
 	private PrintWriter fileWriter;
@@ -52,59 +45,34 @@ public class ProcessorContext {
 			fileWriter = new PrintWriter(new FileWriter(properties.getSwitchTEMPFolderPath() + this.logFileName,true));
 			fileWriter.println("\r\n" + (new Timestamp(System.currentTimeMillis())).toString() + properties.getStartFileUploadMSG() + "\r\n");
 			fileWriter.flush();
-		} else {
+		} else
 			this.errors = new ArrayList<ItemError>();
-		}
 	}	
 	
 	public void addError(long lineNumber, String lineText, String mensajeError) {
 		if (properties.isDumpFileErrors()){
 			fileWriter.println((new Timestamp(System.currentTimeMillis())).toString() + properties.getErrorOnLineMSG().replace(":lineNum", String.valueOf(lineNumber)).replace("errorMsg", mensajeError)+ "\r\n"+lineText + "\r\n");
-			//fileWriter.println(lineText + "\r\n");
 			fileWriter.flush();
-		} else {
+		} else
 			errors.add(new ItemError(lineText, mensajeError));
-		}
+		
 		errorCount++;
-	}
-
-	public long getErrorCount() {
-		return errorCount;
-	}
-	
-	public List<ItemError> getErrorList() {
-		return errors;
 	}
 	
 	public void addProcessedBlock(long timeInMillis, long blockInitLine, long blockEndLine) {
-		//processedBlockTimes.add(Long.valueOf(time));
 		endBlockTimestamp = System.currentTimeMillis();
 		processedBlockCount++;
 		if (blockProcessSecondsPondeatedAverage == -1){
 			blockProcessSecondsPondeatedAverage = (double)timeInMillis/1000;
-		} else {
+		} else
 			blockProcessSecondsPondeatedAverage =  (properties.getLastTimePonderateWeight())*((double)timeInMillis/1000) +  (1-properties.getLastTimePonderateWeight())*(blockProcessSecondsPondeatedAverage);
-		}
 		
 		if (properties.isDumpFileErrors()){
-			//fileWriter.println((new Timestamp(endBlockTimestamp)).toString() + " - El Bloque [" + String.valueOf(blockInitLine) + "-" + String.valueOf(blockEndLine) + "] se proceso completamente en " + decFormat.format((double)timeInMillis/1000) + " segundos ----------");
 			fileWriter.println((new Timestamp(endBlockTimestamp)).toString() + properties.getEndBlockMSG().replace(":blockInitLine", String.valueOf(blockInitLine)).replace(":blockEndLine", String.valueOf(blockEndLine)).replace(":blockTime", String.valueOf(decFormat.format((double)timeInMillis/1000))));
 			fileWriter.flush();
 		}
 	}
-	
-	public long getProcessedBlockCount() {
-		return processedBlockCount;	
-	}
-	
-	public double getBlockProcessSecondsPondeatedAverage() {
-		return blockProcessSecondsPondeatedAverage;	
-	}
-	
-	public long getEndBlockTimestamp() {
-		return endBlockTimestamp;	
-	}
-	
+		
 	public void closeErrorsFile(boolean isAborted) {
 		endBlockTimestamp = System.currentTimeMillis();
 		if (processedBlockCount == 0) { processedBlockCount++; }
@@ -141,9 +109,23 @@ public class ProcessorContext {
 	public String getLogFileNameConsole() {
 		return logFileNameConsole;
 	}
-	
 	public AtomicBoolean getShowFile() {
 		return showFile;
+	}
+	public long getProcessedBlockCount() {
+		return processedBlockCount;	
+	}
+	public double getBlockProcessSecondsPondeatedAverage() {
+		return blockProcessSecondsPondeatedAverage;	
+	}
+	public long getEndBlockTimestamp() {
+		return endBlockTimestamp;	
+	}
+	public long getErrorCount() {
+		return errorCount;
+	}
+	public List<ItemError> getErrorList() {
+		return errors;
 	}
 	
 }

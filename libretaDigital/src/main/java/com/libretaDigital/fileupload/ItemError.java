@@ -2,10 +2,9 @@ package com.libretaDigital.fileupload;
 
 import java.io.Serializable;
 
-
 public class ItemError implements Serializable {
 
-	private static final long serialVersionUID = 467626614065777779L;
+	private static final long serialVersionUID = 1L;
 
 	private String itemId;
 

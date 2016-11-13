@@ -68,8 +68,6 @@ public class FileUploadBlockManager {
 		currentLine = 0;
 		setDeliveredBlocks(0);
 		
-		
-		
 	}
 
 
@@ -79,7 +77,6 @@ public class FileUploadBlockManager {
 		String logFileName = "";
 		if (properties.isDumpFileErrors()) {
 			String[] splitFileName = originalFileName.split("\\.");
-			//.concat((new Timestamp(System.currentTimeMillis())).toString())
 			logFileName =  "_LUC_".concat(splitFileName[0]).concat(".txt");
 		}
 		context = new ProcessorContext(logFileName, properties);
@@ -129,8 +126,6 @@ public class FileUploadBlockManager {
 		checkCutProcessConditions();
 		return (status == BlockManagerStatus.RUNNING);
 	}
-	
-
 	
 	public void setBlockSize(long blockSize) {
 		this.blockSize = blockSize;
@@ -269,14 +264,10 @@ public class FileUploadBlockManager {
 		}
 		try { br.close(); } catch (Exception e) {};
 		fileWriter.close();
-			//Test the created file could be opened 
-			//this.url = new URL("file:///".concat(dest));
-			//br = new BufferedReader(new InputStreamReader(url.openStream()));
 		try { br.close(); } catch (Exception e) {};
 		// Count file lines takes 1 sec./1 million lines aprox.
 		return result;
 	}
-	
 	
 	private void checkCutProcessConditions() {
 		long processedlines = context.getProcessedBlockCount() * this.blockSize;
@@ -292,16 +283,10 @@ public class FileUploadBlockManager {
 	protected String getBlockSizeParameterName() {
 		return parser.getBlockSizeParameterName();
 	}
-
-
 	public long getDeliveredBlocks() {
 		return deliveredBlocks;
 	}
-
-
 	public void setDeliveredBlocks(long deliveredBlocks) {
 		this.deliveredBlocks = deliveredBlocks;
 	}
-
-
 }

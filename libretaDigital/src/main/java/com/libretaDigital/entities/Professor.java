@@ -1,6 +1,5 @@
 package com.libretaDigital.entities;
 
-import java.awt.Image;
 import java.util.Date;
 import java.util.List;
 
@@ -27,8 +26,8 @@ public class Professor extends Person {
         this.employeeSince = employeeSince;
     }
 	
-	public Professor(String password, String name, String lastName, Date birthDate, Image photo, Gender gender, String email, Date employeeSince){
-		super(name, lastName, birthDate, photo, gender, email);
+	public Professor(String name, String lastName, String password, Date birthDate, String email, Gender gender, Date employeeSince){
+		super(name, lastName, birthDate, gender, email);
         this.password = password;
         this.employeeSince = employeeSince;
     }

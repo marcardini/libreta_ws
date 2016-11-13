@@ -10,6 +10,8 @@
 			<generator class="native" />
 		</id>
 		
+		<property name="courseName" column="name" length="100" />
+		
 		<list name="groupsList" table="group_" fetch="join" cascade="all,delete-orphan">
 			<key column="course_id" />
 			<list-index column="index_groups" />

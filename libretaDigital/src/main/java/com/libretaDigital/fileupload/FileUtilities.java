@@ -17,13 +17,8 @@ import java.net.URL;
 import org.springframework.web.multipart.MultipartFile;
 
 public class FileUtilities {
-
-	private static final String CATALINA_HOME = System.getenv("CATALINA_HOME");
-
+	
 	public static void copyFile(MultipartFile sourceFile, String uploadDir) throws IOException {
-
-
-		//String uploadDirectory = CATALINA_HOME.replace("\\", "/")+uploadDir ;
 
 		try {
 			File targetFile = new File(uploadDir, sourceFile.getName());
@@ -113,7 +108,6 @@ public class FileUtilities {
 								System.out.println("Error al escribir el nuevo archivo. Linea: " + newLine);
 							}
 						}
-
 					}
 				} catch (IOException e) {
 					System.out.println("Error al leer el archivo original");
@@ -133,15 +127,12 @@ public class FileUtilities {
 				System.out.println("Error al crear el url: " + urlString);
 			} 
 
-
 			return newFile.getAbsolutePath();
 			
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-
-			
-
+		
 		return null;
 	}
 }
