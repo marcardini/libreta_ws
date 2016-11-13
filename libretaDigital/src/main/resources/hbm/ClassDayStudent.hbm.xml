@@ -10,9 +10,19 @@
 			<generator class="native" />
 		</id>
 		
-		<property name="date" column="date">
+		<property name="date" column="class_date">
 			<type name="org.hibernate.type.DateType"/>
 		</property>
+		
+		<property name="ClassDayRegistrationType" column="class_day_registration_type">
+			<type name="org.hibernate.type.EnumType">
+				<param name="enumClass">com.libretaDigital.utils.ClassDayRegistrationType</param>
+				<param name="type">255</param>
+				<param name="useNamed">true</param>
+			</type>
+		</property>
+		
+		<property name="value" type="big_decimal" precision="5" scale="1" />
 		
 	</class>
 </hibernate-mapping>

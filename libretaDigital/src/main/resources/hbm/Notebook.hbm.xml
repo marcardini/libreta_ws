@@ -3,15 +3,15 @@
 	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping package="com.libretaDigital.entities">
- 	
+
 	<class name="Notebook" table="notebook">
-	
+
 		<id column="oid" name="oid" type="long" unsaved-value="null">
 			<generator class="native" />
 		</id>
-		
+
 		<property name="currentYear" column="current_year" type="int" />
-		
+
 		<property name="courseType" column="course_type">
 			<type name="org.hibernate.type.EnumType">
 				<param name="enumClass">com.libretaDigital.utils.CourseType</param>
@@ -19,18 +19,22 @@
 				<param name="useNamed">true</param>
 			</type>
 		</property>
-		
-		<property name="reformulationPlan" length="100" column="reformulation_plan" />
-	
-		<list name="professors" table="professor" lazy="false" cascade="all">
+
+		<property name="reformulationPlan" length="100"
+			column="reformulation_plan" />
+
+		<many-to-one name="group">
+			<column name="group_oid" />
+		</many-to-one>
+
+		<many-to-one name="subject">
+			<column name="subject_oid" />
+		</many-to-one>
+
+		<list name="professors" table="professor" fetch="join" cascade="all,delete-orphan">
 			<key column="notebook_id" />
-			 <list-index column="order" base="0" />
+			<list-index column="index_professors" />
 			<one-to-many class="com.libretaDigital.entities.Professor" />
 		</list>
-		
-		<many-to-one name="subject" />
-		
-		<many-to-one name="group" />
-		
 	</class>
 </hibernate-mapping>

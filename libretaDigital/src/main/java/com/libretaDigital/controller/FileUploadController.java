@@ -53,7 +53,7 @@ public class FileUploadController {
 			while (itr.hasNext()) {
 				String uploadedFile = itr.next();
 				MultipartFile file = request.getFile(uploadedFile);
-
+				
 				try {
 					if (CATALINA_HOME == null || CATALINA_HOME.equals("")) {
 						
@@ -71,7 +71,7 @@ public class FileUploadController {
 									String http_address = rb.getString("http_address");
 									String tomcat_address = http_address+":"+ localPort + "/files/";
 									
-									selectedFileType = FileUploadType.GROUPS;
+									selectedFileType = FileUploadType.STUDENTS;
 									
 									fileUploadFacadeImpl.fileUpload(tomcat_address + file.getName(), file.getName(), "admin", selectedFileType.name());
 										

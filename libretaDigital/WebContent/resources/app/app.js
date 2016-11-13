@@ -74,6 +74,9 @@ app.directive('dropzone', function() {
             var eventHandlers = {
                 'addedfile': function(file) {
                     scope.file = file;
+                    console.log(file);
+                    //config.paramName = file.selectedType;
+                    console.log(config.paramName);
                     if (this.files[1]!=null) {
                         this.removeFile(this.files[0]);
                     }

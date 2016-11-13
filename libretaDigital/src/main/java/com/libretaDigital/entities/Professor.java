@@ -11,7 +11,7 @@ public class Professor extends Person {
 	private String password;
 	private Grade grade;
 	private Date employeeSince;
-	private List<Subject> subjectsList;
+	private List<Course> coursesList;
 	
 	public Professor(String name, String lastName){
 		super(name, lastName);
@@ -61,12 +61,13 @@ public class Professor extends Person {
 		this.employeeSince = employeeSince;
 	}
 
-	public List<Subject> getSubjectsList() {
-		return subjectsList;
+	public List<Course> getCoursesList() {
+		return coursesList;
 	}
 
-	public void setSubjectsList(List<Subject> subjectsList) {
-		this.subjectsList = subjectsList;
+	public void setCoursesList(List<Course> coursesList) {
+		this.coursesList = coursesList;
 	}
+
 	
 }

@@ -26,7 +26,6 @@
 		<property name="fieldsInvalidMsg" value="${fileupload.invalid.field.message}" />
 		<property name="errorMsgs" ref="errorMsgsMap" />
 	</bean>
-	
 			
 	<bean id="uploadcontroller" class="com.libretaDigital.controller.FileUploadController">
 		<property name="fileUploadFacadeImpl" ref="fileuploadfacade" />
@@ -42,26 +41,14 @@
 		<property name="properties" ref="upload.properties" />
 	</bean>
 
-
-
 	<util:map id="errorMsgsMap" key-type="java.lang.String" value-type="java.lang.String">
 		<entry key="genericError" value="${upload.genericError}" />
 	</util:map>
 
-
-
-
 	<bean id="upload.fileImporter" class="com.libretaDigital.fileupload.FileImporter">
 		<property name="taskExecutor" ref="upload.taskExecutor" />
 		<property name="blockProcessor" ref="upload.blockProcessor" />
-<!-- 		<property name="parametersFacade" ref="unimarc.parametersFacade" /> -->
 	</bean>
-
-<!-- 	<bean name="unimarc.parametersFacade" class="uy.com.geocom.geoswitch.usecontrol.genericservice.parameters.ParametersControlFacadeImpl"> -->
-<!-- 		<property name="parametersProvider" ref="unimarc.ParametersProvider" /> -->
-<!-- 	</bean> -->
-
-
 	
 	<bean id="upload.taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor" >
 	     <property name="corePoolSize" value="1" />
@@ -113,7 +100,6 @@
 		<property name="invalidFormatLine" value="${uploader.invalidFormatLine}" />
 		<property name="exceptionReadingBlock" value="${uploader.exceptionReadingBlock}" />
 	</bean>
-
 
 	<bean id="fileUploadLineProcessor" class="com.libretaDigital.fileupload.FileUploadLineProcessor">
 		 <property name="professorDAO" ref="professorDAO"/>
@@ -167,7 +153,6 @@
 		</entry>
 	</util:map>
 	
-	
 	<bean id="upload.blockProcessor" class="com.libretaDigital.fileupload.BlockProcessorImpl">
 		<property name="transactionProcessor" ref="libretaDigital.upload.transactionProcessor"/>
 		<property name="errorMapList">
@@ -177,7 +162,6 @@
 		</property>
 	</bean>
 	
-	
 	<bean name="fileuploadfacade" class="com.libretaDigital.fileupload.FileUploadFacadeImpl">
 		<property name="uploaderFacade" ref="uploaderFacade" />
 		<property name="fileUploadProfessorParser" ref="fileUploadProfessorParser" />
@@ -186,6 +170,5 @@
 		<property name="folderTempPath" value="${uploader.switchTEMPFolderPath}" />
 		<property name="publishFileAddress" value="${publish_file_address}" />
 	</bean>
-	
 
 </beans>

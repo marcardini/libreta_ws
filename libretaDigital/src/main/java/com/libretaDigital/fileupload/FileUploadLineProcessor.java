@@ -29,6 +29,7 @@ public class FileUploadLineProcessor implements UploadProcessor {
 			
 			log.info("about to insert or update Professor in FileUploadLineProcessor");
 			professorDAO.save(professor);
+			return;
 		}
 		
 		if(line.getUpoloadProcessorId().equals(UploadProcessorId.STUDENT)){
@@ -36,6 +37,7 @@ public class FileUploadLineProcessor implements UploadProcessor {
 			
 			log.info("about to insert or update Student in FileUploadLineProcessor");
 			studentDAO.save(student);
+			return;
 		}
 		
 		if(line.getUpoloadProcessorId().equals(UploadProcessorId.GROUP)){

@@ -14,33 +14,33 @@
 		
 		<property name="lastName" length="100" column="last_name" />
 	
-<!-- 		<property name="birthDate" column="birth_date"> -->
-<!-- 			<type name="org.hibernate.type.DateType"/> -->
-<!-- 		</property> -->
+		<property name="birthDate" column="birth_date">
+			<type name="org.hibernate.type.DateType"/>
+		</property>
 		
-<!-- 		<property name="gender" column="gender"> -->
-<!-- 			<type name="org.hibernate.type.EnumType"> -->
-<!-- 				<param name="enumClass">com.libretaDigital.utils.Gender</param> -->
-<!-- 				<param name="type">12</param> -->
-<!-- 				<param name="useNamed">true</param> -->
-<!-- 			</type> -->
-<!-- 		</property> -->
+		<property name="gender" column="gender">
+			<type name="org.hibernate.type.EnumType">
+				<param name="enumClass">com.libretaDigital.utils.Gender</param>
+				<param name="type">12</param>
+				<param name="useNamed">true</param>
+			</type>
+		</property>
 		
-<!-- 		<property name="email" length="60" /> -->
+		<property name="email" length="60" />
 		
-<!-- 		<property name="password" length="60" /> -->
+		<property name="password" length="60" />
 		
-<!-- 		<property name="grade" type="long" /> -->
+		<property name="grade" type="long" />
 		
-<!-- 		<property name="employeeSince" column="employee_since"> -->
-<!-- 			<type name="org.hibernate.type.DateType"/> -->
-<!-- 		</property> -->
+		<property name="employeeSince" column="employee_since">
+			<type name="org.hibernate.type.DateType"/>
+		</property>
 		
-<!-- 		<list name="subjectsList" table="subject" lazy="false" cascade="all"> -->
-<!-- 			<key column="professor_id" /> -->
-<!-- 			 <list-index column="order" base="0" /> -->
-<!-- 			<one-to-many class="com.libretaDigital.entities.Subject" /> -->
-<!-- 		</list> -->
+		<list name="coursesList" table="subject" fetch="join" cascade="all,delete-orphan">
+			<key column="professor_id" />
+			<list-index column="index_course" />
+			<one-to-many class="com.libretaDigital.entities.Course" />
+		</list>
 		
 	</class>
 </hibernate-mapping>

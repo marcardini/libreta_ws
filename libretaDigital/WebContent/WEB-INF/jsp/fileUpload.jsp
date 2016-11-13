@@ -33,16 +33,17 @@
 			<h1>Carga Masiva de Datos</h1>
 		</div>
 
-<%-- 		<h:selectOneMenu value="#{fileUploadCtrl.selectedFileType}"> --%>
-<!-- 			<f:selectItem itemValue="PROFESSOR" itemLabel="Profesores" /> -->
-<!-- 			<f:selectItem itemValue="STUDENT" itemLabel="Estudiantes" /> -->
-<!-- 			<f:selectItem itemValue="GROUP" itemLabel="Grupos" /> -->
-<!-- 		</h:selectOneMenu> -->
-
 		<div class="row">
 
 			<div class="col-md-4">
-				<h3>Carga de Archivos</h3>
+				<h3>
+					Seleccionar tipo de carga: <select name="selectedType"
+						ng-model="selectedType">
+						<option value="PROFESSOR">Profesores</option>
+						<option value="STUDENT">Estudiantes</option>
+						<option value="GROUP">Grupos</option>
+					</select><br>
+				</h3>
 				<form action="api/upload" class="my-drop-zone drop-zone dropzone"
 					dropzone="" id="dropzone">
 					<div class="dz-default dz-message"></div>

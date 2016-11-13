@@ -10,6 +10,7 @@
 	<import resource="classpath:hibernate-config.xml" />
 	<import resource="classpath:dal-config.xml" />
 	<import resource="classpath:file-import-config.xml" />
+	<import resource="classpath:assist-control-config.xml" />
 
 	<context:property-placeholder
 		location="classpath:database.properties, classpath:uploader.properties" ignore-unresolvable="true" />

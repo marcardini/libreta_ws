@@ -12,27 +12,27 @@
 		
 		<property name="name" length="100" />
 		
-		<list name="courseList" table="course" lazy="false" cascade="all">
+		<list name="courseList" table="course" fetch="join" cascade="all,delete-orphan">
 			<key column="institution_id" />
-			 <list-index column="order" base="0" />
+			<list-index column="index_courses" />
 			<one-to-many class="com.libretaDigital.entities.Course" />
 		</list>
 		
-		<list name="groupsList" table="group" lazy="false" cascade="all">
+		<list name="groupsList" table="group" fetch="join" cascade="all,delete-orphan">
 			<key column="institution_id" />
-			 <list-index column="order" base="0" />
+			<list-index column="index_groups" />
 			<one-to-many class="com.libretaDigital.entities.Group" />
 		</list>
 		
-		<list name="professorsList" table="Professor" lazy="false" cascade="all">
+		<list name="professorsList" table="Professor" fetch="join" cascade="all,delete-orphan">
 			<key column="institution_id" />
-			 <list-index column="order" base="0" />
+			<list-index column="index_professors" />
 			<one-to-many class="com.libretaDigital.entities.Professor" />
 		</list>
 		
-		<list name="studentsList" table="Student" lazy="false" cascade="all">
+		<list name="studentsList" table="Student" fetch="join" cascade="all,delete-orphan">
 			<key column="institution_id" />
-			 <list-index column="order" base="0" />
+			<list-index column="index_students" />
 			<one-to-many class="com.libretaDigital.entities.Student" />
 		</list>
 		

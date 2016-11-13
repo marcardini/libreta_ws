@@ -14,31 +14,27 @@
 		
 		<property name="lastName" length="100" column="last_name" />
 	
-<!-- 		<property name="birthDate" column="birth_date"> -->
-<!-- 			<type name="org.hibernate.type.DateType"/> -->
-<!-- 		</property> -->
+		<property name="birthDate" column="birth_date">
+			<type name="org.hibernate.type.DateType"/>
+		</property>
 		
-<!-- 		<property name="gender" column="gender"> -->
-<!-- 			<type name="org.hibernate.type.EnumType"> -->
-<!-- 				<param name="enumClass">com.libretaDigital.utils.Gender</param> -->
-<!-- 				<param name="type">12</param> -->
-<!-- 				<param name="useNamed">true</param> -->
-<!-- 			</type> -->
-<!-- 		</property> -->
+		<property name="gender" column="gender">
+			<type name="org.hibernate.type.EnumType">
+				<param name="enumClass">com.libretaDigital.utils.Gender</param>
+				<param name="type">12</param>
+				<param name="useNamed">true</param>
+			</type>
+		</property>
 		
-<!-- 		<property name="email" length="60" /> -->
+		<property name="email" length="60" />
 		
-<!-- 		<many-to-one name="course" column="course_id" /> -->
+		<property name="currentStudent" type="boolean" />
 		
-<!-- 		<many-to-one name="group" column="group_id" /> -->
-		
-<!-- 		<property name="currentStudent" type="boolean" /> -->
-		
-<!-- 		<list name="calendar" table="calendar" lazy="false" cascade="all"> -->
-<!-- 			<key column="student_id" /> -->
-<!-- 			 <list-index column="order" base="0" /> -->
-<!-- 			<one-to-many class="com.libretaDigital.entities.ClassDayStudent" /> -->
-<!-- 		</list> -->
+		<list name="calendar" table="calendar" fetch="join" cascade="all,delete-orphan">
+			<key column="student_id" />
+			<list-index column="index_classdaystudent" />
+			<one-to-many class="com.libretaDigital.entities.ClassDayStudent" />
+		</list>
 		
 	</class>
 </hibernate-mapping>

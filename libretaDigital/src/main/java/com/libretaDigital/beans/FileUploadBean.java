@@ -5,6 +5,7 @@ public class FileUploadBean {
 	private String filename;
 	private byte[] file;
 	private String mimeType;
+	private String uploadType;
 
 	public String getFilename() {
 		return filename;
@@ -30,15 +31,24 @@ public class FileUploadBean {
 		this.mimeType = mimeType;
 	}
 
-	public FileUploadBean(String filename, byte[] file, String mimeType) {
+	public FileUploadBean(String filename, byte[] file, String mimeType, String uploadType) {
 
 		this.file = file;
 		this.filename = filename;
 		this.mimeType = mimeType;
+		this.uploadType = uploadType;
 	}
 
 	public FileUploadBean() {
 		// Default Constructor
+	}
+
+	public String getUploadType() {
+		return uploadType;
+	}
+
+	public void setUploadType(String uploadType) {
+		this.uploadType = uploadType;
 	}
 
 }

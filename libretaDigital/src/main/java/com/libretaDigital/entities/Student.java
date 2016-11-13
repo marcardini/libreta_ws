@@ -13,6 +13,8 @@ public class Student extends Person {
 	private List<ClassDayStudent> calendar;
 	private boolean currentStudent;
 	
+	public Student(){}
+	
 	public Student(String name, String lastName){
 		super(name, lastName);
 	}

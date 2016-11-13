@@ -1,9 +1,11 @@
 package com.libretaDigital.DAO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -12,39 +14,98 @@ import org.springframework.orm.hibernate5.HibernateCallback;
 import com.libretaDigital.entities.*;
 import com.libretaDigital.hibernate.GenericDAO;
 import com.libretaDigital.interfaces.*;
+import org.apache.log4j.Logger;
 
-public class StudentDAO extends GenericDAO<Student> implements IStudentDAO{
+public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
+
+	private static Logger log = Logger.getLogger(StudentDAO.class);
 
 	public List<Student> getAllStudents() {
 		@SuppressWarnings({ "unchecked" })
-		List<Student> colResult = (List<Student>) getHibernateTemplate().execute(
-				new HibernateCallback<Object>() {
+		List<Student> colResult = (List<Student>) getHibernateTemplate().execute(new HibernateCallback<Object>() {
 
-					public List<Student> doInHibernate(Session oSession) throws HibernateException {
-						Criteria oCriteria = oSession.createCriteria(Student.class);
-						oCriteria.addOrder(Order.desc("email"));
-						return oCriteria.list();
-					}
-				});
+			public List<Student> doInHibernate(Session oSession) throws HibernateException {
+				Criteria oCriteria = oSession.createCriteria(Student.class);
+				oCriteria.addOrder(Order.desc("email"));
+				return oCriteria.list();
+			}
+		});
 		return colResult;
 	}
 
 	@SuppressWarnings("unchecked")
 	public Student getStudentByMail(final String email) {
 		Student student = null;
-		List<Student> colResult = (List<Student>) getHibernateTemplate().execute(
-				new HibernateCallback<Object>() {
+		List<Student> colResult = (List<Student>) getHibernateTemplate().execute(new HibernateCallback<Object>() {
 
-					public List<Student> doInHibernate(Session oSession) throws HibernateException {
-						Criteria oCriteria = oSession.createCriteria(Student.class);
-						oCriteria.add(Restrictions.eq("email", email));
-						return oCriteria.list();
-					}
-				});
+			public List<Student> doInHibernate(Session oSession) throws HibernateException {
+				Criteria oCriteria = oSession.createCriteria(Student.class);
+				oCriteria.add(Restrictions.eq("email", email));
+				return oCriteria.list();
+			}
+		});
 		if (colResult.size() > 0)
 			student = colResult.get(0);
-		
+
 		return student;
+	}
+
+	public List<Student> getStudentsByGroupCode(String groupCode) {
+
+		log.debug(String.format("Querying getStudentsByGroupCode. Parameters: " + groupCode));
+
+		return getHibernateTemplate().execute(new HibernateCallback<List<Student>>() {
+
+			List<Student> result = new ArrayList<Student>();
+
+			@SuppressWarnings("unchecked")
+			@Override
+			public List<Student> doInHibernate(Session session) throws HibernateException {
+				String oQuery = "select s.id, s.name, s.last_name " + "from student s, group_ g "
+						+ "where s.group_id = g.id ";
+
+				if (groupCode != null && !groupCode.equals(""))
+					oQuery = oQuery.concat("and upper(g.name) = upper(:groupCode) ");
+
+				SQLQuery query = session.createSQLQuery(oQuery);
+
+				List<Object[]> partialResult = query.list();
+
+				if (partialResult != null && !partialResult.isEmpty())
+					result = getStudentsByGroupCodeFromPartialResult(partialResult);
+
+				return result;
+			}
+		});
+	}
+
+	private List<Student> getStudentsByGroupCodeFromPartialResult(List<Object[]> partialResult) {
+
+		List<Student> result = new ArrayList<Student>();
+
+		for (Object[] oPartialResult : partialResult) {
+
+			Student student = new Student();
+
+			if (oPartialResult[0] != null && !oPartialResult[0].equals("")) {
+				int id = (int) oPartialResult[0];
+				student.setOid(id);
+			}
+
+			if (oPartialResult[1] != null && !oPartialResult[1].equals("")) {
+				String name = (String) oPartialResult[1];
+				student.setName(name);
+			}
+
+			if (oPartialResult[2] != null && !oPartialResult[2].equals("")) {
+				String lastName = (String) oPartialResult[2];
+				student.setLastName(lastName);
+			}
+
+			result.add(student);
+		}
+
+		return result;
 	}
 
 }
