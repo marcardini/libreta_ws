@@ -24,26 +24,22 @@ public class FileUploadLineProcessor implements UploadProcessor {
 		FileUploadLine line = (FileUploadLine)context.getCurrentLine();
 		
 		if(line.getUpoloadProcessorId().equals(UploadProcessorId.PROFESSOR)){
-			//Professor professor = new Professor(line.getName(), line.getLastName(), line.getBirthDate(), line.getGender());
-			Professor professor = new Professor(line.getName(), line.getLastName());
-			
 			log.info("about to insert or update Professor in FileUploadLineProcessor");
+			Professor professor = new Professor(line.getName(), line.getLastName(), line.getPassword(), line.getBirthDate(), line.getEmail(), line.getGender(), line.getEmployeeSince());	
 			professorDAO.save(professor);
 			return;
 		}
 		
 		if(line.getUpoloadProcessorId().equals(UploadProcessorId.STUDENT)){
-			Student student = new Student(line.getName(), line.getLastName());
-			
 			log.info("about to insert or update Student in FileUploadLineProcessor");
+			Student student = new Student(line.getName(), line.getLastName(), line.getBirthDate(), line.getGender(), line.getEmail());
 			studentDAO.save(student);
 			return;
 		}
 		
 		if(line.getUpoloadProcessorId().equals(UploadProcessorId.GROUP)){
-			Group group = new Group(line.getGroupName(), line.getYear());
-			
 			log.info("about to insert or update Group in FileUploadLineProcessor");
+			Group group = new Group(line.getCourse(), line.getGroupName(), line.getYear());
 			groupDAO.save(group);
 		}
 	}
@@ -54,23 +50,18 @@ public class FileUploadLineProcessor implements UploadProcessor {
 	public ProfessorDAO getProfessorDAO() {
 		return professorDAO;
 	}
-
 	public void setProfessorDAO(ProfessorDAO professorDAO) {
 		this.professorDAO = professorDAO;
 	}
-
 	public StudentDAO getStudentDAO() {
 		return studentDAO;
 	}
-
 	public void setStudentDAO(StudentDAO studentDAO) {
 		this.studentDAO = studentDAO;
 	}
-
 	public GroupDAO getGroupDAO() {
 		return groupDAO;
 	}
-
 	public void setGroupDAO(GroupDAO groupDAO) {
 		this.groupDAO = groupDAO;
 	}

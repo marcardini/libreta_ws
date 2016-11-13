@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.libretaDigital.interfaces.TransactionProcessor;
 import com.libretaDigital.interfaces.UploadProcessor;
 
-
 public class TransactionProcessorImpl implements TransactionProcessor {
 	
 	private Map<String, UploadProcessor> uploadProcessorMap; 
@@ -26,19 +25,16 @@ public class TransactionProcessorImpl implements TransactionProcessor {
 			if (uploadProcessor != null) {
 				context.addUsedUploadProcessor(uploadProcessor);
 				uploadProcessor.invoke(context);
-			} else {
+			} else
 				throw new RuntimeException("No existe un procesador para esta linea del archivo");
-			}
 		}
-		
 	}
 
 	public void transactionFailed(BlockUploadContext context) {
-		for (UploadProcessor u :context.getUsedUploadProcessors()) {
+		for (UploadProcessor u :context.getUsedUploadProcessors())
 			u.transactionFailed(context);
-		}
 	}
-
+	
 	@Required
 	public void setUploadProcessorMap(Map<String, UploadProcessor> uploadProcessorMap) {
 		this.uploadProcessorMap = uploadProcessorMap;
@@ -46,5 +42,4 @@ public class TransactionProcessorImpl implements TransactionProcessor {
 	public Map<String, UploadProcessor> getUploadProcessorMap() {
 		return uploadProcessorMap;
 	}
-	
 }

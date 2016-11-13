@@ -25,6 +25,8 @@
 		<property name="subClassSplitChar" value="${fileupload.subclass.split.char}" />
 		<property name="fieldsInvalidMsg" value="${fileupload.invalid.field.message}" />
 		<property name="errorMsgs" ref="errorMsgsMap" />
+		<property name="courseDAO" ref="courseDAO" />
+		
 	</bean>
 			
 	<bean id="uploadcontroller" class="com.libretaDigital.controller.FileUploadController">
@@ -43,6 +45,10 @@
 
 	<util:map id="errorMsgsMap" key-type="java.lang.String" value-type="java.lang.String">
 		<entry key="genericError" value="${upload.genericError}" />
+		<entry key="nullField" value="${upload.nullField}" />
+		<entry key="emptyField" value="${upload.emptyField}" />
+		<entry key="invalidLengthField" value="${upload.invalidLengthField}" />
+		<entry key="dateInvalidFormat" value="${upload.dateInvalidFormat}" />
 	</util:map>
 
 	<bean id="upload.fileImporter" class="com.libretaDigital.fileupload.FileImporter">

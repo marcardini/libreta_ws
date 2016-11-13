@@ -33,6 +33,8 @@ public class FileUploadController {
 	private FileUploadFacadeImpl fileUploadFacadeImpl;
 	
 	private FileUploadType selectedFileType;
+	
+	private MultipartFile file;
 
 	@RequestMapping(value = "/fileUpload", method = RequestMethod.GET)
 	public ModelAndView FileUpload() {
@@ -52,11 +54,14 @@ public class FileUploadController {
 
 			while (itr.hasNext()) {
 				String uploadedFile = itr.next();
-				MultipartFile file = request.getFile(uploadedFile);
+				file = request.getFile(uploadedFile);
 				
 				try {
 					if (CATALINA_HOME == null || CATALINA_HOME.equals("")) {
 						
+						this.clearUploadData();
+						logger.error("la variable CATALINA_HOME no esta seteada");
+						return new ResponseEntity<>("{}", HttpStatus.EXPECTATION_FAILED);
 						
 					} else {
 						ResourceBundle rb = ResourceBundle.getBundle("messages_es");
@@ -75,14 +80,12 @@ public class FileUploadController {
 									
 									fileUploadFacadeImpl.fileUpload(tomcat_address + file.getName(), file.getName(), "admin", selectedFileType.name());
 										
-								} else {
+								} else
 									logger.error("Error archivo vacio");
-								}
 
 							} catch (IOException e) {
 								logger.error("Error archivo vacio");
 							}		
-						
 					}
 				} catch(MissingResourceException e) {
 					logger.error("Hubo un error durante la carga de archivo de cupones");
@@ -97,103 +100,22 @@ public class FileUploadController {
 	}
 
 
+	public void clearUploadData() {
+		file = null;
+	}
+	
+	
 	public FileUploadFacadeImpl getFileUploadFacadeImpl() {
 		return fileUploadFacadeImpl;
 	}
-
-
 	public void setFileUploadFacadeImpl(FileUploadFacadeImpl fileUploadFacadeImpl) {
 		this.fileUploadFacadeImpl = fileUploadFacadeImpl;
 	}
-
-
 	public FileUploadType getSelectedFileType() {
 		return selectedFileType;
 	}
-
-
 	public void setSelectedFileType(FileUploadType selectedFileType) {
 		this.selectedFileType = selectedFileType;
 	}
-
-		
-	/*public String sendFile() throws Exception {
-
-		String toReturn = "";
-		
-		try {
-			if (CATALINA_HOME == null || CATALINA_HOME.equals("")) {
-				
-				toReturn = "";
-				
-			} else {
-				ResourceBundle rb = ResourceBundle.getBundle("messages_es");
-				String uploadDirectory = CATALINA_HOME.replace("\\", "/") + rb.getString("upload_tomcat_directoy");
-
-				for (Iterator<File> iterator = this.getLoadFiles().iterator(); iterator.hasNext();) {
-					File file = (File) iterator.next();
-					
-					try {
-						if (file.length() > 0) {
-
-							FileUtilities.copyFile(file, uploadDirectory);
-
-							String localPort = rb.getString("service.port");
-							String http_address = rb.getString("http_address");
-							String tomcat_address = http_address+":"+ localPort + "/files/";
-						
-							//String cleanFileName = files.get(0).getName();
-							
-							fileUploadFacadeImpl.fileUpload(tomcat_address + file.getName(), getNameFile(file), "admin", selectedFileType.name());
-
-							toReturn = "sucessfull_upload";
-							
-						} else {
-							//facesMessages.addFromResourceBundle(Severity.ERROR,"upload_label_error_empy_file");
-							logger.error("Error archivo vacio");
-							toReturn = "";
-						}
-
-					} catch (IOException e) {
-						//facesMessages.addFromResourceBundle(Severity.ERROR,"upload_label_error_empy_file");
-						logger.error("Error archivo vacio");
-						toReturn = "";
-					}		
-				}
-			}
-		} catch(MissingResourceException e) {
-			//facesMessages.addFromResourceBundle(Severity.ERROR, "upload.systemerror");
-			logger.error("Hubo un error durante la carga de archivo de cupones");
-			throw e;
-		}
-		
-		return toReturn;
-	}	
-	
-	@RequestMapping(value = "fileUpload/upload", method = RequestMethod.POST)
-	public ResponseEntity uploadFile(MultipartHttpServletRequest request) {
-
-		try {
-			Iterator<String> itr = request.getFileNames();
-
-			while (itr.hasNext()) {
-				String uploadedFile = itr.next();
-				MultipartFile file = request.getFile(uploadedFile);
-				String mimeType = file.getContentType();
-				String filename = file.getOriginalFilename();
-				byte[] bytes = file.getBytes();
-
-				FileUploadBean newFile = new FileUploadBean(filename, bytes, mimeType);
-				System.out.println("------------------------------------------------");
-				System.out.println("------ FILE:" + newFile.getFilename() + " ------");
-				System.out.println("------------------------------------------------");
-
-			}
-		} catch (Exception e) {
-			return new ResponseEntity<>("{}", HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-
-		return new ResponseEntity<>("{}", HttpStatus.OK);
-	}*/
 
 }

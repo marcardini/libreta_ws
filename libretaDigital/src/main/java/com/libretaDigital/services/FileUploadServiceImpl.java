@@ -56,8 +56,6 @@ public class FileUploadServiceImpl implements FileUploadService {
 			addStudents();
 		else if(selectedUploadType.equals(FileUploadType.GROUPS.getValue()))
 			addGroups();
-		else if(selectedUploadType.equals(FileUploadType.PROGRAM.getValue()))
-			addPrograms();
 	}
 
 	private void addProfessors() {
@@ -97,9 +95,6 @@ public class FileUploadServiceImpl implements FileUploadService {
 
 	}
 
-	private void addPrograms() {
-
-	}
 	
 	private void asynchImportFile(String urlUploadFile, String fileName, String user, IFileParser parser) {
 		String[] fileNameSplit = fileName.split("/");

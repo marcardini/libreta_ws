@@ -54,37 +54,7 @@ public class UploaderFacadeImpl implements UploaderFacade {
 			throw new InvalidURLException();
 		}
 	}
-	
-	public String asynchImportFile(final String urlUploadFile, final String originalFileName, final String user, boolean resetBalance,final IFileParser parser) throws InvalidURLException {
-		String result = "OK";
-		String[] fileNameSplit = originalFileName.split("/");
-		fileNameSplit = fileNameSplit[fileNameSplit.length-1].split("\\\\");
-		String originalName = fileNameSplit[fileNameSplit.length-1];
-		try {
-			final FileUploadBlockManager  currentUploading = fileUploadManagerFactory.create(urlUploadFile, originalName, user, parser);
-			currentUploading.setResetBalance(resetBalance);
-			uploadingAndToUpload.add(currentUploading);
-			
-			asynchTaskExcecutor.execute( new Runnable() {
-				public void run() throws RuntimeException  {
-					try {
-						parser.beforeParseFile();
-						fileImporter.processFileImport(currentUploading);
-						addToAlreadyUploadedFiles(currentUploading);
-						uploadingAndToUpload.remove(currentUploading);
-					}catch (IOException ex) {
-						uploadingAndToUpload.remove(currentUploading);
-						logger.error("Error on procces file URL.", ex);
-					}
-		         }
-		    });
-		}catch (Throwable e) {
-			logger.error("Error on procces file URL.", e);
-			throw new InvalidURLException();
-		}
-		return result;
-	}
-	
+		
 	@Override
 	public String asynchImportLocalFile(final String urlUploadFile, final String originalFileName, final String user, boolean resetBalance,final IFileParser parser) throws InvalidURLException {
 		String result = "OK";
@@ -159,9 +129,6 @@ public class UploaderFacadeImpl implements UploaderFacade {
 		return result;
 	}
 	
-	
-/****************Protected Methoods******************************************************/
-	
 	protected void addToAlreadyUploadedFiles(FileUploadBlockManager blockManager) {
 		alreadyUploadedFiles.add(0,createFileUploadSummaryDTO(blockManager));
 		
@@ -185,7 +152,6 @@ public class UploaderFacadeImpl implements UploaderFacade {
 		}
 	}
 	
-	
 	protected FileUploadSummaryDTO createFileUploadSummaryDTO(FileUploadBlockManager blockManager) {
 		FileUploadSummaryDTO sumaryDTO = new FileUploadSummaryDTO();
 		sumaryDTO.setFileName(blockManager.getFileName());
@@ -205,7 +171,6 @@ public class UploaderFacadeImpl implements UploaderFacade {
 		return sumaryDTO;
 	}
 	
-		
 	public int getUploadHistorySize() {
 		return uploadHistorySize;
 	}
@@ -213,7 +178,6 @@ public class UploaderFacadeImpl implements UploaderFacade {
 	public void setUploadHistorySize(int uploadHistorySize) {
 		this.uploadHistorySize = uploadHistorySize;
 	}
-
 	public ThreadPoolTaskExecutor getAsynchTaskExcecutor() {
 		return asynchTaskExcecutor;
 	}
@@ -221,7 +185,6 @@ public class UploaderFacadeImpl implements UploaderFacade {
 	public void setAsynchTaskExcecutor(ThreadPoolTaskExecutor asynchTaskExcecutor) {
 		this.asynchTaskExcecutor = asynchTaskExcecutor;
 	}
-	
 	public FileUploadBlockManagerFactory getFileUploadManagerFactory() {
 		return fileUploadManagerFactory;
 	}
@@ -229,15 +192,11 @@ public class UploaderFacadeImpl implements UploaderFacade {
 	public void setFileUploadManagerFactory(FileUploadBlockManagerFactory fileUploadManagerFactory) {
 		this.fileUploadManagerFactory = fileUploadManagerFactory;
 	}
-	
 	public FileImporter getFileImporter() {
 		return fileImporter;
 	}
 	@Required
 	public void setFileImporter(FileImporter fileImporter) {
 		this.fileImporter = fileImporter;
-	}
-
-	
-	
+	}	
 }

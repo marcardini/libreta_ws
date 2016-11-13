@@ -6,16 +6,18 @@ import java.util.List;
 public class Course {
 
 	private Long oid;
+	private String courseName;
 	private List<Group> groupsList;
 	private List<Subject> subjectsList;
 	
 	public Course(){}
 	
-	public Course(List<Subject> subjects){
-		this.subjectsList = subjects;
+	public Course(String name){
+		this.courseName = name;
 	}
 	
-	public Course(List<Group> groups, List<Subject> subjects){
+	public Course(String name, List<Group> groups, List<Subject> subjects){
+		this.courseName = name;
 		this.groupsList = groups;
 		this.subjectsList = subjects;
 	}
@@ -61,6 +63,14 @@ public class Course {
 
 	public void setOid(Long oid) {
 		this.oid = oid;
+	}
+
+	public String getCourseName() {
+		return courseName;
+	}
+
+	public void setCourseName(String courseName) {
+		this.courseName = courseName;
 	}
 	
 }

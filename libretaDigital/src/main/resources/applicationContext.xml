@@ -28,6 +28,9 @@
 	<bean id="groupDAO" class="com.libretaDigital.DAO.GroupDAO"
 		parent="genericDAO" />
 		
+	<bean id="courseDAO" class="com.libretaDigital.DAO.CourseDAO"
+		parent="genericDAO" />
+		
 
 	<bean id="md5Encoder"
 		class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />

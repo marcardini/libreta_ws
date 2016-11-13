@@ -8,7 +8,7 @@
 		<property name="assistControlFacadeImpl" ref="assistControlFacade" />
 	</bean>
 
-	<bean id="assistControlFacade" class="com.libretaDigital.fileupload.AssistControlFacadeImpl">
+	<bean id="assistControlFacade" class="com.libretaDigital.assistControl.AssistControlFacadeImpl">
 		<property name="studentDAO" ref="studentDAO" />
 		<property name="groupDAO" ref="groupDAO" />
 	</bean>
