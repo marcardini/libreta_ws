@@ -1,1 +1,0 @@
-create database libreta_digital;
