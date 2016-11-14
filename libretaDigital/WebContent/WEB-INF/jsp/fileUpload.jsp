@@ -37,8 +37,7 @@
 
 			<div class="col-md-4">
 				<h3>
-					Seleccionar tipo de carga: <select name="selectedType"
-						ng-model="selectedType">
+					Seleccionar tipo de carga: <select name="selectedType" ng-model="selectedType">
 						<option value="PROFESSOR">Profesores</option>
 						<option value="STUDENT">Estudiantes</option>
 						<option value="GROUP">Grupos</option>

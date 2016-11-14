@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -47,7 +48,8 @@ public class FileUploadController {
 	
 	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "fileUpload/upload", method = RequestMethod.POST)
-	public ResponseEntity uploadFile(MultipartHttpServletRequest request) {
+	
+	public ResponseEntity uploadFile(MultipartHttpServletRequest request, @RequestParam(value="type", required=true) String type) {
 
 		try {
 			Iterator<String> itr = request.getFileNames();
@@ -76,9 +78,13 @@ public class FileUploadController {
 									String http_address = rb.getString("http_address");
 									String tomcat_address = http_address+":"+ localPort + "/files/";
 									
+<<<<<<< HEAD
 									selectedFileType = FileUploadType.GROUPS;
+=======
+									//selectedFileType = selec;
+>>>>>>> 3731f18014ba5adaf1c9dfe71d289d3812cd2166
 									
-									fileUploadFacadeImpl.fileUpload(tomcat_address + file.getName(), file.getName(), "admin", selectedFileType.name());
+									fileUploadFacadeImpl.fileUpload(tomcat_address + file.getName(), file.getName(), "admin", type);
 										
 								} else
 									logger.error("Error archivo vacio");
