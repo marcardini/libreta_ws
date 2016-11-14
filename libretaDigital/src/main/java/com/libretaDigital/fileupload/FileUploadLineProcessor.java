@@ -17,6 +17,7 @@ public class FileUploadLineProcessor implements UploadProcessor {
 	private ProfessorDAO professorDAO;
 	private StudentDAO studentDAO;
 	private GroupDAO groupDAO;
+	private String defaultPassword;
 	
 	@Override
 	public void invoke(BlockUploadContext context) {
@@ -25,14 +26,14 @@ public class FileUploadLineProcessor implements UploadProcessor {
 		
 		if(line.getUpoloadProcessorId().equals(UploadProcessorId.PROFESSOR)){
 			log.info("about to insert or update Professor in FileUploadLineProcessor");
-			Professor professor = new Professor(line.getName(), line.getLastName(), line.getPassword(), line.getBirthDate(), line.getEmail(), line.getGender(), line.getEmployeeSince());	
+			Professor professor = new Professor(line.getName(), line.getLastName(), defaultPassword, line.getBirthDate(), line.getEmail(), line.getGender(), line.getEmployeeSince());	
 			professorDAO.save(professor);
 			return;
 		}
 		
 		if(line.getUpoloadProcessorId().equals(UploadProcessorId.STUDENT)){
 			log.info("about to insert or update Student in FileUploadLineProcessor");
-			Student student = new Student(line.getName(), line.getLastName(), line.getBirthDate(), line.getGender(), line.getEmail());
+			Student student = new Student(line.getName(), line.getLastName(), line.getBirthDate(), line.getGender(), line.getEmail(), line.isCurrentStudent());
 			studentDAO.save(student);
 			return;
 		}
@@ -64,6 +65,14 @@ public class FileUploadLineProcessor implements UploadProcessor {
 	}
 	public void setGroupDAO(GroupDAO groupDAO) {
 		this.groupDAO = groupDAO;
+	}
+
+	public String getDefaultPassword() {
+		return defaultPassword;
+	}
+
+	public void setDefaultPassword(String defaultPassword) {
+		this.defaultPassword = defaultPassword;
 	}
 
 }

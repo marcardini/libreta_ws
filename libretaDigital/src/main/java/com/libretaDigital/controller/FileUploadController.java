@@ -76,7 +76,7 @@ public class FileUploadController {
 									String http_address = rb.getString("http_address");
 									String tomcat_address = http_address+":"+ localPort + "/files/";
 									
-									selectedFileType = FileUploadType.STUDENTS;
+									selectedFileType = FileUploadType.GROUPS;
 									
 									fileUploadFacadeImpl.fileUpload(tomcat_address + file.getName(), file.getName(), "admin", selectedFileType.name());
 										
