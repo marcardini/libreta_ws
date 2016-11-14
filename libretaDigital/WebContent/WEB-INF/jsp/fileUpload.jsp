@@ -38,9 +38,9 @@
 			<div class="col-md-4">
 				<h3>
 					Seleccionar tipo de carga: <select name="selectedType" ng-model="selectedType">
-						<option value="PROFESSOR">Profesores</option>
-						<option value="STUDENT">Estudiantes</option>
-						<option value="GROUP">Grupos</option>
+						<option value="PROFESSORS">Profesores</option>
+						<option value="STUDENTS">Estudiantes</option>
+						<option value="GROUPS">Grupos</option>
 					</select><br>
 				</h3>
 				<form action="api/upload" class="my-drop-zone drop-zone dropzone"

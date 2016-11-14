@@ -16,4 +16,6 @@ public enum FileUploadType {
 	public String getValue () {
 		return value;
 	}
+	
+	
 }
