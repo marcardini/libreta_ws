@@ -45,6 +45,10 @@ public class FileUploadStudentParser implements IFileParser {
 		professorUploadLine.setBirthDate(validateAndGetTimestampField(fields[i], true, 8, i));
 		i++;
 		professorUploadLine.setGender(validateAndGetGenderField(fields[i], true, i));
+		i++;
+		professorUploadLine.setEmail(validateAndGetStringField(fields[i], true, 255, i));
+		i++;
+		professorUploadLine.setCurrentStudent(validateAndGetBooleanField(fields[i], true, 1, i));
 
 		professorUploadLine.setUpoloadProcessorId(UploadProcessorId.STUDENT);
 
@@ -139,6 +143,30 @@ public class FileUploadStudentParser implements IFileParser {
 				gender = Gender.FEMALE;
 		}
 		return gender;
+	}
+	
+	private boolean validateAndGetBooleanField(String field, boolean checkIsEmpty, int checkLength, int index) throws BuildLineException {
+
+		boolean bField = true;
+
+		if (field != null && !field.equals("")) {
+
+			field = field.trim().toUpperCase();
+
+			// Chequea vacio
+			if (checkIsEmpty && field.isEmpty() )
+				throw new BuildLineException(errorMsgs.get("emptyField") + index);
+
+			if (field.equals("S"))
+				bField = true;
+			else if (field.equals("N"))
+				bField = false;
+
+		} else {
+			throw new BuildLineException(errorMsgs.get("invalidLengthField") + index);
+		}
+		return bField;
+
 	}
 
 	

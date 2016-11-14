@@ -45,7 +45,11 @@ public class FileUploadProfessorParser implements IFileParser {
 		i++;
 		professorUploadLine.setBirthDate(validateAndGetTimestampField(fields[i], true, 8, i));
 		i++;
+		professorUploadLine.setEmail(validateAndGetStringField(fields[i], true, 255, i));
+		i++;
 		professorUploadLine.setGender(validateAndGetGenderField(fields[i], true, i));
+		i++;
+		professorUploadLine.setEmployeeSince(validateAndGetTimestampField(fields[i], true, 8, i));
 
 		professorUploadLine.setUpoloadProcessorId(UploadProcessorId.PROFESSOR);
 

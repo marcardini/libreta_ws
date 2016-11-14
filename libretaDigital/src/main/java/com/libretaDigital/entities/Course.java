@@ -6,18 +6,18 @@ import java.util.List;
 public class Course {
 
 	private Long oid;
-	private String courseName;
+	private String name;
 	private List<Group> groupsList;
 	private List<Subject> subjectsList;
 	
 	public Course(){}
 	
 	public Course(String name){
-		this.courseName = name;
+		this.name = name;
 	}
 	
 	public Course(String name, List<Group> groups, List<Subject> subjects){
-		this.courseName = name;
+		this.name = name;
 		this.groupsList = groups;
 		this.subjectsList = subjects;
 	}
@@ -65,12 +65,12 @@ public class Course {
 		this.oid = oid;
 	}
 
-	public String getCourseName() {
-		return courseName;
+	public String getName() {
+		return name;
 	}
 
-	public void setCourseName(String courseName) {
-		this.courseName = courseName;
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 }
