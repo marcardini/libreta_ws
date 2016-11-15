@@ -35,8 +35,6 @@ public class FileUploadGroupParser implements IFileParser {
 	}
 
 	protected FileUploadLine buildGroupLine(String[] fields) throws BuildLineException {
-		
-		List<Course> prueba = courseDAO.getAllCourses();
 
 		FileUploadLine groupUploadLine = new FileUploadLine();
 
