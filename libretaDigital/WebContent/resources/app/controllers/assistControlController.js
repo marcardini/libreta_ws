@@ -19,7 +19,7 @@ app.controller('assistControlCtrl', ['$scope', '$filter', function ($scope, $fil
 		 }else{
 			 return "panel-danger";
 		 }
-	 }
+	 };
 	 
 	 $scope.invertlistType = function(name){
 		 if(name === "B"){			 
@@ -27,7 +27,7 @@ app.controller('assistControlCtrl', ['$scope', '$filter', function ($scope, $fil
 		 }else{
 			 return "danger";
 		 }
-	 }
+	 };
 	 
 	 $scope.arrowType = function(name){
 		 if(name === "B"){			 
@@ -35,7 +35,7 @@ app.controller('assistControlCtrl', ['$scope', '$filter', function ($scope, $fil
 		 }else{
 			 return "right";
 		 }
-	 }
+	 };
 	 
 	 $scope.title = function (name){
 		 if(name === "A"){			 
@@ -43,27 +43,40 @@ app.controller('assistControlCtrl', ['$scope', '$filter', function ($scope, $fil
 		 }else{
 			 return "Faltas";
 		 }
-	 }
+	 };
 	 
-	 $scope.cantidad = function(name){		
+	 $scope.count = function(name){		
 		 if(name === "A"){			 
 			 return $scope.presentes;
 		 }else{
 			 return $scope.ausentes;
 		 }
-	 }
+	 };
 	 
-	 $scope.presentesColor ={
+	 $scope.saveAbsences = function (){
+		 var absences = [];
+		 angular.forEach($scope.models[0].items, function(item){ 
+			 if(item.late){
+				 absences.push(item);
+			 } 		 
+		 });
+		 angular.forEach($scope.models[1].items, function(item){ 			 
+				 absences.push(item);			 	 
+		 });
+		 console.log(absences)
+	 };
+	 
+	 $scope.presentsColor ={
 //			    center    : 'lightGreen', // the color in the center of the circle. Default: #F5FBFC
 			    highlight : '#337AB7', // the highlighted section of the circle, representing the percentage number. Default: #2BCBED
 			    remaining : '#D9EDF7' // the color of the circle before highlighting occurs, representing the amount left until the percent equals 100. Default: #C8E0E8
-			}
+			};
 	 
-	 $scope.ausentesColor ={
+	 $scope.absencesColor ={
 //			    center    : 'lightGreen', // the color in the center of the circle. Default: #F5FBFC
 			    highlight : '#D9534F', // the highlighted section of the circle, representing the percentage number. Default: #2BCBED
 			    remaining : '#F2DEDE' // the color of the circle before highlighting occurs, representing the amount left until the percent equals 100. Default: #C8E0E8
-			}
+			};
 	 
 	 	$scope.selAll = function (items){
 		 angular.forEach(items, function(item) { item.selected = true; });
@@ -71,15 +84,15 @@ app.controller('assistControlCtrl', ['$scope', '$filter', function ($scope, $fil
 //	                  .concat(items)
 //	                  .concat(list.items.slice(index));
 //	      return true;
-	 	}
+	 	};
 	 
 	 	$scope.deSelAll = function (items){
 			 angular.forEach(items, function(item) { item.selected = false; });
-		 	}
+		 	};
 	 	
 		$scope.invertirSel = function (items){
 			 angular.forEach(items, function(item) { item.selected = !item.selected; });
-		 	}
+		 	};
 		
 		$scope.getSeleccionados = function(items){
 			var array = [];
@@ -90,7 +103,7 @@ app.controller('assistControlCtrl', ['$scope', '$filter', function ($scope, $fil
 			}
 			});
 			return array;			
-		}
+		};
 		
 		$scope.exchange = function (item, name){
 			var entra = 1;
@@ -105,18 +118,18 @@ app.controller('assistControlCtrl', ['$scope', '$filter', function ($scope, $fil
 			   		$scope.models[sale].items.splice(i, 1);
 			   	}
 			}		
-		}
+		};
 		
-		$scope.BtoA = function (item){			
-			$scope.models[0].items.push(item);					
-			for(var i = $scope.models[1].items.length-1; i >= 0; i--) {
-			   	if( $scope.models[1].items[i].id ===  item.id) {
-			   		$scope.models[1].items.splice(i, 1);
-			   	}
-			}		
-		}
+//		$scope.BtoA = function (item){			
+//			$scope.models[0].items.push(item);					
+//			for(var i = $scope.models[1].items.length-1; i >= 0; i--) {
+//			   	if( $scope.models[1].items[i].id ===  item.id) {
+//			   		$scope.models[1].items.splice(i, 1);
+//			   	}
+//			}		
+//		};
 		
-		$scope.llegadaTarde = function (items, name){
+		$scope.setLate = function (items, name){
 			var array = $scope.getSeleccionados(items);			
 			for(var x = 0; x < array.length; x++){
 				tmp = array[x];
@@ -125,26 +138,23 @@ app.controller('assistControlCtrl', ['$scope', '$filter', function ($scope, $fil
 					$scope.exchange(tmp, name);
 				}
 			}
-		}
+		};
 		
-		$scope.mover = function (items, name){
+		$scope.move = function (items, name){
 			var array = $scope.getSeleccionados(items);			
 			for(var x = array.length-1; x >= 0; x--){
 				tmp = array[x];				
 				$scope.exchange(tmp, name);
 			}			
-		}
+		};
 	 
 	    $scope.$watch('models', function() {
 	    	$scope.presentes = $scope.models[0].items.length;
 	        $scope.ausentes = $scope.models[1].items.length;
 	        $scope.total = students.length;
 	        $scope.presentesPer = ($scope.presentes * 100)/$scope.total;
-	        $scope.ausentesPer = ($scope.ausentes * 100)/$scope.total;
-	        
-	        angular.forEach($scope.models[1].items, function(item) { item.late = false; });
-	        
-	        
+	        $scope.ausentesPer = ($scope.ausentes * 100)/$scope.total;	        
+	        angular.forEach($scope.models[1].items, function(item) { item.late = false; });      
 	    }, true);
 
 	    /**
@@ -183,7 +193,7 @@ app.controller('assistControlCtrl', ['$scope', '$filter', function ($scope, $fil
 	                  .concat(items)
 	                  .concat(list.items.slice(index));
 	      return true;
-	    }
+	    };
 
 	    /**
 	     * Last but not least, we have to remove the previously dragged items in the

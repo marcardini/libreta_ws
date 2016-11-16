@@ -32,6 +32,12 @@
 }
 
 /* CONTROL DE ASISTENCIAS*/
+#btn-save{
+    float: right;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-right: 20px;
+}
 
 .pc-percent{
 	font-size: 2.3em;

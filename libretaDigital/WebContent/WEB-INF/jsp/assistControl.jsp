@@ -6,17 +6,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <%
-	
 	String pageTitle = (String) request.getAttribute("tituloPagina");
 	if (pageTitle == null) {
 		pageTitle = "Libreta Digital";
 	}
-	
+
 	String students = (String) request.getAttribute("students");
 	if (students == null) {
 		students = "[]";
 	}
-	
+
 	String groups = (String) request.getAttribute("groups");
 	if (groups == null) {
 		groups = "[]";
@@ -24,10 +23,12 @@
 %>
 
 <script type="text/javascript">
-
-var students = <%=students%>;
-var groups = <%=groups%>;
-
+	var students =
+<%=students%>
+	;
+	var groups =
+<%=groups%>
+	;
 </script>
 
 
@@ -44,9 +45,21 @@ var groups = <%=groups%>;
 
 	<div class="container" ng-init="">
 		<div class="page-header">
-			<h1>
-				Control de Asistencias <small>Grupo 4°A : Matematicas </small><small class="date-small"> {{date | date:'dd-MM-yyyy'}}</small>
-			</h1>
+			<div class="row">
+				<div class="col-md-8">
+					<h1>
+						Control de Asistencias <small>Grupo 4°A : Matematicas </small>
+						<button id="btn-save" class="btn btn-lg btn-danger" ng-click="saveAbsences()">Guardar</button>
+					</h1>
+				</div>
+				<div class="col-md-4">
+					
+					<h1>
+						<small class="date-small"> {{date | date:'dd-MM-yyyy'}}</small>
+
+					</h1>
+				</div>
+			</div>
 		</div>
 
 		<div class=row">
@@ -57,12 +70,12 @@ var groups = <%=groups%>;
 					<div class="panel {{listType(list.listName)}}" ng-class="">
 						<div class="panel-heading">
 							<h1 class="panel-title pull-left title-lista">
-								{{title(list.listName)}} <span class="badge">{{cantidad(list.listName)}}</span>
+								{{title(list.listName)}} <span class="badge">{{count(list.listName)}}</span>
 							</h1>
 
 
 							<div class="btn-group pull-right">
-								<button id="btn-late" class="btn btn-danger" ng-click="llegadaTarde(list.items, list.listName)">
+								<button id="btn-late" class="btn btn-danger" ng-click="setLate(list.items, list.listName)">
 									<span class="glyphicon glyphicon-time"></span>
 								</button>
 								<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown"
@@ -72,7 +85,7 @@ var groups = <%=groups%>;
 								<ul class="dropdown-menu">
 									<li><a href="#" ng-click="selAll(list.items)">Seleccionar Todo</a></li>
 									<li><a href="#" ng-click="deSelAll(list.items)">Deseleccionar Todo</a></li>
-									<li><a href="#" ng-click="invertirSel(list.items)">Invertir Seleccion</a></li>									
+									<li><a href="#" ng-click="invertirSel(list.items)">Invertir Seleccion</a></li>
 									<li role="separator" class="divider"></li>
 									<li><a href="#">Separated link</a></li>
 								</ul>
@@ -81,10 +94,11 @@ var groups = <%=groups%>;
 
 						</div>
 						<div class="panel-body">
-						
-							<button class="btn btn-{{invertlistType(list.listName)}} btn-move" ng-click="mover(list.items, list.listName)">
-									<span class="glyphicon glyphicon-arrow-{{arrowType(list.listName)}}"></span>
-								</button>
+
+							<button class="btn btn-{{invertlistType(list.listName)}} btn-move"
+								ng-click="move(list.items, list.listName)">
+								<span class="glyphicon glyphicon-arrow-{{arrowType(list.listName)}}"></span>
+							</button>
 							<ul dnd-list dnd-drop="onDrop(list, item, index)">
 								<li ng-repeat="item in list.items" dnd-draggable="getSelectedItemsIncluding(list, item)"
 									dnd-dragstart="onDragstart(list, event)" dnd-moved="onMoved(list)" dnd-dragend="list.dragging = false"
@@ -104,11 +118,11 @@ var groups = <%=groups%>;
 					<div class=row">
 						<div class="col-md-3 porcentaje">
 							<h3 class="text-center">Asistencia</h3>
-							<percent-circle percent="presentesPer" colors="presentesColor"></percent-circle>
+							<percent-circle percent="presentesPer" colors="presentsColor"></percent-circle>
 						</div>
 						<div class="col-md-3 porcentaje">
 							<h3 class="text-center">Ausencia</h3>
-							<percent-circle percent="ausentesPer" colors="ausentesColor"></percent-circle>
+							<percent-circle percent="ausentesPer" colors="absencesColor"></percent-circle>
 						</div>
 					</div>
 				</div>
