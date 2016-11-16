@@ -20,8 +20,8 @@ public class AssistControlFacadeImpl implements AssistControlFacade {
 	}
 	
 	@Override
-	public List<Group> getGroupsByProfessorId(BigInteger professorId){
-		return groupDAO.getGroupsByProfessorId(professorId);
+	public List<Group> getGroupsByProfessorId(BigInteger l){
+		return groupDAO.getGroupsByProfessorId(l);
 	}
 
 	

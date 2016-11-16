@@ -89,7 +89,7 @@ var groups = <%=groups%>;
 								<li ng-repeat="item in list.items" dnd-draggable="getSelectedItemsIncluding(list, item)"
 									dnd-dragstart="onDragstart(list, event)" dnd-moved="onMoved(list)" dnd-dragend="list.dragging = false"
 									dnd-selected="item.selected = !item.selected" ng-class="{'selected': item.selected}"
-									ng-hide="list.dragging && item.selected">{{item.label | capitalize }} <span id="late-icon" ng-show="item.late"
+									ng-hide="list.dragging && item.selected">{{item.label}} <span id="late-icon" ng-show="item.late"
 									class="glyphicon glyphicon-time pull-right" aria-hidden="true"></span></li>
 							</ul>
 						</div>

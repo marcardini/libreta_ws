@@ -1,5 +1,6 @@
 package com.libretaDigital.test.assistance;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.junit.Assert;
@@ -32,7 +33,7 @@ public class AssistControlTest {
 	@Test
 	public void getGroupsByProfessor() {
 		
-		List<Group> result = assistControlFacadeImpl.getGroupsByProfessorId(1L);
+		List<Group> result = assistControlFacadeImpl.getGroupsByProfessorId(BigInteger.ONE);
 		
 		Assert.assertEquals(1, result.size());
 	}

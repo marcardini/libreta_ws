@@ -19,8 +19,8 @@
 	<!-- TESTING -->
 	
 	
-	<bean id="assistcontroltest" class="com.libretaDigital.test.assistance.AssistControlTest">
-		<property name="assistControlFacadeImpl" ref="assistControlFacade" />
-	</bean>
+<!-- 	<bean id="assistcontroltest" class="com.libretaDigital.test.assistance.AssistControlTest"> -->
+<!-- 		<property name="assistControlFacadeImpl" ref="assistControlFacade" /> -->
+<!-- 	</bean> -->
 
 </beans>

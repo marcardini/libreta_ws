@@ -1,4 +1,4 @@
-app.controller('assistControlCtrl', ['$scope', function ($scope) {
+app.controller('assistControlCtrl', ['$scope', '$filter', function ($scope, $filter) {
 	
 	$scope.date = new Date();
 	
@@ -196,7 +196,7 @@ app.controller('assistControlCtrl', ['$scope', function ($scope) {
 	    // Generate the initial model
 	    angular.forEach($scope.models[0].items, function(item) {  	
 	    	  item.late = false;
-	    	  item.label =  item.name +" "+ item.lastName;         
+	    	  item.label =  $filter('capitalize')(item.name) +" "+ $filter('capitalize')(item.lastName);         
 	    
 	    });
 
