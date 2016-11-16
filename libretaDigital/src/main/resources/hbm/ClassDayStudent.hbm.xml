@@ -14,9 +14,9 @@
 			<type name="org.hibernate.type.DateType"/>
 		</property>
 		
-		<property name="ClassDayRegistrationType" column="class_day_registration_type">
+		<property name="EventRegistrationType" column="event_registration_type">
 			<type name="org.hibernate.type.EnumType">
-				<param name="enumClass">com.libretaDigital.utils.ClassDayRegistrationType</param>
+				<param name="enumClass">com.libretaDigital.utils.EventRegistrationType</param>
 				<param name="type">255</param>
 				<param name="useNamed">true</param>
 			</type>

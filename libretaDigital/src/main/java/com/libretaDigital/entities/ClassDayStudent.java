@@ -2,11 +2,11 @@ package com.libretaDigital.entities;
 
 import java.math.BigDecimal;
 
-import com.libretaDigital.utils.ClassDayRegistrationType;
+import com.libretaDigital.utils.EventRegistrationType;
 
 public class ClassDayStudent extends ClassDay{
 	
-	private Enum<ClassDayRegistrationType> classDayRegistrationType;
+	private Enum<EventRegistrationType> eventRegistrationType;
 	private BigDecimal value;
 	
 	public BigDecimal getValue() {
@@ -15,11 +15,12 @@ public class ClassDayStudent extends ClassDay{
 	public void setValue(BigDecimal value) {
 		this.value = value;
 	}
-	public Enum<ClassDayRegistrationType> getClassDayRegistrationType() {
-		return classDayRegistrationType;
+	public Enum<EventRegistrationType> getEventRegistrationType() {
+		return eventRegistrationType;
 	}
-	public void setClassDayRegistrationType(Enum<ClassDayRegistrationType> classDayRegistrationType) {
-		this.classDayRegistrationType = classDayRegistrationType;
+	public void setEventRegistrationType(Enum<EventRegistrationType> eventRegistrationType) {
+		this.eventRegistrationType = eventRegistrationType;
 	}
+
 
 }
