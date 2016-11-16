@@ -1,5 +1,6 @@
 package com.libretaDigital.DAO;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +54,7 @@ public class GroupDAO extends GenericDAO<Group> implements IGroupDAO{
 		return group;
 	}
 
-	public List<Group> getGroupsByProfessorId(Long professorId){
+	public List<Group> getGroupsByProfessorId(BigInteger professorId){
 		
 		log.debug(String.format("Querying getGroupsByProfessorId. Parameters: " + professorId));
 
@@ -64,14 +65,20 @@ public class GroupDAO extends GenericDAO<Group> implements IGroupDAO{
 			@SuppressWarnings("unchecked")
 			@Override
 			public List<Group> doInHibernate(Session session) throws HibernateException {
-				String oQuery = "select g.iod, g.name from course c, group_ g, professor p where c.professor_id = p.oid and g.course_id = c.oid ";
-
-				if (professorId != null && professorId > 0)
-					oQuery = oQuery.concat("and p.oid = :professorId ");
+				String oQuery = "select g.oid, g.name from course c, group_ g, professor p where c.professor_id = p.oid and g.course_id = c.oid ";
+				boolean hasParameter = false;
+				if (professorId != null && professorId.compareTo(BigInteger.ONE) > 0){
+					oQuery = oQuery.concat("and p.oid = ? ");
+					hasParameter = !hasParameter;
+				}
+					
 
 				SQLQuery query = session.createSQLQuery(oQuery);
-
+				if (hasParameter)
+					query.setBigInteger(0, professorId);
+				
 				List<Object[]> partialResult = query.list();
+				
 
 				if (partialResult != null && !partialResult.isEmpty())
 					result = getGroupByProfessorIdFromPartialResult(partialResult);
@@ -90,7 +97,7 @@ public class GroupDAO extends GenericDAO<Group> implements IGroupDAO{
 			Group group = new Group();
 
 			if (oPartialResult[0] != null && !oPartialResult[0].equals("")) {
-				Long id = (Long) oPartialResult[0];
+				BigInteger id = (BigInteger) oPartialResult[0];
 				group.setOid(id);
 			}
 

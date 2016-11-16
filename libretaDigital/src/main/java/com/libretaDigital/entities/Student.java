@@ -4,9 +4,13 @@ import java.awt.Image;
 import java.util.Date;
 import java.util.List;
 
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+
 import com.libretaDigital.utils.Gender;
 
+@JsonAutoDetect
 public class Student extends Person {
+
 
 	private Course course;
 	private Group group;

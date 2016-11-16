@@ -1,10 +1,13 @@
 package com.libretaDigital.entities;
 
+import java.math.BigInteger;
 import java.util.List;
+import org.codehaus.jackson.annotate.JsonAutoDetect;
 
+@JsonAutoDetect
 public class Group {
 
-	private Long oid;
+	private BigInteger oid;
 	private Course course;
 	private String name;
 	private int year;
@@ -71,10 +74,10 @@ public class Group {
 	public void setCourse(Course course) {
 		this.course = course;
 	}
-	public Long getOid() {
+	public BigInteger getOid() {
 		return oid;
 	}
-	public void setOid(Long oid) {
+	public void setOid(BigInteger oid) {
 		this.oid = oid;
 	}
 	public int getYear() {

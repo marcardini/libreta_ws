@@ -1,5 +1,6 @@
 package com.libretaDigital.DAO;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,9 @@ import org.springframework.orm.hibernate5.HibernateCallback;
 import com.libretaDigital.entities.*;
 import com.libretaDigital.hibernate.GenericDAO;
 import com.libretaDigital.interfaces.*;
+
+import sun.nio.cs.ext.Big5;
+
 import org.apache.log4j.Logger;
 
 public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
@@ -61,13 +65,17 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 			@SuppressWarnings("unchecked")
 			@Override
 			public List<Student> doInHibernate(Session session) throws HibernateException {
-				String oQuery = "select s.id, s.name, s.last_name " + "from student s, group_ g "
-						+ "where s.group_id = g.id ";
-
-				if (groupCode != null && !groupCode.equals(""))
-					oQuery = oQuery.concat("and upper(g.name) = upper(:groupCode) ");
+				String oQuery = "select s.oid, s.name, s.last_name  " + "from student s, group_ g "
+						+ "where s.group_id = g.oid ";
+				boolean hasParameter = false;
+				if (groupCode != null && !groupCode.equals("")) {
+					oQuery = oQuery.concat("and upper(g.name) = ? ");
+					hasParameter = !hasParameter;
+				}
 
 				SQLQuery query = session.createSQLQuery(oQuery);
+				if (hasParameter)
+					query.setString(0, groupCode);
 
 				List<Object[]> partialResult = query.list();
 
@@ -88,7 +96,7 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 			Student student = new Student();
 
 			if (oPartialResult[0] != null && !oPartialResult[0].equals("")) {
-				int id = (int) oPartialResult[0];
+				BigInteger id = (BigInteger) oPartialResult[0];
 				student.setOid(id);
 			}
 

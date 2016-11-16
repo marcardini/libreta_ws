@@ -1,5 +1,6 @@
 package com.libretaDigital.assistControl;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import com.libretaDigital.DAO.GroupDAO;
@@ -19,7 +20,7 @@ public class AssistControlFacadeImpl implements AssistControlFacade {
 	}
 	
 	@Override
-	public List<Group> getGroupsByProfessorId(Long professorId){
+	public List<Group> getGroupsByProfessorId(BigInteger professorId){
 		return groupDAO.getGroupsByProfessorId(professorId);
 	}
 

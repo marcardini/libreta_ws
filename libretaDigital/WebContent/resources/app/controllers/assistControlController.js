@@ -2,12 +2,13 @@ app.controller('assistControlCtrl', ['$scope', function ($scope) {
 	
 	$scope.date = new Date();
 	
-	
+	console.log(students);
+	console.log(groups);
 	
 	/* LISTAS */
 	
 	 $scope.models = [
-	      {listName: "A", items: [], dragging: false},
+	      {listName: "A", items: students, dragging: false},
 	      {listName: "B", items: [], dragging: false}
 	    ];
 	 
@@ -137,7 +138,7 @@ app.controller('assistControlCtrl', ['$scope', function ($scope) {
 	    $scope.$watch('models', function() {
 	    	$scope.presentes = $scope.models[0].items.length;
 	        $scope.ausentes = $scope.models[1].items.length;
-	        $scope.total = 16;
+	        $scope.total = students.length;
 	        $scope.presentesPer = ($scope.presentes * 100)/$scope.total;
 	        $scope.ausentesPer = ($scope.ausentes * 100)/$scope.total;
 	        
@@ -193,18 +194,10 @@ app.controller('assistControlCtrl', ['$scope', function ($scope) {
 	    };
 
 	    // Generate the initial model
-	    angular.forEach($scope.models, function(list) {
-	      for (var i = 1; i <= 8; ++i) {
-	    	  var item = {
-	    			  id: i,
-	    			  label: "Item " + list.listName + i,	    	  
-	    			  late: false
-	    			  	  
-	    	  };
-	    	  
-	          list.items.push(item);
+	    angular.forEach($scope.models[0].items, function(item) {  	
+	    	  item.late = false;
+	    	  item.label =  item.name +" "+ item.lastName;         
 	    
-	      }
 	    });
 
 	    // Model to JSON for demo purpose

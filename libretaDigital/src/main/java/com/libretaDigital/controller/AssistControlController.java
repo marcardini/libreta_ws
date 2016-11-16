@@ -1,5 +1,6 @@
 package com.libretaDigital.controller;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.libretaDigital.assistControl.AssistControlFacadeImpl;
 import com.libretaDigital.entities.Group;
 import com.libretaDigital.entities.Student;
@@ -19,13 +22,26 @@ public class AssistControlController {
 	private AssistControlFacadeImpl assistControlFacadeImpl;
 	
 	private String groupCode;
-	private Long professorId;
+	private BigInteger professorId;
 	
 	@RequestMapping(value = "/assistControl", method = RequestMethod.GET)
-	public ModelAndView FileUpload() {
+	public ModelAndView AssistControl() {
 		ModelAndView page = new ModelAndView("assistControl");
 		page.addObject("tituloPagina", "Libreta Digital - Control de Asistencias");
 		page.addObject("codMenu", "C1");
+		
+		groupCode = "1A";
+		professorId = BigInteger.ONE;
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			page.addObject("students" , mapper.writeValueAsString(this.getStudentsByCode()));
+			page.addObject("groups", mapper.writeValueAsString(this.getGroupsByProfessor()));
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 		return page;
 	}
 	
@@ -52,10 +68,10 @@ public class AssistControlController {
 	public void setAssistControlFacadeImpl(AssistControlFacadeImpl assistControlFacadeImpl) {
 		this.assistControlFacadeImpl = assistControlFacadeImpl;
 	}
-	public Long getProfessorId() {
+	public BigInteger getProfessorId() {
 		return professorId;
 	}
-	public void setProfessorId(Long professorId) {
+	public void setProfessorId(BigInteger professorId) {
 		this.professorId = professorId;
 	}
 

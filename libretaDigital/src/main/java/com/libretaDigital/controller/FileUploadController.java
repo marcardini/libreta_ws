@@ -31,10 +31,8 @@ public class FileUploadController {
 	private Logger logger = Logger.getLogger(FileUploadController.class);
 	
 	@Autowired
-	private FileUploadFacadeImpl fileUploadFacadeImpl;
-	
-	private FileUploadType selectedFileType;
-	
+	private FileUploadFacadeImpl fileUploadFacadeImpl;	
+	private FileUploadType selectedFileType;	
 	private MultipartFile file;
 
 	@RequestMapping(value = "/fileUpload", method = RequestMethod.GET)
@@ -50,45 +48,33 @@ public class FileUploadController {
 	@RequestMapping(value = "fileUpload/upload", method = RequestMethod.POST)
 	
 	public ResponseEntity uploadFile(MultipartHttpServletRequest request, @RequestParam(value="type", required=true) String type) {
-
 		try {
 			Iterator<String> itr = request.getFileNames();
-
 			while (itr.hasNext()) {
 				String uploadedFile = itr.next();
-				file = request.getFile(uploadedFile);
-				
+				file = request.getFile(uploadedFile);				
 				try {
-					if (CATALINA_HOME == null || CATALINA_HOME.equals("")) {
-						
+					if (CATALINA_HOME == null || CATALINA_HOME.equals("")) {						
 						this.clearUploadData();
 						logger.error("la variable CATALINA_HOME no esta seteada");
-						return new ResponseEntity<>("{}", HttpStatus.EXPECTATION_FAILED);
-						
+						return new ResponseEntity<>("{}", HttpStatus.EXPECTATION_FAILED);						
 					} else {
 						ResourceBundle rb = ResourceBundle.getBundle("messages_es");
-						String uploadDirectory = CATALINA_HOME.replace("\\", "/") + rb.getString("upload_tomcat_directoy");
-							
+						String uploadDirectory = CATALINA_HOME.replace("\\", "/") + rb.getString("upload_tomcat_directoy");							
 							try {
 								if (file.getSize() > 0) {
-
 									FileUtilities.copyFile(file, uploadDirectory);
-
 									String localPort = rb.getString("service.port");
 									String http_address = rb.getString("http_address");
-									String tomcat_address = http_address+":"+ localPort + "/files/";
-									
-									selectedFileType = FileUploadType.valueOf(type);
-									
-									fileUploadFacadeImpl.fileUpload(tomcat_address + file.getName(), file.getName(), "admin", selectedFileType.name());
-										
+									String tomcat_address = http_address+":"+ localPort + "/files/";									
+									selectedFileType = FileUploadType.valueOf(type);									
+									fileUploadFacadeImpl.fileUpload(tomcat_address + file.getName(), file.getName(), "admin", selectedFileType.name());										
 								} else
 									logger.error("Error archivo vacio");
-
 							} catch (IOException e) {
 								logger.error("Error archivo vacio");
 							}		
-					}
+						}
 				} catch(MissingResourceException e) {
 					logger.error("Hubo un error durante la carga de archivo de cupones");
 					throw e;
@@ -97,10 +83,8 @@ public class FileUploadController {
 		} catch (Exception e) {
 			return new ResponseEntity<>("{}", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-
 		return new ResponseEntity<>("{}", HttpStatus.OK);
 	}
-	
 	 
 
 
