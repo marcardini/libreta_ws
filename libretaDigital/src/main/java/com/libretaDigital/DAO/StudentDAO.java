@@ -16,8 +16,6 @@ import com.libretaDigital.entities.*;
 import com.libretaDigital.hibernate.GenericDAO;
 import com.libretaDigital.interfaces.*;
 
-import sun.nio.cs.ext.Big5;
-
 import org.apache.log4j.Logger;
 
 public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {

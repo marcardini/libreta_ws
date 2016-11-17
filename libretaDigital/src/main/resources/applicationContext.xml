@@ -1,7 +1,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
          http://www.springframework.org/schema/beans/spring-beans.xsd
          http://www.springframework.org/schema/context
          http://www.springframework.org/schema/context/spring-context.xsd
@@ -13,7 +13,8 @@
 	<import resource="classpath:assist-control-config.xml" />
 
 	<context:property-placeholder
-		location="classpath:database.properties, classpath:uploader.properties" ignore-unresolvable="true" />
+		location="classpath:database.properties, classpath:uploader.properties"
+		ignore-unresolvable="true" />
 
 	<bean name="genericDAO" class="com.libretaDigital.hibernate.GenericDAO">
 		<property name="sessionFactory" ref="hibernateSessionFactory" />
@@ -21,16 +22,19 @@
 
 	<bean id="professorDAO" class="com.libretaDigital.DAO.ProfessorDAO"
 		parent="genericDAO" />
-		
+
 	<bean id="studentDAO" class="com.libretaDigital.DAO.StudentDAO"
 		parent="genericDAO" />
-		
+
 	<bean id="groupDAO" class="com.libretaDigital.DAO.GroupDAO"
 		parent="genericDAO" />
-		
+
 	<bean id="courseDAO" class="com.libretaDigital.DAO.CourseDAO"
 		parent="genericDAO" />
-		
+
+	<bean id="classDayStudentDAO" class="com.libretaDigital.DAO.ClassDayStudentDAO"
+		parent="genericDAO" />
+
 
 	<bean id="md5Encoder"
 		class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
@@ -39,12 +43,13 @@
 		<property name="professorDAO" ref="professorDAO" />
 		<property name="encoder" ref="md5Encoder" />
 	</bean>
-	
+
 	<bean id="studentService" class="com.libretaDigital.services.StudentServiceImpl">
 		<property name="studentDAO" ref="studentDAO" />
+		<property name="classDayStudentDAO" ref="classDayStudentDAO" />
 		<property name="encoder" ref="md5Encoder" />
 	</bean>
-	
+
 	<bean id="groupService" class="com.libretaDigital.services.GroupServiceImpl">
 		<property name="groupDAO" ref="groupDAO" />
 		<property name="encoder" ref="md5Encoder" />

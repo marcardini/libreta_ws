@@ -2,7 +2,6 @@ package com.libretaDigital.utils;
 
 public enum EventRegistrationType {
 
-	
 	ASSISTANCE("Asistencia"),
 	INASSISTANCE("Falta"),
 	HALF_ASSISTANCE("Media falta");
