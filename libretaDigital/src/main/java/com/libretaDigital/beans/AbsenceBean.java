@@ -8,7 +8,7 @@ import org.codehaus.jackson.annotate.JsonAutoDetect;
 public class AbsenceBean {
 
 	private BigInteger idStudent;	
-	private boolean late;;	
+	private boolean late;
 
 	public BigInteger getIdStudent() {
 		return idStudent;
