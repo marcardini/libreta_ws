@@ -1,19 +1,17 @@
 package com.libretaDigital.beans;
 
-import java.math.BigInteger;
-
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 
 @JsonAutoDetect
 public class AbsenceBean {
 
-	private BigInteger idStudent;	
 	private boolean late;
+	private long idStudent;	
 
-	public BigInteger getIdStudent() {
+	public long getIdStudent() {
 		return idStudent;
 	}
-	public void setIdStudent(BigInteger idStudent) {
+	public void setIdStudent(long idStudent) {
 		this.idStudent = idStudent;
 	}
 	public boolean isLate() {

@@ -9,13 +9,13 @@ import com.libretaDigital.utils.EventRegistrationType;
 @JsonAutoDetect
 public class StudentEventRegistration {
 	
-	private BigInteger studentid;
+	private long studentid;
 	private EventRegistrationType eventRegistrationType;
 	
-	public BigInteger getStudentid() {
+	public long getStudentid() {
 		return studentid;
 	}
-	public void setStudentid(BigInteger bigInteger) {
+	public void setStudentid(long bigInteger) {
 		this.studentid = bigInteger;
 	}
 	public EventRegistrationType getEventRegistrationType() {
