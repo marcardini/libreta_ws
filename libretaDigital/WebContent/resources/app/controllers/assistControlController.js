@@ -1,4 +1,4 @@
-app.controller('assistControlCtrl', ['$scope', '$filter', function ($scope, $filter) {
+app.controller('assistControlCtrl', ['$scope', '$filter', '$http', function ($scope, $filter, $http) {
 	
 	$scope.date = new Date();
 	
@@ -55,15 +55,31 @@ app.controller('assistControlCtrl', ['$scope', '$filter', function ($scope, $fil
 	 
 	 $scope.saveAbsences = function (){
 		 var absences = [];
+		 var aux = {idStudent:"", late:false};
 		 angular.forEach($scope.models[0].items, function(item){ 
 			 if(item.late){
-				 absences.push(item);
+				 aux.idStudent = item.oid;
+				 aux.late = item.late;
+				 absences.push(aux);
 			 } 		 
 		 });
 		 angular.forEach($scope.models[1].items, function(item){ 			 
-				 absences.push(item);			 	 
+			 	aux.oid = item.oid;			 	
+			 	absences.push(aux);			 	 
 		 });
 		 console.log(absences)
+		 $http({
+			  method: 'POST',
+			  url: 'assistControl/saveAbsences',
+			  data: absences
+			}).then(function successCallback(response) {
+			    console.log(response);
+			    console.log("OKKOKOKOK");
+			  }, function errorCallback(response) {
+				  console.log(response);
+			    // called asynchronously if an error occurs
+			    // or server returns response with an error status.
+			  });
 	 };
 	 
 	 $scope.presentsColor ={

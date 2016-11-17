@@ -1,7 +1,10 @@
 package com.libretaDigital.datatypes;
 
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+
 import com.libretaDigital.utils.EventRegistrationType;
 
+@JsonAutoDetect
 public class StudentEventRegistration {
 	
 	private Long studentid;
