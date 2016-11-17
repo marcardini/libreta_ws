@@ -1,18 +1,19 @@
 package com.libretaDigital.entities;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
 
 import com.libretaDigital.utils.EventRegistrationType;
 
 public class ClassDayStudent extends ClassDay{
 	
-	private Long studentId;
+	private BigInteger studentId;
 	private Date date;
 	private Enum<EventRegistrationType> eventRegistrationType;
 	private BigDecimal value;
 	
-	public ClassDayStudent(Long studentId, Date date, EventRegistrationType event, BigDecimal value){
+	public ClassDayStudent(BigInteger studentId, Date date, EventRegistrationType event, BigDecimal value){
 		this.studentId = studentId;
 		this.date = date;
 		this.eventRegistrationType = event;
@@ -38,11 +39,11 @@ public class ClassDayStudent extends ClassDay{
 		this.date = date;
 	}
 
-	public Long getStudentId() {
+	public BigInteger getStudentId() {
 		return studentId;
 	}
 
-	public void setStudentId(Long studentId) {
+	public void setStudentId(BigInteger studentId) {
 		this.studentId = studentId;
 	}
 

@@ -1,7 +1,11 @@
 package com.libretaDigital.controller;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,13 +22,16 @@ import com.libretaDigital.beans.AbsenceBean;
 import com.libretaDigital.datatypes.StudentEventRegistration;
 import com.libretaDigital.entities.Group;
 import com.libretaDigital.entities.Student;
+import com.libretaDigital.services.StudentServiceImpl;
 import com.libretaDigital.utils.EventRegistrationType;
+
 
 @Controller
 public class AssistControlController {
 	
 	@Autowired
 	private AssistControlFacadeImpl assistControlFacadeImpl;
+	private StudentServiceImpl studentServiceImpl;
 	
 	private String groupCode;
 	private BigInteger professorId;
@@ -54,13 +61,24 @@ public class AssistControlController {
 	@RequestMapping(value = "/assistControl/saveAbsences", method = RequestMethod.POST)
 	public void SaveAbsences(@RequestBody List<AbsenceBean> absences) {	
 		
-		for (int i = 0; i <2; i++) {
-			String st = "";
-			st = st + "-" + i;
-			
+		List<StudentEventRegistration> studentsAssistanceRegistrationList = new ArrayList<StudentEventRegistration> ();
+		for (AbsenceBean aux : absences) {
+			StudentEventRegistration ser = new StudentEventRegistration();
+			ser.setStudentid(aux.getIdStudent());
+			EventRegistrationType ert;
+			if(aux.isLate()){
+				ert = EventRegistrationType.HALF_ASSISTANCE;
+			}else{
+				ert = EventRegistrationType.INASSISTANCE;
+			}
+			ser.setEventRegistrationType(ert);
+			studentsAssistanceRegistrationList.add(ser);
 		}
+		studentServiceImpl.assistanceControl(studentsAssistanceRegistrationList, null);
 		
 	}
+	
+	
 	
 	public List<Student> getStudentsByCode(){
 		return assistControlFacadeImpl.getStudentsByCode(groupCode);
@@ -69,10 +87,7 @@ public class AssistControlController {
 	public List<Group> getGroupsByProfessor(){
 		return assistControlFacadeImpl.getGroupsByProfessorId(professorId);
 	}
-	
-	
-	
-	
+		
 	public String getGroupCode() {
 		return groupCode;
 	}

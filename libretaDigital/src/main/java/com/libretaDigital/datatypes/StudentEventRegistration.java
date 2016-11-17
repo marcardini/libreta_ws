@@ -1,5 +1,7 @@
 package com.libretaDigital.datatypes;
 
+import java.math.BigInteger;
+
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 
 import com.libretaDigital.utils.EventRegistrationType;
@@ -7,14 +9,14 @@ import com.libretaDigital.utils.EventRegistrationType;
 @JsonAutoDetect
 public class StudentEventRegistration {
 	
-	private Long studentid;
+	private BigInteger studentid;
 	private EventRegistrationType eventRegistrationType;
 	
-	public Long getStudentid() {
+	public BigInteger getStudentid() {
 		return studentid;
 	}
-	public void setStudentid(Long studentid) {
-		this.studentid = studentid;
+	public void setStudentid(BigInteger bigInteger) {
+		this.studentid = bigInteger;
 	}
 	public EventRegistrationType getEventRegistrationType() {
 		return eventRegistrationType;
