@@ -54,18 +54,19 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', function ($sc
 	 };
 	 
 	 $scope.saveAbsences = function (){
-		 var absences = [];
-		 var aux = {idStudent:"", late:false};
-		 angular.forEach($scope.models[0].items, function(item){ 
+		 var absences = [];		 
+		 angular.forEach($scope.models[0].items, function(item){
+			 var aux = {idStudent:"", late:false};
 			 if(item.late){
 				 aux.idStudent = item.oid;
 				 aux.late = item.late;
 				 absences.push(aux);
 			 } 		 
 		 });
-		 angular.forEach($scope.models[1].items, function(item){ 			 
-			 	aux.oid = item.oid;			 	
-			 	absences.push(aux);			 	 
+		 angular.forEach($scope.models[1].items, function(item){ 
+			 var aux = {idStudent:"", late:false};
+			 aux.idStudent = item.oid;			 	
+			 absences.push(aux);			 	 
 		 });
 		 console.log(absences)
 		 $http({
