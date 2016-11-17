@@ -1,7 +1,6 @@
 package com.libretaDigital.entities;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Date;
 
 import com.libretaDigital.utils.EventRegistrationType;

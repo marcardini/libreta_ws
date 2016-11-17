@@ -1,7 +1,5 @@
 package com.libretaDigital.datatypes;
 
-import java.math.BigInteger;
-
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 
 import com.libretaDigital.utils.EventRegistrationType;

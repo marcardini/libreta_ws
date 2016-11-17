@@ -30,11 +30,11 @@
 		
 		<property name="currentStudent" type="boolean" />
 		
-		<list name="calendar" table="calendar" fetch="join" cascade="all,delete-orphan">
-			<key column="student_id" />
-			<list-index column="index_classdaystudent" />
-			<one-to-many class="com.libretaDigital.entities.ClassDayStudent" />
-		</list>
+<!-- 		<list name="calendar" table="calendar" fetch="join" cascade="all,delete-orphan"> -->
+<!-- 			<key column="student_id" /> -->
+<!-- 			<list-index column="index_classdaystudent" /> -->
+<!-- 			<one-to-many class="com.libretaDigital.entities.ClassDayStudent" /> -->
+<!-- 		</list> -->
 		
 	</class>
 </hibernate-mapping>
