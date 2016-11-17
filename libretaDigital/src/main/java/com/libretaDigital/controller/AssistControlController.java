@@ -31,6 +31,7 @@ public class AssistControlController {
 	
 	@Autowired
 	private AssistControlFacadeImpl assistControlFacadeImpl;
+	@Autowired
 	private StudentServiceImpl studentServiceImpl;
 	
 	private String groupCode;

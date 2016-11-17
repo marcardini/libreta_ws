@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.libretaDigital.exceptions.SystemErrorException;
 import com.libretaDigital.interfaces.IGenericDAO;
@@ -39,6 +40,7 @@ public class GenericDAO<E> extends HibernateDaoSupport implements IGenericDAO<E>
 		}
 	}
 
+
 	public void saveOrUpdate(E inst) throws SystemErrorException {
 		getLogger().debug("saveOrUpdate");
 
@@ -47,6 +49,7 @@ public class GenericDAO<E> extends HibernateDaoSupport implements IGenericDAO<E>
 				inst = pp.process(inst);
 
 		try {
+			getHibernateTemplate().setCheckWriteOperations(false);
 			long timerOn = System.currentTimeMillis();
 			getHibernateTemplate().saveOrUpdate(inst);
 			long timerOff = System.currentTimeMillis();
