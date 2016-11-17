@@ -8,13 +8,13 @@ import com.libretaDigital.utils.EventRegistrationType;
 
 public class ClassDayStudent extends ClassDay{
 	
-	private BigInteger studentId;
+	private long studentId;
 	private Enum<EventRegistrationType> eventRegistrationType;
 	private BigDecimal value;
 	
-	public ClassDayStudent(BigInteger studentId, Date date, EventRegistrationType event, BigDecimal value){
+	public ClassDayStudent(long l, Date date, EventRegistrationType event, BigDecimal value){
 		super(date);
-		this.studentId = studentId;
+		this.studentId = l;
 		this.eventRegistrationType = event;
 		this.value = value;
 	}
@@ -32,11 +32,11 @@ public class ClassDayStudent extends ClassDay{
 		this.eventRegistrationType = eventRegistrationType;
 	}
 
-	public BigInteger getStudentId() {
+	public long getStudentId() {
 		return studentId;
 	}
 
-	public void setStudentId(BigInteger studentId) {
+	public void setStudentId(long studentId) {
 		this.studentId = studentId;
 	}
 
