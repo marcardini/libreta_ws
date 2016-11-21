@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.libretaDigital.DAO.GroupDAO;
 import com.libretaDigital.DAO.StudentDAO;
+import com.libretaDigital.beans.StudentAbsencesBean;
 import com.libretaDigital.entities.Group;
 import com.libretaDigital.entities.Student;
 import com.libretaDigital.interfaces.AssistControlFacade;
@@ -23,7 +24,11 @@ public class AssistControlFacadeImpl implements AssistControlFacade {
 	public List<Group> getGroupsByProfessorId(BigInteger l){
 		return groupDAO.getGroupsByProfessorId(l);
 	}
-
+	
+	@Override
+	public List<StudentAbsencesBean> getStudentsAbsencesByCode(String groupCode) {
+		return studentDAO.getStudentsAbsencesByGroupCodeWith(groupCode);
+	}
 	
 	public StudentDAO getStudentDAO() {
 		return studentDAO;

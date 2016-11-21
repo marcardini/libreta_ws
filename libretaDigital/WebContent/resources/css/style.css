@@ -22,62 +22,66 @@
 	padding: 9px 19px 9px 19px;
 }
 
-.panel-heading h1{
+.panel-heading h1 {
 	white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    line-height: normal;
-    width: 70%;
-    padding-top: 8px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	line-height: normal;
+	width: 70%;
+	padding-top: 8px;
 }
 
 /* CONTROL DE ASISTENCIAS*/
-#btn-save{
-    float: right;
-    padding-left: 20px;
-    padding-right: 20px;
-    margin-right: 20px;
+#btn-save {
+	float: right;
+	padding-left: 20px;
+	padding-right: 20px;
+	margin-right: 20px;
 }
 
-.pc-percent{
-	font-size: 2.3em;
+#absences-list {
+	margin-top: 20px;	
 }
 
-#late-icon{
+.pc-percent {
+	font-size: 1.5em;
+}
+
+#late-icon {
 	color: red;
 	font-size: 20px;
 }
 
-#btn-late{
+#btn-late {
 	font-size: 20px;
 }
 
-.btn-move{
+.btn-move {
 	font-size: 20px;
 	width: 100%;
 	margin-bottom: 20px;
 }
 
-.date-small{
+.date-small {
 	float: right;
-    font-size: 100%;
+	font-size: 100%;
 }
 
-.btn-lista{
-/* 	float: right; */
-/* 	margin-top: 5px !important; */
+.btn-lista {
+	/* 	float: right; */
+	/* 	margin-top: 5px !important; */
+	
 }
 
-.title-lista{
+.title-lista {
 	font-size: 1.6em;
 }
 /**
  * For the correct positioning of the placeholder element, the dnd-list and
  * it's children must have position: relative
  */
-ul[dnd-list],
-ul[dnd-list] > li {
-  position: relative;
+ul[dnd-list], ul[dnd-list]>li {
+	position: relative;
 }
 
 /**
@@ -85,8 +89,8 @@ ul[dnd-list] > li {
  * otherwise you can't drop into it once it's empty
  */
 ul[dnd-list] {
-    min-height: 42px;
-    padding-left: 0px;
+	min-height: 42px;
+	padding-left: 0px;
 }
 
 /**
@@ -95,9 +99,9 @@ ul[dnd-list] {
  * over it.
  */
 ul[dnd-list] .dndPlaceholder {
-    display: block;
-    background-color: #fbfe7a;
-    min-height: 42px;
+	display: block;
+	background-color: #fbfe7a;
+	min-height: 42px;
 }
 
 /**
@@ -107,20 +111,20 @@ ul[dnd-list] .dndPlaceholder {
  * half of the element we are dragging over. In other
  * browsers we can use event.offsetY for this.
  */
- ul[dnd-list] li {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-top-right-radius: 4px;
-    border-top-left-radius: 4px;
-    display: block;
-    padding: 10px 15px;
-    margin-bottom: -1px;
+ul[dnd-list] li {
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-top-right-radius: 4px;
+	border-top-left-radius: 4px;
+	display: block;
+	padding: 10px 15px;
+	margin-bottom: -1px;
 }
 
 /**
  * Show selected elements in green
  */
- ul[dnd-list] li.selected {
+ul[dnd-list] li.selected {
 	background-color: #a5ef8566;
 	color: #000000;
 	font-size: 1.13em;
@@ -129,30 +133,30 @@ ul[dnd-list] .dndPlaceholder {
 }
 
 /* CALENDAR */
-.btn-calendar{
-	font-size : 3em ;
+.btn-calendar {
+	font-size: 3em;
 }
 
-.calendar-container{
-	width : 95%;
+.calendar-container {
+	width: 95%;
 }
 
-#cal-week-box{
-	font-size : 0.5em !important;
+#cal-week-box {
+	font-size: 0.5em !important;
 }
 
-.cal-day-today {    
-    font-size: 2em !important;
+.cal-day-today {
+	font-size: 2em !important;
 }
 
-.cal-month-day {    
-    font-size: 2em;
+.cal-month-day {
+	font-size: 2em;
 }
 
-.cal-year-box [class*="span"] {   
-    font-size: 1.5em;
+.cal-year-box [class*="span"] {
+	font-size: 1.5em;
 }
 
-span[data-cal-date]:hover {    
-    cursor: pointer;
+span[data-cal-date]:hover {
+	cursor: pointer;
 }

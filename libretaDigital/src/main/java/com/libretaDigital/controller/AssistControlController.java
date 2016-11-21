@@ -7,11 +7,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,6 +22,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.libretaDigital.assistControl.AssistControlFacadeImpl;
 import com.libretaDigital.beans.AbsenceBean;
+import com.libretaDigital.beans.StudentAbsencesBean;
 import com.libretaDigital.datatypes.StudentEventRegistration;
 import com.libretaDigital.entities.Group;
 import com.libretaDigital.entities.Student;
@@ -36,6 +40,7 @@ public class AssistControlController {
 	
 	private String groupCode;
 	private BigInteger professorId;
+	private ObjectMapper mapper = new ObjectMapper();
 	
 	@RequestMapping(value = "/assistControl", method = RequestMethod.GET)
 	public ModelAndView AssistControl() {
@@ -47,10 +52,11 @@ public class AssistControlController {
 		
 		groupCode = "1A";
 		professorId = BigInteger.ONE;
-		ObjectMapper mapper = new ObjectMapper();
+		
 		try {			
 			page.addObject("students" , mapper.writeValueAsString(this.getStudentsByCode()));
 			page.addObject("groups", mapper.writeValueAsString(this.getGroupsByProfessor()));
+			page.addObject("studentsAbsences", mapper.writeValueAsString(this.getStudentsAbsencesByCode()));
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -60,29 +66,54 @@ public class AssistControlController {
 	
 	
 	@RequestMapping(value = "/assistControl/saveAbsences", method = RequestMethod.POST)
-	public void SaveAbsences(@RequestBody List<AbsenceBean> absences) {	
+	public void SaveAbsences(@RequestBody List<AbsenceBean> absences, HttpServletResponse response) {	
 		
-		List<StudentEventRegistration> studentsAssistanceRegistrationList = new ArrayList<StudentEventRegistration> ();
-		for (AbsenceBean aux : absences) {
-			StudentEventRegistration ser = new StudentEventRegistration();
-			ser.setStudentid(aux.getIdStudent());
-			EventRegistrationType ert;
-			if(aux.isLate()){
-				ert = EventRegistrationType.HALF_ASSISTANCE;
-			}else{
-				ert = EventRegistrationType.INASSISTANCE;
+		try{
+			List<StudentEventRegistration> studentsAssistanceRegistrationList = new ArrayList<StudentEventRegistration> ();
+			for (AbsenceBean aux : absences) {
+				StudentEventRegistration ser = new StudentEventRegistration();
+				ser.setStudentid(aux.getIdStudent());
+				EventRegistrationType ert;
+				if(aux.isLate()){
+					ert = EventRegistrationType.HALF_ASSISTANCE;
+				}else{
+					ert = EventRegistrationType.INASSISTANCE;
+				}
+				ser.setEventRegistrationType(ert);
+				studentsAssistanceRegistrationList.add(ser);
 			}
-			ser.setEventRegistrationType(ert);
-			studentsAssistanceRegistrationList.add(ser);
+			studentServiceImpl.assistanceControl(studentsAssistanceRegistrationList, null);	
+			response.setStatus(HttpServletResponse.SC_OK);
+		}catch (Exception e) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			// TODO: handle exception
 		}
-		studentServiceImpl.assistanceControl(studentsAssistanceRegistrationList, null);
-		
+			
 	}
+	
+	@RequestMapping(value = "/assistControl/studentsAbsences", method = RequestMethod.GET)
+	@ResponseBody
+	public String StudentsAbsences() {	
+		String studentsAbsences = "[]";
+		try {
+			studentsAbsences = mapper.writeValueAsString(this.getStudentsAbsencesByCode());
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return studentsAbsences;
+	}
+	
 	
 	
 	
 	public List<Student> getStudentsByCode(){
 		return assistControlFacade.getStudentsByGroupCode(groupCode);
+	}
+	
+	public List<StudentAbsencesBean> getStudentsAbsencesByCode(){
+		return assistControlFacade.getStudentsAbsencesByCode(groupCode);
 	}
 	
 	public List<Group> getGroupsByProfessor(){
