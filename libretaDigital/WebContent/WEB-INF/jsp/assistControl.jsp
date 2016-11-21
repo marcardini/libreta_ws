@@ -81,7 +81,6 @@
 								{{title(list.listName)}} <span class="badge">{{count(list.listName)}}</span>
 							</h1>
 
-
 							<div class="btn-group pull-right">
 								<button id="btn-late" class="btn btn-danger" ng-click="setLate(list.items, list.listName)">
 									<span class="glyphicon glyphicon-time"></span>
@@ -98,6 +97,7 @@
 									<li><a href="#">Separated link</a></li>
 								</ul>
 							</div>
+							
 							<div class="clearfix"></div>
 
 						</div>
@@ -111,7 +111,7 @@
 								<li ng-repeat="item in list.items" dnd-draggable="getSelectedItemsIncluding(list, item)"
 									dnd-dragstart="onDragstart(list, event)" dnd-moved="onMoved(list)" dnd-dragend="list.dragging = false"
 									dnd-selected="item.selected = !item.selected" ng-class="{'selected': item.selected}"
-									ng-hide="list.dragging && item.selected">{{item.label}} <span id="late-icon" ng-show="item.late"
+									ng-hide="list.dragging && item.selected"><img class="media-object media-user-list" src="resources/img/nophoto.png" alt="...">{{item.label}} <span id="late-icon" ng-show="item.late"
 									class="glyphicon glyphicon-time pull-right" aria-hidden="true"></span></li>
 							</ul>
 						</div>
@@ -139,9 +139,9 @@
 
 						<div id="absences-list" class="col-md-12 ">
 							<ul class="media-list">
-								<li class="media" ng-repeat="student in studentsAbsences">
+								<li class="media " ng-repeat="student in studentsAbsences">
 									<div class="media-left">
-										<a href="#"> <img class="media-object" src="resources/img/nophoto.png" alt="...">
+										<a href="#"> <img class="media-object media-user" src="resources/img/nophoto.png" alt="...">
 										</a>
 									</div>
 									<div class="media-body">
