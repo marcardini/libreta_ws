@@ -20,11 +20,19 @@
 	if (groups == null) {
 		groups = "[]";
 	}
+
+	String studentsAbsences = (String) request.getAttribute("studentsAbsences");
+	if (studentsAbsences == null) {
+		studentsAbsences = "[]";
+	}
 %>
 
 <script type="text/javascript">
 	var students =
 <%=students%>
+	;
+	var studentsAbsences =
+<%=studentsAbsences%>
 	;
 	var groups =
 <%=groups%>
@@ -53,7 +61,7 @@
 					</h1>
 				</div>
 				<div class="col-md-4">
-					
+
 					<h1>
 						<small class="date-small"> {{date | date:'dd-MM-yyyy'}}</small>
 
@@ -116,16 +124,37 @@
 
 				<div class="panel-body">
 					<div class=row">
-						<div class="col-md-3 porcentaje">
+
+						<div class="col-md-6 porcentaje">
 							<h3 class="text-center">Asistencia</h3>
-							<percent-circle percent="presentesPer" colors="presentsColor"></percent-circle>
+							<percent-circle percent="presentsPer" colors="presentsColor"></percent-circle>
 						</div>
-						<div class="col-md-3 porcentaje">
+						<div class="col-md-6 porcentaje">
 							<h3 class="text-center">Ausencia</h3>
-							<percent-circle percent="ausentesPer" colors="absencesColor"></percent-circle>
+							<percent-circle percent="absencesPer" colors="absencesColor"></percent-circle>
 						</div>
 					</div>
+
+					<div class=row">
+
+						<div id="absences-list" class="col-md-12 ">
+							<ul class="media-list">
+								<li class="media" ng-repeat="student in studentsAbsences">
+									<div class="media-left">
+										<a href="#"> <img class="media-object" src="resources/img/nophoto.png" alt="...">
+										</a>
+									</div>
+									<div class="media-body">
+										<h4 class="media-heading">{{student.label}}</h4>
+										Inasistencias {{student.absences}}
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+
 				</div>
+
 
 			</div>
 

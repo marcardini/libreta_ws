@@ -1,14 +1,18 @@
 app.controller('assistControlCtrl', ['$scope', '$filter', '$http', function ($scope, $filter, $http) {
 	
 	$scope.date = new Date();
+	$scope.students = [];
+	$scope.studentsAbsences = [];
+	angular.copy(students, $scope.students);
+	angular.copy(studentsAbsences, $scope.studentsAbsences);
 	
-	console.log(students);
+	console.log($scope.studentsAbsences);
 	console.log(groups);
 	
 	/* LISTAS */
 	
 	 $scope.models = [
-	      {listName: "A", items: students, dragging: false},
+	      {listName: "A", items: $scope.students, dragging: false},
 	      {listName: "B", items: [], dragging: false}
 	    ];
 	 
@@ -68,18 +72,26 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', function ($sc
 			 aux.idStudent = item.oid;			 	
 			 absences.push(aux);			 	 
 		 });
-		 console.log(absences)
+//		 console.log(absences)
 		 $http({
 			  method: 'POST',
 			  url: 'assistControl/saveAbsences',
 			  data: absences
-			}).then(function successCallback(response) {
-			    console.log(response);
-			    console.log("OKKOKOKOK");
+			}).success(function successCallback(response) {			    
+			    $scope.getAbsencesStudents();			   
 			  }, function errorCallback(response) {
 				  console.log(response);
 			    // called asynchronously if an error occurs
 			    // or server returns response with an error status.
+			  });
+	 };
+	 
+	 $scope.getAbsencesStudents = function(){
+		 $http.get('assistControl/studentsAbsences').success(function (data, status, headers, config) {			 
+			    $scope.studentsAbsences = data;
+			    $scope.setLabelStudentsList($scope.studentsAbsences);
+			  }).error(function (data, status, header, config) {
+				  console.log(status);			   
 			  });
 	 };
 	 
@@ -131,20 +143,17 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', function ($sc
 			}			
 			$scope.models[entra].items.push(item);					
 			for(var i = $scope.models[sale].items.length-1; i >= 0; i--) {
-			   	if( $scope.models[sale].items[i].id ===  item.id) {
+			   	if( $scope.models[sale].items[i].oid ===  item.oid) {
 			   		$scope.models[sale].items.splice(i, 1);
 			   	}
 			}		
 		};
 		
-//		$scope.BtoA = function (item){			
-//			$scope.models[0].items.push(item);					
-//			for(var i = $scope.models[1].items.length-1; i >= 0; i--) {
-//			   	if( $scope.models[1].items[i].id ===  item.id) {
-//			   		$scope.models[1].items.splice(i, 1);
-//			   	}
-//			}		
-//		};
+		$scope.setLabelStudentsList = function(students){
+			angular.forEach(students, function(item) {  		    	  
+		    	  item.label =  $filter('capitalize')(item.name) +" "+ $filter('capitalize')(item.lastName);        
+		    });
+		}
 		
 		$scope.setLate = function (items, name){
 			var array = $scope.getSeleccionados(items);			
@@ -169,9 +178,10 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', function ($sc
 	    	$scope.presentes = $scope.models[0].items.length;
 	        $scope.ausentes = $scope.models[1].items.length;
 	        $scope.total = students.length;
-	        $scope.presentesPer = ($scope.presentes * 100)/$scope.total;
-	        $scope.ausentesPer = ($scope.ausentes * 100)/$scope.total;	        
-	        angular.forEach($scope.models[1].items, function(item) { item.late = false; });      
+	        console.log($scope.total);
+	        $scope.presentsPer = ($scope.presentes * 100)/$scope.total;
+	        $scope.absencesPer = ($scope.ausentes * 100)/$scope.total;	        
+	        angular.forEach($scope.models[1].items, function(item) { item.late = false; }); 	        
 	    }, true);
 
 	    /**
@@ -223,10 +233,10 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', function ($sc
 	    // Generate the initial model
 	    angular.forEach($scope.models[0].items, function(item) {  	
 	    	  item.late = false;
-	    	  item.label =  $filter('capitalize')(item.name) +" "+ $filter('capitalize')(item.lastName);         
-	    
+	    	  item.label =  $filter('capitalize')(item.name) +" "+ $filter('capitalize')(item.lastName);       
 	    });
-
+	    
+	    $scope.setLabelStudentsList($scope.studentsAbsences);
 	    // Model to JSON for demo purpose
 	    $scope.$watch('models', function(model) {
 	        $scope.modelAsJson = angular.toJson(model, true);
