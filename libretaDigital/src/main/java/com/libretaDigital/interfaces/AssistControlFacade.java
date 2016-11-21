@@ -8,7 +8,7 @@ import com.libretaDigital.entities.Student;
 
 public interface AssistControlFacade {
 
-	List<Student> getStudentsByCode(String groupCode);
+	List<Student> getStudentsByGroupCode(String groupCode);
 	
 	List<Group> getGroupsByProfessorId(BigInteger professorId);
 	

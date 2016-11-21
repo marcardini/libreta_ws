@@ -5,22 +5,12 @@
 						http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 				
 	<bean id="assistcontrolcontroller" class="com.libretaDigital.controller.AssistControlController">
-		<property name="assistControlFacadeImpl" ref="assistControlFacade" />
+		<property name="assistControlFacade" ref="assistControlFacade" />
 	</bean>
-
+	
 	<bean id="assistControlFacade" class="com.libretaDigital.assistControl.AssistControlFacadeImpl">
 		<property name="studentDAO" ref="studentDAO" />
 		<property name="groupDAO" ref="groupDAO" />
 	</bean>
-	
-	
-	
-	
-	<!-- TESTING -->
-	
-	
-<!-- 	<bean id="assistcontroltest" class="com.libretaDigital.test.assistance.AssistControlTest"> -->
-<!-- 		<property name="assistControlFacadeImpl" ref="assistControlFacade" /> -->
-<!-- 	</bean> -->
 
 </beans>

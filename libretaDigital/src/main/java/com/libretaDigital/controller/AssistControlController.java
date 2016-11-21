@@ -30,7 +30,7 @@ import com.libretaDigital.utils.EventRegistrationType;
 public class AssistControlController {
 	
 	@Autowired
-	private AssistControlFacadeImpl assistControlFacadeImpl;
+	private AssistControlFacadeImpl assistControlFacade;
 	@Autowired
 	private StudentServiceImpl studentServiceImpl;
 	
@@ -82,11 +82,11 @@ public class AssistControlController {
 	
 	
 	public List<Student> getStudentsByCode(){
-		return assistControlFacadeImpl.getStudentsByCode(groupCode);
+		return assistControlFacade.getStudentsByGroupCode(groupCode);
 	}
 	
 	public List<Group> getGroupsByProfessor(){
-		return assistControlFacadeImpl.getGroupsByProfessorId(professorId);
+		return assistControlFacade.getGroupsByProfessorId(professorId);
 	}
 		
 	public String getGroupCode() {
@@ -95,11 +95,11 @@ public class AssistControlController {
 	public void setGroupCode(String groupCode) {
 		this.groupCode = groupCode;
 	}
-	public AssistControlFacadeImpl getAssistControlFacadeImpl() {
-		return assistControlFacadeImpl;
+	public AssistControlFacadeImpl getAssistControlFacade() {
+		return assistControlFacade;
 	}
-	public void setAssistControlFacadeImpl(AssistControlFacadeImpl assistControlFacadeImpl) {
-		this.assistControlFacadeImpl = assistControlFacadeImpl;
+	public void setAssistControlFacade(AssistControlFacadeImpl assistControlFacade) {
+		this.assistControlFacade = assistControlFacade;
 	}
 	public BigInteger getProfessorId() {
 		return professorId;

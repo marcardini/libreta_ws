@@ -1,0 +1,66 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+         http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context.xsd
+         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+	
+	<import resource="classpath:hibernate-config.xml" />
+	<import resource="classpath:dal-config.xml" />
+				
+	<bean name="genericDAO" class="com.libretaDigital.hibernate.GenericDAO">
+		<property name="sessionFactory" ref="hibernateSessionFactory" />
+	</bean>
+
+	<bean id="professorDAO" class="com.libretaDigital.DAO.ProfessorDAO"
+		parent="genericDAO" />
+
+	<bean id="studentDAO" class="com.libretaDigital.DAO.StudentDAO"
+		parent="genericDAO" />
+
+	<bean id="groupDAO" class="com.libretaDigital.DAO.GroupDAO"
+		parent="genericDAO" />
+
+	<bean id="courseDAO" class="com.libretaDigital.DAO.CourseDAO"
+		parent="genericDAO" />
+
+	<bean id="classDayStudentDAO" class="com.libretaDigital.DAO.ClassDayStudentDAO"
+		parent="genericDAO" />
+
+
+	<bean id="md5Encoder"
+		class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
+
+	<bean id="professorService" class="com.libretaDigital.services.ProfessorServiceImpl">
+		<property name="professorDAO" ref="professorDAO" />
+		<property name="encoder" ref="md5Encoder" />
+	</bean>
+
+	<bean id="studentService" class="com.libretaDigital.services.StudentServiceImpl">
+		<property name="studentDAO" ref="studentDAO" />
+		<property name="classDayStudentDAO" ref="classDayStudentDAO" />
+		<property name="encoder" ref="md5Encoder" />
+	</bean>
+
+	<bean id="groupService" class="com.libretaDigital.services.GroupServiceImpl">
+		<property name="groupDAO" ref="groupDAO" />
+		<property name="encoder" ref="md5Encoder" />
+	</bean>
+	
+	<bean id="assistcontrolcontroller" class="com.libretaDigital.controller.AssistControlController">
+		<property name="assistControlFacade" ref="assistControlFacade" />
+	</bean>
+
+	<bean id="assistcontroltest" class="com.libretaDigital.testing.AssistControlTest">
+		<property name="assistControlFacade" ref="assistControlFacade" />
+	</bean>
+	
+	<bean id="assistControlFacade" class="com.libretaDigital.assistControl.AssistControlFacadeImpl">
+		<property name="studentDAO" ref="studentDAO" />
+		<property name="groupDAO" ref="groupDAO" />
+	</bean>
+	
+
+</beans>

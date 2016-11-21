@@ -10,6 +10,13 @@ public class StudentEventRegistration {
 	private long studentid;
 	private EventRegistrationType eventRegistrationType;
 	
+	public StudentEventRegistration(){}
+	
+	public StudentEventRegistration(long studentId, EventRegistrationType ert){
+		this.studentid = studentId;
+		this.eventRegistrationType = ert;
+	}
+	
 	public long getStudentid() {
 		return studentid;
 	}

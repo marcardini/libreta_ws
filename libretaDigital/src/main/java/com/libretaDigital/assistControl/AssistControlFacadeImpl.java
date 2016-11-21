@@ -15,7 +15,7 @@ public class AssistControlFacadeImpl implements AssistControlFacade {
 	private GroupDAO groupDAO;
 	
 	@Override
-	public List<Student> getStudentsByCode(String groupCode) {
+	public List<Student> getStudentsByGroupCode(String groupCode) {
 		return studentDAO.getStudentsByGroupCode(groupCode);
 	}
 	

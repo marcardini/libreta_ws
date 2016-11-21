@@ -23,6 +23,11 @@ public class Student extends Person {
 		super(name, lastName);
 	}
 	
+	public Student(String name, String lastName, Group group){
+		super(name, lastName);
+		this.group = group;
+	}
+	
 	public Student(String name, String lastName, Date birthDate, Gender gender, String email, boolean currentStudent){
 		super(name, lastName, birthDate, gender, email);
 		this.currentStudent = currentStudent;

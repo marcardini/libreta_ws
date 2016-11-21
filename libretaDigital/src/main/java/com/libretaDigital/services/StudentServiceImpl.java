@@ -18,10 +18,12 @@ public class StudentServiceImpl implements IStudentService{
 	private ClassDayStudentDAO classDayStudentDAO;
 	private MessageDigestPasswordEncoder encoder;
 	
+	@Override
 	public List<Student> getAllStudents() {
 		return studentDAO.getAllStudents();
 	}
 	
+	@Override
 	public void addStudent(Student dtStudent) throws StudentAlreadyExists, InvalidStudentInformation {
 		
 		if (studentDAO.getStudentByMail(dtStudent.getEmail()) != null)
@@ -31,6 +33,7 @@ public class StudentServiceImpl implements IStudentService{
 		
 	}
 	
+	@Override
 	public void assistanceControl(List<StudentEventRegistration> studentsAssistanceRegistrationList, Date date){
 		
 		if(date == null)
@@ -41,6 +44,13 @@ public class StudentServiceImpl implements IStudentService{
 			//the null param is the 'value' that doesn't fits here because we're persisting assistances, not grades.
 			classDayStudentDAO.saveOrUpdate(cds); 
 		}
+	}
+	
+	@Override
+	public List<Student> getStudentsFiles(String mail, String groupCode, int year, String subjectName){
+		
+		return studentDAO.getStudentsFiles(mail, groupCode, year, subjectName);
+		
 	}
 	
 	
