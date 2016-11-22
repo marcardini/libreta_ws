@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -106,14 +107,18 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 			public List<Student> doInHibernate(Session session) throws HibernateException {
 				String oQuery = "select stu.oid, stu.name, stu.last_name, stu.birth_date, stu.gender, stu.email, stu.currentStudent "
 						+ "from student stu, group_ g, subject sub, course course, class_day_student day "
-						+ "where s.group_id = g.oid and sub.course_id = course.oid, day.student_id = stu.oid and day.course_id = course.oid "
-						+ "and upper(g.name) = upper(:groupCode) and g.year = year and upper(sub.name) = upper(:subjectName) ";
+						+ "where stu.group_id = g.oid and sub.course_id = course.oid and day.student_id = stu.oid and day.course_id = course.oid "
+						+ "and upper(g.name) = upper(:groupCode) and g.year = :year and upper(sub.name) = upper(:subjectName) ";
 
 				if (mail != null && !mail.equals(""))
-					oQuery = oQuery.concat("and upper(s.email) = upper(:mail) ");
+					oQuery = oQuery.concat("and upper(stu.email) = upper(:mail)");
 
 				SQLQuery query = session.createSQLQuery(oQuery);
 
+				query.setString("groupCode", groupCode);
+				query.setString("subjectName", subjectName);
+				query.setInteger("year", year);
+				
 				if (mail != null && !mail.equals(""))
 					query.setString("mail", mail);
 
@@ -180,7 +185,7 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 			student.setLastName((String)oPartialResult[2]);
 			
 			if(oPartialResult[3] != null && !oPartialResult[3].equals("")){
-				Timestamp birthDate = (Timestamp)oPartialResult[3];
+				Date birthDate = (Date)oPartialResult[3];
 				student.setBirthDate(birthDate);
 			}
 
@@ -244,14 +249,15 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 			ClassDayStudent classDay = new ClassDayStudent();
 			
 			if(oPartialResult[0] != null && !oPartialResult[0].equals("")){
-				Timestamp date = (Timestamp)oPartialResult[0];
+				Date date = (Date)oPartialResult[0];
 				classDay.setDate(date);
 			}
 
 			String type = (String)oPartialResult[1];
 			classDay.setEventRegistrationType(EventRegistrationType.valueOf(type));
 			
-			classDay.setValue(new BigDecimal(oPartialResult[2].toString()));
+			if(oPartialResult[2] != null && !oPartialResult[2].toString().equals(""))
+				classDay.setValue(new BigDecimal(oPartialResult[2].toString()));
 			
 			result.add(classDay);
 		}

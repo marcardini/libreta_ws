@@ -63,7 +63,7 @@ public class AssistControlController {
 	
 	@RequestMapping(value = "/assistControl/saveAbsences", method = RequestMethod.POST)
 	public void SaveAbsences(@RequestBody List<AbsenceBean> absences, HttpServletResponse response) {	
-		
+				
 		try{
 			List<StudentEventRegistration> studentsAssistanceRegistrationList = new ArrayList<StudentEventRegistration> ();
 			for (AbsenceBean aux : absences) {
@@ -82,7 +82,6 @@ public class AssistControlController {
 			response.setStatus(HttpServletResponse.SC_OK);
 		}catch (Exception e) {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-			// TODO: handle exception
 		}
 			
 	}
