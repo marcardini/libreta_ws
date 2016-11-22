@@ -176,12 +176,9 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 
 		for (Object[] oPartialResult : partialResult) {
 
-			Student student = new Student();
-			
-			student.setOid(new BigInteger(oPartialResult[0].toString()));
-			
-			student.setName((String)oPartialResult[1]);
-			
+			Student student = new Student();			
+			student.setOid(new BigInteger(oPartialResult[0].toString()));			
+			student.setName((String)oPartialResult[1]);			
 			student.setLastName((String)oPartialResult[2]);
 			
 			if(oPartialResult[3] != null && !oPartialResult[3].equals("")){
@@ -190,8 +187,7 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 			}
 
 			String gender = (String)oPartialResult[4];
-			student.setGender(Gender.valueOf(gender));
-			
+			student.setGender(Gender.valueOf(gender));			
 			student.setEmail((String)oPartialResult[5]);
 			
 			if(oPartialResult[6] != null && !oPartialResult[6].equals("")){
@@ -203,8 +199,7 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 				student.setCurrentStudent(currentStudent);
 			}
 			
-			student.setCalendar(getStudentCalendarByStudentIdAndCourseId(student.getOid(), courseName));
-			
+			student.setCalendar(getStudentCalendarByStudentIdAndCourseId(student.getOid(), courseName));			
 			result.add(student);
 		}
 		return result;
