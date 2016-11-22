@@ -2,10 +2,7 @@ package com.libretaDigital.controller;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -41,6 +37,15 @@ public class AssistControlController {
 	private String groupCode;
 	private BigInteger professorId;
 	private ObjectMapper mapper = new ObjectMapper();
+	
+	public AssistControlController(){
+		
+		List<Student> students = studentServiceImpl.getStudentsFiles("arcardinimathias@gmail.com", "primero", "1A", 2016, "MATEMATICAS");
+		
+		for(Student s: students){
+			System.out.println(s.getName() + ", " + s.getLastName());
+		}
+	}
 	
 	@RequestMapping(value = "/assistControl", method = RequestMethod.GET)
 	public ModelAndView AssistControl() {

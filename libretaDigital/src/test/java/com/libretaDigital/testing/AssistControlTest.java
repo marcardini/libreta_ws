@@ -46,7 +46,6 @@ public class AssistControlTest {
 	private Student testStudent;
 	private List<StudentEventRegistration> studentsAssistanceRegistrationList;
 	
-	
 	@Before
 	public void initObjects(){
 		testGroup = new Group("testGroup", 1);
@@ -57,7 +56,10 @@ public class AssistControlTest {
 		
 		Long studentId = studentDAO.getStudentByMail(testStudent.getEmail()).getOid().longValue();
 		
-		StudentEventRegistration testStudentEventReg = new StudentEventRegistration(studentId,EventRegistrationType.INASSISTANCE);
+		//FIXME
+		Long courseId = 1L;
+		
+		StudentEventRegistration testStudentEventReg = new StudentEventRegistration(studentId, courseId, EventRegistrationType.INASSISTANCE);
 		studentsAssistanceRegistrationList.add(testStudentEventReg);
 	}
 	

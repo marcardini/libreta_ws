@@ -40,16 +40,16 @@ public class StudentServiceImpl implements IStudentService{
 			date = new Date();
 		
 		for(StudentEventRegistration ser : studentsAssistanceRegistrationList){
-			ClassDayStudent cds = new ClassDayStudent(ser.getStudentid(), date, ser.getEventRegistrationType(), null);
+			ClassDayStudent cds = new ClassDayStudent(ser.getStudentid(), ser.getCourseId(), date, ser.getEventRegistrationType(), null);
 			//the null param is the 'value' that doesn't fits here because we're persisting assistances, not grades.
 			classDayStudentDAO.saveOrUpdate(cds); 
 		}
 	}
 	
 	@Override
-	public List<Student> getStudentsFiles(String mail, String groupCode, int year, String subjectName){
+	public List<Student> getStudentsFiles(String mail, String courseName, String groupCode, int year, String subjectName){
 		
-		return studentDAO.getStudentsFiles(mail, groupCode, year, subjectName);
+		return studentDAO.getStudentsFiles(mail, courseName, groupCode, year, subjectName);
 		
 	}
 	
