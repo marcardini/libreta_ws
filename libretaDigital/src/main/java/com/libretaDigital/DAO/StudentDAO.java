@@ -138,14 +138,17 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 			@SuppressWarnings("unchecked")
 			@Override
 			public List<StudentAbsencesBean> doInHibernate(Session session) throws HibernateException {
-				String oQuery = "select s.oid, s.name, s.last_name, (select count(*) from class_day_student cds  where cds.student_id = s.oid) as absences " + "from student s, group_ g "
+				String oQuery = "select s.oid, s.name, s.last_name, "
+						+ "(select count(*) from class_day_student cds  where cds.student_id = s.oid and cds.event_registration_type = 'INASSISTANCE') as absences, " 
+						+ "(select count(*) from class_day_student cds  where cds.student_id = s.oid and cds.event_registration_type = 'HALF_ASSISTANCE') as half "
+						+ "from student s, group_ g "
 						+ "where s.group_id = g.oid ";
 				boolean hasParameter = false;
 				if (groupCode != null && !groupCode.equals("")) {
 					oQuery = oQuery.concat("and upper(g.name) = ?");
 					hasParameter = !hasParameter;
 				}
-				oQuery = oQuery + " order by absences DESC, last_name ASC";
+				oQuery = oQuery + " order by absences DESC, half DESC, last_name ASC";
 				SQLQuery query = session.createSQLQuery(oQuery);
 				if (hasParameter)
 					query.setString(0, groupCode);
@@ -233,6 +236,11 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 			if (oPartialResult[3] != null && !oPartialResult[3].equals("")) {
 				BigInteger absences = (BigInteger) oPartialResult[3];
 				student.setAbsences(absences.longValue());
+			}
+			
+			if (oPartialResult[3] != null && !oPartialResult[4].equals("")) {
+				BigInteger half = (BigInteger) oPartialResult[4];
+				student.setHalf(half.longValue());
 			}
 
 			result.add(student);

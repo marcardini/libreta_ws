@@ -32,7 +32,15 @@
 }
 
 /* CONTROL DE ASISTENCIAS*/
+.total-absences {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	font-size: 300%;
+}
 
+.label{
+	margin-top: 2px;
+}
 
 #btn-save {
 	float: right;

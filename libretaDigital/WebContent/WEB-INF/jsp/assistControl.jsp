@@ -150,8 +150,13 @@
 									</div>
 									<div class="media-body">
 										<h4 class="media-heading">{{student.label}}</h4>
-										Inasistencias {{student.absences}}
+										<span class="label label-danger">Inasistencias: {{student.absences}}</span>
+										<span class="label label-warning">Llegadas Tarde: {{student.half}}</span>										
 									</div>
+									<div class="media-right">
+										<h1 class="total-absences">{{student.absences + (student.half)/2}}</h1>
+									</div>
+									
 								</li>
 							</ul>
 						</div>
