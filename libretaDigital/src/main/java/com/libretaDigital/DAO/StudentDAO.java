@@ -138,16 +138,13 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 			@SuppressWarnings("unchecked")
 			@Override
 			public List<StudentAbsencesBean> doInHibernate(Session session) throws HibernateException {
-<<<<<<< HEAD
+
 				String oQuery = "select s.oid, s.name, s.last_name, "
 						+ "(select count(*) from class_day_student cds  where cds.student_id = s.oid and cds.event_registration_type = 'INASSISTANCE') as absences, " 
 						+ "(select count(*) from class_day_student cds  where cds.student_id = s.oid and cds.event_registration_type = 'HALF_ASSISTANCE') as half "
 						+ "from student s, group_ g "
 						+ "where s.group_id = g.oid ";
-=======
-				String oQuery = "select s.oid, s.name, s.last_name, (select count(*) from class_day_student cds  where cds.student_id = s.oid) as absences "
-						+ "from student s, group_ g " + "where s.group_id = g.oid ";
->>>>>>> origin/master
+
 				boolean hasParameter = false;
 				if (groupCode != null && !groupCode.equals("")) {
 					oQuery = oQuery.concat("and upper(g.name) = ?");
