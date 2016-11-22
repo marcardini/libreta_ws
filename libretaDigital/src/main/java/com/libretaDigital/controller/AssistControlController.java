@@ -63,7 +63,20 @@ public class AssistControlController {
 	
 	@RequestMapping(value = "/assistControl/saveAbsences", method = RequestMethod.POST)
 	public void SaveAbsences(@RequestBody List<AbsenceBean> absences, HttpServletResponse response) {	
-				
+		
+		
+		
+		//ESTO ES PARA PROBAR EL METODO NUEVO:
+		/*List<Student> resultado = studentServiceImpl.getStudentsFiles(null, "primero", "1A", 2016, "MATEMATICAS");
+		
+		for(Student s: resultado){
+			System.out.println(s.getName() + " " + s.getLastName());
+		}
+		
+		*/
+		
+		
+		
 		try{
 			List<StudentEventRegistration> studentsAssistanceRegistrationList = new ArrayList<StudentEventRegistration> ();
 			for (AbsenceBean aux : absences) {
