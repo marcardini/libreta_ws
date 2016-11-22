@@ -1,6 +1,5 @@
 <%@ page import="org.codehaus.jackson.*"%>
-<%@ page language="java" contentType="text/html; charset=UTF8)"
-	pageEncoding="UTF8"%>
+<%@ page language="java" contentType="text/html; charset=UTF8)" pageEncoding="UTF8"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html ng-app="app">
@@ -13,11 +12,11 @@
 	}
 %>
 <title><%=pageTitle%></title>
-<link rel="stylesheet"
-	href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="bower_components/dropzone/dist/basic.css">
-<link rel="stylesheet"
-	href="bower_components/dropzone/dist/dropzone.css">
+<link rel="stylesheet" href="bower_components/dropzone/dist/dropzone.css">
+<link rel="stylesheet" href="bower_components/ng-notify/dist/ng-notify.min.css">
+<link rel="stylesheet" href="bower_components/angular-block-ui/dist/angular-block-ui.min.css"/>
 <link rel="stylesheet" href="resources/css/style.css">
 </head>
 
@@ -27,7 +26,7 @@
 
 	<jsp:include page="/WEB-INF/jsp/parts/menu-head.jsp" />
 
-	<div class="container">
+	<div class="container block-ui-main" block-ui="main">
 
 		<div class="page-header">
 			<h1>Carga Masiva de Datos</h1>
@@ -43,16 +42,14 @@
 						<option value="GROUPS">Grupos</option>
 					</select><br>
 				</h3>
-				<form action="api/upload" class="my-drop-zone drop-zone dropzone"
-					dropzone="" id="dropzone">
+				<form action="api/upload" class="my-drop-zone drop-zone dropzone" dropzone="" id="dropzone">
 					<div class="dz-default dz-message"></div>
 					<div class="dz-progress">
 						<span class="dz-upload" data-dz-uploadprogress></span>
 					</div>
 				</form>
 				<div class="btn-dropzone">
-					<button class="btn btn-success btn-sm" ng-click="uploadFile()">Subir
-						Archivo</button>
+					<button class="btn btn-success btn-sm" ng-click="uploadFile()">Subir Archivo</button>
 					<button class="btn btn-danger btn-sm" ng-click="reset()">Limpiar</button>
 				</div>
 			</div>

@@ -44,6 +44,8 @@
 <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="bower_components/dropzone/dist/basic.css">
 <link rel="stylesheet" href="bower_components/angular-percent-circle-directive/dist/percent-circle.css">
+<link rel="stylesheet" href="bower_components/ng-notify/dist/ng-notify.min.css">
+<link rel="stylesheet" href="bower_components/angular-block-ui/dist/angular-block-ui.min.css"/>
 <link rel="stylesheet" href="resources/css/style.css">
 </head>
 
@@ -51,7 +53,9 @@
 
 	<jsp:include page="/WEB-INF/jsp/parts/menu-head.jsp" />
 
-	<div class="container" ng-init="">
+	
+
+	<div class="container" ng-init="" block-ui="main" class="block-ui-main">
 		<div class="page-header">
 			<div class="row">
 				<div class="col-md-8">
