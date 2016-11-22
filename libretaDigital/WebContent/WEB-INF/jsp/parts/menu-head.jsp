@@ -12,6 +12,8 @@ var codMenu = "<%=codMenu%>";
 
 </script>
 
+
+
 <nav class=" navbar navbar-inverse navbar-fixed-top" ng-controller="menuCtrl">
 	<div class="container-fluid">
 		<div class="navbar-header">

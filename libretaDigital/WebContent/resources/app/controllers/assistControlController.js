@@ -1,5 +1,8 @@
-app.controller('assistControlCtrl', ['$scope', '$filter', '$http', function ($scope, $filter, $http) {
+app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', 'blockUI', function ($scope, $filter, $http, ngNotify, blockUI) {
 	
+	blockUI.autoInjectBodyBlock = false;
+	blockUI.message = 'Cargando...';
+
 	$scope.date = new Date();
 	$scope.students = [];
 	$scope.studentsAbsences = [];
@@ -57,7 +60,7 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', function ($sc
 		 }
 	 };
 	 
-	 $scope.saveAbsences = function (){
+	 $scope.saveAbsences = function (){		 
 		 var absences = [];		 
 		 angular.forEach($scope.models[0].items, function(item){
 			 var aux = {idStudent:"", late:false};
@@ -77,21 +80,25 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', function ($sc
 			  method: 'POST',
 			  url: 'assistControl/saveAbsences',
 			  data: absences
-			}).success(function successCallback(response) {			    
+			}).success(function successCallback(response) {
+				blockUI.stop();
+				ngNotify.set('Guardado corectamente', 'success');
 			    $scope.getAbsencesStudents();			   
-			  }, function errorCallback(response) {
+			  }, function errorCallback(response) {				  
 				  console.log(response);
+				  ngNotify.set('ERROR - Datos no guardados', 'error');
 			    // called asynchronously if an error occurs
 			    // or server returns response with an error status.
 			  });
 	 };
 	 
-	 $scope.getAbsencesStudents = function(){
+	 $scope.getAbsencesStudents = function(){		
 		 $http.get('assistControl/studentsAbsences').success(function (data, status, headers, config) {			 
 			    $scope.studentsAbsences = data;
-			    $scope.setLabelStudentsList($scope.studentsAbsences);
+			    $scope.setLabelStudentsList($scope.studentsAbsences);			   
 			  }).error(function (data, status, header, config) {
-				  console.log(status);			   
+				  console.log(status);
+				  ngNotify.set('ERROR - Datos no cargados', 'error');
 			  });
 	 };
 	 
@@ -155,15 +162,15 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', function ($sc
 		    });
 		}
 		
-		$scope.setLate = function (items, name){
+		$scope.setLate = function (items, name){			 
 			var array = $scope.getSeleccionados(items);			
 			for(var x = 0; x < array.length; x++){
 				tmp = array[x];
-				tmp.late = true;
+				tmp.late = !tmp.late;
 				if(name === "B"){					
 					$scope.exchange(tmp, name);
 				}
-			}
+			}			
 		};
 		
 		$scope.move = function (items, name){
@@ -241,6 +248,16 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', function ($sc
 	    $scope.$watch('models', function(model) {
 	        $scope.modelAsJson = angular.toJson(model, true);
 	    }, true);
+	    
+	    ngNotify.config({
+	        theme: 'pure',
+	        position: 'bottom',
+	        duration: 3000,
+	        type: 'info',
+	        sticky: false,
+	        button: true,
+	        html: false
+	    });
 	
 }]);
 

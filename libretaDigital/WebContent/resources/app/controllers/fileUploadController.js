@@ -1,4 +1,8 @@
-app.controller('fileUploadCtrl', ['$scope', function ($scope) {
+app.controller('fileUploadCtrl', ['$scope', 'ngNotify', 'blockUI', function ($scope, ngNotify, blockUI) {
+	
+				
+		blockUI.autoInjectBodyBlock = false;
+		blockUI.message = 'Cargando...';
 	
 		$scope.selectedType = "PROFESSOR";			
         $scope.filename = $scope.selectedType;  

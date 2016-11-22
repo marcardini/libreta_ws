@@ -1,5 +1,5 @@
 //var app = angular.module("app", []);
-var app = angular.module('app', ['ui.bootstrap', 'smart-table', 'dndLists', 'percentCircle-directive', 'ngAnimate', 'ngTouch', ,'mwl.calendar' ])
+var app = angular.module('app', ['ui.bootstrap', 'smart-table', 'dndLists', 'percentCircle-directive', 'ngAnimate', 'ngTouch', ,'mwl.calendar', 'ngNotify', 'blockUI' ])
 
 .filter('capitalize', function() {
     return function(input, all) {
@@ -9,7 +9,6 @@ var app = angular.module('app', ['ui.bootstrap', 'smart-table', 'dndLists', 'per
       }):'';
     };
   });
-
 
 app.directive('validNumber', function() {
   return {

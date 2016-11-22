@@ -32,6 +32,16 @@
 }
 
 /* CONTROL DE ASISTENCIAS*/
+.total-absences {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	font-size: 300%;
+}
+
+.label{
+	margin-top: 2px;
+}
+
 #btn-save {
 	float: right;
 	padding-left: 20px;
@@ -40,14 +50,14 @@
 }
 
 #absences-list {
-	margin-top: 20px;	
+	margin-top: 20px;
 }
 
-.media-user{
+.media-user {
 	border-radius: 30px;
 }
 
-.media-user-list{
+.media-user-list {
 	border-radius: 30px;
 	width: 30px;
 	margin-right: 10px;

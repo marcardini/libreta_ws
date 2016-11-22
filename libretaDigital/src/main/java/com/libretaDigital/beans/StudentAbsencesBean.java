@@ -8,6 +8,7 @@ import com.libretaDigital.entities.Student;
 public class StudentAbsencesBean extends Student {
 	
 	private long absences;
+	private long half;
 	
 	public void setAbsences(long absences) {
 		this.absences = absences;
@@ -17,8 +18,15 @@ public class StudentAbsencesBean extends Student {
 		return absences;
 	}
 	
+	public long getHalf() {
+		return half;
+	}
+
+	public void setHalf(long half) {
+		this.half = half;
+	}
+	
 	public StudentAbsencesBean(){
 		super();		
 	}
-
 }

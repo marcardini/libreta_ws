@@ -44,6 +44,8 @@
 <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="bower_components/dropzone/dist/basic.css">
 <link rel="stylesheet" href="bower_components/angular-percent-circle-directive/dist/percent-circle.css">
+<link rel="stylesheet" href="bower_components/ng-notify/dist/ng-notify.min.css">
+<link rel="stylesheet" href="bower_components/angular-block-ui/dist/angular-block-ui.min.css"/>
 <link rel="stylesheet" href="resources/css/style.css">
 </head>
 
@@ -51,7 +53,9 @@
 
 	<jsp:include page="/WEB-INF/jsp/parts/menu-head.jsp" />
 
-	<div class="container" ng-init="">
+	
+
+	<div class="container" ng-init="" block-ui="main" class="block-ui-main">
 		<div class="page-header">
 			<div class="row">
 				<div class="col-md-8">
@@ -146,8 +150,13 @@
 									</div>
 									<div class="media-body">
 										<h4 class="media-heading">{{student.label}}</h4>
-										Inasistencias {{student.absences}}
+										<span class="label label-danger">Inasistencias: {{student.absences}}</span>
+										<span class="label label-warning">Llegadas Tarde: {{student.half}}</span>										
 									</div>
+									<div class="media-right">
+										<h1 class="total-absences">{{student.absences + (student.half)/2}}</h1>
+									</div>
+									
 								</li>
 							</ul>
 						</div>
