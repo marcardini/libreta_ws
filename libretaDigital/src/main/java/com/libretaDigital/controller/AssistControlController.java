@@ -38,15 +38,6 @@ public class AssistControlController {
 	private BigInteger professorId;
 	private ObjectMapper mapper = new ObjectMapper();
 	
-	public AssistControlController(){
-		
-		List<Student> students = studentServiceImpl.getStudentsFiles("arcardinimathias@gmail.com", "primero", "1A", 2016, "MATEMATICAS");
-		
-		for(Student s: students){
-			System.out.println(s.getName() + ", " + s.getLastName());
-		}
-	}
-	
 	@RequestMapping(value = "/assistControl", method = RequestMethod.GET)
 	public ModelAndView AssistControl() {
 		ModelAndView page = new ModelAndView("assistControl");
