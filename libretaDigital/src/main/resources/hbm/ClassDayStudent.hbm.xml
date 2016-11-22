@@ -24,6 +24,8 @@
 		
 		<property name="studentId" column="student_id" type="long" />
 		
+		<property name="courseId" column="course_id" type="long" />
+		
 		<property name="value" type="big_decimal" precision="5" scale="1" />
 		
 	</class>

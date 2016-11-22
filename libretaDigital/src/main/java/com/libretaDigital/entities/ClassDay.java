@@ -7,6 +7,8 @@ public abstract class ClassDay {
 	private Long oid;
 	private Date date;
 	
+	public ClassDay(){}
+	
 	public ClassDay(Date date){
 		this.date = date;
 	}

@@ -15,6 +15,6 @@ public interface IStudentService {
 	
 	void assistanceControl(List<StudentEventRegistration> studentsAssistanceRegistrationList, Date date);
 	
-	List<Student> getStudentsFiles(String mail, String groupCode, int year, String subjectName);
+	List<Student> getStudentsFiles(String mail, String courseName, String groupCode, int year, String subjectName);
 	
 }
