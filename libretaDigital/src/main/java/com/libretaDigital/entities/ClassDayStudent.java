@@ -11,15 +11,24 @@ public class ClassDayStudent extends ClassDay{
 	private Long courseId;
 	private Enum<EventRegistrationType> eventRegistrationType;
 	private BigDecimal value;
+	private String comment;
 	
 	public ClassDayStudent(){}
+
+	public ClassDayStudent(Long studentId, Long courseId, Date date, EventRegistrationType event){
+		super(date);
+		this.studentId = studentId;
+		this.courseId = courseId;
+		this.eventRegistrationType = event;
+	}
 	
-	public ClassDayStudent(Long studentId, Long courseId, Date date, EventRegistrationType event, BigDecimal value){
+	public ClassDayStudent(Long studentId, Long courseId, Date date, EventRegistrationType event, BigDecimal value, String comment){
 		super(date);
 		this.studentId = studentId;
 		this.courseId = courseId;
 		this.eventRegistrationType = event;
 		this.value = value;
+		this.comment = comment;
 	}
 	
 	public BigDecimal getValue() {
@@ -53,6 +62,14 @@ public class ClassDayStudent extends ClassDay{
 
 	public void setStudentId(Long studentId) {
 		this.studentId = studentId;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
 

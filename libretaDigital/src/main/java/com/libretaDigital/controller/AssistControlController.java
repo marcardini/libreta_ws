@@ -67,13 +67,13 @@ public class AssistControlController {
 		
 		
 		//ESTO ES PARA PROBAR EL METODO NUEVO:
-		/*List<Student> resultado = studentServiceImpl.getStudentsFiles(null, "primero", "1A", 2016, "MATEMATICAS");
+		List<Student> resultado = studentServiceImpl.getStudentsFiles(null, "primero", "1A", 2016, "MATEMATICAS");
 		
 		for(Student s: resultado){
 			System.out.println(s.getName() + " " + s.getLastName());
 		}
 		
-		*/
+		
 		
 		
 		

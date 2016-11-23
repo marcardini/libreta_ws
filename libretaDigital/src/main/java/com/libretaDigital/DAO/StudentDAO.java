@@ -2,7 +2,6 @@ package com.libretaDigital.DAO;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -216,7 +215,7 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 			@SuppressWarnings("unchecked")
 			@Override
 			public List<ClassDayStudent> doInHibernate(Session session) throws HibernateException {
-				String oQuery = "select day.class_date, day.event_registration_type, day.value "
+				String oQuery = "select day.class_date, day.event_registration_type, day.value, day.comment "
 						+ "from class_day_student day " 
 						+ "where day.student_id = :studentOid and day.course_id = (select oid from course where name = :courseName) ";
 				
@@ -253,6 +252,11 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 			
 			if(oPartialResult[2] != null && !oPartialResult[2].toString().equals(""))
 				classDay.setValue(new BigDecimal(oPartialResult[2].toString()));
+			
+			if (oPartialResult[3] != null && !oPartialResult[3].equals("")) {
+				String comment = (String) oPartialResult[3];
+				classDay.setComment(comment);
+			}
 			
 			result.add(classDay);
 		}

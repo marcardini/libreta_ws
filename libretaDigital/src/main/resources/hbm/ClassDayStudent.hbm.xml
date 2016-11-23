@@ -28,5 +28,7 @@
 		
 		<property name="value" type="big_decimal" precision="5" scale="1" />
 		
+		<property name="comment" length="255" column="comment" />
+		
 	</class>
 </hibernate-mapping>

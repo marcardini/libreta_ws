@@ -7,7 +7,16 @@ public enum EventRegistrationType {
 
 	ASSISTANCE("Asistencia"),
 	INASSISTANCE("Falta"),
-	HALF_ASSISTANCE("Media falta");
+	HALF_ASSISTANCE("Media falta"),
+	
+	PARCIAL("Parcial"),
+	EXAMEN("Exámen"),
+	ORAL("Oral"),
+	EXAMEN_ORAL("Exámen oral"),
+	EXAMEN_ESCRITO("Exámen escrito"),
+	PARTICIPACION_CLASE("Participación de clase"),
+	OBSERVACION("Observación"),
+	SUSPENSIÓN("Suspensión");
 	
 	private final String value;
 

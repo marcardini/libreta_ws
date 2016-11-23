@@ -8,6 +8,7 @@ import org.springframework.security.authentication.encoding.MessageDigestPasswor
 import com.libretaDigital.DAO.*;
 import com.libretaDigital.datatypes.StudentEventRegistration;
 import com.libretaDigital.entities.ClassDayStudent;
+import com.libretaDigital.entities.Course;
 import com.libretaDigital.entities.Student;
 import com.libretaDigital.exceptions.*;
 import com.libretaDigital.interfaces.*;
@@ -40,8 +41,7 @@ public class StudentServiceImpl implements IStudentService{
 			date = new Date();
 		
 		for(StudentEventRegistration ser : studentsAssistanceRegistrationList){
-			ClassDayStudent cds = new ClassDayStudent(ser.getStudentid(), ser.getCourseId(), date, ser.getEventRegistrationType(), null);
-			//the null param is the 'value' that doesn't fits here because we're persisting assistances, not grades.
+			ClassDayStudent cds = new ClassDayStudent(ser.getStudentid(), ser.getCourseId(), date, ser.getEventRegistrationType());
 			classDayStudentDAO.saveOrUpdate(cds); 
 		}
 	}
