@@ -59,7 +59,7 @@ public class AssistControlTest {
 		//FIXME
 		Long courseId = 1L;
 		
-		StudentEventRegistration testStudentEventReg = new StudentEventRegistration(studentId, courseId, EventRegistrationType.INASSISTANCE);
+		StudentEventRegistration testStudentEventReg = new StudentEventRegistration(studentId, courseId, null, null, EventRegistrationType.INASSISTANCE);
 		studentsAssistanceRegistrationList.add(testStudentEventReg);
 	}
 	

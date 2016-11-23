@@ -25,63 +25,64 @@ import com.libretaDigital.entities.Student;
 import com.libretaDigital.services.StudentServiceImpl;
 import com.libretaDigital.utils.EventRegistrationType;
 
-
 @Controller
 public class AssistControlController {
-	
+
 	@Autowired
 	private AssistControlFacadeImpl assistControlFacade;
 	@Autowired
 	private StudentServiceImpl studentServiceImpl;
-	
+
 	private String groupCode;
 	private BigInteger professorId;
 	private ObjectMapper mapper = new ObjectMapper();
-	
+
 	@RequestMapping(value = "/assistControl", method = RequestMethod.GET)
 	public ModelAndView AssistControl() {
 		ModelAndView page = new ModelAndView("assistControl");
 		page.addObject("tituloPagina", "Libreta Digital - Control de Asistencias");
 		page.addObject("codMenu", "C1");
-		
-		
-		
+
 		groupCode = "1A";
 		professorId = BigInteger.ONE;
-		
-		try {			
-			page.addObject("students" , mapper.writeValueAsString(this.getStudentsByCode()));
+
+		try {
+			page.addObject("students", mapper.writeValueAsString(this.getStudentsByCode()));
 			page.addObject("groups", mapper.writeValueAsString(this.getGroupsByProfessor()));
 			page.addObject("studentsAbsences", mapper.writeValueAsString(this.getStudentsAbsencesByCode()));
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}	
+		}
 		return page;
 	}
-	
-	
+
 	@RequestMapping(value = "/assistControl/saveAbsences", method = RequestMethod.POST)
 	public void SaveAbsences(@RequestBody List<AbsenceBean> absences, HttpServletResponse response) {	
 		
 		
 		
-		//ESTO ES PARA PROBAR EL METODO NUEVO:
-		List<Student> resultado = studentServiceImpl.getStudentsFiles(null, "primero", "1A", 2016, "MATEMATICAS");
+		//ESTO ES PARA PROBAR EL METODO DE LA FICHA:
+		/*List<Student> resultado = studentServiceImpl.getStudentsFiles(null, "primero", "1A", 2016, "MATEMATICAS");
+		
+		for(Student s: resultado){
+			System.out.println(s.getName() + " " + s.getLastName());
+		}*/
+		
+		
+		//ESTO ES PARA PROBAR EL METODO DE TRAER EL GRUPO CON SUS FALTAS
+		List<Student> resultado = assistControlFacade.getStudentsAndTodaysAssistance("primero", "1A", "MATEMATICAS");
 		
 		for(Student s: resultado){
 			System.out.println(s.getName() + " " + s.getLastName());
 		}
 		
 		
-		
-		
-		
 		try{
 			List<StudentEventRegistration> studentsAssistanceRegistrationList = new ArrayList<StudentEventRegistration> ();
 			for (AbsenceBean aux : absences) {
 				StudentEventRegistration ser = new StudentEventRegistration();
-				ser.setStudentid(aux.getIdStudent());
+				ser.setStudentId(aux.getIdStudent());
 				EventRegistrationType ert;
 				if(aux.isLate()){
 					ert = EventRegistrationType.HALF_ASSISTANCE;
@@ -98,10 +99,10 @@ public class AssistControlController {
 		}
 			
 	}
-	
+
 	@RequestMapping(value = "/assistControl/studentsAbsences", method = RequestMethod.GET)
 	@ResponseBody
-	public String StudentsAbsences() {	
+	public String StudentsAbsences() {
 		String studentsAbsences = "[]";
 		try {
 			studentsAbsences = mapper.writeValueAsString(this.getStudentsAbsencesByCode());
@@ -109,40 +110,42 @@ public class AssistControlController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return studentsAbsences;
 	}
-	
-	
-	
-	
-	public List<Student> getStudentsByCode(){
+
+	public List<Student> getStudentsByCode() {
 		return assistControlFacade.getStudentsByGroupCode(groupCode);
 	}
-	
-	public List<StudentAbsencesBean> getStudentsAbsencesByCode(){
+
+	public List<StudentAbsencesBean> getStudentsAbsencesByCode() {
 		return assistControlFacade.getStudentsAbsencesByCode(groupCode);
 	}
-	
-	public List<Group> getGroupsByProfessor(){
+
+	public List<Group> getGroupsByProfessor() {
 		return assistControlFacade.getGroupsByProfessorId(professorId);
 	}
-		
+
 	public String getGroupCode() {
 		return groupCode;
 	}
+
 	public void setGroupCode(String groupCode) {
 		this.groupCode = groupCode;
 	}
+
 	public AssistControlFacadeImpl getAssistControlFacade() {
 		return assistControlFacade;
 	}
+
 	public void setAssistControlFacade(AssistControlFacadeImpl assistControlFacade) {
 		this.assistControlFacade = assistControlFacade;
 	}
+
 	public BigInteger getProfessorId() {
 		return professorId;
 	}
+
 	public void setProfessorId(BigInteger professorId) {
 		this.professorId = professorId;
 	}

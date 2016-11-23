@@ -30,6 +30,11 @@ public class AssistControlFacadeImpl implements AssistControlFacade {
 		return studentDAO.getStudentsAbsencesByGroupCodeWith(groupCode);
 	}
 	
+	@Override
+	public List<Student> getStudentsAndTodaysAssistance(String courseName, String groupCode, String subjectName){
+		return studentDAO.getStudentsAndTodaysAssistance(courseName, groupCode, subjectName);
+	}
+	
 	public StudentDAO getStudentDAO() {
 		return studentDAO;
 	}
