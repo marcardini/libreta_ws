@@ -1,4 +1,7 @@
-app.controller('calendarCtrl', ['$scope','moment', 'calendarConfig', function ($scope, moment, calendarConfig) {
+app.controller('calendarCtrl', ['$scope','moment', 'calendarConfig', 'blockUI', function ($scope, moment, calendarConfig, blockUI) {
+	
+	blockUI.autoInjectBodyBlock = false;
+	blockUI.message = 'Cargando...';
 	
 	 var vm = this;
 	 	

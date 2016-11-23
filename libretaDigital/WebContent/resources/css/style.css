@@ -4,6 +4,10 @@
 	width: 98%;
 }
 
+.page-header{
+	margin: 0 0 20px;
+}
+
 /* FILE UPLOAD ANGULAR */
 .my-drop-zone {
 	border: dotted 5px lightgray;
@@ -40,6 +44,7 @@
 
 .label{
 	margin-top: 2px;
+	display: inline-block;
 }
 
 #btn-save {

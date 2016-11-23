@@ -25,22 +25,29 @@ var codMenu = "<%=codMenu%>";
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav">
 				<li class="{{home}}"><a href="index.jsp">Inicio</a></li>
-				<li class="dropdown {{datos}}"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Gestión de datos<span
-						class="caret"></span></a>
-
+				
+				<li class="dropdown {{datos}}"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Gestión de datos<span	class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li class="{{datosD1}}"><a href="fileUpload.jsp">Carga Masiva</a></li>
+						<li class="{{datos1}}"><a href="fileUpload.jsp">Carga Masiva</a></li>
 						<li><a href="#">Docentes</a></li>
 						<li><a href="#">Alumnos</a></li>
 						<li><a href="#">Grupos</a></li>
 						<li><a href="#">Programa</a></li>
-					</ul></li>
-				<li class="{{control}}"><a href="assistControl.jsp">Control de asistencias</a></li>
+					</ul>
+				</li>					
+					
+					
+				<li class="dropdown {{group}}"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Grupo<span	class="caret"></span></a>
+				<ul class="dropdown-menu">
+						<li class="{{group1}}"><a href="assistControl.jsp">Control de asistencias</a></li>
+						<li class="{{group2}}"><a href="studentsDay.jsp">Estudiantes</a></li>
+				</ul></li>
+					
 <!-- 				<li><button ng-click = "test()">Test</button></li> -->
 			</ul>
 			
 			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown {{datos}}"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Emanuel Thompson<span
+				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Emanuel Thompson<span
 						class="caret"></span></a>
 
 					<ul class="dropdown-menu">

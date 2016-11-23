@@ -21,29 +21,37 @@
 
 </head>
 
-<body ng-controller="calendarCtrl as vm">
+<body>
 	<jsp:include page="/WEB-INF/jsp/parts/menu-head.jsp" />
 	<div class="container block-ui-main" block-ui="main">
-
-		<div class="container calendar-container">
-			<div>
-				<div class="text-center">
-					<div class="btn-group">
-						<label class="btn btn-primary btn-lg btn-calendar" ng-model="vm.calendarView" uib-btn-radio="'year'">Año</label>
-						<label class="btn btn-primary btn-lg btn-calendar" ng-model="vm.calendarView" uib-btn-radio="'month'">Mes</label>
-						<!-- 					 <label	class="btn btn-primary" ng-model="vm.calendarView" uib-btn-radio="'week'">Semana</label>					   -->
-					</div>
+	
+		<div class="page-header">
+			<div class="row">
+				<div class="col-md-8">
+					<h1>
+						Estudiantes <small>Grupo 4°A : Matematicas </small>
+						<button id="btn-save" class="btn btn-lg btn-danger" ng-click="">Guardar</button>
+					</h1>
 				</div>
-				<br>
-				<mwl-calendar events="vm.events" view="vm.calendarView" view-date="vm.viewDate"
-					on-view-change-click="vm.viewChangeClicked(calendarNextView)"> </mwl-calendar>
+				<div class="col-md-4">
+					<h1>
+						<small class="date-small"> {{date | date:'dd-MM-yyyy'}}</small>
+					</h1>
+				</div>
 			</div>
 		</div>
+		
+		
+		
+
 	</div>
 </body>
 
 
+
+
+
 <jsp:include page="/WEB-INF/jsp/parts/scripts.jsp" />
-<script src="resources/app/controllers/calendarController.js"></script>
+
 
 </html>
