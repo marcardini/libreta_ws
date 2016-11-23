@@ -55,7 +55,7 @@
 
 	
 
-	<div class="container" ng-init="" block-ui="main" class="block-ui-main">
+	<div class="container block-ui-main" block-ui="main">
 		<div class="page-header">
 			<div class="row">
 				<div class="col-md-8">
@@ -151,7 +151,8 @@
 									<div class="media-body">
 										<h4 class="media-heading">{{student.label}}</h4>
 										<span class="label label-danger">Inasistencias: {{student.absences}}</span>
-										<span class="label label-warning">Llegadas Tarde: {{student.half}}</span>										
+										<span class="label label-warning">Llegadas Tarde: {{student.half}}</span>
+										<span class="label label-info">Justificadas: 0</span>										
 									</div>
 									<div class="media-right">
 										<h1 class="total-absences">{{student.absences + (student.half)/2}}</h1>

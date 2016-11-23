@@ -21,29 +21,13 @@
 
 </head>
 
-<body ng-controller="calendarCtrl as vm">
-	<jsp:include page="/WEB-INF/jsp/parts/menu-head.jsp" />
-	<div class="container block-ui-main" block-ui="main">
 
-		<div class="container calendar-container">
-			<div>
-				<div class="text-center">
-					<div class="btn-group">
-						<label class="btn btn-primary btn-lg btn-calendar" ng-model="vm.calendarView" uib-btn-radio="'year'">Año</label>
-						<label class="btn btn-primary btn-lg btn-calendar" ng-model="vm.calendarView" uib-btn-radio="'month'">Mes</label>
-						<!-- 					 <label	class="btn btn-primary" ng-model="vm.calendarView" uib-btn-radio="'week'">Semana</label>					   -->
-					</div>
-				</div>
-				<br>
-				<mwl-calendar events="vm.events" view="vm.calendarView" view-date="vm.viewDate"
-					on-view-change-click="vm.viewChangeClicked(calendarNextView)"> </mwl-calendar>
-			</div>
-		</div>
-	</div>
-</body>
+
+
+
 
 
 <jsp:include page="/WEB-INF/jsp/parts/scripts.jsp" />
-<script src="resources/app/controllers/calendarController.js"></script>
+
 
 </html>

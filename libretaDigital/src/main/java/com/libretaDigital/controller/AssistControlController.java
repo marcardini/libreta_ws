@@ -42,7 +42,7 @@ public class AssistControlController {
 	public ModelAndView AssistControl() {
 		ModelAndView page = new ModelAndView("assistControl");
 		page.addObject("tituloPagina", "Libreta Digital - Control de Asistencias");
-		page.addObject("codMenu", "C1");
+		page.addObject("codMenu", "G1");
 		
 		
 		
