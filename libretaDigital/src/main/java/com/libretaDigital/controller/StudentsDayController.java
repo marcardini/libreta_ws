@@ -46,13 +46,15 @@ public class StudentsDayController {
 	public List<Student> getStudentsByCode() {
 		return studentsDayFacade.getStudentsByGroupCode(groupCode);
 	}
-	
+
 	public StudentsDayFacadeImpl getStudentsDayFacade() {
-		return  studentsDayFacade;
+		return studentsDayFacade;
 	}
 
-	public void seStudentsDayFacade(StudentsDayFacadeImpl  studentsDayFacade) {
-		this. studentsDayFacade =  studentsDayFacade;
+	public void setStudentsDayFacade(StudentsDayFacadeImpl studentsDayFacade) {
+		this.studentsDayFacade = studentsDayFacade;
 	}
+	
+
 	
 }
