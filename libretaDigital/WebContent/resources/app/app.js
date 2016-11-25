@@ -108,3 +108,17 @@ app.directive('dropzone', function($parse) {
         }
     }
 });
+
+app.run(['ngNotify', function(ngNotify){
+	
+	ngNotify.config({
+        theme: 'pure',
+        position: 'bottom',
+        duration: 3000,
+        type: 'info',
+        sticky: false,
+        button: true,
+        html: false
+    });	
+	
+}]);

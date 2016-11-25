@@ -8,9 +8,9 @@ import com.libretaDigital.DAO.StudentDAO;
 import com.libretaDigital.beans.StudentAbsencesBean;
 import com.libretaDigital.entities.Group;
 import com.libretaDigital.entities.Student;
-import com.libretaDigital.interfaces.AssistControlFacade;
+import com.libretaDigital.interfaces.IAssistControlFacade;
 
-public class AssistControlFacadeImpl implements AssistControlFacade {
+public class AssistControlFacadeImpl implements IAssistControlFacade {
 
 	private StudentDAO studentDAO;
 	private GroupDAO groupDAO;

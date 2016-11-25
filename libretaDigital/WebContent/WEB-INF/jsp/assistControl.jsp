@@ -28,15 +28,9 @@
 %>
 
 <script type="text/javascript">
-	var students =
-<%=students%>
-	;
-	var studentsAbsences =
-<%=studentsAbsences%>
-	;
-	var groups =
-<%=groups%>
-	;
+	var students = <%=students%>;
+	var studentsAbsences = <%=studentsAbsences%>;
+	var groups = <%=groups%>;
 </script>
 
 

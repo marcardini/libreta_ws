@@ -12,5 +12,5 @@
 		<property name="studentDAO" ref="studentDAO" />
 		<property name="groupDAO" ref="groupDAO" />
 	</bean>
-
+	
 </beans>

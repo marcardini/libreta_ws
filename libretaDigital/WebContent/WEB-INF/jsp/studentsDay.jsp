@@ -11,20 +11,33 @@
 	if (pageTitle == null) {
 		pageTitle = "Libreta Digital";
 	}
+
+	String students = (String) request.getAttribute("students");
+	if (students == null) {
+		students = "[]";
+	}
 %>
+
+<script type="text/javascript">
+	var students =
+<%=students%>
+	;
+</script>
 
 <title><%=pageTitle%></title>
 <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="bower_components/angular-bootstrap-calendar/dist/css/angular-bootstrap-calendar.min.css">
-<link rel="stylesheet" href="bower_components/angular-block-ui/dist/angular-block-ui.min.css" />
+<link rel="stylesheet" href="bower_components/ng-notify/dist/ng-notify.min.css">
+<link rel="stylesheet" href="bower_components/angular-block-ui/dist/angular-block-ui.min.css">
 <link rel="stylesheet" href="resources/css/style.css">
 
 </head>
 
-<body>
+<body ng-controller="studentsDayCtrl">
 	<jsp:include page="/WEB-INF/jsp/parts/menu-head.jsp" />
+
+
 	<div class="container block-ui-main" block-ui="main">
-	
+
 		<div class="page-header">
 			<div class="row">
 				<div class="col-md-8">
@@ -40,9 +53,30 @@
 				</div>
 			</div>
 		</div>
-		
-		
-		
+
+		<div class=row">
+			<div class="col-md-3">
+
+				<table st-table="rowCollection" class="table table-striped">
+					<thead>
+						<tr>
+							<th st-sort="firstName">first name</th>
+							<th st-sort="lastName">last name</th>							
+							<th>email</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="row in rowCollection">
+							<td>{{row.firstName | uppercase}}</td>
+							<td>{{row.lastName}}</td>							
+							<td><a ng-href="mailto:{{row.email}}">email</a></td>
+						</tr>
+					</tbody>
+				</table>
+
+			</div>
+		</div>
+
 
 	</div>
 </body>
@@ -53,5 +87,5 @@
 
 <jsp:include page="/WEB-INF/jsp/parts/scripts.jsp" />
 
-
+<script src="resources/app/controllers/studentsDayController.js"></script>
 </html>

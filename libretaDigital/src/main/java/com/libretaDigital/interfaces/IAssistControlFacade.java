@@ -7,7 +7,7 @@ import com.libretaDigital.beans.StudentAbsencesBean;
 import com.libretaDigital.entities.Group;
 import com.libretaDigital.entities.Student;
 
-public interface AssistControlFacade {
+public interface IAssistControlFacade {
 
 	List<Student> getStudentsByGroupCode(String groupCode);
 	
