@@ -58,8 +58,6 @@ public class AssistControlController {
 	@RequestMapping(value = "/assistControl/saveAbsences", method = RequestMethod.POST)
 	public void SaveAbsences(@RequestBody List<AbsenceBean> absences, HttpServletResponse response) {	
 		
-		
-		
 		//ESTO ES PARA PROBAR EL METODO DE LA FICHA:
 		/*List<Student> resultado = studentServiceImpl.getStudentsFiles(null, "primero", "1A", 2016, "MATEMATICAS");
 		
