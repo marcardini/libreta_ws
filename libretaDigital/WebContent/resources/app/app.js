@@ -1,5 +1,5 @@
 //var app = angular.module("app", []);
-var app = angular.module('app', ['ui.bootstrap', 'smart-table', 'dndLists', 'percentCircle-directive', 'ngAnimate', 'ngTouch', ,'mwl.calendar', 'ngNotify', 'blockUI' ])
+var app = angular.module('app', ['ui.bootstrap', 'smart-table', 'dndLists', 'percentCircle-directive', 'ngAnimate', 'ngTouch','mwl.calendar', 'ngNotify', 'blockUI' ])
 
 .filter('capitalize', function() {
     return function(input, all) {
@@ -9,6 +9,7 @@ var app = angular.module('app', ['ui.bootstrap', 'smart-table', 'dndLists', 'per
       }):'';
     };
   });
+
 
 app.directive('validNumber', function() {
   return {
@@ -56,12 +57,12 @@ app.directive('validNumber', function() {
   };
 });
 
-app.directive('dropzone', function($parse) {
+app.directive('dropzone', function () {
     return {
         restrict: 'C',
         link: function(scope, element, attrs) {
         	
-        	element.val("value=" + $parse(attrs.selectedType)(scope));
+//        	element.val("value=" + $parse(attrs.selectedType)($scope));
         	
             var config = {
                 url: 'fileUpload/upload?type=',
@@ -95,8 +96,6 @@ app.directive('dropzone', function($parse) {
                 dropzone.on(event, handler);                
             });
             
-            
-
             scope.processDropzone = function() {            	
             	dropzone.options.url = "fileUpload/upload?type=" + scope.selectedType;            	
                 dropzone.processQueue();
@@ -108,17 +107,3 @@ app.directive('dropzone', function($parse) {
         }
     }
 });
-
-app.run(['ngNotify', function(ngNotify){
-	
-	ngNotify.config({
-        theme: 'pure',
-        position: 'bottom',
-        duration: 3000,
-        type: 'info',
-        sticky: false,
-        button: true,
-        html: false
-    });	
-	
-}]);

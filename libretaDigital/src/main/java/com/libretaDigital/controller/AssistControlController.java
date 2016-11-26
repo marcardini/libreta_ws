@@ -61,19 +61,19 @@ public class AssistControlController {
 		
 		
 		//ESTO ES PARA PROBAR EL METODO DE LA FICHA:
-		/*List<Student> resultado = studentServiceImpl.getStudentsFiles(null, "primero", "1A", 2016, "MATEMATICAS");
+//		List<Student> resultado = studentServiceImpl.getStudentsFiles(null, "primero", "1A", 2016, "MATEMATICAS");
 		
-		for(Student s: resultado){
-			System.out.println(s.getName() + " " + s.getLastName());
-		}*/
-		
+//		for(Student s: resultado){
+//			System.out.println(s.getName() + " " + s.getLastName());
+//		}
+//		
 		
 		//ESTO ES PARA PROBAR EL METODO DE TRAER EL GRUPO CON SUS FALTAS
-		List<Student> resultado = assistControlFacade.getStudentsAndTodaysAssistance("primero", "1A", "MATEMATICAS");
-		
-		for(Student s: resultado){
-			System.out.println(s.getName() + " " + s.getLastName());
-		}
+//		List<Student> resultado2 = assistControlFacade.getStudentsAndTodaysAssistance("primero", "1A", "MATEMATICAS");
+//		
+//		for(Student s: resultado){
+//			System.out.println(s.getName() + " " + s.getLastName());
+//		}
 		
 		
 		try{

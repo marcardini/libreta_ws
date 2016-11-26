@@ -24,18 +24,15 @@ public class StudentServiceImpl implements IStudentService{
 	}
 	
 	@Override
-	public void addStudent(Student dtStudent) throws StudentAlreadyExists, InvalidStudentInformation {
-		
+	public void addStudent(Student dtStudent) throws StudentAlreadyExists, InvalidStudentInformation {		
 		if (studentDAO.getStudentByMail(dtStudent.getEmail()) != null)
 			throw new StudentAlreadyExists();
 				
-		studentDAO.save(dtStudent);
-		
+		studentDAO.save(dtStudent);		
 	}
 	
 	@Override
-	public void assistanceControl(List<StudentEventRegistration> studentsAssistanceRegistrationList, Date date){
-		
+	public void assistanceControl(List<StudentEventRegistration> studentsAssistanceRegistrationList, Date date){		
 		if(date == null)
 			date = new Date();
 		
@@ -46,10 +43,8 @@ public class StudentServiceImpl implements IStudentService{
 	}
 	
 	@Override
-	public List<Student> getStudentsFiles(String mail, String courseName, String groupCode, int year, String subjectName){
-		
-		return studentDAO.getStudentsFiles(mail, courseName, groupCode, year, subjectName);
-		
+	public List<Student> getStudentsFiles(String mail, String courseName, String groupCode, int year, String subjectName){		
+		return studentDAO.getStudentsFiles(mail, courseName, groupCode, year, subjectName);		
 	}
 	
 	

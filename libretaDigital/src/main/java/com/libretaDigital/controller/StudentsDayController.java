@@ -33,7 +33,7 @@ public class StudentsDayController {
 		professorId = 1;
 		
 		try {			
-			page.addObject("students" , mapper.writeValueAsString(this.getStudentsByCode()));
+			page.addObject("students" , mapper.writeValueAsString(this.getStudentsFiles()));
 //			page.addObject("groups", mapper.writeValueAsString(this.getGroupsByProfessor()));
 //			page.addObject("studentsAbsences", mapper.writeValueAsString(this.getStudentsAbsencesByCode()));
 		} catch (JsonProcessingException e) {
@@ -46,6 +46,11 @@ public class StudentsDayController {
 	public List<Student> getStudentsByCode() {
 		return studentsDayFacade.getStudentsByGroupCode(groupCode);
 	}
+	
+	public List<Student> getStudentsFiles() {
+		//return studentsDayFacade.getStudentsFiles(mail, courseName, groupCode, year, subjectName)
+		return studentsDayFacade.getStudentsFiles(null, "primero", "1A", 2016, "MATEMATICAS");
+	}
 
 	public StudentsDayFacadeImpl getStudentsDayFacade() {
 		return studentsDayFacade;
@@ -54,6 +59,8 @@ public class StudentsDayController {
 	public void setStudentsDayFacade(StudentsDayFacadeImpl studentsDayFacade) {
 		this.studentsDayFacade = studentsDayFacade;
 	}
+	
+	
 	
 
 	

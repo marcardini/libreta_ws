@@ -1,7 +1,6 @@
 app.controller('studentsDayCtrl', ['$scope', '$filter', '$http', 'ngNotify', 'blockUI', function ($scope, $filter, $http, ngNotify, blockUI) {
 
-	
-	  ngNotify.config({
+	ngNotify.config({
 	        theme: 'pure',
 	        position: 'bottom',
 	        duration: 3000,
@@ -9,12 +8,16 @@ app.controller('studentsDayCtrl', ['$scope', '$filter', '$http', 'ngNotify', 'bl
 	        sticky: false,
 	        button: true,
 	        html: false
-	    });
+	});
 	  
 	blockUI.autoInjectBodyBlock = false;
 	blockUI.message = 'Cargando...';
-
-	$scope.date = new Date();
+	$scope.date = new Date();	
+	
+	console.log(students);
+	
+	$scope.students = [];	
+	angular.copy(students, $scope.students);	
 	
 	$scope.rowCollection = [
         {firstName: 'Laurent', lastName: 'Renard', birthDate: new Date('1987-05-21'), balance: 102, email: 'whatever@gmail.com'},
