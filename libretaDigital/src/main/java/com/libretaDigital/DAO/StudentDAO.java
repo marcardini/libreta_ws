@@ -260,6 +260,12 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 				classDay.setComment(comment);
 			}
 			
+			if(oPartialResult[4] != null && !oPartialResult[4].toString().equals(""))
+				classDay.setOid(new Long(oPartialResult[4].toString()));
+			
+			if(oPartialResult[5] != null && !oPartialResult[5].toString().equals(""))
+				classDay.setStudentId(new Long(oPartialResult[5].toString()));
+			
 			result.add(classDay);
 		}
 		return result;
@@ -338,7 +344,7 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 		
 		log.debug(String.format("Getting students and today's assistance. Course: " + courseName + ". Group: " + groupCode + ". Subject: " + subjectName));
 		
-		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		DateFormat dateFormat = new SimpleDateFormat("yyy-MM-dd");
 		Date date = new Date();
 		String dateFrom = dateFormat.format(date).concat(" 00:00:00");
 		String dateTo = dateFormat.format(date).concat(" 23:59:59");
@@ -350,11 +356,11 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 			@SuppressWarnings("unchecked")
 			@Override
 			public List<Student> doInHibernate(Session session) throws HibernateException {
-				String oQuery = "select stu.oid, stu.name, stu.last_name, stu.birth_date, stu.gender, stu.email, stu.currentStudent "
+				String oQuery = "select stu.oid, stu.name, stu.last_name, stu.birth_date, stu.gender, stu.email, stu.currentStudent, day.event_registration_type "
 						+ "from student stu, group_ g, subject sub, course course, class_day_student day "
 						+ "where stu.group_id = g.oid and sub.course_id = course.oid and day.student_id = stu.oid and day.course_id = course.oid "
 						+ "and upper(g.name) = upper(:groupCode) and upper(sub.name) = upper(:subjectName) and course.oid = (select oid from course where name = :courseName) "
-						+ "and day.class_date >= :dateFrom and day.class_date <= :dateTo and day.event_registration_type in('INASSISTANCE', 'HALF_ASSISTANCE')";
+						+ "and day.class_date >= :dateFrom and day.class_date <= :dateTo ";
 
 				SQLQuery query = session.createSQLQuery(oQuery);
 
@@ -420,12 +426,13 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 			@SuppressWarnings("unchecked")
 			@Override
 			public List<ClassDayStudent> doInHibernate(Session session) throws HibernateException {
-				String oQuery = "select day.class_date, day.event_registration_type, day.value, day.comment "
+				String oQuery = "select day.class_date, day.event_registration_type, day.value, day.comment, day.oid, day.student_id "
 						+ "from class_day_student day " 
 						+ "where day.student_id = :studentOid "
 						+ "and day.course_id = (select oid from course where name = :courseName) "
-						+ "and day.group_id = (select oid from group_ where name = :groupName) "
-						+ "and day.subject_id = (select oid from subject where name = :subjectName)";
+						+ "and day.group_id = (select oid from group_ where name = :groupCode) "
+						+ "and day.subject_id = (select oid from subject where name = :subjectName) "
+						+ "and day.event_registration_type in('INASSISTANCE', 'HALF_ASSISTANCE') ";
 				
 				SQLQuery query = session.createSQLQuery(oQuery);
 

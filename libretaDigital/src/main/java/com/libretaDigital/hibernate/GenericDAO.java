@@ -28,6 +28,7 @@ public class GenericDAO<E> extends HibernateDaoSupport implements IGenericDAO<E>
 				inst = pp.process(inst);
 
 		try {
+			getHibernateTemplate().setCheckWriteOperations(false);
 			long timerOn = System.currentTimeMillis();
 			Serializable id = getHibernateTemplate().save(inst);
 			long timerOff = System.currentTimeMillis();

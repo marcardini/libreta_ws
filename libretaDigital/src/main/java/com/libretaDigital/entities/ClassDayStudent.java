@@ -3,8 +3,11 @@ package com.libretaDigital.entities;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+
 import com.libretaDigital.utils.EventRegistrationType;
 
+@JsonAutoDetect
 public class ClassDayStudent extends ClassDay{
 	
 	private Long studentId;
@@ -17,15 +20,17 @@ public class ClassDayStudent extends ClassDay{
 	
 	public ClassDayStudent(){}
 
-	public ClassDayStudent(Long studentId, Long courseId, Long groupId, Long subjectId, Date date, EventRegistrationType event){
-		super(date);
+	public ClassDayStudent(Long classDayStudentId, Long studentId, Long courseId, Long groupId, Long subjectId, Date date, EventRegistrationType event){
+		super(classDayStudentId, date);
 		this.studentId = studentId;
 		this.courseId = courseId;
+		this.groupId = groupId;
+		this.subjectId = subjectId;
 		this.eventRegistrationType = event;
 	}
 	
-	public ClassDayStudent(Long studentId, Long courseId, Long groupId, Long subjectId, Date date, EventRegistrationType event, BigDecimal value, String comment){
-		super(date);
+	public ClassDayStudent(Long classDayStudentId, Long studentId, Long courseId, Long groupId, Long subjectId, Date date, EventRegistrationType event, BigDecimal value, String comment){
+		super(classDayStudentId, date);
 		this.studentId = studentId;
 		this.courseId = courseId;
 		this.eventRegistrationType = event;
@@ -89,6 +94,5 @@ public class ClassDayStudent extends ClassDay{
 	public void setSubjectId(Long subjectId) {
 		this.subjectId = subjectId;
 	}
-
 
 }

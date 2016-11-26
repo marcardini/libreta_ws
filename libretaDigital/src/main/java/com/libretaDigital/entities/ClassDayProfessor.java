@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class ClassDayProfessor extends ClassDay{
 
-	public ClassDayProfessor(Date date) {
-		super(date);
+	public ClassDayProfessor(Long classDayProfessor, Date date) {
+		super(classDayProfessor, date);
 	}
 
 }

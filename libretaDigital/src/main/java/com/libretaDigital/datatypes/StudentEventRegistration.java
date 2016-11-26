@@ -7,6 +7,7 @@ import com.libretaDigital.utils.EventRegistrationType;
 @JsonAutoDetect
 public class StudentEventRegistration {
 	
+	private Long classDayStudentId;
 	private Long studentId;
 	private Long courseId;
 	private Long groupId;
@@ -15,7 +16,8 @@ public class StudentEventRegistration {
 	
 	public StudentEventRegistration(){}
 	
-	public StudentEventRegistration(Long studentId, Long courseId, Long groupId, Long subjectId, EventRegistrationType ert){
+	public StudentEventRegistration(Long classDayStudentId, Long studentId, Long courseId, Long groupId, Long subjectId, EventRegistrationType ert){
+		this.classDayStudentId = classDayStudentId;
 		this.studentId = studentId;
 		this.courseId = courseId;
 		this.groupId = groupId;
@@ -52,5 +54,13 @@ public class StudentEventRegistration {
 	}
 	public void setSubjectId(Long subjectId) {
 		this.subjectId = subjectId;
+	}
+
+	public Long getClassDayStudentId() {
+		return classDayStudentId;
+	}
+
+	public void setClassDayStudentId(Long classDayStudentId) {
+		this.classDayStudentId = classDayStudentId;
 	}
 }

@@ -2,6 +2,9 @@ package com.libretaDigital.entities;
 
 import java.util.Date;
 
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+
+@JsonAutoDetect
 public abstract class ClassDay {
 
 	private Long oid;
@@ -9,7 +12,8 @@ public abstract class ClassDay {
 	
 	public ClassDay(){}
 	
-	public ClassDay(Date date){
+	public ClassDay(Long classDayStudentOid, Date date){
+		this.oid = classDayStudentOid;
 		this.date = date;
 	}
 
