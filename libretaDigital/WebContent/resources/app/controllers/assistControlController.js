@@ -17,17 +17,16 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 	
 	$scope.date = new Date();
 	$scope.students = [];
-	$scope.studentsAbsences = [];
-	angular.copy(students, $scope.students);
+	$scope.studentsAbsences = [];	
 	angular.copy(studentsAbsences, $scope.studentsAbsences);
 	
-	console.log($scope.studentsAbsences);
-	console.log(groups);
+	//console.log($scope.studentsAbsences);
+	console.log(students);
 	
 	/* LISTAS */
 	
 	 $scope.models = [
-	      {listName: "A", items: $scope.students, dragging: false},
+	      {listName: "A", items: [], dragging: false},
 	      {listName: "B", items: [], dragging: false}
 	    ];
 	 
@@ -79,15 +78,17 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 			 if(item.late){
 				 aux.idStudent = item.oid;
 				 aux.late = item.late;
+				 aux.classDayStudentId = item.calendar[0].oid;
 				 absences.push(aux);
 			 } 		 
 		 });
 		 angular.forEach($scope.models[1].items, function(item){ 
 			 var aux = {idStudent:"", late:false};
+			 aux.classDayStudentId = item.calendar[0].oid;
 			 aux.idStudent = item.oid;			 	
 			 absences.push(aux);			 	 
 		 });
-//		 console.log(absences)
+		 console.log(absences)
 		 $http({
 			  method: 'POST',
 			  url: 'assistControl/saveAbsences',
@@ -249,12 +250,24 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 	      list.items = list.items.filter(function(item) { return !item.selected; });
 	    };
 
-	    // Generate the initial model
-	    angular.forEach($scope.models[0].items, function(item) {  	
-	    	  item.late = false;
-	    	  item.label =  $filter('capitalize')(item.name) +" "+ $filter('capitalize')(item.lastName);       
-	    });
+	    // Generate the initial model    
 	    
+	    for (var int = 0; int < students.length; int++) {	
+	    	var item = students[int];	    	
+	    	item.label =  $filter('capitalize')(item.name) +" "+ $filter('capitalize')(item.lastName);	    	
+	    	if(item.calendar.length > 0){	    		
+	    		if(item.calendar[0].eventRegistrationType === "INASSISTANCE" ){
+		    		$scope.models[1].items.push(item);
+		    	}else{
+		    		item.late = true;
+		    		$scope.models[0].items.push(item);
+		    	}
+	    	}else{
+	    		item.late = false;
+	    		$scope.models[0].items.push(item);
+	    	}	    	
+	    };
+	   	    
 	    $scope.setLabelStudentsList($scope.studentsAbsences);
 	    // Model to JSON for demo purpose
 	    $scope.$watch('models', function(model) {

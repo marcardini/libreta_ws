@@ -5,7 +5,6 @@ import org.codehaus.jackson.annotate.JsonAutoDetect;
 @JsonAutoDetect
 public enum EventRegistrationType {
 
-	ASSISTANCE("Asistencia"),
 	INASSISTANCE("Falta"),
 	HALF_ASSISTANCE("Media falta"),
 	
