@@ -93,45 +93,38 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 	}
 
 	public List<Student> getStudentsFiles(String mail, String courseName, String groupCode, int year, String subjectName) {
-
-		if (mail != null && !mail.equals(""))
-			log.debug(String.format("Getting a particular student file: " + mail));
-		else
-			log.debug(String.format("Getting students files with this parameters: Group " + groupCode + ". Year " + year + ". Subject " + subjectName));
-
-		return getHibernateTemplate().execute(new HibernateCallback<List<Student>>() {
-
-			List<Student> result = new ArrayList<Student>();
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public List<Student> doInHibernate(Session session) throws HibernateException {
-				String oQuery = "select stu.oid, stu.name, stu.last_name, stu.birth_date, stu.gender, stu.email, stu.currentStudent "
-						+ "from student stu, group_ g, subject sub, course course, class_day_student day "
-						+ "where stu.group_id = g.oid and sub.course_id = course.oid and day.student_id = stu.oid and day.course_id = course.oid "
-						+ "and upper(g.name) = upper(:groupCode) and g.year = :year and upper(sub.name) = upper(:subjectName) ";
-
-				if (mail != null && !mail.equals(""))
-					oQuery = oQuery.concat("and upper(stu.email) = upper(:mail)");
-
-				SQLQuery query = session.createSQLQuery(oQuery);
-
-				query.setString("groupCode", groupCode);
-				query.setString("subjectName", subjectName);
-				query.setInteger("year", year);
-				
-				if (mail != null && !mail.equals(""))
-					query.setString("mail", mail);
-
-				List<Object[]> partialResult = query.list();
-
-				if (partialResult != null && !partialResult.isEmpty())
-					result = getStudentsFilesFromPartialResult(partialResult, courseName);
-
-				return result;
-			}
-		});
-	}
+        if (mail != null && !mail.equals(""))
+            log.debug(String.format("Getting a particular student file: " + mail));
+        else
+            log.debug(String.format("Getting students files with this parameters: Group " + groupCode + ". Year " + year + ". Subject " + subjectName));
+        
+        return getHibernateTemplate().execute(new HibernateCallback<List<Student>>() {
+            List<Student> result = new ArrayList<Student>();
+            
+            @SuppressWarnings("unchecked")
+            @Override
+            public List<Student> doInHibernate(Session session) throws HibernateException {
+                String oQuery = "select stu.oid, stu.name, stu.last_name, stu.birth_date, stu.gender, stu.email, stu.currentStudent "
+                        + "from student stu, group_ g, subject sub, course course "
+                        + "where stu.group_id = g.oid and sub.course_id = course.oid "
+                        + "and upper(g.name) = upper(:groupCode) and g.year = :year and upper(sub.name) = upper(:subjectName) ";
+                if (mail != null && !mail.equals(""))
+                    oQuery = oQuery.concat("and upper(stu.email) = upper(:mail)");
+                
+                SQLQuery query = session.createSQLQuery(oQuery);
+                query.setString("groupCode", groupCode);
+                query.setString("subjectName", subjectName);
+                query.setInteger("year", year);
+                
+                if (mail != null && !mail.equals(""))
+                    query.setString("mail", mail);
+                List<Object[]> partialResult = query.list();
+                if (partialResult != null && !partialResult.isEmpty())
+                    result = getStudentsFilesFromPartialResult(partialResult, courseName);
+                return result;
+            }
+        });
+    }
 
 	public List<StudentAbsencesBean> getStudentsAbsencesByGroupCodeWith(String groupCode) {
 
@@ -172,39 +165,37 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 	}
 
 	private List<Student> getStudentsFilesFromPartialResult(List<Object[]> partialResult, String courseName) {
-
-		List<Student> result = new ArrayList<Student>();
-
-		for (Object[] oPartialResult : partialResult) {
-
-			Student student = new Student();			
-			student.setOid(new BigInteger(oPartialResult[0].toString()));			
-			student.setName((String)oPartialResult[1]);			
-			student.setLastName((String)oPartialResult[2]);
-			
-			if(oPartialResult[3] != null && !oPartialResult[3].equals("")){
-				Date birthDate = (Date)oPartialResult[3];
-				student.setBirthDate(birthDate);
-			}
-
-			String gender = (String)oPartialResult[4];
-			student.setGender(Gender.valueOf(gender));			
-			student.setEmail((String)oPartialResult[5]);
-			
-			if(oPartialResult[6] != null && !oPartialResult[6].equals("")){
-				boolean currentStudent;
-				if(oPartialResult[6].toString().equals("1") || oPartialResult[6].equals("true"))
-					currentStudent = true;
-				else
-					currentStudent = false;
-				student.setCurrentStudent(currentStudent);
-			}
-			
-			student.setCalendar(getStudentCalendarByStudentIdAndCourseId(student.getOid(), courseName));			
-			result.add(student);
-		}
-		return result;
-	}
+        List<Student> result = new ArrayList<Student>();
+        
+        for (Object[] oPartialResult : partialResult) {
+            Student student = new Student();            
+            student.setOid(new BigInteger(oPartialResult[0].toString()));           
+            student.setName((String)oPartialResult[1]);         
+            student.setLastName((String)oPartialResult[2]);
+            
+            if(oPartialResult[3] != null && !oPartialResult[3].equals("")){
+                Date birthDate = (Date)oPartialResult[3];
+                student.setBirthDate(birthDate);
+            }
+            
+            String gender = (String)oPartialResult[4];
+            student.setGender(Gender.valueOf(gender));          
+            student.setEmail((String)oPartialResult[5]);
+            
+            if(oPartialResult[6] != null && !oPartialResult[6].equals("")){
+                boolean currentStudent;
+                if(oPartialResult[6].toString().equals("1") || oPartialResult[6].equals("true"))
+                    currentStudent = true;
+                else
+                    currentStudent = false;
+                student.setCurrentStudent(currentStudent);
+            }
+            
+            student.setCalendar(getStudentCalendarByStudentIdAndCourseId(student.getOid(), courseName));            
+            result.add(student);
+        }
+        return result;
+    }
 	
 	private List<ClassDayStudent> getStudentCalendarByStudentIdAndCourseId(BigInteger studentOid, String courseName){
 		
@@ -217,7 +208,7 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 			@SuppressWarnings("unchecked")
 			@Override
 			public List<ClassDayStudent> doInHibernate(Session session) throws HibernateException {
-				String oQuery = "select day.class_date, day.event_registration_type, day.value, day.comment "
+				String oQuery = "select day.class_date, day.event_registration_type, day.value, day.comment, day.oid, day.student_id  "
 						+ "from class_day_student day " 
 						+ "where day.student_id = :studentOid and day.course_id = (select oid from course where name = :courseName) ";
 				
