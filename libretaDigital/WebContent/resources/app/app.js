@@ -1,5 +1,5 @@
 //var app = angular.module("app", []);
-var app = angular.module('app', ['ui.bootstrap', 'smart-table', 'dndLists', 'percentCircle-directive', 'ngAnimate', 'ngTouch', ,'mwl.calendar', 'ngNotify', 'blockUI' ])
+var app = angular.module('app', ['ui.bootstrap', 'smart-table', 'dndLists', 'percentCircle-directive', 'ngAnimate', 'ngTouch', 'mwl.calendar', 'ngNotify', 'blockUI' ])
 
 .filter('capitalize', function() {
     return function(input, all) {
@@ -109,16 +109,3 @@ app.directive('dropzone', function($parse) {
     }
 });
 
-app.run(['ngNotify', function(ngNotify){
-	
-	ngNotify.config({
-        theme: 'pure',
-        position: 'bottom',
-        duration: 3000,
-        type: 'info',
-        sticky: false,
-        button: true,
-        html: false
-    });	
-	
-}]);

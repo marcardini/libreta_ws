@@ -45,10 +45,7 @@ public class AssistControlController {
 		professorId = BigInteger.ONE;
 
 		try {
-			//GET STUDENTS AND THEIR INNASISTANCE OF THE DAY
-			
-			List<Student> studentsList = assistControlFacade.getStudentsAndTodaysAssistance("primero", "1A", "MATEMATICAS");
-			page.addObject("students", mapper.writeValueAsString(studentsList));
+			page.addObject("students", mapper.writeValueAsString(this.getStudentsByCode()));
 			page.addObject("groups", mapper.writeValueAsString(this.getGroupsByProfessor()));
 			page.addObject("studentsAbsences", mapper.writeValueAsString(this.getStudentsAbsencesByCode()));
 		} catch (JsonProcessingException e) {
@@ -61,6 +58,8 @@ public class AssistControlController {
 	@RequestMapping(value = "/assistControl/saveAbsences", method = RequestMethod.POST)
 	public void SaveAbsences(@RequestBody List<AbsenceBean> absences, HttpServletResponse response) {	
 		
+		
+		
 		//ESTO ES PARA PROBAR EL METODO DE LA FICHA:
 		/*List<Student> resultado = studentServiceImpl.getStudentsFiles(null, "primero", "1A", 2016, "MATEMATICAS");
 		
@@ -68,15 +67,20 @@ public class AssistControlController {
 			System.out.println(s.getName() + " " + s.getLastName());
 		}*/
 		
+		
+		//ESTO ES PARA PROBAR EL METODO DE TRAER EL GRUPO CON SUS FALTAS
+		List<Student> resultado = assistControlFacade.getStudentsAndTodaysAssistance("primero", "1A", "MATEMATICAS");
+		
+		for(Student s: resultado){
+			System.out.println(s.getName() + " " + s.getLastName());
+		}
+		
+		
 		try{
 			List<StudentEventRegistration> studentsAssistanceRegistrationList = new ArrayList<StudentEventRegistration> ();
 			for (AbsenceBean aux : absences) {
 				StudentEventRegistration ser = new StudentEventRegistration();
 				ser.setStudentId(aux.getIdStudent());
-				ser.setCourseId(1L);
-				ser.setGroupId(1L);
-				ser.setSubjectId(1L);
-				ser.setClassDayStudentId(aux.getClassDayStudentId());
 				EventRegistrationType ert;
 				if(aux.isLate()){
 					ert = EventRegistrationType.HALF_ASSISTANCE;
