@@ -78,13 +78,17 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 			 if(item.late){
 				 aux.idStudent = item.oid;
 				 aux.late = item.late;
-				 aux.classDayStudentId = item.calendar[0].oid;
+				 if(item.calendar[0] != null){
+					 aux.classDayStudentId = item.calendar[0].oid;
+				 }				 
 				 absences.push(aux);
 			 } 		 
 		 });
 		 angular.forEach($scope.models[1].items, function(item){ 
 			 var aux = {idStudent:"", late:false};
-			 aux.classDayStudentId = item.calendar[0].oid;
+			 if(item.calendar[0] != null){
+				 aux.classDayStudentId = item.calendar[0].oid;
+			 }
 			 aux.idStudent = item.oid;			 	
 			 absences.push(aux);			 	 
 		 });
@@ -255,7 +259,7 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 	    for (var int = 0; int < students.length; int++) {	
 	    	var item = students[int];	    	
 	    	item.label =  $filter('capitalize')(item.name) +" "+ $filter('capitalize')(item.lastName);	    	
-	    	if(item.calendar.length > 0){	    		
+	    	if(item.calendar != null && item.calendar.length > 0){	    		
 	    		if(item.calendar[0].eventRegistrationType === "INASSISTANCE" ){
 		    		$scope.models[1].items.push(item);
 		    	}else{
@@ -264,6 +268,7 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 		    	}
 	    	}else{
 	    		item.late = false;
+	    		item.calendar = [];
 	    		$scope.models[0].items.push(item);
 	    	}	    	
 	    };

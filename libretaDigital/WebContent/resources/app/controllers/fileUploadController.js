@@ -14,11 +14,11 @@ app.controller('fileUploadCtrl', ['$scope', 'ngNotify', 'blockUI', function ($sc
 //	    }, true);
         console.log($scope);
         $scope.uploadFile = function() {          	
-            $scope.processDropzone();
+            this.processDropzone();
         };
 
         $scope.reset = function() {
-            $scope.resetDropzone();
+            this.resetDropzone();
         };
         
        

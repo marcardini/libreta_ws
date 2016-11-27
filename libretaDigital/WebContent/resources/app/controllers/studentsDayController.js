@@ -15,6 +15,11 @@ app.controller('studentsDayCtrl', ['$scope', '$filter', '$http', 'ngNotify', 'bl
 	blockUI.message = 'Cargando...';
 
 	$scope.date = new Date();
+
+	console.log(students);
+	
+	$scope.students = [];	
+	angular.copy(students, $scope.students);
 	
 	$scope.rowCollection = [
         {firstName: 'Laurent', lastName: 'Renard', birthDate: new Date('1987-05-21'), balance: 102, email: 'whatever@gmail.com'},
