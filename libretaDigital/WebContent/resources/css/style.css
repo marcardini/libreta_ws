@@ -4,7 +4,7 @@
 	width: 98%;
 }
 
-.page-header{
+.page-header {
 	margin: 0 0 20px;
 }
 
@@ -42,7 +42,7 @@
 	font-size: 300%;
 }
 
-.label{
+.label {
 	margin-top: 2px;
 	display: inline-block;
 }
@@ -102,6 +102,51 @@
 .title-lista {
 	font-size: 1.6em;
 }
+
+/* STUDENTS DAY */
+.st-selected {
+	background-color: #a5ef8566 !important;
+	color: #000000;
+	font-size: 1.13em;
+	font-weight: bold !important;
+/* 	border: 2px solid #a6e789 !important; */
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th,
+	.table>thead>tr>td, .table>thead>tr>th {
+	vertical-align: middle;
+}
+
+.media-user-medium {	
+	width: 50px;	
+}
+
+.sort-header {
+    cursor: pointer;
+}
+
+.sort-header:after {
+    font-family: 'Glyphicons Halflings';
+    content: " \e150";
+    color: lightgrey;
+}
+.st-sort-ascent:before {
+    content: '';
+}
+.st-sort-ascent:after {
+    font-family: 'Glyphicons Halflings';
+    content: " \e151";
+    color: black;
+}
+.st-sort-descent:before {
+    content: '';
+}
+.st-sort-descent:after{
+    font-family: 'Glyphicons Halflings';
+    content: " \e152";
+    color: black;
+}
+
 /**
  * For the correct positioning of the placeholder element, the dnd-list and
  * it's children must have position: relative
