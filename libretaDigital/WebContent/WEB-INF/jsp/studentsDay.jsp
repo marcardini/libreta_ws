@@ -19,7 +19,9 @@
 %>
 
 <script type="text/javascript">
-	var students = <%=students%>;
+	var students =
+<%=students%>
+	;
 </script>
 
 <title><%=pageTitle%></title>
@@ -55,7 +57,7 @@
 		<div class=row">
 			<div class="col-md-3">
 
-				<table st-table="students" class="table table-striped">
+				<table st-table="rowCollection" class="table table-striped">
 					<thead>
 						<tr>
 							<th st-sort="firstName">first name</th>
@@ -64,10 +66,10 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="student in students">
-							<td>{{student.name | uppercase}}</td>
-							<td>{{student.lastName}}</td>							
-							<td><a ng-href="mailto:{{student.email}}">email</a></td>
+						<tr ng-repeat="row in rowCollection">
+							<td>{{row.firstName | uppercase}}</td>
+							<td>{{row.lastName}}</td>							
+							<td><a ng-href="mailto:{{row.email}}">email</a></td>
 						</tr>
 					</tbody>
 				</table>

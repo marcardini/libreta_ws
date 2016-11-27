@@ -1,6 +1,8 @@
 app.controller('fileUploadCtrl', ['$scope', 'ngNotify', 'blockUI', function ($scope, ngNotify, blockUI) {
 	
-		
+				
+		blockUI.autoInjectBodyBlock = false;
+		blockUI.message = 'Cargando...';
 	
 		$scope.selectedType = "PROFESSOR";			
         $scope.filename = $scope.selectedType;  
@@ -10,19 +12,15 @@ app.controller('fileUploadCtrl', ['$scope', 'ngNotify', 'blockUI', function ($sc
 //        	//$scope.file.name = "";
 //	        $scope.file.name = $scope.selectedType;
 //	    }, true);
-        
         console.log($scope);
-        $scope.uploadFile = function() {
-        	//usar this
-            this.processDropzone();
+        $scope.uploadFile = function() {          	
+            $scope.processDropzone();
         };
 
         $scope.reset = function() {
-           this.resetDropzone();
+            $scope.resetDropzone();
         };
-                		
-		blockUI.autoInjectBodyBlock = false;
-		blockUI.message = 'Cargando...';
+        
        
         
         

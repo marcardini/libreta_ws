@@ -15,11 +15,6 @@ private StudentDAO studentDAO;
 		return studentDAO.getStudentsByGroupCode(groupCode);
 	}
 	
-	@Override
-	public List<Student> getStudentsFiles(String mail, String courseName, String groupCode, int year, String subjectName){		
-		return studentDAO.getStudentsFiles(mail, courseName, groupCode, year, subjectName);		
-	}
-	
 	public StudentDAO getStudentDAO() {
 		return studentDAO;
 	}
