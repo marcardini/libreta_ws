@@ -357,10 +357,10 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 			@Override
 			public List<Student> doInHibernate(Session session) throws HibernateException {
 				String oQuery = "select stu.oid, stu.name, stu.last_name, stu.birth_date, stu.gender, stu.email, stu.currentStudent, day.event_registration_type "
-						+ "from student stu, group_ g, subject sub, course course, class_day_student day "
-						+ "where stu.group_id = g.oid and sub.course_id = course.oid and day.student_id = stu.oid and day.course_id = course.oid "
-						+ "and upper(g.name) = upper(:groupCode) and upper(sub.name) = upper(:subjectName) and course.oid = (select oid from course where name = :courseName) "
-						+ "and day.class_date >= :dateFrom and day.class_date <= :dateTo ";
+						+ "from group_ g, subject sub, course course, student stu "
+						+ "left join class_day_student day on (stu.oid = day.student_id and day.class_date >= :dateFrom and day.class_date <= :dateTo) "
+						+ "where stu.group_id = g.oid and sub.course_id = course.oid and g.course_id = course.oid "
+						+ "and upper(g.name) = upper(:groupCode) and upper(sub.name) = upper(:subjectName) and course.oid = (select oid from course where name = :courseName) ";
 
 				SQLQuery query = session.createSQLQuery(oQuery);
 
