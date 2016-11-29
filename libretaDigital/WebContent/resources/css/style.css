@@ -105,7 +105,7 @@
 
 /* STUDENTS DAY */
 .st-selected {
-	background-color: #a5ef8566 !important;
+	background-color: #e6ffdb !important;
 	color: #000000;
 	font-size: 1.13em;
 	font-weight: bold !important;
@@ -121,8 +121,18 @@
 	width: 50px;	
 }
 
+.table-user td{
+	    border-bottom: 3px solid #ddd;
+	    border-top: 0px !important;
+	    font-size: 1.15em;
+}
+
 .sort-header {
     cursor: pointer;
+}
+
+.list-row{
+	cursor: pointer;
 }
 
 .sort-header:after {

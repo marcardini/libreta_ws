@@ -41,16 +41,17 @@
 		<div class="page-header">
 			<div class="row">
 				<div class="col-md-8">
-					<h1>
-						Estudiantes <small>Grupo 4°A : Matematicas </small>
-						<button id="btn-save" class="btn btn-lg btn-danger" ng-click="">Guardar</button>
-					</h1>
+					<h1>Matematicas Grupo 4°A</h1>
 				</div>
 				<div class="col-md-4">
 					<h1>
 						<small class="date-small"> {{date | date:'dd-MM-yyyy'}}</small>
 					</h1>
+					<!-- 					<h2> -->
+					<!-- 						<button id="btn-save" class="btn btn-lg btn-danger" ng-click="">Guardar</button> -->
+					<!-- 					</h2> -->
 				</div>
+
 			</div>
 		</div>
 
@@ -66,12 +67,14 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr st-select-row="row" st-select-mode="single" ng-repeat="row in studentsDisplayed" ng-click="rowSelect(row)">
+						<tr class="list-row" st-select-row="row" st-select-mode="single" ng-repeat="row in studentsDisplayed"
+							ng-click="rowSelect(row)">
 							<td><img class="media-object media-user-list media-user-medium" src="resources/img/nophoto.png"
 								alt="..."></td>
 							<td>{{row.name | capitalize}}</td>
 							<td>{{row.lastName | capitalize}}</td>
 							<!-- 							<td><a ng-href="mailto:{{student.email}}">email</a></td> -->
+						</tr>
 					</tbody>
 				</table>
 
@@ -79,88 +82,124 @@
 
 			<div class="col-md-9">
 
-				<div class="panel panel-info">
+				<div class="panel panel-primary">
 					<div class="panel-heading">
-						<h3 class="panel-title">{{student.name | capitalize}} {{student.lastName | capitalize}}</h3>
+						<h3 class="panel-title">Indormación del Estudiante</h3>
 					</div>
 					<div class="panel-body">
-						<div class="row">
-							<div class="col-md-3 col-lg-3 " align="center">
-								<img alt="User Pic" src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png"
-									class="img-circle img-responsive">
+
+						<div class="col-md-3 col-lg-3 " align="center">
+							<img alt="User Pic" src="resources/img/nophoto.jpg" class="img-circle img-responsive">
+						</div>
+						<div class=" col-md-9 col-lg-9 ">
+							<uib-tabset type="pills" justified="true"> <uib-tab heading="Datos">
+							<div class="row">
+								<div class="col-lg-6">
+									<table class="table table-user">
+										<tbody>
+											<tr>
+												<td>Nombre</td>
+												<td><strong>{{student.name | capitalize}}</strong></td>
+											</tr>
+											<tr>
+												<td>Apellido</td>
+												<td><strong>{{student.lastName | capitalize}}</strong></td>
+											</tr>
+											<tr>
+												<td>Grupo</td>
+												<td>{{student.group}}</td>
+											</tr>
+											<tr>
+												<td>Genero</td>
+												<td>{{student.gender | capitalize}}</td>
+											</tr>
+											<tr>
+												<td>Dirección</td>
+												<td></td>
+											</tr>
+											<tr>
+												<td>Email</td>
+												<td><a href="mailto:>{{student.email}}">{{student.email}}</a></td>
+											</tr>
+											<td>Teléfono</td>
+											<td>123-4567-890(Landline)<br>555-4567-890(Mobile)
+											</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div class="col-lg-6">
+									<div class="row">
+										<div class="col-lg-6">
+											<h1>{{student.absencesTotal}}</h1>
+										</div>
+										<div class="col-lg-6"></div>
+									</div>
+								</div>
 							</div>
+							</uib-tab> <uib-tab heading="Asistencias">
 
-<!-- 							<div class="col-xs-10 col-sm-10 hidden-md hidden-lg"> -->
-<!-- 								<br> -->
-<!-- 								<dl> -->
-<!-- 									<dt>DEPARTMENT:</dt> -->
-<!-- 									<dd>Administrator</dd> -->
-<!-- 									<dt>HIRE DATE</dt> -->
-<!-- 									<dd>11/12/2013</dd> -->
-<!-- 									<dt>DATE OF BIRTH</dt> -->
-<!-- 									<dd>11/12/2013</dd> -->
-<!-- 									<dt>GENDER</dt> -->
-<!-- 									<dd>Male</dd> -->
-<!-- 								</dl> -->
-<!-- 							</div> -->
-							<div class=" col-md-9 col-lg-9 ">
-								<table class="table table-user-information">
-									<tbody>
-										<tr>
-											<td>Grupo:</td>
-											<td>Programming</td>
-										</tr>
-										<tr>
-											<td>Hire date:</td>
-											<td>06/23/2013</td>
-										</tr>
-										<tr>
-											<td>Fecha de Nacimiento</td>
-											<td>{{student.birthDate}}</td>
-										</tr>
+							<table st-table="absencesDisplayed" st-safe-src="student.absences" class="table table-striped">
+								<thead>
+									<tr>
+										<th class="sort-header" st-sort="name">Fecha</th>
+										<th class="sort-header" st-sort="lastName">Tipo</th>
+										<th>Comentario</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="" st-select-row="absence" st-select-mode="single" ng-repeat="absence in absencesDisplayed"
+										ng-click="absenceSelect(absence)">
+										<td>{{absence.date}}</td>
+										<td>{{absence.eventRegistrationType | capitalize}}</td>
+										<td>{{absence.comment | capitalize}}</td>
+									</tr>
+								</tbody>
 
-										<tr>
-										<tr>
-											<td>Genero</td>
-											<td>{{student.gender | capitalize}}</td>
-										</tr>
-										<tr>
-											<td>Home Address</td>
-											<td>Kathmandu,Nepal</td>
-										</tr>
-										<tr>
-											<td>Email</td>
-											<td><a href="mailto:>{{student.email}}">{{student.email}}</a></td>
-										</tr>
-										<td>Phone Number</td>
-										<td>123-4567-890(Landline)<br> <br>555-4567-890(Mobile)
-										</td>
+							</table>
 
-										</tr>
+							</uib-tab> <uib-tab heading="Calificaciones">
 
-									</tbody>
-								</table>
+							<table st-table="qualificationsDisplayed" st-safe-src="student.qualifications" class="table table-striped">
+								<thead>
+									<tr>
+										<th class="sort-header" st-sort="name">Fecha</th>
+										<th class="sort-header" st-sort="lastName">Tipo</th>
+										<th class="sort-header" st-sort="lastName">Nota</th>
+										<th>Comentario</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="" st-select-row="absence" st-select-mode="single" ng-repeat="quali in qualificationsDisplayed"
+										ng-click="absenceSelect(absence)">
+										<td>{{quali.date}}</td>
+										<td>{{quali.eventRegistrationType | capitalize}}</td>
+										<td>{{quali.Value}}</td>
+										<td>{{quali.comment | capitalize}}</td>
+									</tr>
+								</tbody>
 
-								<a href="#" class="btn btn-primary">My Sales Performance</a> <a href="#" class="btn btn-primary">Team
-									Sales Performance</a>
-							</div>
+							</table>
+
+							</uib-tab> </uib-tabset>
+
+
+							<!-- 								<a href="#" class="btn btn-primary">My Sales Performance</a> <a href="#" class="btn btn-primary">Team -->
+							<!-- 									Sales Performance</a> -->
 						</div>
 					</div>
-					<div class="panel-footer">
-						<a data-original-title="Broadcast Message" data-toggle="tooltip" type="button"
-							class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-envelope"></i></a> <span class="pull-right">
-							<a href="edit.html" data-original-title="Edit this user" data-toggle="tooltip" type="button"
-							class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a> <a
-							data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i
-								class="glyphicon glyphicon-remove"></i></a>
-						</span>
-					</div>
-
 				</div>
+
+
+				<!-- 					<div class="panel-footer text-right">						 -->
+				<!-- 						<button  class="btn btn-md btn-danger" ng-click="">Guardar</button>  -->
+				<!-- 					</div> -->
 
 			</div>
 
 		</div>
+
+	</div>
 
 
 	</div>
