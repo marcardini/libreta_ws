@@ -106,7 +106,7 @@
 								<span class="glyphicon glyphicon-arrow-{{arrowType(list.listName)}}"></span>
 							</button>
 							<ul dnd-list dnd-drop="onDrop(list, item, index)">
-								<li ng-repeat="item in list.items" dnd-draggable="getSelectedItemsIncluding(list, item)"
+								<li class="list-row" ng-repeat="item in list.items" dnd-draggable="getSelectedItemsIncluding(list, item)"
 									dnd-dragstart="onDragstart(list, event)" dnd-moved="onMoved(list)" dnd-dragend="list.dragging = false"
 									dnd-selected="item.selected = !item.selected" ng-class="{'selected': item.selected}"
 									ng-hide="list.dragging && item.selected"><img class="media-object media-user-list" src="resources/img/nophoto.png" alt="...">{{item.label}} <span id="late-icon" ng-show="item.late"

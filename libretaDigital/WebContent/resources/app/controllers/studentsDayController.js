@@ -18,13 +18,42 @@ app.controller('studentsDayCtrl', ['$scope', '$filter', '$http', 'ngNotify', 'bl
 
 	console.log(students);
 	
+	$scope.student = {  };
 	$scope.students = [];	
 	angular.copy(students, $scope.students);
 	
-	$scope.rowCollection = [
-        {firstName: 'Laurent', lastName: 'Renard', birthDate: new Date('1987-05-21'), balance: 102, email: 'whatever@gmail.com'},
-        {firstName: 'Blandine', lastName: 'Faivre', birthDate: new Date('1987-04-25'), balance: -2323.22, email: 'oufblandou@gmail.com'},
-        {firstName: 'Francoise', lastName: 'Frere', birthDate: new Date('1955-08-27'), balance: 42343, email: 'raymondef@gmail.com'}
-    ];
+	$scope.rowSelect = function(row) {
+		$scope.student = angular.copy(row);
+		$scope.student.absencesTotal = $scope.absencesCount($scope.student.calendar);
+		$scope.student = $scope.getAbsencesAndQualifications($scope.student);
+	    console.log($scope.student);
+	}
+	
+	$scope.absencesCount = function (calendar){
+		var count = 0;
+		for (var int = 0; int < calendar.length; int++) {
+			if(calendar[int].eventRegistrationType === "INASSISTANCE"){
+				count++;
+			}else if(calendar[int].eventRegistrationType === "HALF_ASSISTANCE"){
+				count = count + 0.5;
+			}
+		}
+		return count;
+	}
+	
+	$scope.getAbsencesAndQualifications = function(student){	
+		student.absences = [];
+		student.qualifications = [];
+		for (var int = 0; int < student.calendar.length; int++) {
+			if(student.calendar[int].eventRegistrationType === "INASSISTANCE" || student.calendar[int].eventRegistrationType === "HALF_ASSISTANCE"){
+				student.absences.push(student.calendar[int]);
+			}else{
+				student.qualifications.push(student.calendar[int]);
+			}
+		}
+		return student;
+	}
+	
+	
 
 } ]);
