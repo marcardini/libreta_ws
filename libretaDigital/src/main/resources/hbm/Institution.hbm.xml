@@ -2,9 +2,9 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
 	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
-<hibernate-mapping package="com.libretaDigital.entities">
+<hibernate-mapping default-lazy="false">
  	
-	<class name="Institution" table="institution">
+	<class name="com.libretaDigital.entities.Institution" table="institution">
 	
 		<id column="oid" name="oid" type="long" unsaved-value="null">
 			<generator class="native" />

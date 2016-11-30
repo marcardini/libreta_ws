@@ -2,9 +2,9 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
 	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
-<hibernate-mapping package="com.libretaDigital.entities">
+<hibernate-mapping default-lazy="false">
  	
-	<class name="Group" table="group_">
+	<class name="com.libretaDigital.entities.Group" table="group_">
 	
 		<id column="oid" name="oid" type="long" unsaved-value="null">
 			<generator class="native" />

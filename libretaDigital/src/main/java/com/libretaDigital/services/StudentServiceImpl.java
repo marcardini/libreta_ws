@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.security.authentication.encoding.MessageDigestPasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.libretaDigital.DAO.*;
 import com.libretaDigital.datatypes.StudentEventRegistration;
@@ -41,7 +42,8 @@ public class StudentServiceImpl implements IStudentService{
 		
 		for(StudentEventRegistration ser : studentsAssistanceRegistrationList){
 			ClassDayStudent cds = new ClassDayStudent(ser.getClassDayStudentId(), ser.getStudentId(), ser.getCourseId(), ser.getGroupId(), ser.getSubjectId(), date, ser.getEventRegistrationType());
-			classDayStudentDAO.saveOrUpdate(cds); 
+			
+			classDayStudentDAO.saveOrUpdate(cds);
 		}
 	}
 	

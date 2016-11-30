@@ -12,6 +12,8 @@ public class Professor extends Person {
 	private Date employeeSince;
 	private List<Course> coursesList;
 	
+	private Role role;
+	
 	public Professor(String name, String lastName){
 		super(name, lastName);
 	}
@@ -67,6 +69,16 @@ public class Professor extends Person {
 	public void setCoursesList(List<Course> coursesList) {
 		this.coursesList = coursesList;
 	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+
 
 	
 }

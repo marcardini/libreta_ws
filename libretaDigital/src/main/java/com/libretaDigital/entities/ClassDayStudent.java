@@ -38,6 +38,27 @@ public class ClassDayStudent extends ClassDay{
 		this.comment = comment;
 	}
 	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((courseId == null) ? 0 : courseId.hashCode());
+		result = prime * result + ((groupId == null) ? 0 : groupId.hashCode());
+		result = prime * result + ((studentId == null) ? 0 : studentId.hashCode());
+		result = prime * result + ((subjectId == null) ? 0 : subjectId.hashCode());
+		return result;
+	}
+
+	@SuppressWarnings("deprecation")
+	@Override
+	public boolean equals(Object other) {
+		if (!(other instanceof ClassDayStudent))
+			return false;
+		ClassDayStudent that = (ClassDayStudent) other;
+		return this.getCourseId() == that.getCourseId() && this.getGroupId() == that.getGroupId()
+				&& this.getStudentId() == that.getStudentId() && this.getDate().getDate() == that.getDate().getDate();
+	}
+
 	public BigDecimal getValue() {
 		return value;
 	}

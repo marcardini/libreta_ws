@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+	
+<hibernate-mapping default-lazy="false">
+ 	
+	<class name="com.libretaDigital.entities.Role" table="roles">
+	
+		<id column="oid" name="oid" type="long" unsaved-value="null">
+			<generator class="native" />
+		</id>
+		
+		<property name="name" length="50" />
+		
+		<list name="privileges" table="privileges" fetch="join" cascade="all-delete-orphan">
+	        <key column="professor_id" />
+	        <list-index column="index_privileges" />
+	        <one-to-many class="com.libretaDigital.entities.Privilege"/>
+	    </list>
+		
+	</class>
+</hibernate-mapping>

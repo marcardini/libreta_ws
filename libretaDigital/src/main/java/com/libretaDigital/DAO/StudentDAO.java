@@ -388,7 +388,7 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 			}
 
 			String gender = (String)oPartialResult[4];
-			student.setGender(Gender.valueOf(gender));			
+			student.setGender(Gender.valueOf(gender));
 			student.setEmail((String)oPartialResult[5]);
 			
 			if(oPartialResult[6] != null && !oPartialResult[6].equals("")){
@@ -409,6 +409,11 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 	private List<ClassDayStudent> getStudentCalendarByStudentId(BigInteger studentOid, String courseName, String groupCode, String subjectName){
 		
 		log.debug(String.format("Getting student calendar. Parameters: Student Id " + studentOid));
+		
+		DateFormat dateFormat = new SimpleDateFormat("yyy-MM-dd");
+		Date date = new Date();
+		String dateFrom = dateFormat.format(date).concat(" 00:00:00");
+		String dateTo = dateFormat.format(date).concat(" 23:59:59");
 
 		return getHibernateTemplate().execute(new HibernateCallback<List<ClassDayStudent>>() {
 
@@ -423,7 +428,8 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 						+ "and day.course_id = (select oid from course where name = :courseName) "
 						+ "and day.group_id = (select oid from group_ where name = :groupCode) "
 						+ "and day.subject_id = (select oid from subject where name = :subjectName) "
-						+ "and day.event_registration_type in('INASSISTANCE', 'HALF_ASSISTANCE') ";
+						+ "and day.event_registration_type in('INASSISTANCE', 'HALF_ASSISTANCE') "
+						+ "and day.class_date >= :dateFrom and day.class_date <= :dateTo";
 				
 				SQLQuery query = session.createSQLQuery(oQuery);
 
@@ -431,6 +437,8 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 				query.setString("courseName", courseName);
 				query.setString("groupCode", groupCode);
 				query.setString("subjectName", subjectName);
+				query.setString("dateFrom", dateFrom);
+				query.setString("dateTo", dateTo);
 				
 				List<Object[]> partialResult = query.list();
 

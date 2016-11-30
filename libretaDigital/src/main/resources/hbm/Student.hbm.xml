@@ -2,9 +2,9 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
 	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
-<hibernate-mapping package="com.libretaDigital.entities">
+<hibernate-mapping default-lazy="false">
  	
-	<class name="Student" table="student">
+	<class name="com.libretaDigital.entities.Student" table="student">
 	
 		<id column="oid" name="oid" type="long" unsaved-value="null">
 			<generator class="native" />
@@ -29,14 +29,6 @@
 		<property name="email" length="60" />
 		
 		<property name="currentStudent" type="boolean" />
-		
-		
-		
-<!-- 		<list name="calendar" table="calendar" fetch="join" cascade="all,delete-orphan"> -->
-<!-- 			<key column="student_id" /> -->
-<!-- 			<list-index column="index_classdaystudent" /> -->
-<!-- 			<one-to-many class="com.libretaDigital.entities.ClassDayStudent" /> -->
-<!-- 		</list> -->
 		
 	</class>
 </hibernate-mapping>
