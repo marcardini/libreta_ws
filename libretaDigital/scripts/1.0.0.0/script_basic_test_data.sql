@@ -63,3 +63,14 @@ go
 insert into class_day_student values(14,'2016-11-25 00:00:00', 'EXAMEN', 1,1,1,1,9,'bien')
 go
 insert into class_day_student values(15,'2016-11-25 00:00:00', 'EXAMEN', 1,1,1,1,10,'excelente')
+
+/*USERS*/
+insert into roles values(1, 'ADMIN')
+go
+insert into permissions values(1, 'READ')
+go
+insert into permissions values(2, 'WRITE')
+go
+insert into privileges values(1,1,1,1,0)
+go
+update professor set roleId = 1 where oid = 1
