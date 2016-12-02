@@ -28,6 +28,7 @@
 <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="bower_components/ng-notify/dist/ng-notify.min.css">
 <link rel="stylesheet" href="bower_components/angular-block-ui/dist/angular-block-ui.min.css">
+<link rel="stylesheet" href="bower_components/angular-percent-circle-directive/dist/percent-circle.css">
 <link rel="stylesheet" href="resources/css/style.css">
 
 </head>
@@ -84,7 +85,7 @@
 
 				<div class="panel panel-primary">
 					<div class="panel-heading">
-						<h3 class="panel-title">Indormación del Estudiante</h3>
+						<h3 class="panel-title">Información del Estudiante</h3>
 					</div>
 					<div class="panel-body">
 
@@ -131,55 +132,87 @@
 								<div class="col-lg-6">
 									<div class="row">
 										<div class="col-lg-6">
-											<h1>{{student.absencesTotal}}</h1>
+											<div class="porcentaje">
+												<h3 class="text-center">Promedio</h3>
+												<percent-circle percent="student.qualyPer" colors="qualyColor"></percent-circle>
+											</div>
 										</div>
-										<div class="col-lg-6"></div>
+										<div class="col-lg-6">
+											<div class="porcentaje">
+												<h3 class="text-center">Faltas</h3>
+												<percent-circle percent="student.absencesPer" colors="absencesColor"></percent-circle>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
-							</uib-tab> <uib-tab heading="Asistencias">
+							</uib-tab> 
+							
+							<uib-tab heading="Asistencias">
 
-							<table st-table="absencesDisplayed" st-safe-src="student.absences" class="table table-striped">
-								<thead>
-									<tr>
-										<th class="sort-header" st-sort="name">Fecha</th>
-										<th class="sort-header" st-sort="lastName">Tipo</th>
-										<th>Comentario</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr class="" st-select-row="absence" st-select-mode="single" ng-repeat="absence in absencesDisplayed"
-										ng-click="absenceSelect(absence)">
-										<td>{{absence.date}}</td>
-										<td>{{absence.eventRegistrationType | capitalize}}</td>
-										<td>{{absence.comment | capitalize}}</td>
-									</tr>
-								</tbody>
 
-							</table>
+							<div class="row">
+								<div class="col-lg-12 table-nav">
+									<table st-table="absencesDisplayed" st-safe-src="student.absences" class="table table-striped">
+									<thead>
+										<tr>
+											<th class="sort-header" st-sort="name">Fecha</th>
+											<th class="sort-header" st-sort="lastName">Tipo</th>
+											<th>Comentario</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr class="list-row" st-select-row="absence" st-select-mode="single"
+											ng-repeat="absence in absencesDisplayed" ng-click="absenceSelect(absence)">
+											<td>{{absence.date}}</td>
+											<td>{{absence.eventRegistrationType | capitalize}}</td>
+											<td>{{absence.comment | capitalize}}</td>
+										</tr>
+									</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-12">
+									<button class="btn btn-md btn-success btn-justify" ng-click="">Justificar</button>								
+								</div>
+							</div>
+							
+							</uib-tab>
+							
+							 <uib-tab heading="Calificaciones">
 
-							</uib-tab> <uib-tab heading="Calificaciones">
+							<div class="row">
+								<div class="col-lg-12 table-nav">
+									<table st-table="qualificationsDisplayed" st-safe-src="student.qualifications"
+										class="table table-striped">
+										<thead>
+											<tr>
+												<th class="sort-header" st-sort="name">Fecha</th>
+												<th class="sort-header" st-sort="lastName">Tipo</th>
+												<th class="sort-header" st-sort="value">Nota</th>
+												<th>Comentario</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr class="list-row" st-select-row="qualy" st-select-mode="single"
+												ng-repeat="qualy in qualificationsDisplayed" ng-click="qualySelect(qualy)">
+												<td>{{qualy.date}}</td>
+												<td>{{qualy.eventRegistrationType | capitalize}}</td>
+												<td>{{qualy.value}}</td>
+												<td>{{qualy.comment | capitalize}}</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
 
-							<table st-table="qualificationsDisplayed" st-safe-src="student.qualifications" class="table table-striped">
-								<thead>
-									<tr>
-										<th class="sort-header" st-sort="name">Fecha</th>
-										<th class="sort-header" st-sort="lastName">Tipo</th>
-										<th class="sort-header" st-sort="lastName">Nota</th>
-										<th>Comentario</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr class="" st-select-row="absence" st-select-mode="single" ng-repeat="quali in qualificationsDisplayed"
-										ng-click="absenceSelect(absence)">
-										<td>{{quali.date}}</td>
-										<td>{{quali.eventRegistrationType | capitalize}}</td>
-										<td>{{quali.Value}}</td>
-										<td>{{quali.comment | capitalize}}</td>
-									</tr>
-								</tbody>
 
-							</table>
+							<div class="row">
+								<div class="col-lg-12">
+									<button class="btn btn-md btn-success btn-justify" ng-click="">Calificar</button>								
+								</div>
+							</div>
 
 							</uib-tab> </uib-tabset>
 
