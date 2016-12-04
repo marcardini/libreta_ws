@@ -4,6 +4,7 @@
 
 --use libreta_digital
 
+
 insert into institution values (1,'Elbio Fernandez')
 go
 insert into notebook values (1, 2016, 'normal', 'ABC', null, null)
@@ -16,7 +17,7 @@ insert into group_ values (1,'1A',2016,null,null,1)
 go
 update notebook set group_oid = 1 where oid = 1
 go
-insert into professor values (1, 'maria', 'tarigo', '1990-06-20 00:00:00', 'FEMALE', 'maria.tarigo@gmail.com', 'admin', 5, '2016-01-01 00:00:00', 1, 0, 1)
+insert into professor values (1, 'maria', 'tarigo', '1990-06-20 00:00:00', 'FEMALE', 'maria.tarigo@gmail.com', 'admin', 'GRADE_5', '2016-01-01 00:00:00', null, 1, 0, 1)
 go
 insert into course values (1,'primero',1,0,1,0)
 go
@@ -63,14 +64,25 @@ go
 insert into class_day_student values(14,'2016-11-25 00:00:00', 'EXAMEN', 1,1,1,1,9,'bien')
 go
 insert into class_day_student values(15,'2016-11-25 00:00:00', 'EXAMEN', 1,1,1,1,10,'excelente')
-
-/*USERS*/
+go
 insert into roles values(1, 'ADMIN')
 go
-insert into permissions values(1, 'READ')
+insert into permissions values(1, 'ASSISTANCE_CONTROL')
 go
-insert into permissions values(2, 'WRITE')
+insert into permissions values(2, 'QUALIFY')
 go
-insert into privileges values(1,1,1,1,0)
+insert into permissions values(3, 'MASIVE_CHARGE')
+go
+insert into permissions values(4, 'STUDENT_FILE')
+go
+insert into privileges values(1,1,'WRITE',1,0)
+go
+insert into privileges values(2,2,'WRITE',1,1)
+go
+insert into privileges values(3,3,'WRITE',1,2)
+go
+insert into privileges values(4,4,'WRITE',1,3)
 go
 update professor set roleId = 1 where oid = 1
+go
+update group_ set index_groups = 0 where oid = 1

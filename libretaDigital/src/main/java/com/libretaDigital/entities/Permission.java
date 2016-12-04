@@ -1,7 +1,11 @@
 package com.libretaDigital.entities;
 
-public class Permission {
+import java.io.Serializable;
 
+public class Permission implements Serializable{
+
+	private static final long serialVersionUID = -2305151294570301410L;
+	
 	private Long oid;
 	private String name;
 

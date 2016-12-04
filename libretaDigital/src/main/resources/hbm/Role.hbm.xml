@@ -13,7 +13,7 @@
 		<property name="name" length="50" />
 		
 		<list name="privileges" table="privileges" fetch="join" cascade="all-delete-orphan">
-	        <key column="professor_id" />
+	        <key column="role_id" />
 	        <list-index column="index_privileges" />
 	        <one-to-many class="com.libretaDigital.entities.Privilege"/>
 	    </list>

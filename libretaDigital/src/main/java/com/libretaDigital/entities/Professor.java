@@ -1,18 +1,22 @@
 package com.libretaDigital.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 import com.libretaDigital.utils.*;
 
-public class Professor extends Person {
+public class Professor extends Person implements Serializable{
 	
+	private static final long serialVersionUID = -6377924630397322562L;
 	private String password;
-	private Grade grade;
+	private Enum<Grade> grade;
 	private Date employeeSince;
 	private List<Course> coursesList;
 	
 	private Role role;
+	
+	public Professor(){}
 	
 	public Professor(String name, String lastName){
 		super(name, lastName);
@@ -45,15 +49,7 @@ public class Professor extends Person {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	public Grade getGrade() {
-		return grade;
-	}
-
-	public void setGrade(Grade grade) {
-		this.grade = grade;
-	}
-
+	
 	public Date getEmployeeSince() {
 		return employeeSince;
 	}
@@ -78,7 +74,11 @@ public class Professor extends Person {
 		this.role = role;
 	}
 
+	public Enum<Grade> getGrade() {
+		return grade;
+	}
 
-
-	
+	public void setGrade(Enum<Grade> grade) {
+		this.grade = grade;
+	}
 }

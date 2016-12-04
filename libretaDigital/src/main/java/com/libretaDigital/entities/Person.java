@@ -1,14 +1,13 @@
 package com.libretaDigital.entities;
 
 import java.awt.Image;
-import java.math.BigInteger;
 import java.util.Date;
 
 import com.libretaDigital.utils.Gender;
 
 public abstract class Person {
 	
-	private BigInteger oid;
+	private Long oid;
 	private String name;
 	private String lastName;
 	private Date birthDate;
@@ -105,12 +104,13 @@ public abstract class Person {
 		this.email = email;
 	}
 
-	public BigInteger getOid() {
+	public Long getOid() {
 		return oid;
 	}
 
-	public void setOid(BigInteger id) {
-		this.oid = id;
+	public void setOid(Long oid) {
+		this.oid = oid;
 	}
+
 
 }

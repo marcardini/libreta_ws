@@ -1,13 +1,15 @@
 package com.libretaDigital.entities;
 
-import java.math.BigInteger;
+import java.io.Serializable;
 import java.util.List;
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 
 @JsonAutoDetect
-public class Group {
+public class Group implements Serializable{
 
-	private BigInteger oid;
+	private static final long serialVersionUID = -4285731517983323733L;
+	
+	private Long oid;
 	private Course course;
 	private String name;
 	private int year;
@@ -74,17 +76,19 @@ public class Group {
 	public void setCourse(Course course) {
 		this.course = course;
 	}
-	public BigInteger getOid() {
-		return oid;
-	}
-	public void setOid(BigInteger oid) {
-		this.oid = oid;
-	}
 	public int getYear() {
 		return year;
 	}
 	public void setYear(int year) {
 		this.year = year;
+	}
+
+	public Long getOid() {
+		return oid;
+	}
+
+	public void setOid(Long oid) {
+		this.oid = oid;
 	}
 	
 }

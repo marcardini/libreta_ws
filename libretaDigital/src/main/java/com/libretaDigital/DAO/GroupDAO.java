@@ -72,14 +72,12 @@ public class GroupDAO extends GenericDAO<Group> implements IGroupDAO{
 					hasParameter = !hasParameter;
 				}
 					
-
 				SQLQuery query = session.createSQLQuery(oQuery);
 				if (hasParameter)
 					query.setBigInteger(0, professorId);
 				
 				List<Object[]> partialResult = query.list();
 				
-
 				if (partialResult != null && !partialResult.isEmpty())
 					result = getGroupByProfessorIdFromPartialResult(partialResult);
 
@@ -97,8 +95,8 @@ public class GroupDAO extends GenericDAO<Group> implements IGroupDAO{
 			Group group = new Group();
 
 			if (oPartialResult[0] != null && !oPartialResult[0].equals("")) {
-				BigInteger id = (BigInteger) oPartialResult[0];
-				group.setOid(id);
+				BigInteger bid = (BigInteger) oPartialResult[0];
+				group.setOid(bid.longValue());
 			}
 
 			if (oPartialResult[1] != null && !oPartialResult[1].equals("")) {
