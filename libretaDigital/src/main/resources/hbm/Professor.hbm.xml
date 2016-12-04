@@ -30,7 +30,13 @@
 
 		<property name="password" length="60" />
 
-		<property name="grade" type="long" />
+		<property name="grade" column="grade">
+			<type name="org.hibernate.type.EnumType">
+				<param name="enumClass">com.libretaDigital.utils.Grade</param>
+				<param name="type">12</param>
+				<param name="useNamed">true</param>
+			</type>
+		</property>
 
 		<property name="employeeSince" column="employee_since">
 			<type name="org.hibernate.type.DateType" />

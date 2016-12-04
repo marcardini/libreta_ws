@@ -18,7 +18,9 @@ import com.libretaDigital.beans.AbsenceBean;
 import com.libretaDigital.beans.StudentAbsencesBean;
 import com.libretaDigital.datatypes.StudentEventRegistration;
 import com.libretaDigital.entities.Group;
+import com.libretaDigital.entities.Professor;
 import com.libretaDigital.entities.Student;
+import com.libretaDigital.services.LoginServiceImpl;
 import com.libretaDigital.services.StudentServiceImpl;
 import com.libretaDigital.utils.EventRegistrationType;
 
@@ -30,6 +32,12 @@ public class AssistControlController {
 	@Autowired
 	private StudentServiceImpl studentServiceImpl;
 
+	
+	//ESTE BEAN ESTA ACA SOLO PARA PROBAR. BORRAR DESPUES
+	@Autowired
+	private LoginServiceImpl loginService;
+	
+	
 	private String groupCode;
 	private BigInteger professorId;
 	private ObjectMapper mapper = new ObjectMapper();
@@ -64,6 +72,15 @@ public class AssistControlController {
 		for(Student s: resultado){
 			System.out.println(s.getName() + " " + s.getLastName());
 		}*/
+		
+		
+		
+		//PARA PROBAR EL METODO DE LOGIN
+		Professor user = loginService.validateUser("maria.tarigo@gmail.com", "admin");
+		
+		System.out.println("El usuario " + user.getEmail() + " ha sido logueado.");
+		
+		
 		
 		try{
 			List<StudentEventRegistration> studentsAssistanceRegistrationList = new ArrayList<StudentEventRegistration> ();
@@ -139,6 +156,14 @@ public class AssistControlController {
 
 	public void setProfessorId(BigInteger professorId) {
 		this.professorId = professorId;
+	}
+
+	public LoginServiceImpl getLoginService() {
+		return loginService;
+	}
+
+	public void setLoginService(LoginServiceImpl loginService) {
+		this.loginService = loginService;
 	}
 
 }

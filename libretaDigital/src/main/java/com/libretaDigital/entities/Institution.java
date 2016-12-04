@@ -1,9 +1,12 @@
 package com.libretaDigital.entities;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Institution {
+public class Institution implements Serializable{
 
+	private static final long serialVersionUID = -6207875716963653205L;
+	
 	private Long oid;
 	private String name;
 	private List<Course> courseList;

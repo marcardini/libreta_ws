@@ -23,6 +23,13 @@
 
 	<bean id="professorDAO" class="com.libretaDigital.DAO.ProfessorDAO"
 		parent="genericDAO" />
+		
+	<bean id="roleDAO" class="com.libretaDigital.DAO.RoleDAO"
+		parent="genericDAO" />
+
+	<bean id="userDAO" class="com.libretaDigital.DAO.UserDAO" parent="genericDAO">
+		<property name="roleDAO" ref="roleDAO" />
+	</bean>
 
 	<bean id="studentDAO" class="com.libretaDigital.DAO.StudentDAO"
 		parent="genericDAO" />
@@ -35,6 +42,8 @@
 
 	<bean id="classDayStudentDAO" class="com.libretaDigital.DAO.ClassDayStudentDAO"
 		parent="genericDAO" />
+
+	
 
 
 	<bean id="md5Encoder"

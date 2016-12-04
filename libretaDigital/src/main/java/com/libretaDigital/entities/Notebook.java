@@ -1,11 +1,14 @@
 package com.libretaDigital.entities;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.libretaDigital.utils.CourseType;
 
-public class Notebook {
+public class Notebook implements Serializable{
 
+	private static final long serialVersionUID = -8924297568264691767L;
+	
 	private Long oid;
 	private int currentYear;
 	private CourseType courseType;

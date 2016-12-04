@@ -1,5 +1,6 @@
 package com.libretaDigital.entities;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -8,7 +9,9 @@ import org.codehaus.jackson.annotate.JsonAutoDetect;
 import com.libretaDigital.utils.EventRegistrationType;
 
 @JsonAutoDetect
-public class ClassDayStudent extends ClassDay{
+public class ClassDayStudent extends ClassDay implements Serializable{
+	
+	private static final long serialVersionUID = -1682883898530367171L;
 	
 	private Long studentId;
 	private Long courseId;

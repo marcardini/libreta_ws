@@ -5,8 +5,8 @@ import java.util.Date;
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 
 @JsonAutoDetect
-public abstract class ClassDay {
-
+public abstract class ClassDay{
+	
 	private Long oid;
 	private Date date;
 	

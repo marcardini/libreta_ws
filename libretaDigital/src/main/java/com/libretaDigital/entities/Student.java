@@ -1,6 +1,7 @@
 package com.libretaDigital.entities;
 
 import java.awt.Image;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -9,9 +10,10 @@ import org.codehaus.jackson.annotate.JsonAutoDetect;
 import com.libretaDigital.utils.Gender;
 
 @JsonAutoDetect
-public class Student extends Person {
+public class Student extends Person implements Serializable{
 
-
+	private static final long serialVersionUID = -6696037101000500210L;
+	
 	private Course course;
 	private Group group;
 	private List<ClassDayStudent> calendar;

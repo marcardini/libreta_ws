@@ -43,7 +43,8 @@ public class StudentServiceImpl implements IStudentService{
 		for(StudentEventRegistration ser : studentsAssistanceRegistrationList){
 			ClassDayStudent cds = new ClassDayStudent(ser.getClassDayStudentId(), ser.getStudentId(), ser.getCourseId(), ser.getGroupId(), ser.getSubjectId(), date, ser.getEventRegistrationType());
 			
-			classDayStudentDAO.saveOrUpdate(cds);
+			//FIXME: deberia ir save or update cuando ande
+			classDayStudentDAO.save(cds);
 		}
 	}
 	

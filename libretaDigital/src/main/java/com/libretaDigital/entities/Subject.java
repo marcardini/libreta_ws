@@ -1,9 +1,12 @@
 package com.libretaDigital.entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Subject {
+public class Subject implements Serializable{
+	
+	private static final long serialVersionUID = -4934585354884721276L;
 	
 	private Long oid;
 	private String name;

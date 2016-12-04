@@ -6,11 +6,16 @@
 				
 	<bean id="assistcontrolcontroller" class="com.libretaDigital.controller.AssistControlController">
 		<property name="assistControlFacade" ref="assistControlFacade" />
+		<property name="loginService" ref="loginService" />
 	</bean>
 	
 	<bean id="assistControlFacade" class="com.libretaDigital.assistControl.AssistControlFacadeImpl">
 		<property name="studentDAO" ref="studentDAO" />
 		<property name="groupDAO" ref="groupDAO" />
+	</bean>
+	
+	<bean id="loginService" class="com.libretaDigital.services.LoginServiceImpl">
+		<property name="userDAO" ref="userDAO" />
 	</bean>
 	
 </beans>

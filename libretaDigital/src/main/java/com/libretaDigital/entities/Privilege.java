@@ -1,29 +1,41 @@
 package com.libretaDigital.entities;
 
-public class Privilege {
+import java.io.Serializable;
 
+public class Privilege implements Serializable{
+
+	private static final long serialVersionUID = 7197375468903305761L;
+	
 	private Long oid;
-	private Permission entity;
-	private PermissionType permission;
+	private Permission permissionEntity;
+	private Enum<PermissionType> permissionType;
 	
 	public Privilege(){}
-	
+
 	public Long getOid() {
 		return oid;
 	}
+
 	public void setOid(Long oid) {
 		this.oid = oid;
 	}
-	public PermissionType getPermission() {
-		return permission;
+
+	public Permission getPermissionEntity() {
+		return permissionEntity;
 	}
-	public void setPermission(PermissionType permission) {
-		this.permission = permission;
+
+	public void setPermissionEntity(Permission permissionEntity) {
+		this.permissionEntity = permissionEntity;
 	}
-	public Permission getEntity() {
-		return entity;
+
+	public Enum<PermissionType> getPermissionType() {
+		return permissionType;
 	}
-	public void setEntity(Permission entity) {
-		this.entity = entity;
+
+	public void setPermissionType(Enum<PermissionType> permissionType) {
+		this.permissionType = permissionType;
 	}
+
+	
+
 }

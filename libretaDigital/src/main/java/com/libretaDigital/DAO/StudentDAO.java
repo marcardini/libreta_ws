@@ -168,8 +168,9 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
         List<Student> result = new ArrayList<Student>();
         
         for (Object[] oPartialResult : partialResult) {
-            Student student = new Student();            
-            student.setOid(new BigInteger(oPartialResult[0].toString()));           
+            Student student = new Student();
+            BigInteger bid = (BigInteger) oPartialResult[0];
+            student.setOid(bid.longValue());           
             student.setName((String)oPartialResult[1]);         
             student.setLastName((String)oPartialResult[2]);
             
@@ -197,7 +198,7 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
         return result;
     }
 	
-	private List<ClassDayStudent> getStudentCalendarByStudentIdAndCourseId(BigInteger studentOid, String courseName){
+	private List<ClassDayStudent> getStudentCalendarByStudentIdAndCourseId(Long studentOid, String courseName){
 		
 		log.debug(String.format("Getting student calendar. Parameters: Student Id " + studentOid + "Course name " + courseName));
 
@@ -214,7 +215,7 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 				
 				SQLQuery query = session.createSQLQuery(oQuery);
 
-				query.setBigInteger("studentOid", studentOid);
+				query.setLong("studentOid", studentOid);
 				query.setString("courseName", courseName);
 				
 				List<Object[]> partialResult = query.list();
@@ -272,7 +273,7 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 
 			if (oPartialResult[0] != null && !oPartialResult[0].equals("")) {
 				BigInteger id = (BigInteger) oPartialResult[0];
-				student.setOid(id);
+				student.setOid(id.longValue());
 			}
 
 			if (oPartialResult[1] != null && !oPartialResult[1].equals("")) {
@@ -301,7 +302,7 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 
 			if (oPartialResult[0] != null && !oPartialResult[0].equals("")) {
 				BigInteger id = (BigInteger) oPartialResult[0];
-				student.setOid(id);
+				student.setOid(id.longValue());
 			}
 
 			if (oPartialResult[1] != null && !oPartialResult[1].equals("")) {
@@ -377,8 +378,9 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 
 		for (Object[] oPartialResult : partialResult) {
 
-			Student student = new Student();			
-			student.setOid(new BigInteger(oPartialResult[0].toString()));			
+			Student student = new Student();		
+			BigInteger bid = (BigInteger) oPartialResult[0];
+			student.setOid(bid.longValue());			
 			student.setName((String)oPartialResult[1]);			
 			student.setLastName((String)oPartialResult[2]);
 			
@@ -406,7 +408,7 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 		return result;
 	}
 	
-	private List<ClassDayStudent> getStudentCalendarByStudentId(BigInteger studentOid, String courseName, String groupCode, String subjectName){
+	private List<ClassDayStudent> getStudentCalendarByStudentId(Long studentOid, String courseName, String groupCode, String subjectName){
 		
 		log.debug(String.format("Getting student calendar. Parameters: Student Id " + studentOid));
 		
@@ -433,7 +435,7 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 				
 				SQLQuery query = session.createSQLQuery(oQuery);
 
-				query.setBigInteger("studentOid", studentOid);
+				query.setLong("studentOid", studentOid);
 				query.setString("courseName", courseName);
 				query.setString("groupCode", groupCode);
 				query.setString("subjectName", subjectName);

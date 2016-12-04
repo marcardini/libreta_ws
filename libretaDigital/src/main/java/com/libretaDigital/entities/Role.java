@@ -1,9 +1,12 @@
 package com.libretaDigital.entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Role {
+public class Role implements Serializable{
+
+	private static final long serialVersionUID = -1998976552257333683L;
 
 	private Long oid;
 

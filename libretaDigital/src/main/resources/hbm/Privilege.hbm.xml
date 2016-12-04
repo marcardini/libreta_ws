@@ -10,10 +10,16 @@
 			<generator class="native" />
 		</id>
 
-		<many-to-one name="entity" column="permissionId" class="com.libretaDigital.entities.Permission" 
+		<many-to-one name="permissionEntity" column="permissionEntityId" class="com.libretaDigital.entities.Permission" 
 			cascade="save-update" lazy="false" fetch="join"/>
 		
-		<property name="permission" type="com.libretaDigital.entities.PermissionType" length="10"/>
+		<property name="permissionType" column="permissionType">
+			<type name="org.hibernate.type.EnumType">
+				<param name="enumClass">com.libretaDigital.entities.PermissionType</param>
+				<param name="type">12</param>
+				<param name="useNamed">true</param>
+			</type>
+		</property>
 		
 	</class>
 </hibernate-mapping>

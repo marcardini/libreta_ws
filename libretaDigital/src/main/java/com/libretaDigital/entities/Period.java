@@ -1,9 +1,12 @@
 package com.libretaDigital.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Period {
+public class Period implements Serializable{
 
+	private static final long serialVersionUID = -4182974498972556485L;
+	
 	private Long oid;
 	private Date dateFrom;
 	private Date dateTo;
