@@ -24,12 +24,14 @@ app.controller('studentsDayCtrl', ['$scope', '$filter', '$http', 'ngNotify', 'bl
 	
 	$scope.rowSelect = function(row) {
 		$scope.student = angular.copy(row);
-		$scope.student.absencesTotal = $scope.absencesCount($scope.student.calendar);
+		$scope.student.absencesTotal = $scope.gatAbsencesCount($scope.student.calendar);
 		$scope.student = $scope.getAbsencesAndQualifications($scope.student);
+		$scope.student.absencesPer = ($scope.student.absencesTotal * 100)/15;
+	    $scope.student.qualyPer = ($scope.getAverage($scope.student.qualifications) * 100)/12;
 	    console.log($scope.student);
 	}
 	
-	$scope.absencesCount = function (calendar){
+	$scope.gatAbsencesCount = function (calendar){
 		var count = 0;
 		for (var int = 0; int < calendar.length; int++) {
 			if(calendar[int].eventRegistrationType === "INASSISTANCE"){
@@ -53,6 +55,35 @@ app.controller('studentsDayCtrl', ['$scope', '$filter', '$http', 'ngNotify', 'bl
 		}
 		return student;
 	}
+	
+	$scope.getAverage = function(qualifications){
+		var avg = 0;
+		var count = 0;
+		angular.forEach(qualifications, function(qualy){
+			avg = avg + qualy.value;
+			count++;
+		});
+		return avg/count;
+	}
+	
+	 $scope.qualyColor ={
+//			    center    : 'lightGreen', // the color in the center of the circle. Default: #F5FBFC
+			    highlight : '#337AB7', // the highlighted section of the circle, representing the percentage number. Default: #2BCBED
+			    remaining : '#D9EDF7' // the color of the circle before highlighting occurs, representing the amount left until the percent equals 100. Default: #C8E0E8
+			};
+	 
+	 $scope.absencesColor ={
+//			    center    : 'lightGreen', // the color in the center of the circle. Default: #F5FBFC
+			    highlight : '#D9534F', // the highlighted section of the circle, representing the percentage number. Default: #2BCBED
+			    remaining : '#F2DEDE' // the color of the circle before highlighting occurs, representing the amount left until the percent equals 100. Default: #C8E0E8
+			};
+	
+	 $scope.$watch('student', function() {
+	    	
+	        //$scope.qualifications.length;      	        
+	       ;	       
+	         	        
+	    }, true);
 	
 	
 

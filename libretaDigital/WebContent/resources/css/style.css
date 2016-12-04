@@ -157,6 +157,14 @@
     color: black;
 }
 
+.btn-justify{
+	float:right;	
+}
+
+.table-nav{
+	min-height: 225px;
+}
+
 /**
  * For the correct positioning of the placeholder element, the dnd-list and
  * it's children must have position: relative
