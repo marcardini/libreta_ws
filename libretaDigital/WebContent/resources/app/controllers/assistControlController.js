@@ -71,7 +71,8 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 		 }
 	 };
 	 
-	 $scope.saveAbsences = function (){		 
+	 $scope.saveAbsences = function (){	
+		 console.log("in");
 		 var absences = [];		 
 		 angular.forEach($scope.models[0].items, function(item){
 			 var aux = {idStudent:"", late:false};
@@ -202,7 +203,6 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 	    	$scope.presentes = $scope.models[0].items.length;
 	        $scope.ausentes = $scope.models[1].items.length;
 	        $scope.total = students.length;
-	        console.log($scope.total);
 	        $scope.presentsPer = ($scope.presentes * 100)/$scope.total;
 	        $scope.absencesPer = ($scope.ausentes * 100)/$scope.total;	        
 	        angular.forEach($scope.models[1].items, function(item) { item.late = false; }); 	        
