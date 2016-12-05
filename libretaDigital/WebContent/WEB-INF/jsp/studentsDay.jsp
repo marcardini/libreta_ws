@@ -69,7 +69,7 @@
 					</thead>
 					<tbody>
 						<tr class="list-row" st-select-row="row" st-select-mode="single" ng-repeat="row in studentsDisplayed"
-							ng-click="rowSelect(row)">
+							ng-click="studentSelect(row)">
 							<td><img class="media-object media-user-list media-user-medium" src="resources/img/nophoto.png"
 								alt="..."></td>
 							<td>{{row.name | capitalize}}</td>
@@ -165,7 +165,7 @@
 										<tr class="list-row" st-select-row="absence" st-select-mode="single"
 											ng-repeat="absence in absencesDisplayed" ng-click="absenceSelect(absence)">
 											<td>{{absence.date}}</td>
-											<td>{{absence.eventRegistrationType | capitalize}}</td>
+											<td>{{absence.label | capitalize}}</td>
 											<td>{{absence.comment | capitalize}}</td>
 										</tr>
 									</tbody>
@@ -174,7 +174,8 @@
 							</div>
 							<div class="row">
 								<div class="col-lg-12">
-									<button class="btn btn-md btn-success btn-justify" ng-click="">Justificar</button>								
+									<button class="btn btn-md btn-success btn-justify" ng-click="" ng-disabled="editButtons">Justificar</button>
+									<button class="btn btn-md btn-danger btn-justify" ng-click="" ng-disabled="editButtons">Eliminar</button>								
 								</div>
 							</div>
 							
@@ -210,7 +211,7 @@
 
 							<div class="row">
 								<div class="col-lg-12">
-									<button class="btn btn-md btn-success btn-justify" ng-click="">Calificar</button>								
+									<button class="btn btn-md btn-success btn-justify" ng-click="" ng-disabled="editButtons">Calificar</button>								
 								</div>
 							</div>
 
