@@ -7,6 +7,7 @@ public enum EventRegistrationType {
 
 	INASSISTANCE("Falta"),
 	HALF_ASSISTANCE("Media falta"),
+	JUSTIFIED("Justificada"),
 	
 	PARCIAL("Parcial"),
 	EXAMEN("Exámen"),

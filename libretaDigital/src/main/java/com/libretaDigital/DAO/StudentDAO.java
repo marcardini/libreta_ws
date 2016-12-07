@@ -140,7 +140,8 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 
 				String oQuery = "select s.oid, s.name, s.last_name, "
 						+ "(select count(*) from class_day_student cds  where cds.student_id = s.oid and cds.event_registration_type = 'INASSISTANCE') as absences, " 
-						+ "(select count(*) from class_day_student cds  where cds.student_id = s.oid and cds.event_registration_type = 'HALF_ASSISTANCE') as half "
+						+ "(select count(*) from class_day_student cds  where cds.student_id = s.oid and cds.event_registration_type = 'HALF_ASSISTANCE') as half, "
+						+ "(select count(*) from class_day_student cds  where cds.student_id = s.oid and cds.event_registration_type = 'JUSTIFIED') as justified "
 						+ "from student s, group_ g "
 						+ "where s.group_id = g.oid ";
 
@@ -149,7 +150,7 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 					oQuery = oQuery.concat("and upper(g.name) = ?");
 					hasParameter = !hasParameter;
 				}
-				oQuery = oQuery + " order by absences DESC, half DESC, last_name ASC";
+				oQuery = oQuery + " order by absences DESC, half DESC, justified DESC, last_name ASC";
 				SQLQuery query = session.createSQLQuery(oQuery);
 				if (hasParameter)
 					query.setString(0, groupCode);
@@ -320,9 +321,14 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 				student.setAbsences(absences.longValue());
 			}
 			
-			if (oPartialResult[3] != null && !oPartialResult[4].equals("")) {
+			if (oPartialResult[4] != null && !oPartialResult[4].equals("")) {
 				BigInteger half = (BigInteger) oPartialResult[4];
 				student.setHalf(half.longValue());
+			}
+			
+			if (oPartialResult[5] != null && !oPartialResult[5].equals("")) {
+				BigInteger justified = (BigInteger) oPartialResult[5];
+				student.setJustified(justified.longValue());
 			}
 
 			result.add(student);

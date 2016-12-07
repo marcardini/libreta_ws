@@ -6,6 +6,7 @@ import org.codehaus.jackson.annotate.JsonAutoDetect;
 public class AbsenceBean {
 
 	private boolean late;
+	private boolean justified;
 	private long courseId;
 	private long groupId;
 	private long subject_id;
@@ -53,5 +54,13 @@ public class AbsenceBean {
 
 	public void setClassDayStudentId(long classDayStudentId) {
 		this.classDayStudentId = classDayStudentId;
+	}
+
+	public boolean isJustified() {
+		return justified;
+	}
+
+	public void setJustified(boolean justified) {
+		this.justified = justified;
 	}
 }

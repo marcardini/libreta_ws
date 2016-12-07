@@ -4,11 +4,13 @@ import org.codehaus.jackson.annotate.JsonAutoDetect;
 
 import com.libretaDigital.entities.Student;
 
+@SuppressWarnings("serial")
 @JsonAutoDetect
 public class StudentAbsencesBean extends Student {
 	
 	private long absences;
 	private long half;
+	private long justified;
 	
 	public void setAbsences(long absences) {
 		this.absences = absences;
@@ -28,5 +30,13 @@ public class StudentAbsencesBean extends Student {
 	
 	public StudentAbsencesBean(){
 		super();		
+	}
+
+	public long getJustified() {
+		return justified;
+	}
+
+	public void setJustified(long justified) {
+		this.justified = justified;
 	}
 }

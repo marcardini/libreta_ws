@@ -20,8 +20,8 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 	$scope.studentsAbsences = [];	
 	angular.copy(studentsAbsences, $scope.studentsAbsences);
 	
-	//console.log($scope.studentsAbsences);
-	console.log(students);
+	console.log($scope.studentsAbsences);
+	//console.log(students);
 	
 	/* LISTAS */
 	
@@ -71,8 +71,7 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 		 }
 	 };
 	 
-	 $scope.saveAbsences = function (){	
-		 console.log("in");
+	 $scope.saveAbsences = function (){			 
 		 var absences = [];		 
 		 angular.forEach($scope.models[0].items, function(item){
 			 var aux = {idStudent:"", late:false};

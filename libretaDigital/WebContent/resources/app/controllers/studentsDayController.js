@@ -1,4 +1,4 @@
-app.controller('studentsDayCtrl', ['$scope', '$filter', '$http', 'ngNotify', 'blockUI', function ($scope, $filter, $http, ngNotify, blockUI) {
+app.controller('studentsDayCtrl', ['$scope', '$filter', '$http', 'ngNotify', 'blockUI', '$uibModal', function ($scope, $filter, $http, ngNotify, blockUI, $uibModal) {
 
 	
 	  ngNotify.config({
@@ -16,12 +16,14 @@ app.controller('studentsDayCtrl', ['$scope', '$filter', '$http', 'ngNotify', 'bl
 
 	$scope.date = new Date();
 	$scope.editButtons = true;
+	$scope.calificateButton = true;
+	$scope.editCalfButton = false;
 	
 	$scope.students = [];	
 	angular.copy(students, $scope.students);
 	$scope.student = {};
 	$scope.absence = {};
-	$scope.qualy = {};
+	$scope.qualy = null;
 	
 //	 angular.forEach($scope.students, function(item){ 
 //		item.isSelected = false;			 	 
@@ -62,11 +64,14 @@ app.controller('studentsDayCtrl', ['$scope', '$filter', '$http', 'ngNotify', 'bl
 	
 	$scope.qualySelect = function(row){
 		if(!row.isSelected){
-			$scope.qualy = {};
-			$scope.editButtons = true;
+			$scope.qualy = null;
+			$scope.calificateButton = true;
+			$scope.editCalfButton = false;
+			
 		}else{
 			$scope.qualy = angular.copy(row);
-			$scope.editButtons = false;
+			$scope.calificateButton = false;
+			$scope.editCalfButton = true;
 			console.log($scope.qualy);
 		}
 	}
@@ -77,6 +82,8 @@ app.controller('studentsDayCtrl', ['$scope', '$filter', '$http', 'ngNotify', 'bl
 			if(calendar[int].eventRegistrationType === "INASSISTANCE"){				
 				count++;
 			}else if(calendar[int].eventRegistrationType === "HALF_ASSISTANCE"){
+				count = count + 0.5;
+			}else if(calendar[int].eventRegistrationType === "JUSTIFIED"){
 				count = count + 0.5;
 			}
 		}
@@ -90,9 +97,11 @@ app.controller('studentsDayCtrl', ['$scope', '$filter', '$http', 'ngNotify', 'bl
 			if(student.calendar[int].eventRegistrationType === "INASSISTANCE"){
 				student.calendar[int].label = "FALTA";
 				student.absences.push(student.calendar[int]);
-				
 			}else if( student.calendar[int].eventRegistrationType === "HALF_ASSISTANCE"){
 				student.calendar[int].label = "MEDIA FALTA";
+				student.absences.push(student.calendar[int]);	
+			}else if( student.calendar[int].eventRegistrationType === "JUSTIFIED"){
+				student.calendar[int].label = "JUSTIFICADA";
 				student.absences.push(student.calendar[int]);
 			}else{
 				student.qualifications.push(student.calendar[int]);
@@ -137,6 +146,57 @@ app.controller('studentsDayCtrl', ['$scope', '$filter', '$http', 'ngNotify', 'bl
 	 }, true);
 	 
 	 
+	 //Modal
+	 	 
+	 $scope.calificate = function () {		    
+		    var modalInstance = $uibModal.open({
+		      animation: true,
+		      ariaLabelledBy: 'modal-title',
+		      ariaDescribedBy: 'modal-body',
+		      bindToController: true,
+		      templateUrl: 'myModalContent.html',
+		      controller: 'ModalInstanceCtrl',
+		      controllerAs:'$scope',
+		      keyboard: true,
+		      size: 'lg',		      
+		      windowClass: 'center-modal',
+		      resolve: {
+		    	  qualy: function () {
+		          return $scope.qualy;
+		        }
+		      }
+		    });
+
+//		    modalInstance.result.then(function (selectedItem) {
+//		      console.log(selectedItem);
+//		    }, function () {
+//		      $log.info('Modal dismissed at: ' + new Date());
+//		    });
+		  };
+
+
 		
 
-} ]);
+}]);
+
+
+
+app.controller('ModalInstanceCtrl', function ($uibModalInstance, qualy, $scope) {
+	
+	$scope.title = "Calificar";
+	$scope.qualy = qualy;			
+	console.log($scope.qualy)
+	
+	if(angular.isObject($scope.qualy)){
+		$scope.title = "Modificar Calificacion";
+	}
+	   
+	$scope.ok = function () {		
+	   $uibModalInstance.close();	  
+	};
+
+	$scope.cancel = function () {		
+	   $uibModalInstance.dismiss('cancel');	  
+	};
+	   
+});

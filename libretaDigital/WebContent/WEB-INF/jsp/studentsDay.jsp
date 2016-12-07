@@ -59,7 +59,7 @@
 		<div class=row">
 			<div class="col-md-3">
 
-				<table st-table="studentsDisplayed" st-safe-src="students" class="table table-striped">
+				<table st-table="studentsDisplayed" st-safe-src="students" class="table table-striped table-hover">
 					<thead>
 						<tr>
 							<th></th>
@@ -153,7 +153,7 @@
 
 							<div class="row">
 								<div class="col-lg-12 table-nav">
-									<table st-table="absencesDisplayed" st-safe-src="student.absences" class="table table-striped">
+									<table st-table="absencesDisplayed" st-safe-src="student.absences" class="table table-striped table-hover">
 									<thead>
 										<tr>
 											<th class="sort-header" st-sort="name">Fecha</th>
@@ -186,7 +186,7 @@
 							<div class="row">
 								<div class="col-lg-12 table-nav">
 									<table st-table="qualificationsDisplayed" st-safe-src="student.qualifications"
-										class="table table-striped">
+										class="table table-striped table-hover">
 										<thead>
 											<tr>
 												<th class="sort-header" st-sort="name">Fecha</th>
@@ -211,7 +211,8 @@
 
 							<div class="row">
 								<div class="col-lg-12">
-									<button class="btn btn-md btn-success btn-justify" ng-click="" ng-disabled="editButtons">Calificar</button>								
+									<button class="btn btn-md btn-success btn-justify" ng-click="calificate()" ng-show="calificateButton">Calificar</button>
+									<button class="btn btn-md btn-warning btn-justify" ng-click="calificate()" ng-show="editCalfButton">Modificar</button>								
 								</div>
 							</div>
 
@@ -240,7 +241,32 @@
 </body>
 
 
-
+<script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">{{title}}</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+            <form>
+  				<div class="form-group">
+    				<label for="value">Nota</label>
+    				<input type="number" class="form-control" id="nota" placeholder="Nota" ng-model="qualy.value">
+ 				</div>
+  				<div class="form-group">
+    				<label for="type">Tipo</label>
+    				<input type="Text" class="form-control" id="type" placeholder="Tipo" ng-model="qualy.eventRegistrationType">
+ 				</div> 
+				<div class="form-group">
+    				<label for="type">Comentario</label>
+    				<input type="Comentario" class="form-control" id="type" placeholder="Comentario" ng-model="qualy.comment">
+ 				 </div>   				
+  				</div>  				
+			</form>          
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="submit" ng-click="ok()">Guardar</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancelar</button>
+        </div>
+</script>
 
 
 <jsp:include page="/WEB-INF/jsp/parts/scripts.jsp" />
