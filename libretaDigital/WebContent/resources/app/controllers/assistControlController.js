@@ -259,7 +259,7 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 	    	var item = students[int];	    	
 	    	item.label =  $filter('capitalize')(item.name) +" "+ $filter('capitalize')(item.lastName);	    	
 	    	if(item.calendar != null && item.calendar.length > 0){	    		
-	    		if(item.calendar[0].eventRegistrationType === "INASSISTANCE" ){
+	    		if(item.calendar[0].eventRegistrationType === "FALTA" ){
 		    		$scope.models[1].items.push(item);
 		    	}else{
 		    		item.late = true;

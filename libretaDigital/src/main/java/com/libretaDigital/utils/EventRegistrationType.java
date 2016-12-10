@@ -5,9 +5,9 @@ import org.codehaus.jackson.annotate.JsonAutoDetect;
 @JsonAutoDetect
 public enum EventRegistrationType {
 
-	INASSISTANCE("Falta"),
-	HALF_ASSISTANCE("Media falta"),
-	JUSTIFIED("Justificada"),
+	FALTA("Falta"),
+	MEDIA_FALTA("Media falta"),
+	JUSTIFICADA("Justificada"),
 	
 	PARCIAL("Parcial"),
 	EXAMEN("Exámen"),

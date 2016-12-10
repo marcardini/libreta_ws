@@ -93,14 +93,14 @@ public class AssistControlController {
 				ser.setClassDayStudentId(aux.getClassDayStudentId());
 				EventRegistrationType ert;
 				if(aux.isLate()){
-					ert = EventRegistrationType.HALF_ASSISTANCE;
+					ert = EventRegistrationType.MEDIA_FALTA;
 				}else{
-					ert = EventRegistrationType.INASSISTANCE;
+					ert = EventRegistrationType.FALTA;
 				}
 				ser.setEventRegistrationType(ert);
 				studentsAssistanceRegistrationList.add(ser);
 			}
-			studentServiceImpl.assistanceControl(studentsAssistanceRegistrationList, null);	
+			studentServiceImpl.saveEvent(studentsAssistanceRegistrationList, null);	
 			response.setStatus(HttpServletResponse.SC_OK);
 		}catch (Exception e) {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

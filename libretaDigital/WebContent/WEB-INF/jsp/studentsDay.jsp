@@ -16,12 +16,16 @@
 	if (students == null) {
 		students = "[]";
 	}
+	
+	String eventsRegistrationTypes = (String) request.getAttribute("eventsRegistrationTypes");
+	if (eventsRegistrationTypes == null) {
+		eventsRegistrationTypes = "[]";
+	}
 %>
 
 <script type="text/javascript">
-	var students =
-<%=students%>
-	
+	var students = <%=students%>;
+	var eventsRegistrationTypes = <%=eventsRegistrationTypes%>;
 </script>
 
 <title><%=pageTitle%></title>
@@ -165,7 +169,7 @@
 										<tr class="list-row" st-select-row="absence" st-select-mode="single"
 											ng-repeat="absence in absencesDisplayed" ng-click="absenceSelect(absence)">
 											<td>{{absence.date}}</td>
-											<td>{{absence.label | capitalize}}</td>
+											<td>{{absence.eventRegistrationType | capitalize}}</td>
 											<td>{{absence.comment | capitalize}}</td>
 										</tr>
 									</tbody>
@@ -174,8 +178,8 @@
 							</div>
 							<div class="row">
 								<div class="col-lg-12">
-									<button class="btn btn-md btn-success btn-justify" ng-click="" ng-disabled="editButtons">Justificar</button>
-									<button class="btn btn-md btn-danger btn-justify" ng-click="" ng-disabled="editButtons">Eliminar</button>								
+									<button class="btn btn-md btn-success btn-justify"  ng-click="" ng-disabled="editButtons">Justificar</button>
+									<button class="btn btn-md btn-danger btn-justify" confirmed-click="delete(absence)" ng-confirm-click="Esta seguro que desea eliminar esta calificación?" ng-disabled="editButtons">Eliminar</button>								
 								</div>
 							</div>
 							
@@ -185,8 +189,7 @@
 
 							<div class="row">
 								<div class="col-lg-12 table-nav">
-									<table st-table="qualificationsDisplayed" st-safe-src="student.qualifications"
-										class="table table-striped table-hover">
+									<table st-table="qualificationsDisplayed" st-safe-src="student.qualifications" 	class="table table-striped table-hover">
 										<thead>
 											<tr>
 												<th class="sort-header" st-sort="name">Fecha</th>
@@ -211,8 +214,9 @@
 
 							<div class="row">
 								<div class="col-lg-12">
-									<button class="btn btn-md btn-success btn-justify" ng-click="calificate()" ng-show="calificateButton">Calificar</button>
-									<button class="btn btn-md btn-warning btn-justify" ng-click="calificate()" ng-show="editCalfButton">Modificar</button>								
+									<button class="btn btn-md btn-success btn-justify" ng-click="calificate()" ng-disabled="calificateButton">Calificar</button>
+									<button class="btn btn-md btn-warning btn-justify" ng-click="calificate()" ng-show="editCalfButton">Modificar</button>
+									<button class="btn btn-md btn-danger btn-justify"  confirmed-click="delete(qualy)" ng-confirm-click="Esta seguro que desea eliminar esta calificación?" ng-disabled="!editCalfButton">Eliminar</button>									
 								</div>
 							</div>
 
@@ -249,15 +253,20 @@
             <form>
   				<div class="form-group">
     				<label for="value">Nota</label>
-    				<input type="number" class="form-control" id="nota" placeholder="Nota" ng-model="qualy.value">
+    				<input type="number" class="form-control" id="nota" placeholder="Nota" ng-model="qualy.value" min=1 max=12>
  				</div>
-  				<div class="form-group">
-    				<label for="type">Tipo</label>
-    				<input type="Text" class="form-control" id="type" placeholder="Tipo" ng-model="qualy.eventRegistrationType">
+  				<div class="form-group">  				
+					<div class="form-group">
+  						 <label for="singleSelect"> Tipo </label><br>
+    						<select name="type" ng-model="qualy.eventRegistrationType" class="form-control">
+								 <option value="">--- Seleccionar Tipo ---</option>
+      							<option ng-repeat="eventRegistrationType in events" value="{{eventRegistrationType}}">{{eventRegistrationType}}</option>
+    						</select
+					</div>
  				</div> 
 				<div class="form-group">
     				<label for="type">Comentario</label>
-    				<input type="Comentario" class="form-control" id="type" placeholder="Comentario" ng-model="qualy.comment">
+    				<textarea  type="Comentario" class="form-control" id="type" placeholder="Comentario" ng-model="qualy.comment" rows="3"></textarea> 
  				 </div>   				
   				</div>  				
 			</form>          
