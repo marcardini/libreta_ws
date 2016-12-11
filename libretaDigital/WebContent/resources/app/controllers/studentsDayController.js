@@ -188,11 +188,14 @@ app.controller('studentsDayCtrl', ['$scope', '$filter', '$http', 'ngNotify', 'bl
 		      }
 		    });
 
-//		    modalInstance.result.then(function (selectedItem) {
-//		      console.log(selectedItem);
-//		    }, function () {
-//		      $log.info('Modal dismissed at: ' + new Date());
-//		    });
+		    modalInstance.result.then(function (response) {
+		      console.log(response);
+		      if(response){
+		    	  ngNotify.set('Guardado corectamente', 'success');  
+		      }		      
+		    }, function () {
+		      console.log('Modal dismissed at: ' + new Date());
+		    });
 		  };
 
 
@@ -264,15 +267,17 @@ app.controller('ModalInstanceCtrl', function ($uibModalInstance, qualy, $scope) 
 			}).success(function successCallback(response) {
 				blockUI.stop();				
 				qualy = angular.copy($scope.qualy);
-				ngNotify.set('Guardado corectamente', 'success');
+				
+				$uibModalInstance.close(true);
 				console.log(qualy);
 			  }, function errorCallback(response) {				  
 				  console.log(response);
+				  $uibModalInstance.close(false);	 
 				  ngNotify.set('ERROR - Datos no guardados', 'error');
 			    // called asynchronously if an error occurs
 			    // or server returns response with an error status.
 			  });	   
-	   $uibModalInstance.close();	  
+	   $uibModalInstance.close(false);	  
 	};
 
 	$scope.cancel = function () {		
