@@ -16,12 +16,16 @@
 	if (students == null) {
 		students = "[]";
 	}
+	
+	String eventsRegistrationTypes = (String) request.getAttribute("eventsRegistrationTypes");
+	if (eventsRegistrationTypes == null) {
+		eventsRegistrationTypes = "[]";
+	}
 %>
 
 <script type="text/javascript">
-	var students =
-<%=students%>
-	
+	var students = <%=students%>;
+	var eventsRegistrationTypes = <%=eventsRegistrationTypes%>;
 </script>
 
 <title><%=pageTitle%></title>
@@ -59,7 +63,7 @@
 		<div class=row">
 			<div class="col-md-3">
 
-				<table st-table="studentsDisplayed" st-safe-src="students" class="table table-striped">
+				<table st-table="studentsDisplayed" st-safe-src="students" class="table table-striped table-hover">
 					<thead>
 						<tr>
 							<th></th>
@@ -69,7 +73,7 @@
 					</thead>
 					<tbody>
 						<tr class="list-row" st-select-row="row" st-select-mode="single" ng-repeat="row in studentsDisplayed"
-							ng-click="rowSelect(row)">
+							ng-click="studentSelect(row)">
 							<td><img class="media-object media-user-list media-user-medium" src="resources/img/nophoto.png"
 								alt="..."></td>
 							<td>{{row.name | capitalize}}</td>
@@ -153,7 +157,7 @@
 
 							<div class="row">
 								<div class="col-lg-12 table-nav">
-									<table st-table="absencesDisplayed" st-safe-src="student.absences" class="table table-striped">
+									<table st-table="absencesDisplayed" st-safe-src="student.absences" class="table table-striped table-hover">
 									<thead>
 										<tr>
 											<th class="sort-header" st-sort="name">Fecha</th>
@@ -164,7 +168,7 @@
 									<tbody>
 										<tr class="list-row" st-select-row="absence" st-select-mode="single"
 											ng-repeat="absence in absencesDisplayed" ng-click="absenceSelect(absence)">
-											<td>{{absence.date}}</td>
+											<td>{{absence.date | date:'dd-MM-yyyy'}}</td>
 											<td>{{absence.eventRegistrationType | capitalize}}</td>
 											<td>{{absence.comment | capitalize}}</td>
 										</tr>
@@ -174,7 +178,8 @@
 							</div>
 							<div class="row">
 								<div class="col-lg-12">
-									<button class="btn btn-md btn-success btn-justify" ng-click="">Justificar</button>								
+									<button class="btn btn-md btn-warning btn-justify"  ng-click="" ng-disabled="editButtons">Modificar</button>
+									<button class="btn btn-md btn-danger btn-justify" confirmed-click="delete(absence)" ng-confirm-click="Esta seguro que desea eliminar esta calificación?" ng-disabled="editButtons">Eliminar</button>								
 								</div>
 							</div>
 							
@@ -184,8 +189,7 @@
 
 							<div class="row">
 								<div class="col-lg-12 table-nav">
-									<table st-table="qualificationsDisplayed" st-safe-src="student.qualifications"
-										class="table table-striped">
+									<table st-table="qualificationsDisplayed" st-safe-src="student.qualifications" 	class="table table-striped table-hover">
 										<thead>
 											<tr>
 												<th class="sort-header" st-sort="name">Fecha</th>
@@ -197,7 +201,7 @@
 										<tbody>
 											<tr class="list-row" st-select-row="qualy" st-select-mode="single"
 												ng-repeat="qualy in qualificationsDisplayed" ng-click="qualySelect(qualy)">
-												<td>{{qualy.date}}</td>
+												<td>{{qualy.date | date:'dd-MM-yyyy'}}</td>
 												<td>{{qualy.eventRegistrationType | capitalize}}</td>
 												<td>{{qualy.value}}</td>
 												<td>{{qualy.comment | capitalize}}</td>
@@ -210,7 +214,9 @@
 
 							<div class="row">
 								<div class="col-lg-12">
-									<button class="btn btn-md btn-success btn-justify" ng-click="">Calificar</button>								
+									<button class="btn btn-md btn-success btn-justify" ng-click="calificate()" ng-disabled="calificateButton" ng-show="!editCalfButton">Calificar</button>
+									<button class="btn btn-md btn-warning btn-justify" ng-click="calificate()" ng-show="editCalfButton">Modificar</button>
+									<button class="btn btn-md btn-danger btn-justify"  confirmed-click="delete(qualy)" ng-confirm-click="Esta seguro que desea eliminar esta calificación?" ng-disabled="!editCalfButton">Eliminar</button>									
 								</div>
 							</div>
 
@@ -239,7 +245,37 @@
 </body>
 
 
-
+<script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">{{title}}</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+            <form>
+  				<div class="form-group">
+    				<label for="value">Nota</label>
+    				<input type="number" class="form-control" id="nota" placeholder="Nota" ng-model="qualy.value" min=1 max=12>
+ 				</div>
+  				<div class="form-group">  				
+					<div class="form-group">
+  						 <label for="singleSelect"> Tipo </label><br>
+    						<select name="type" ng-model="qualy.eventRegistrationType" class="form-control">
+								 <option value="">--- Seleccionar Tipo ---</option>
+      							<option ng-repeat="eventRegistrationType in events" value="{{eventRegistrationType}}">{{eventRegistrationType}}</option>
+    						</select
+					</div>
+ 				</div> 
+				<div class="form-group">
+    				<label for="type">Comentario</label>
+    				<textarea  type="Comentario" class="form-control" id="type" placeholder="Comentario" ng-model="qualy.comment" rows="3"></textarea> 
+ 				 </div>   				
+  				</div>  				
+			</form>          
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="submit" ng-click="ok()">Guardar</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancelar</button>
+        </div>
+</script>
 
 
 <jsp:include page="/WEB-INF/jsp/parts/scripts.jsp" />

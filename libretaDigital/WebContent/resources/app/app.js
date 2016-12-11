@@ -1,14 +1,25 @@
 //var app = angular.module("app", []);
-var app = angular.module('app', ['ui.bootstrap', 'smart-table', 'dndLists', 'percentCircle-directive', 'ngAnimate', 'ngTouch', 'mwl.calendar', 'ngNotify', 'blockUI' ])
+var app = angular.module('app', ['ui.bootstrap', 'smart-table', 'dndLists', 'percentCircle-directive', 'ngAnimate', 'ngTouch', 'mwl.calendar', 'ngNotify', 'blockUI' ]);
 
-.filter('capitalize', function() {
-    return function(input, all) {
-      var reg = (all) ? /([^\W_]+[^\s-]*) */g : /([^\W_]+[^\s-]*)/;
-      return (!!input) ? input.replace(reg, function(txt) {
-        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-      }):'';
-    };
-  });
+app.filter('capitalize', function() {
+	return function(input, scope) {
+		if (input != null) {
+			input = input.toLowerCase().split(' ');
+
+			for (var i = 0; i < input.length; i++) {
+				// You do not need to check if i is larger than input length, as
+				// your for does that for you
+				// Assign it back to the array
+				input[i] = input[i].charAt(0).toUpperCase()
+						+ input[i].substring(1);
+			}
+			// Directly return the joined string
+			return input.join(' ');
+		} else {
+			return "";
+		}
+	}
+});
 
 app.directive('validNumber', function() {
   return {
@@ -108,4 +119,21 @@ app.directive('dropzone', function($parse) {
         }
     }
 });
+
+
+app.directive('ngConfirmClick', [
+    function(){
+        return {
+            link: function (scope, element, attr) {
+                var msg = attr.ngConfirmClick || "Are you sure?";
+                var clickAction = attr.confirmedClick;
+                element.bind('click',function (event) {
+                    if ( window.confirm(msg) ) {
+                        scope.$eval(clickAction)
+                    }
+                });
+            }
+        };
+}])
+
 

@@ -146,10 +146,10 @@
 										<h4 class="media-heading">{{student.label}}</h4>
 										<span class="label label-danger">Inasistencias: {{student.absences}}</span>
 										<span class="label label-warning">Llegadas Tarde: {{student.half}}</span>
-										<span class="label label-info">Justificadas: 0</span>										
+										<span class="label label-info">Justificadas: {{student.justified}}</span>										
 									</div>
 									<div class="media-right">
-										<h1 class="total-absences">{{student.absences + (student.half)/2}}</h1>
+										<h1 class="total-absences">{{student.absences + (student.half)/2 + + (student.justified)/2}}</h1>
 									</div>
 									
 								</li>
@@ -168,6 +168,7 @@
 
 
 </body>
+
 
 <jsp:include page="/WEB-INF/jsp/parts/scripts.jsp" />
 

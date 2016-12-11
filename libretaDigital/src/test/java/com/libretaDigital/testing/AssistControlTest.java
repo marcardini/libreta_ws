@@ -59,7 +59,7 @@ public class AssistControlTest {
 		//FIXME
 		Long courseId = 1L;
 		
-		StudentEventRegistration testStudentEventReg = new StudentEventRegistration(null, studentId, courseId, null, null, EventRegistrationType.INASSISTANCE);
+		StudentEventRegistration testStudentEventReg = new StudentEventRegistration(null, studentId, courseId, null, null, EventRegistrationType.FALTA);
 		studentsAssistanceRegistrationList.add(testStudentEventReg);
 	}
 	
@@ -77,7 +77,7 @@ public class AssistControlTest {
 	
 	@Test
 	public void assistanceControlPersistanceTest() {
-		studentService.assistanceControl(studentsAssistanceRegistrationList, new Date());
+		studentService.saveEvent(studentsAssistanceRegistrationList, new Date());
 	}
 
 	

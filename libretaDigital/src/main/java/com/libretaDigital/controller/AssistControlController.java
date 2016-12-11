@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.libretaDigital.assistControl.AssistControlFacadeImpl;
-import com.libretaDigital.beans.AbsenceBean;
+import com.libretaDigital.beans.StudentDayBean;
 import com.libretaDigital.beans.StudentAbsencesBean;
 import com.libretaDigital.datatypes.StudentEventRegistration;
 import com.libretaDigital.entities.Group;
@@ -53,7 +53,7 @@ public class AssistControlController {
 		professorId = BigInteger.ONE;
 
 		try {
-			page.addObject("students", mapper.writeValueAsString(assistControlFacade.getStudentsAndTodaysAssistance("primero", "1A", "MATEMATICAS")));
+			page.addObject("students", mapper.writeValueAsString(assistControlFacade.getStudentsAndTodaysAssistance("quinto", "1A", "MATEMATICAS")));
 			page.addObject("groups", mapper.writeValueAsString(this.getGroupsByProfessor()));
 			page.addObject("studentsAbsences", mapper.writeValueAsString(this.getStudentsAbsencesByCode()));
 		} catch (JsonProcessingException e) {
@@ -63,51 +63,7 @@ public class AssistControlController {
 		return page;
 	}
 
-	@RequestMapping(value = "/assistControl/saveAbsences", method = RequestMethod.POST)
-	public void SaveAbsences(@RequestBody List<AbsenceBean> absences, HttpServletResponse response) {	
-		
-		//ESTO ES PARA PROBAR EL METODO DE LA FICHA:
-		/*List<Student> resultado = studentServiceImpl.getStudentsFiles(null, "primero", "1A", 2016, "MATEMATICAS");
-		
-		for(Student s: resultado){
-			System.out.println(s.getName() + " " + s.getLastName());
-		}*/
-		
-		
-		
-		//PARA PROBAR EL METODO DE LOGIN
-		Professor user = loginService.validateUser("maria.tarigo@gmail.com", "admin");
-		
-		System.out.println("El usuario " + user.getEmail() + " ha sido logueado.");
-		
-		
-		
-		try{
-			List<StudentEventRegistration> studentsAssistanceRegistrationList = new ArrayList<StudentEventRegistration> ();
-			for (AbsenceBean aux : absences) {
-				StudentEventRegistration ser = new StudentEventRegistration();
-				ser.setStudentId(aux.getIdStudent());
-				ser.setCourseId(1L);
-				ser.setGroupId(1L);
-				ser.setSubjectId(1L);
-				ser.setClassDayStudentId(aux.getClassDayStudentId());
-				EventRegistrationType ert;
-				if(aux.isLate()){
-					ert = EventRegistrationType.HALF_ASSISTANCE;
-				}else{
-					ert = EventRegistrationType.INASSISTANCE;
-				}
-				ser.setEventRegistrationType(ert);
-				studentsAssistanceRegistrationList.add(ser);
-			}
-			studentServiceImpl.assistanceControl(studentsAssistanceRegistrationList, null);	
-			response.setStatus(HttpServletResponse.SC_OK);
-		}catch (Exception e) {
-			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-		}
-			
-	}
-
+	
 	@RequestMapping(value = "/assistControl/studentsAbsences", method = RequestMethod.GET)
 	@ResponseBody
 	public String StudentsAbsences() {

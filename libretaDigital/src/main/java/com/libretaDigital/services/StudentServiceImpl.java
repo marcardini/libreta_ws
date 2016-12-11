@@ -34,7 +34,7 @@ public class StudentServiceImpl implements IStudentService{
 	}
 	
 	@Override
-	public void assistanceControl(List<StudentEventRegistration> studentsAssistanceRegistrationList, Date date){
+	public void saveEvent(List<StudentEventRegistration> studentsAssistanceRegistrationList, Date date){
 		
 		if(date == null)
 			date = new Date();

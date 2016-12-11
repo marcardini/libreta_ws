@@ -20,8 +20,8 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 	$scope.studentsAbsences = [];	
 	angular.copy(studentsAbsences, $scope.studentsAbsences);
 	
-	//console.log($scope.studentsAbsences);
-	console.log(students);
+	console.log($scope.studentsAbsences);
+	//console.log(students);
 	
 	/* LISTAS */
 	
@@ -71,7 +71,7 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 		 }
 	 };
 	 
-	 $scope.saveAbsences = function (){		 
+	 $scope.saveAbsences = function (){			 
 		 var absences = [];		 
 		 angular.forEach($scope.models[0].items, function(item){
 			 var aux = {idStudent:"", late:false};
@@ -95,7 +95,7 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 		 console.log(absences)
 		 $http({
 			  method: 'POST',
-			  url: 'assistControl/saveAbsences',
+			  url: 'main/saveEvent',
 			  data: absences
 			}).success(function successCallback(response) {
 				blockUI.stop();
@@ -202,7 +202,6 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 	    	$scope.presentes = $scope.models[0].items.length;
 	        $scope.ausentes = $scope.models[1].items.length;
 	        $scope.total = students.length;
-	        console.log($scope.total);
 	        $scope.presentsPer = ($scope.presentes * 100)/$scope.total;
 	        $scope.absencesPer = ($scope.ausentes * 100)/$scope.total;	        
 	        angular.forEach($scope.models[1].items, function(item) { item.late = false; }); 	        
@@ -260,7 +259,7 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 	    	var item = students[int];	    	
 	    	item.label =  $filter('capitalize')(item.name) +" "+ $filter('capitalize')(item.lastName);	    	
 	    	if(item.calendar != null && item.calendar.length > 0){	    		
-	    		if(item.calendar[0].eventRegistrationType === "INASSISTANCE" ){
+	    		if(item.calendar[0].eventRegistrationType === "FALTA" ){
 		    		$scope.models[1].items.push(item);
 		    	}else{
 		    		item.late = true;

@@ -2,17 +2,21 @@ package com.libretaDigital.beans;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 
+import com.libretaDigital.utils.EventRegistrationType;
+
 @JsonAutoDetect
-public class AbsenceBean {
+public class StudentDayBean {
 
 	private boolean late;
+	private boolean justified;
+	private Enum<EventRegistrationType> eventRegistrationType;
 	private long courseId;
 	private long groupId;
 	private long subject_id;
 	private long idStudent;
 	private long classDayStudentId;
 
-	public AbsenceBean() {
+	public StudentDayBean() {
 
 	}
 
@@ -27,6 +31,13 @@ public class AbsenceBean {
 	}
 	public void setLate(boolean late) {
 		this.late = late;
+	}
+	public Enum<EventRegistrationType> getEventRegistrationType() {
+		return eventRegistrationType;
+	}
+
+	public void setEventRegistrationType(Enum<EventRegistrationType> eventRegistrationType) {
+		this.eventRegistrationType = eventRegistrationType;
 	}
 	public long getCourseId() {
 		return courseId;
@@ -53,5 +64,13 @@ public class AbsenceBean {
 
 	public void setClassDayStudentId(long classDayStudentId) {
 		this.classDayStudentId = classDayStudentId;
+	}
+
+	public boolean isJustified() {
+		return justified;
+	}
+
+	public void setJustified(boolean justified) {
+		this.justified = justified;
 	}
 }
