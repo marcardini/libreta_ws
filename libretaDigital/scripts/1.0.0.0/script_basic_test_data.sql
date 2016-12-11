@@ -37,25 +37,25 @@ insert into student values (4,'jorge', 'berro', '1974-11-30 00:00:00', 'MALE', '
 go
 insert into student values (5,'vanesa', 'perez', '1954-03-20 00:00:00', 'FEMALE', 'vaneperez@gmail.com', true, 1, 4, 1)
 go
-insert into class_day_student values(1,'2016-11-24 00:00:00', 'INASSISTANCE', 1,1,1,1,null,null)
+insert into class_day_student values(1,'2016-11-24 00:00:00', 'FALTA', 1,1,1,1,null,null)
 go
-insert into class_day_student values(2,'2016-11-25 00:00:00', 'HALF_ASSISTANCE', 1,1,1,1,null,null)
+insert into class_day_student values(2,'2016-11-25 00:00:00', 'MEDIA_FALTA', 1,1,1,1,null,null)
 go
-insert into class_day_student values(3,'2016-11-24 00:00:00', 'INASSISTANCE', 1,1,1,1,null,null)
+insert into class_day_student values(3,'2016-11-24 00:00:00', 'FALTA', 1,1,1,1,null,null)
 go
-insert into class_day_student values(4,'2016-11-25 00:00:00', 'HALF_ASSISTANCE', 1,1,1,1,null,null);
+insert into class_day_student values(4,'2016-11-25 00:00:00', 'MEDIA_FALTA', 1,1,1,1,null,null);
 go
-insert into class_day_student values(5,'2016-11-24 00:00:00', 'INASSISTANCE', 1,1,1,1,null,null);
+insert into class_day_student values(5,'2016-11-24 00:00:00', 'FALTA', 1,1,1,1,null,null);
 go
-insert into class_day_student values(6,'2016-11-25 00:00:00', 'HALF_ASSISTANCE', 1,1,1,1,null,null);
+insert into class_day_student values(6,'2016-11-25 00:00:00', 'MEDIA_FALTA', 1,1,1,1,null,null);
 go
-insert into class_day_student values(7,'2016-11-24 00:00:00', 'INASSISTANCE', 1,1,1,1,null,null);
+insert into class_day_student values(7,'2016-11-24 00:00:00', 'FALTA', 1,1,1,1,null,null);
 go
-insert into class_day_student values(8,'2016-11-25 00:00:00', 'HALF_ASSISTANCE', 1,1,1,1,null,null);
+insert into class_day_student values(8,'2016-11-25 00:00:00', 'MEDIA_FALTA', 1,1,1,1,null,null);
 go
-insert into class_day_student values(9,'2016-11-24 00:00:00', 'INASSISTANCE', 1,1,1,1,null,null);
+insert into class_day_student values(9,'2016-11-24 00:00:00', 'FALTA', 1,1,1,1,null,null);
 go
-insert into class_day_student values(10,'2016-11-25 00:00:00', 'HALF_ASSISTANCE', 1,1,1,1,null,null);
+insert into class_day_student values(10,'2016-11-25 00:00:00', 'MEDIA_FALTA', 1,1,1,1,null,null);
 go
 insert into class_day_student values(11,'2016-11-25 00:00:00', 'EXAMEN', 1,1,1,1,6,'pobre')
 go
