@@ -45,14 +45,14 @@ version="3.1">
     <!--     MAPEO DE CONTROL DE ASISTENCIAS -->
     <servlet-mapping>
         <servlet-name>libretaDigital</servlet-name>       
-    		<url-pattern>/assistControl/saveAbsences</url-pattern>
+<!--     		<url-pattern>/assistControl/saveAbsences</url-pattern> -->
     		<url-pattern>/assistControl/studentsAbsences</url-pattern>
     </servlet-mapping>
     
      <!--     MAPEO DE FICHA DE ESTUDIANTE -->
     <servlet-mapping>
         <servlet-name>libretaDigital</servlet-name>       
-    		<url-pattern>/studentsDay/saveEvent</url-pattern>    		
+    		<url-pattern>/main/saveEvent</url-pattern>    		
     </servlet-mapping>
      
 </web-app>

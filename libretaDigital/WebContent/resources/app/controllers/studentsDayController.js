@@ -68,12 +68,12 @@ app.controller('studentsDayCtrl', ['$scope', '$filter', '$http', 'ngNotify', 'bl
 	$scope.qualySelect = function(row){
 		if(!row.isSelected){
 			$scope.qualy = null;
-			$scope.calificateButton = true;
+			//$scope.calificateButton = true;
 			$scope.editCalfButton = false;
 			
 		}else{
 			$scope.qualy = row;
-			$scope.calificateButton = false;
+			//$scope.calificateButton = false;
 			$scope.editCalfButton = true;
 			console.log($scope.qualy);
 		}
@@ -146,12 +146,26 @@ app.controller('studentsDayCtrl', ['$scope', '$filter', '$http', 'ngNotify', 'bl
 	 }, true);
 	 
 	 $scope.delete = function (item){		 
-		 //primero en la bd, si es ok lo borro del array	 
+//		 $http({
+//			  method: 'POST',
+//			  url: 'main/deleteEvent',
+//			  data: absences
+//			}).success(function successCallback(response) {
+//				blockUI.stop();
+//				ngNotify.set('Eliminado corectamente', 'success');
+//				$scope.student.calendar.splice($scope.student.calendar.indexOf(item), 1);
+//				$scope.getAbsencesAndQualifications($scope.student);	
+//				
+//				$scope.$apply();
+//			    $scope.getAbsencesStudents();			   
+//			  }, function errorCallback(response) {				  
+//				  console.log(response);
+//				  ngNotify.set('ERROR - Datos no guardados', 'error');
+//			    // called asynchronously if an error occurs
+//			    // or server returns response with an error status.
+//			  });	 
 				
-		$scope.student.calendar.splice($scope.student.calendar.indexOf(item), 1);
-		$scope.getAbsencesAndQualifications($scope.student);	
-		
-		$scope.$apply();	
+			
 	 };
 	 //Modal
 	 	 
@@ -191,7 +205,7 @@ app.controller('studentsDayCtrl', ['$scope', '$filter', '$http', 'ngNotify', 'bl
 app.controller('ModalInstanceQualifyCtrl', function ($uibModalInstance, qualy, $scope) {
 	
 	$scope.title = "Calificar";
-	$scope.qualy = {};			
+	$scope.qualy = null;			
 	$scope.events = [];
 	angular.forEach(eventsRegistrationTypes, function(event){
 		if( event != "FALTA" && event != "MEDIA_FALTA" && event != "JUSTIFICADA" ){
@@ -204,7 +218,8 @@ app.controller('ModalInstanceQualifyCtrl', function ($uibModalInstance, qualy, $
 		$scope.qualy = angular.copy(qualy);
 		$scope.title = "Modificar Calificacion";
 		console.log(qualy.eventRegistrationType)
-	}else{		
+	}else{
+		$scope.qualy = {};
 		$scope.qualy.value = 1;
 	}
 	   
@@ -222,7 +237,7 @@ app.controller('ModalInstanceQualifyCtrl', function ($uibModalInstance, qualy, $
 app.controller('ModalInstanceCtrl', function ($uibModalInstance, qualy, $scope) {
 	
 	$scope.title = "Justificar";
-	$scope.qualy = {};			
+	$scope.qualy = null;			
 	$scope.eventsRegistrationTypes = [];
 	angular.forEach(eventsRegistrationTypes, function(event){
 		if(event === "FALTA" && event === "MEDIA_FALTA" && event === "JUSTIFICADA"){
@@ -232,14 +247,31 @@ app.controller('ModalInstanceCtrl', function ($uibModalInstance, qualy, $scope) 
 	
 	if(angular.isObject($scope.qualy)){
 		$scope.qualy = angular.copy(qualy);
-		$scope.title = "Justificar Falta";
+		$scope.title = "Modificar Falta";
 		console.log(qualy.eventRegistrationType);
 	}else{		
+		$scope.qualy = {};
 		qualy.value = 0;
 	}
 	   
 	$scope.ok = function () {
-	   qualy = angular.copy($scope.qualy);
+		$scope.events = [];
+		$scope.events.push($scoppe.qualy);
+		$http({
+			  method: 'POST',
+			  url: 'main/saveEvent',
+			  data: events
+			}).success(function successCallback(response) {
+				blockUI.stop();				
+				qualy = angular.copy($scope.qualy);
+				ngNotify.set('Guardado corectamente', 'success');
+				console.log(qualy);
+			  }, function errorCallback(response) {				  
+				  console.log(response);
+				  ngNotify.set('ERROR - Datos no guardados', 'error');
+			    // called asynchronously if an error occurs
+			    // or server returns response with an error status.
+			  });	   
 	   $uibModalInstance.close();	  
 	};
 

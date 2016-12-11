@@ -168,7 +168,7 @@
 									<tbody>
 										<tr class="list-row" st-select-row="absence" st-select-mode="single"
 											ng-repeat="absence in absencesDisplayed" ng-click="absenceSelect(absence)">
-											<td>{{absence.date}}</td>
+											<td>{{absence.date | date:'dd-MM-yyyy'}}</td>
 											<td>{{absence.eventRegistrationType | capitalize}}</td>
 											<td>{{absence.comment | capitalize}}</td>
 										</tr>
@@ -178,7 +178,7 @@
 							</div>
 							<div class="row">
 								<div class="col-lg-12">
-									<button class="btn btn-md btn-success btn-justify"  ng-click="" ng-disabled="editButtons">Justificar</button>
+									<button class="btn btn-md btn-warning btn-justify"  ng-click="" ng-disabled="editButtons">Modificar</button>
 									<button class="btn btn-md btn-danger btn-justify" confirmed-click="delete(absence)" ng-confirm-click="Esta seguro que desea eliminar esta calificación?" ng-disabled="editButtons">Eliminar</button>								
 								</div>
 							</div>
@@ -201,7 +201,7 @@
 										<tbody>
 											<tr class="list-row" st-select-row="qualy" st-select-mode="single"
 												ng-repeat="qualy in qualificationsDisplayed" ng-click="qualySelect(qualy)">
-												<td>{{qualy.date}}</td>
+												<td>{{qualy.date | date:'dd-MM-yyyy'}}</td>
 												<td>{{qualy.eventRegistrationType | capitalize}}</td>
 												<td>{{qualy.value}}</td>
 												<td>{{qualy.comment | capitalize}}</td>
@@ -214,7 +214,7 @@
 
 							<div class="row">
 								<div class="col-lg-12">
-									<button class="btn btn-md btn-success btn-justify" ng-click="calificate()" ng-disabled="calificateButton">Calificar</button>
+									<button class="btn btn-md btn-success btn-justify" ng-click="calificate()" ng-disabled="calificateButton" ng-show="!editCalfButton">Calificar</button>
 									<button class="btn btn-md btn-warning btn-justify" ng-click="calificate()" ng-show="editCalfButton">Modificar</button>
 									<button class="btn btn-md btn-danger btn-justify"  confirmed-click="delete(qualy)" ng-confirm-click="Esta seguro que desea eliminar esta calificación?" ng-disabled="!editCalfButton">Eliminar</button>									
 								</div>
