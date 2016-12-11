@@ -14,7 +14,7 @@ public class StudentDayBean {
 	private long groupId;
 	private long subject_id;
 	private long studentId;
-	private long classDayStudentId;
+	private long oid;
 	private long value;
 	private String comment;
 
@@ -60,12 +60,12 @@ public class StudentDayBean {
 		this.subject_id = subject_id;
 	}
 
-	public long getClassDayStudentId() {
-		return classDayStudentId;
+	public long getOid() {
+		return oid;
 	}
 
-	public void setClassDayStudentId(long classDayStudentId) {
-		this.classDayStudentId = classDayStudentId;
+	public void setOidd(long oid) {
+		this.oid = oid;
 	}
 
 	public boolean isJustified() {

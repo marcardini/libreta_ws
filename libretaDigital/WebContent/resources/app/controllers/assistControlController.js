@@ -20,8 +20,8 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 	$scope.studentsAbsences = [];	
 	angular.copy(studentsAbsences, $scope.studentsAbsences);
 	
-	console.log($scope.studentsAbsences);
-	//console.log(students);
+	//console.log($scope.studentsAbsences);
+	console.log(students);
 	
 	/* LISTAS */
 	

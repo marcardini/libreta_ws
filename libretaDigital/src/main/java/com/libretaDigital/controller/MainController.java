@@ -60,12 +60,12 @@ public class MainController {
 		try{
 			List<StudentEventRegistration> studentsAssistanceRegistrationList = new ArrayList<StudentEventRegistration> ();
 			for (StudentDayBean aux : events) {
-				StudentEventRegistration ser = new StudentEventRegistration();
+				StudentEventRegistration ser = new StudentEventRegistration();				
 				ser.setStudentId(aux.getStudentId());
 				ser.setCourseId(1L);
 				ser.setGroupId(1L);
 				ser.setSubjectId(1L);
-				ser.setClassDayStudentId(aux.getClassDayStudentId());	
+				ser.setClassDayStudentId(aux.getOid());	
 				ser.setEventRegistrationType(EventRegistrationType.valueOf(aux.getEventRegistrationType()));
 				if(ser.getEventRegistrationType() != EventRegistrationType.FALTA && 
 						ser.getEventRegistrationType() != EventRegistrationType.MEDIA_FALTA && ser.getEventRegistrationType() != EventRegistrationType.JUSTIFICADA){

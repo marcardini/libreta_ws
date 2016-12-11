@@ -45,7 +45,9 @@ public class StudentServiceImpl implements IStudentService{
 																	ser.getEventRegistrationType(), (BigDecimal.valueOf(ser.getValue())), ser.getComment());
 			
 			//FIXME: deberia ir save or update cuando ande
-			classDayStudentDAO.save(cds);
+			
+//			classDayStudentDAO.saveOrUpdate(cds);
+			classDayStudentDAO.update(cds);
 		}
 	}
 	

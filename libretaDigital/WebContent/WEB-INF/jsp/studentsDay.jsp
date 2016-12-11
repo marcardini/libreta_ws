@@ -33,6 +33,7 @@
 <link rel="stylesheet" href="bower_components/ng-notify/dist/ng-notify.min.css">
 <link rel="stylesheet" href="bower_components/angular-block-ui/dist/angular-block-ui.min.css">
 <link rel="stylesheet" href="bower_components/angular-percent-circle-directive/dist/percent-circle.css">
+<link rel="stylesheet" href="bower_components/angularjs-slider/dist/rzslider.min.css"/>
 <link rel="stylesheet" href="resources/css/style.css">
 
 </head>
@@ -251,29 +252,15 @@
         <div class="modal-body" id="modal-body">
             <form>
   				<div class="form-group">
-    				<label for="value">Nota</label>
-    				<select name="value" ng-model="qualy.value" class="form-control">
-								 <option value="">--- Seleccionar Nota ---</option>
- 								 <option value="1">1</option>
- 								 <option value="2">2</option>
- 								 <option value="3">3</option>
- 								 <option value="4">4</option>
- 								 <option value="5">5</option>
- 								 <option value="6">6</option>
- 								 <option value="7">7</option>
- 								 <option value="8">8</option>
- 								 <option value="9">9</option>
- 								 <option value="10">10</option>
- 								 <option value="11">11</option>
- 								 <option value="12">12</option>       							
-    						</select>
+    				<label for="value">Nota</label>  
+						<rzslider rz-slider-model="slider.value" rz-slider-options="slider.options"></rzslider>
  				</div>
   				<div class="form-group">  				
 					<div class="form-group">
   						 <label for="singleSelect"> Tipo </label><br>
     						<select name="type" ng-model="qualy.eventRegistrationType" class="form-control">
 								 <option value="">--- Seleccionar Tipo ---</option>
-      							<option ng-repeat="eventRegistrationType in events" value="{{eventRegistrationType}}">{{eventRegistrationType}}</option>
+      							<option ng-repeat="eventRegistrationType in events" value="{{eventRegistrationType}}">{{eventRegistrationType | capitalize}}</option>
     						</select>
 					</div>
  				</div> 

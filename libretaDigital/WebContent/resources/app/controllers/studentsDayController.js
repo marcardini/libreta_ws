@@ -25,7 +25,7 @@ app.controller('studentsDayCtrl', ['$scope', '$filter', '$http', 'ngNotify', 'bl
 	$scope.student = {calendar: []};
 	$scope.absence = {};
 	$scope.qualy = {};
-	console.log($scope.eventsRegistrationTypes );
+//	console.log($scope.eventsRegistrationTypes );
 //	 angular.forEach($scope.students, function(item){ 
 //		item.isSelected = false;			 	 
 //	 });
@@ -42,7 +42,7 @@ app.controller('studentsDayCtrl', ['$scope', '$filter', '$http', 'ngNotify', 'bl
 		    	$scope.student = row;		
 				$scope.setPercents($scope.student);
 				$scope.calificateButton = false;
-//			    console.log($scope.student);
+			    console.log($scope.student);
 		    }
 	}
 	
@@ -82,11 +82,11 @@ app.controller('studentsDayCtrl', ['$scope', '$filter', '$http', 'ngNotify', 'bl
 	$scope.gatAbsencesCount = function (calendar){
 		var count = 0;
 		for (var int = 0; int < calendar.length; int++) {
-			if(calendar[int].eventRegistrationType === "INASSISTANCE"){				
+			if(calendar[int].eventRegistrationType === "FALTA"){				
 				count++;
-			}else if(calendar[int].eventRegistrationType === "HALF_ASSISTANCE"){
+			}else if(calendar[int].eventRegistrationType === "MEDIA_FALTA"){
 				count = count + 0.5;
-			}else if(calendar[int].eventRegistrationType === "JUSTIFIED"){
+			}else if(calendar[int].eventRegistrationType === "JUSTIFICADA"){
 				count = count + 0.5;
 			}
 		}
@@ -174,6 +174,7 @@ app.controller('studentsDayCtrl', ['$scope', '$filter', '$http', 'ngNotify', 'bl
 		      templateUrl: 'myModalContent.html',
 		      controller: 'ModalInstanceQualifyCtrl',
 		      controllerAs:'$scope',
+		      backdrop: 'static',
 		      keyboard: true,
 		      size: 'lg',		      
 		      windowClass: 'center-modal',
@@ -190,28 +191,31 @@ app.controller('studentsDayCtrl', ['$scope', '$filter', '$http', 'ngNotify', 'bl
 		    modalInstance.result.then(function (response) {
 		      $scope.editCalfButton = false;		      		      
 		      console.log(response);
-		      blockUI.stop();	
-		      if(response){
+		      $scope.getAbsencesAndQualifications($scope.student);
+		      blockUI.stop();		      
+		      if(response){		    	  
 		    	  ngNotify.set('Guardado corectamente', 'success');			    	  
 		      }else{
 		    	  ngNotify.set('ERROR - Datos no guardados', 'error');
 		      }		      
 		    }, function () {
-		      console.log('Modal dismissed at: ' + new Date());
+//		      console.log('Modal dismissed at: ' + new Date());		      
 		    });		    
 		  };
 
-
+		 
 		
 
 }]);
 
 
-
 app.controller('ModalInstanceQualifyCtrl', function ($uibModalInstance, qualy, student, $scope, $http) {
 	
 	$scope.title = "Calificar";
-	$scope.qualy = null;			
+	$scope.qualy = {};
+	$scope.qualy.oid = null;
+	$scope.qualy.value = 1;
+	$scope.qualy.date = new Date();			
 	$scope.events = [];
 	angular.forEach(eventsRegistrationTypes, function(event){
 		if( event != "FALTA" && event != "MEDIA_FALTA" && event != "JUSTIFICADA" ){
@@ -219,21 +223,42 @@ app.controller('ModalInstanceQualifyCtrl', function ($uibModalInstance, qualy, s
 		}
 	});
 		
-	if(angular.isObject(qualy)){
-		$scope.qualy = angular.copy(qualy);
+	if(qualy != null && !angular.isUndefined(qualy.value)){		
+		$scope.qualy = qualy;
+		$scope.old = angular.copy(qualy);
 		$scope.title = "Modificar Calificacion";
-		console.log(qualy.eventRegistrationType);
-	}else{
-		$scope.qualy = {};
-		$scope.qualy.oid = null;
-		$scope.qualy.value = 1;
-		$scope.qualy.date = new Date();
-		console.log(student);
+//		console.log(qualy.eventRegistrationType);
+	}else{		
+//		console.log(student);
 		$scope.qualy.studentId = student.oid;		
 	}
+	
+//	console.log($scope.qualy);
+	
+	$scope.slider = {
+			value: $scope.qualy.value,			   		   
+		    options: {	    	
+		        showSelectionBar: true,
+		        showTicks: true,
+		        floor: 1,
+		        ceil: 12,
+		        minValue: 1,
+		        maxValue: 12,
+		        getSelectionBarColor: function(value) {
+		            if (value <= 5)
+		                return 'red';
+		            if (value <= 6)
+		                return 'orange';
+		            if (value <= 8)
+		                return 'yellow';
+		            return '#2AE02A';
+		        }
+		    }
+		};
 	   
 	$scope.ok = function () {
 		$scope.events = [];
+		$scope.qualy.value = $scope.slider.value;
 		$scope.events.push($scope.qualy);		
 		$http({
 			  method: 'POST',
@@ -243,22 +268,34 @@ app.controller('ModalInstanceQualifyCtrl', function ($uibModalInstance, qualy, s
 				if($scope.qualy.oid === null){	
 					student.qualifications.push($scope.qualy);
 					$uibModalInstance.close(true);
-				}else{ 
-					qualy = angular.copy($scope.qualy);
+				}else{					
 					$uibModalInstance.close(true);
-				}				
+				}			
 								
 			  }, function errorCallback(response) {				  
 				  console.log(response);
+				  qualy.value = $scope.old.value;
+				  qualy.comment = $scope.old.comment;
+				  qualy.eventRegistrationType = $scope.old.eventRegistrationType;
 				  $uibModalInstance.close(false);
 			    // called asynchronously if an error occurs
 			    // or server returns response with an error status.
 			  });	   	   	
 	};
 
-	$scope.cancel = function () {		
-	   $uibModalInstance.dismiss('cancel');	  
+	$scope.cancel = function () {
+		if(angular.isObject($scope.old)){
+			qualy.value = $scope.old.value;
+			qualy.comment = $scope.old.comment;
+			qualy.eventRegistrationType = $scope.old.eventRegistrationType;
+		}		
+		$uibModalInstance.dismiss('cancel');	  
 	};
+	
+	 setInterval(function() {		       
+		  $scope.$broadcast('reCalcViewDimensions');
+	    }, 100);
+		
 	   
 });
 
@@ -274,9 +311,10 @@ app.controller('ModalInstanceAbsenceCtrl', function ($uibModalInstance, qualy, $
 	});
 	
 	if(angular.isObject($scope.qualy)){
-		$scope.qualy = angular.copy(qualy);
+		$scope.qualy = qualy;
+		$scope.old = angular.copy(qualy);
 		$scope.title = "Modificar Falta";
-		console.log(qualy.eventRegistrationType);
+//		console.log(qualy.eventRegistrationType);
 	}else{		
 		$scope.qualy = {};
 		qualy.value = 0;
@@ -308,5 +346,7 @@ app.controller('ModalInstanceAbsenceCtrl', function ($uibModalInstance, qualy, $
 	$scope.cancel = function () {		
 	   $uibModalInstance.dismiss('cancel');	  
 	};
+	
+	
 	   
 });

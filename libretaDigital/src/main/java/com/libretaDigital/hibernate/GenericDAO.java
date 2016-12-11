@@ -5,6 +5,8 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,6 +42,29 @@ public class GenericDAO<E> extends HibernateDaoSupport implements IGenericDAO<E>
 			throw new SystemErrorException(e.getLocalizedMessage());
 		}
 	}
+	
+	public void update(E inst) throws SystemErrorException {
+		getLogger().debug("update");
+
+		if (processors != null)
+			for (PreProcessor<E> pp : processors)
+				inst = pp.process(inst);
+
+		try {
+			
+			getHibernateTemplate().setCheckWriteOperations(false);
+			long timerOn = System.currentTimeMillis();
+			Session session = getHibernateTemplate().getSessionFactory().openSession();			
+			session.saveOrUpdate(inst);
+			session.flush();
+			long timerOff = System.currentTimeMillis();
+
+			getLogger().info("time elapsed during database interaction (ms): " + (timerOff - timerOn));
+		} catch (DataAccessException e) {
+			getLogger().error(e.getLocalizedMessage(), e);
+			throw new SystemErrorException(e.getLocalizedMessage());
+		}
+	}
 
 
 	public void saveOrUpdate(E inst) throws SystemErrorException {
@@ -50,6 +75,7 @@ public class GenericDAO<E> extends HibernateDaoSupport implements IGenericDAO<E>
 				inst = pp.process(inst);
 
 		try {
+			
 			getHibernateTemplate().setCheckWriteOperations(false);
 			long timerOn = System.currentTimeMillis();
 			getHibernateTemplate().saveOrUpdate(inst);
