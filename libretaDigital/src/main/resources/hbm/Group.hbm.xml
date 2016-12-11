@@ -3,22 +3,27 @@
 	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping default-lazy="false">
- 	
+
 	<class name="com.libretaDigital.entities.Group" table="group_">
-	
+
 		<id column="oid" name="oid" type="long" unsaved-value="null">
 			<generator class="native" />
 		</id>
-		
+
 		<property name="name" length="100" />
-		
+
 		<property name="year" type="int" />
-		
+
 		<list name="studentsList" table="student" fetch="join" cascade="all,delete-orphan">
 			<key column="group_id" />
 			<list-index column="index_students" />
 			<one-to-many class="com.libretaDigital.entities.Student" />
 		</list>
-		
+
+		<list name="subjectsList" table="subject" fetch="join" cascade="all,delete-orphan">
+			<key column="group_id" />
+			<list-index column="index_subjects" />
+			<one-to-many class="com.libretaDigital.entities.Subject" />
+		</list>
 	</class>
 </hibernate-mapping>

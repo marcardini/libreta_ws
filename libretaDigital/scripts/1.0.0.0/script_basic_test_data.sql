@@ -7,23 +7,25 @@
 
 insert into institution values (1,'Elbio Fernandez')
 go
-insert into notebook values (1, 2016, 'normal', 'ABC', null, null)
+insert into notebook values (1, 2016, 'NORMAL', 'ABC', null, null, null)
 go
 insert into subject values (1, 'MATEMATICAS', null, 0)
 go
 update notebook set subject_oid = 1 where oid = 1
 go
-insert into group_ values (1,'1A',2016,null,null,1)
+insert into group_ values (1,'1A',2016,null,0)
 go
-update notebook set group_oid = 1 where oid = 1
+update notebook set group_id = 1 where oid = 1
 go
-insert into professor values (1, 'maria', 'tarigo', '1990-06-20 00:00:00', 'FEMALE', 'maria.tarigo@gmail.com', 'admin', 'GRADE_5', '2016-01-01 00:00:00', null, 1, 0, 1)
+insert into professor values (1, 'maria', 'tarigo', '1990-06-20 00:00:00', 'FEMALE', 'maria.tarigo@gmail.com', 'admin', 'GRADE_5', '2016-01-01 00:00:00', null, 1, 0)
 go
-insert into course values (1,'primero',1,0,1,0)
+insert into course values (1,'primero',1,0)
 go
-update group_ set course_id = 1 where oid = 1
+update group_ set professor_id = 1 where oid = 1
 go
-update subject set course_id = 1 where oid = 1
+update subject set group_id = 1 where oid = 1
+go
+update notebook set professor_id = 1 where oid = 1
 go
 insert into student values (1,'matias', 'hernandez', '1989-01-01 00:00:00', 'MALE', 'mati@gmail.com', true, 1, 0, 1)
 go
@@ -84,5 +86,3 @@ go
 insert into privileges values(4,4,'WRITE',1,3)
 go
 update professor set roleId = 1 where oid = 1
-go
-update group_ set index_groups = 0 where oid = 1

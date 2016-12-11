@@ -29,6 +29,8 @@
 
 	<bean id="userDAO" class="com.libretaDigital.DAO.UserDAO" parent="genericDAO">
 		<property name="roleDAO" ref="roleDAO" />
+		<property name="groupDAO" ref="groupDAO" />
+		<property name="subjectDAO" ref="subjectDAO" />
 	</bean>
 
 	<bean id="studentDAO" class="com.libretaDigital.DAO.StudentDAO"
@@ -42,9 +44,14 @@
 
 	<bean id="classDayStudentDAO" class="com.libretaDigital.DAO.ClassDayStudentDAO"
 		parent="genericDAO" />
-
 	
-
+	<bean id="subjectDAO" class="com.libretaDigital.DAO.SubjectDAO" parent="genericDAO" >
+		<property name="notebookDAO" ref="notebookDAO" />
+	</bean>
+		
+	<bean id="notebookDAO" class="com.libretaDigital.DAO.NotebookDAO" parent="genericDAO" >
+		<property name="subjectDAO" ref="subjectDAO" />
+	</bean>
 
 	<bean id="md5Encoder"
 		class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />

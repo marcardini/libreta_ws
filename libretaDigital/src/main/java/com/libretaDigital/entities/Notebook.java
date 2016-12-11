@@ -1,7 +1,6 @@
 package com.libretaDigital.entities;
 
 import java.io.Serializable;
-import java.util.List;
 
 import com.libretaDigital.utils.CourseType;
 
@@ -13,27 +12,27 @@ public class Notebook implements Serializable{
 	private int currentYear;
 	private CourseType courseType;
 	private String reformulationPlan;
-	private List<Professor> professors;
+	private Long professorOid;
 	private Subject subject;
-	private Group group;
+	private Long groupId;
 	
 	public Notebook(){}
 	
-	public Notebook(int currentYear, CourseType courseType, String reformulationPlan, Subject subject, Group group){
+	public Notebook(int currentYear, CourseType courseType, String reformulationPlan, Subject subject, Long groupId){
 		this.currentYear = currentYear;
 		this.courseType = courseType;
 		this.reformulationPlan = reformulationPlan;
 		this.subject = subject;
-		this.group = group;
+		this.groupId = groupId;
 	}
 	
-	public Notebook(int currentYear, CourseType courseType, String reformulationPlan, List<Professor> professors, Subject subject, Group group){
+	public Notebook(int currentYear, CourseType courseType, String reformulationPlan, Long professorOid, Subject subject, Long groupId){
 		this.currentYear = currentYear;
 		this.courseType = courseType;
 		this.reformulationPlan = reformulationPlan;
-		this.professors = professors;
+		this.professorOid = professorOid;
 		this.subject = subject;
-		this.group = group;
+		this.groupId = groupId;
 	}
 	
 	@Override
@@ -42,20 +41,12 @@ public class Notebook implements Serializable{
 			return false;
 		Notebook that = (Notebook) other;
 		return this.getCurrentYear() == that.getCurrentYear() && this.getCourseType().toString().equals(that.getCourseType().toString()) 
-				&& this.reformulationPlan.equals(that.getReformulationPlan()) && this.getSubject().equals(that.getSubject()) 
-				&& this.getGroup().equals(that.getGroup());
+				&& this.reformulationPlan.equals(that.getReformulationPlan()) && this.getSubject().equals(that.getSubject());
 	}
 	
 	@Override
 	public String toString() {
-		String professorsNames = "";
-		for(Professor p : this.getProfessors()){
-			professorsNames.concat(p.getLastName() + "," + p.getName() + ". ");
-		}
-		if(professorsNames.equals(""))
-			professorsNames = "No hay profesores registrados aun";
-		
-		return "Materia: " + this.getSubject() + " | Grupo: " + this.getGroup().getName() + " | Anio: " + this.getCurrentYear() + " | Profesores: " + professorsNames; 
+		return "Materia: " + this.getSubject() + " | Anio: " + this.getCurrentYear(); 
 	}
 	
 	@Override
@@ -64,7 +55,6 @@ public class Notebook implements Serializable{
 		int result = 1;
 		result = prime * result + ((courseType == null) ? 0 : courseType.hashCode());
 		result = prime * result + currentYear;
-		result = prime * result + ((group == null) ? 0 : group.hashCode());
 		result = prime * result + ((reformulationPlan == null) ? 0 : reformulationPlan.hashCode());
 		result = prime * result + ((subject == null) ? 0 : subject.hashCode());
 		return result;
@@ -88,23 +78,11 @@ public class Notebook implements Serializable{
 	public void setReformulationPlan(String reformulationPlan) {
 		this.reformulationPlan = reformulationPlan;
 	}
-	public List<Professor> getProfessors() {
-		return professors;
-	}
-	public void setProfessors(List<Professor> professors) {
-		this.professors = professors;
-	}
 	public Subject getSubject() {
 		return subject;
 	}
 	public void setSubject(Subject subject) {
 		this.subject = subject;
-	}
-	public Group getGroup() {
-		return group;
-	}
-	public void setGroup(Group group) {
-		this.group = group;
 	}
 
 	public Long getOid() {
@@ -113,5 +91,21 @@ public class Notebook implements Serializable{
 
 	public void setOid(Long oid) {
 		this.oid = oid;
+	}
+
+	public Long getProfessorOid() {
+		return professorOid;
+	}
+
+	public void setProfessorOid(Long professorOid) {
+		this.professorOid = professorOid;
+	}
+
+	public Long getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(Long groupId) {
+		this.groupId = groupId;
 	}
 }

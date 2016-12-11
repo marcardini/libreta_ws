@@ -14,6 +14,7 @@ public class Group implements Serializable{
 	private String name;
 	private int year;
 	private List<Student> studentsList;
+	private List<Subject> subjectsList;
 	
 	public Group(){}
 	
@@ -90,5 +91,14 @@ public class Group implements Serializable{
 	public void setOid(Long oid) {
 		this.oid = oid;
 	}
+
+	public List<Subject> getSubjectsList() {
+		return subjectsList;
+	}
+
+	public void setSubjectsList(List<Subject> subjectsList) {
+		this.subjectsList = subjectsList;
+	}
+
 	
 }

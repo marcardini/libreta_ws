@@ -18,11 +18,11 @@
 			<one-to-many class="com.libretaDigital.entities.Course" />
 		</list>
 		
-		<list name="groupsList" table="group" fetch="join" cascade="all,delete-orphan">
-			<key column="institution_id" />
-			<list-index column="index_groups" />
-			<one-to-many class="com.libretaDigital.entities.Group" />
-		</list>
+<!-- 		<list name="groupsList" table="group" fetch="join" cascade="all,delete-orphan"> -->
+<!-- 			<key column="institution_id" /> -->
+<!-- 			<list-index column="index_groups" /> -->
+<!-- 			<one-to-many class="com.libretaDigital.entities.Group" /> -->
+<!-- 		</list> -->
 		
 		<list name="professorsList" table="Professor" fetch="join" cascade="all,delete-orphan">
 			<key column="institution_id" />

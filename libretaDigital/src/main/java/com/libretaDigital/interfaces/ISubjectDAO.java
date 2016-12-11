@@ -9,4 +9,6 @@ public interface ISubjectDAO extends IGenericDAO<Subject>{
 	
 	Subject getSubjectByName(String name);
 	
+	List<Subject> getSubjectsOfProfessorByProfessorId(Long professorId);
+	
 }

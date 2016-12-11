@@ -10,7 +10,7 @@ public class Course implements Serializable{
 	
 	private Long oid;
 	private String name;
-	private List<Group> groupsList;
+	//private List<Group> groupsList;
 	private List<Subject> subjectsList;
 	
 	public Course(){}
@@ -21,7 +21,7 @@ public class Course implements Serializable{
 	
 	public Course(String name, List<Group> groups, List<Subject> subjects){
 		this.name = name;
-		this.groupsList = groups;
+		//this.groupsList = groups;
 		this.subjectsList = subjects;
 	}
 	
@@ -35,24 +35,24 @@ public class Course implements Serializable{
 	
 	@Override
 	public String toString() {
-		return "Curso " + this.getOid() + ": " + this.getGroupsList().size() + " grupos y " + this.subjectsList.size() + " materias.";
+		return "Curso " + this.getOid() + ": " + this.subjectsList.size() + " materias.";
 	}
 	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((groupsList == null) ? 0 : groupsList.hashCode());
+		//result = prime * result + ((groupsList == null) ? 0 : groupsList.hashCode());
 		result = prime * result + ((subjectsList == null) ? 0 : subjectsList.hashCode());
 		return result;
 	}
 	
-	public List<Group> getGroupsList() {
-		return groupsList;
-	}
-	public void setGroupsList(List<Group> groupsList) {
-		this.groupsList = groupsList;
-	}
+//	public List<Group> getGroupsList() {
+//		return groupsList;
+//	}
+//	public void setGroupsList(List<Group> groupsList) {
+//		this.groupsList = groupsList;
+//	}
 	public List<Subject> getSubjectsList() {
 		return subjectsList;
 	}

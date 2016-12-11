@@ -12,17 +12,11 @@
 		
 		<property name="name" length="100" />
 		
-		<list name="groupsList" table="group_" fetch="join" cascade="all,delete-orphan">
-			<key column="course_id" />
-			<list-index column="index_groups" />
-			<one-to-many class="com.libretaDigital.entities.Group" />
-		</list>
-		
-		<list name="subjectsList" table="subject" fetch="join" cascade="all,delete-orphan">
-			<key column="course_id" />
-			<list-index column="index_subjects" />
-			<one-to-many class="com.libretaDigital.entities.Subject" />
-		</list>
+<!-- 		<list name="groupsList" table="group_" fetch="join" cascade="all,delete-orphan"> -->
+<!-- 			<key column="course_id" /> -->
+<!-- 			<list-index column="index_groups" /> -->
+<!-- 			<one-to-many class="com.libretaDigital.entities.Group" /> -->
+<!-- 		</list> -->
 		
 	</class>
 </hibernate-mapping>

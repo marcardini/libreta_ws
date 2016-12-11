@@ -4,10 +4,8 @@ import java.util.List;
 
 import com.libretaDigital.entities.*;
 
-public interface INotebookDAO extends IGenericDAO<Group>{
+public interface INotebookDAO extends IGenericDAO<Notebook>{
 	
-	List<Group> getAllGroups();
-	
-	Group getGroupByNameAndYear(String name, int year);
+	List<Notebook> getNotebooksListFromSubjectIdAndProfessorId(Long subjectId, Long professorId);
 	
 }

@@ -92,7 +92,7 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 		});
 	}
 
-	public List<Student> getStudentsFiles(String mail, String courseName, String groupCode, int year, String subjectName) {
+	public List<Student> getStudentsFiles(String mail, String groupCode, int year, String subjectName) {
         if (mail != null && !mail.equals(""))
             log.debug(String.format("Getting a particular student file: " + mail));
         else
@@ -106,7 +106,7 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
             public List<Student> doInHibernate(Session session) throws HibernateException {
                 String oQuery = "select stu.oid, stu.name, stu.last_name, stu.birth_date, stu.gender, stu.email, stu.currentStudent "
                         + "from student stu, group_ g, subject sub, course course "
-                        + "where stu.group_id = g.oid and sub.course_id = course.oid "
+                        + "where stu.group_id = g.oid "
                         + "and upper(g.name) = upper(:groupCode) and g.year = :year and upper(sub.name) = upper(:subjectName) ";
                 if (mail != null && !mail.equals(""))
                     oQuery = oQuery.concat("and upper(stu.email) = upper(:mail)");
@@ -120,7 +120,7 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
                     query.setString("mail", mail);
                 List<Object[]> partialResult = query.list();
                 if (partialResult != null && !partialResult.isEmpty())
-                    result = getStudentsFilesFromPartialResult(partialResult, courseName);
+                    result = getStudentsFilesFromPartialResult(partialResult);
                 return result;
             }
         });
@@ -164,7 +164,7 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 		});
 	}
 
-	private List<Student> getStudentsFilesFromPartialResult(List<Object[]> partialResult, String courseName) {
+	private List<Student> getStudentsFilesFromPartialResult(List<Object[]> partialResult) {
         List<Student> result = new ArrayList<Student>();
         
         for (Object[] oPartialResult : partialResult) {
@@ -192,15 +192,15 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
                 student.setCurrentStudent(currentStudent);
             }
             
-            student.setCalendar(getStudentCalendarByStudentIdAndCourseId(student.getOid(), courseName));            
+            student.setCalendar(getStudentCalendarByStudentIdAndCourseId(student.getOid()));            
             result.add(student);
         }
         return result;
     }
 	
-	private List<ClassDayStudent> getStudentCalendarByStudentIdAndCourseId(Long studentOid, String courseName){
+	private List<ClassDayStudent> getStudentCalendarByStudentIdAndCourseId(Long studentOid){
 		
-		log.debug(String.format("Getting student calendar. Parameters: Student Id " + studentOid + "Course name " + courseName));
+		log.debug(String.format("Getting student calendar. Parameters: Student Id " + studentOid));
 
 		return getHibernateTemplate().execute(new HibernateCallback<List<ClassDayStudent>>() {
 
@@ -211,12 +211,11 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 			public List<ClassDayStudent> doInHibernate(Session session) throws HibernateException {
 				String oQuery = "select day.class_date, day.event_registration_type, day.value, day.comment, day.oid, day.student_id  "
 						+ "from class_day_student day " 
-						+ "where day.student_id = :studentOid and day.course_id = (select oid from course where name = :courseName) ";
+						+ "where day.student_id = :studentOid ";
 				
 				SQLQuery query = session.createSQLQuery(oQuery);
 
 				query.setLong("studentOid", studentOid);
-				query.setString("courseName", courseName);
 				
 				List<Object[]> partialResult = query.list();
 
@@ -349,14 +348,13 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 			@Override
 			public List<Student> doInHibernate(Session session) throws HibernateException {
 				String oQuery = "select stu.oid, stu.name, stu.last_name, stu.birth_date, stu.gender, stu.email, stu.currentStudent, day.event_registration_type "
-						+ "from group_ g, subject sub, course course, student stu "
+						+ "from group_ g, subject sub, student stu "
 						+ "left join class_day_student day on (stu.oid = day.student_id and day.class_date >= :dateFrom and day.class_date <= :dateTo) "
-						+ "where stu.group_id = g.oid and sub.course_id = course.oid and g.course_id = course.oid "
-						+ "and upper(g.name) = upper(:groupCode) and upper(sub.name) = upper(:subjectName) and course.oid = (select oid from course where name = :courseName) ";
+						+ "where stu.group_id = g.oid  "
+						+ "and upper(g.name) = upper(:groupCode) and upper(sub.name) = upper(:subjectName) ";
 
 				SQLQuery query = session.createSQLQuery(oQuery);
 
-				query.setString("courseName", courseName);
 				query.setString("groupCode", groupCode);
 				query.setString("subjectName", subjectName);
 				query.setString("dateFrom", dateFrom);

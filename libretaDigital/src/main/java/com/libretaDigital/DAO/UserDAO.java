@@ -1,6 +1,7 @@
 package com.libretaDigital.DAO;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,6 +19,8 @@ import com.libretaDigital.utils.Grade;
 public class UserDAO extends GenericDAO<Professor> implements IUserDAO{
 	
 	private RoleDAO roleDAO;
+	private GroupDAO groupDAO;
+	private SubjectDAO subjectDAO;
 
 	@Override
 	public Professor validateUser(String email, String password) {
@@ -100,7 +103,17 @@ public class UserDAO extends GenericDAO<Professor> implements IUserDAO{
 				Role role = roleDAO.getRoleByRoleId(roleId.longValue());
 				professor.setRole(role);
 			}
-
+			
+			List<Group> professorGroups = groupDAO.getGroupsByProfessorId(BigInteger.valueOf(professor.getOid())); 
+			professor.setGroupsList(professorGroups);
+			
+			
+			for(Group g : professorGroups){
+				List<Subject> professorSubjects = subjectDAO.getSubjectsOfProfessorByProfessorId(professor.getOid());
+				g.setSubjectsList(professorSubjects);
+				
+			}
+			
 		}
 
 		return professor;
@@ -112,6 +125,22 @@ public class UserDAO extends GenericDAO<Professor> implements IUserDAO{
 
 	public void setRoleDAO(RoleDAO roleDAO) {
 		this.roleDAO = roleDAO;
+	}
+
+	public GroupDAO getGroupDAO() {
+		return groupDAO;
+	}
+
+	public void setGroupDAO(GroupDAO groupDAO) {
+		this.groupDAO = groupDAO;
+	}
+
+	public SubjectDAO getSubjectDAO() {
+		return subjectDAO;
+	}
+
+	public void setSubjectDAO(SubjectDAO subjectDAO) {
+		this.subjectDAO = subjectDAO;
 	}
 	
 }

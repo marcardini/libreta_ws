@@ -12,7 +12,8 @@ public class Professor extends Person implements Serializable{
 	private String password;
 	private Enum<Grade> grade;
 	private Date employeeSince;
-	private List<Course> coursesList;
+	//private List<Course> coursesList;
+	private List<Group> groupsList;
 	
 	private Role role;
 	
@@ -58,14 +59,6 @@ public class Professor extends Person implements Serializable{
 		this.employeeSince = employeeSince;
 	}
 
-	public List<Course> getCoursesList() {
-		return coursesList;
-	}
-
-	public void setCoursesList(List<Course> coursesList) {
-		this.coursesList = coursesList;
-	}
-
 	public Role getRole() {
 		return role;
 	}
@@ -80,5 +73,13 @@ public class Professor extends Person implements Serializable{
 
 	public void setGrade(Enum<Grade> grade) {
 		this.grade = grade;
+	}
+
+	public List<Group> getGroupsList() {
+		return groupsList;
+	}
+
+	public void setGroupsList(List<Group> groupsList) {
+		this.groupsList = groupsList;
 	}
 }

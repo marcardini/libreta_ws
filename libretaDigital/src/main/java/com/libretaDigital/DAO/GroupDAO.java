@@ -65,7 +65,7 @@ public class GroupDAO extends GenericDAO<Group> implements IGroupDAO{
 			@SuppressWarnings("unchecked")
 			@Override
 			public List<Group> doInHibernate(Session session) throws HibernateException {
-				String oQuery = "select g.oid, g.name from course c, group_ g, professor p where c.professor_id = p.oid and g.course_id = c.oid ";
+				String oQuery = "select g.oid, g.name from group_ g, professor p where g.professor_id = p.oid ";
 				boolean hasParameter = false;
 				if (professorId != null && professorId.compareTo(BigInteger.ONE) > 0){
 					oQuery = oQuery.concat("and p.oid = ? ");

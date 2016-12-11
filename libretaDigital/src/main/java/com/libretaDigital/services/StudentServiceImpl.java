@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.security.authentication.encoding.MessageDigestPasswordEncoder;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.libretaDigital.DAO.*;
 import com.libretaDigital.datatypes.StudentEventRegistration;
@@ -49,9 +48,9 @@ public class StudentServiceImpl implements IStudentService{
 	}
 	
 	@Override
-	public List<Student> getStudentsFiles(String mail, String courseName, String groupCode, int year, String subjectName){
+	public List<Student> getStudentsFiles(String mail, String groupCode, int year, String subjectName){
 		
-		return studentDAO.getStudentsFiles(mail, courseName, groupCode, year, subjectName);
+		return studentDAO.getStudentsFiles(mail, groupCode, year, subjectName);
 		
 	}
 	
