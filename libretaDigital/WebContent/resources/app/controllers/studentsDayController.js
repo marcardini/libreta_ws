@@ -1,6 +1,6 @@
 app.controller('studentsDayCtrl', ['$scope', '$filter', '$http', 'ngNotify', 'blockUI', '$uibModal', function ($scope, $filter, $http, ngNotify, blockUI, $uibModal) {
 
-	
+	 
 	  ngNotify.config({
 	        theme: 'pure',
 	        position: 'bottom',
@@ -22,7 +22,7 @@ app.controller('studentsDayCtrl', ['$scope', '$filter', '$http', 'ngNotify', 'bl
 	$scope.students = [];	
 	angular.copy(students, $scope.students);
 	
-	$scope.student = {};
+	$scope.student = {calendar: []};
 	$scope.absence = {};
 	$scope.qualy = {};
 	console.log($scope.eventsRegistrationTypes );
@@ -137,12 +137,8 @@ app.controller('studentsDayCtrl', ['$scope', '$filter', '$http', 'ngNotify', 'bl
 			    remaining : '#F2DEDE' // the color of the circle before highlighting occurs, representing the amount left until the percent equals 100. Default: #C8E0E8
 			};
 	
-	 $scope.$watch('student', function() {
-//		 if($scope.student == null){
-//			 $scope.editButtons = true;	
-//		 }
-		 
-	         	        
+	 $scope.$watch('student', function() {	 	
+
 	 }, true);
 	 
 	 $scope.delete = function (item){		 
@@ -183,19 +179,26 @@ app.controller('studentsDayCtrl', ['$scope', '$filter', '$http', 'ngNotify', 'bl
 		      windowClass: 'center-modal',
 		      resolve: {
 		    	  qualy: function () {
-		          return $scope.qualy;
-		        }
+		    		 return $scope.qualy;
+		    	 },
+		    	 student:function(){
+		    		 return $scope.student;
+		    	 }
 		      }
 		    });
 
 		    modalInstance.result.then(function (response) {
+		      $scope.editCalfButton = false;		      		      
 		      console.log(response);
+		      blockUI.stop();	
 		      if(response){
-		    	  ngNotify.set('Guardado corectamente', 'success');  
+		    	  ngNotify.set('Guardado corectamente', 'success');			    	  
+		      }else{
+		    	  ngNotify.set('ERROR - Datos no guardados', 'error');
 		      }		      
 		    }, function () {
 		      console.log('Modal dismissed at: ' + new Date());
-		    });
+		    });		    
 		  };
 
 
@@ -205,7 +208,7 @@ app.controller('studentsDayCtrl', ['$scope', '$filter', '$http', 'ngNotify', 'bl
 
 
 
-app.controller('ModalInstanceQualifyCtrl', function ($uibModalInstance, qualy, $scope) {
+app.controller('ModalInstanceQualifyCtrl', function ($uibModalInstance, qualy, student, $scope, $http) {
 	
 	$scope.title = "Calificar";
 	$scope.qualy = null;			
@@ -215,20 +218,42 @@ app.controller('ModalInstanceQualifyCtrl', function ($uibModalInstance, qualy, $
 			$scope.events.push(event);
 		}
 	});
-	
-	
-	if(angular.isObject($scope.qualy)){
+		
+	if(angular.isObject(qualy)){
 		$scope.qualy = angular.copy(qualy);
 		$scope.title = "Modificar Calificacion";
-		console.log(qualy.eventRegistrationType)
+		console.log(qualy.eventRegistrationType);
 	}else{
 		$scope.qualy = {};
+		$scope.qualy.oid = null;
 		$scope.qualy.value = 1;
+		$scope.qualy.date = new Date();
+		console.log(student);
+		$scope.qualy.studentId = student.oid;		
 	}
 	   
 	$scope.ok = function () {
-	   qualy = angular.copy($scope.qualy);
-	   $uibModalInstance.close();	  
+		$scope.events = [];
+		$scope.events.push($scope.qualy);		
+		$http({
+			  method: 'POST',
+			  url: 'main/saveEvent',
+			  data: $scope.events
+			}).success(function successCallback(response) {					
+				if($scope.qualy.oid === null){	
+					student.qualifications.push($scope.qualy);
+					$uibModalInstance.close(true);
+				}else{ 
+					qualy = angular.copy($scope.qualy);
+					$uibModalInstance.close(true);
+				}				
+								
+			  }, function errorCallback(response) {				  
+				  console.log(response);
+				  $uibModalInstance.close(false);
+			    // called asynchronously if an error occurs
+			    // or server returns response with an error status.
+			  });	   	   	
 	};
 
 	$scope.cancel = function () {		
@@ -237,7 +262,7 @@ app.controller('ModalInstanceQualifyCtrl', function ($uibModalInstance, qualy, $
 	   
 });
 
-app.controller('ModalInstanceCtrl', function ($uibModalInstance, qualy, $scope) {
+app.controller('ModalInstanceAbsenceCtrl', function ($uibModalInstance, qualy, $scope, $http) {
 	
 	$scope.title = "Justificar";
 	$scope.qualy = null;			
@@ -258,26 +283,26 @@ app.controller('ModalInstanceCtrl', function ($uibModalInstance, qualy, $scope) 
 	}
 	   
 	$scope.ok = function () {
-		$scope.events = [];
-		$scope.events.push($scoppe.qualy);
-		$http({
-			  method: 'POST',
-			  url: 'main/saveEvent',
-			  data: events
-			}).success(function successCallback(response) {
-				blockUI.stop();				
-				qualy = angular.copy($scope.qualy);
-				
-				$uibModalInstance.close(true);
-				console.log(qualy);
-			  }, function errorCallback(response) {				  
-				  console.log(response);
-				  $uibModalInstance.close(false);	 
-				  ngNotify.set('ERROR - Datos no guardados', 'error');
-			    // called asynchronously if an error occurs
-			    // or server returns response with an error status.
-			  });	   
-	   $uibModalInstance.close(false);	  
+//		$scope.events = [];
+//		$scope.events.push($scoppe.qualy);
+//		console.log("asasasasasas");
+//		$http({
+//			  method: 'POST',
+//			  url: 'main/saveEvent',
+//			  data: $scope.events
+//			}).success(function successCallback(response) {
+//				blockUI.stop();				
+//				qualy = angular.copy($scope.qualy);				
+//				$uibModalInstance.close(true);
+//				console.log(qualy);
+//			  }, function errorCallback(response) {				  
+//				  console.log(response);
+//				  $uibModalInstance.close(false);	 
+//				  ngNotify.set('ERROR - Datos no guardados', 'error');
+//			    // called asynchronously if an error occurs
+//			    // or server returns response with an error status.
+//			  });	   
+//	   $uibModalInstance.close(false);	  
 	};
 
 	$scope.cancel = function () {		

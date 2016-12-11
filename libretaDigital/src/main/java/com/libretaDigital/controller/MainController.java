@@ -50,40 +50,28 @@ public class MainController {
 	}
 	
 	@RequestMapping(value = "/main/saveEvent", method = RequestMethod.POST)
-	public void SaveAbsences(@RequestBody List<StudentDayBean> absences, HttpServletResponse response) {	
-		
-		//ESTO ES PARA PROBAR EL METODO DE LA FICHA:
-		/*List<Student> resultado = studentServiceImpl.getStudentsFiles(null, "primero", "1A", 2016, "MATEMATICAS");
-		
-		for(Student s: resultado){
-			System.out.println(s.getName() + " " + s.getLastName());
-		}*/
-		
-		
+	public void SaveAbsences(@RequestBody List<StudentDayBean> events, HttpServletResponse response) {	
 		
 		//PARA PROBAR EL METODO DE LOGIN
 		Professor user = loginService.validateUser("maria.tarigo@gmail.com", "admin");
 		
 		System.out.println("El usuario " + user.getEmail() + " ha sido logueado.");
-		
-		
-		
+			
 		try{
 			List<StudentEventRegistration> studentsAssistanceRegistrationList = new ArrayList<StudentEventRegistration> ();
-			for (StudentDayBean aux : absences) {
+			for (StudentDayBean aux : events) {
 				StudentEventRegistration ser = new StudentEventRegistration();
-				ser.setStudentId(aux.getIdStudent());
+				ser.setStudentId(aux.getStudentId());
 				ser.setCourseId(1L);
 				ser.setGroupId(1L);
 				ser.setSubjectId(1L);
-				ser.setClassDayStudentId(aux.getClassDayStudentId());
-//				EventRegistrationType ert;
-//				if(aux.isLate()){
-//					ert = EventRegistrationType.MEDIA_FALTA;
-//				}else{
-//					ert = EventRegistrationType.FALTA;
-//				}
-				ser.setEventRegistrationType(EventRegistrationType.valueOf(aux.getEventRegistrationType().toString()));
+				ser.setClassDayStudentId(aux.getClassDayStudentId());	
+				ser.setEventRegistrationType(EventRegistrationType.valueOf(aux.getEventRegistrationType()));
+				if(ser.getEventRegistrationType() != EventRegistrationType.FALTA && 
+						ser.getEventRegistrationType() != EventRegistrationType.MEDIA_FALTA && ser.getEventRegistrationType() != EventRegistrationType.JUSTIFICADA){
+					ser.setValue(aux.getValue());
+					ser.setComment(aux.getComment());
+				}					
 				studentsAssistanceRegistrationList.add(ser);
 			}
 			studentServiceImpl.saveEvent(studentsAssistanceRegistrationList, null);	

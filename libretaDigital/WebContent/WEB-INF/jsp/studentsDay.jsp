@@ -189,7 +189,7 @@
 
 							<div class="row">
 								<div class="col-lg-12 table-nav">
-									<table st-table="qualificationsDisplayed" st-safe-src="student.qualifications" 	class="table table-striped table-hover">
+									<table st-table="student.qualifications" class="table table-striped table-hover">
 										<thead>
 											<tr>
 												<th class="sort-header" st-sort="name">Fecha</th>
@@ -199,8 +199,7 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr class="list-row" st-select-row="qualy" st-select-mode="single"
-												ng-repeat="qualy in qualificationsDisplayed" ng-click="qualySelect(qualy)">
+											<tr class="list-row" st-select-row="qualy" st-select-mode="single" ng-repeat="qualy in student.qualifications" ng-click="qualySelect(qualy)">
 												<td>{{qualy.date | date:'dd-MM-yyyy'}}</td>
 												<td>{{qualy.eventRegistrationType | capitalize}}</td>
 												<td>{{qualy.value}}</td>
@@ -253,7 +252,21 @@
             <form>
   				<div class="form-group">
     				<label for="value">Nota</label>
-    				<input type="number" class="form-control" id="nota" placeholder="Nota" ng-model="qualy.value" min=1 max=12>
+    				<select name="value" ng-model="qualy.value" class="form-control">
+								 <option value="">--- Seleccionar Nota ---</option>
+ 								 <option value="1">1</option>
+ 								 <option value="2">2</option>
+ 								 <option value="3">3</option>
+ 								 <option value="4">4</option>
+ 								 <option value="5">5</option>
+ 								 <option value="6">6</option>
+ 								 <option value="7">7</option>
+ 								 <option value="8">8</option>
+ 								 <option value="9">9</option>
+ 								 <option value="10">10</option>
+ 								 <option value="11">11</option>
+ 								 <option value="12">12</option>       							
+    						</select>
  				</div>
   				<div class="form-group">  				
 					<div class="form-group">
@@ -261,7 +274,7 @@
     						<select name="type" ng-model="qualy.eventRegistrationType" class="form-control">
 								 <option value="">--- Seleccionar Tipo ---</option>
       							<option ng-repeat="eventRegistrationType in events" value="{{eventRegistrationType}}">{{eventRegistrationType}}</option>
-    						</select
+    						</select>
 					</div>
  				</div> 
 				<div class="form-group">

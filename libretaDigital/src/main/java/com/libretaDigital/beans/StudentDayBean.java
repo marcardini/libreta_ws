@@ -9,22 +9,24 @@ public class StudentDayBean {
 
 	private boolean late;
 	private boolean justified;
-	private Enum<EventRegistrationType> eventRegistrationType;
+	private String eventRegistrationType;
 	private long courseId;
 	private long groupId;
 	private long subject_id;
-	private long idStudent;
+	private long studentId;
 	private long classDayStudentId;
+	private long value;
+	private String comment;
 
 	public StudentDayBean() {
 
 	}
 
-	public long getIdStudent() {
-		return idStudent;
+	public long getStudentId() {
+		return studentId;
 	}
-	public void setIdStudent(long idStudent) {
-		this.idStudent = idStudent;
+	public void setStudentId(long studentId) {
+		this.studentId = studentId;
 	}
 	public boolean isLate() {
 		return late;
@@ -32,11 +34,11 @@ public class StudentDayBean {
 	public void setLate(boolean late) {
 		this.late = late;
 	}
-	public Enum<EventRegistrationType> getEventRegistrationType() {
+	public String getEventRegistrationType() {
 		return eventRegistrationType;
 	}
 
-	public void setEventRegistrationType(Enum<EventRegistrationType> eventRegistrationType) {
+	public void setEventRegistrationType(String eventRegistrationType) {
 		this.eventRegistrationType = eventRegistrationType;
 	}
 	public long getCourseId() {
@@ -73,4 +75,23 @@ public class StudentDayBean {
 	public void setJustified(boolean justified) {
 		this.justified = justified;
 	}
+
+	public long getValue() {
+		return value;
+	}
+
+	public void setValue(long value) {
+		this.value = value;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
+	
+	
 }
