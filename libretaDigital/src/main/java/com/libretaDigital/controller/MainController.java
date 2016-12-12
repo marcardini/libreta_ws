@@ -65,7 +65,9 @@ public class MainController {
 				ser.setCourseId(1L);
 				ser.setGroupId(1L);
 				ser.setSubjectId(1L);
-				ser.setClassDayStudentId(aux.getOid());	
+				if(aux.getOid() > 0){
+					ser.setClassDayStudentId(aux.getOid());
+				}					
 				ser.setEventRegistrationType(EventRegistrationType.valueOf(aux.getEventRegistrationType()));
 				if(ser.getEventRegistrationType() != EventRegistrationType.FALTA && 
 						ser.getEventRegistrationType() != EventRegistrationType.MEDIA_FALTA && ser.getEventRegistrationType() != EventRegistrationType.JUSTIFICADA){

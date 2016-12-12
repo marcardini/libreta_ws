@@ -191,7 +191,7 @@ app.controller('studentsDayCtrl', ['$scope', '$filter', '$http', 'ngNotify', 'bl
 		    modalInstance.result.then(function (response) {
 		      $scope.editCalfButton = false;		      		      
 		      console.log(response);
-		      $scope.getAbsencesAndQualifications($scope.student);
+		      $scope.getAbsencesAndQualifications($scope.student);		      
 		      blockUI.stop();		      
 		      if(response){		    	  
 		    	  ngNotify.set('Guardado corectamente', 'success');			    	  
@@ -257,16 +257,16 @@ app.controller('ModalInstanceQualifyCtrl', function ($uibModalInstance, qualy, s
 		};
 	   
 	$scope.ok = function () {
-		$scope.events = [];
+		$scope.data = [];
 		$scope.qualy.value = $scope.slider.value;
-		$scope.events.push($scope.qualy);		
+		$scope.data.push($scope.qualy);		
 		$http({
 			  method: 'POST',
 			  url: 'main/saveEvent',
-			  data: $scope.events
+			  data: $scope.data
 			}).success(function successCallback(response) {					
 				if($scope.qualy.oid === null){	
-					student.qualifications.push($scope.qualy);
+					student.calendar.push($scope.qualy);
 					$uibModalInstance.close(true);
 				}else{					
 					$uibModalInstance.close(true);

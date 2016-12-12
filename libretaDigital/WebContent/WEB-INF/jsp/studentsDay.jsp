@@ -260,7 +260,7 @@
   						 <label for="singleSelect"> Tipo </label><br>
     						<select name="type" ng-model="qualy.eventRegistrationType" class="form-control">
 								 <option value="">--- Seleccionar Tipo ---</option>
-      							<option ng-repeat="eventRegistrationType in events" value="{{eventRegistrationType}}">{{eventRegistrationType | capitalize}}</option>
+      							<option ng-repeat="event in events" value="{{event}}">{{event | capitalize}}</option>
     						</select>
 					</div>
  				</div> 
