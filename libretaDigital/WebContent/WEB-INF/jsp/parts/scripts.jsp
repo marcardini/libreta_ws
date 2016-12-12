@@ -17,6 +17,7 @@
 <script src="bower_components/angular-bootstrap-calendar/dist/js/angular-bootstrap-calendar-tpls.min.js"></script>
 <script src="bower_components/ng-notify/dist/ng-notify.min.js"></script>
 <script src="bower_components/angular-block-ui/dist/angular-block-ui.min.js"></script>
+<script src="bower_components/angularjs-slider/dist/rzslider.min.js"></script>
 <script src="resources/app/app.js"></script>
 <script src="resources/app/controllers/menuController.js"></script>
 

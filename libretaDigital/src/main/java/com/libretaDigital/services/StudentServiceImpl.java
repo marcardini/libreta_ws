@@ -1,5 +1,6 @@
 package com.libretaDigital.services;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -40,10 +41,13 @@ public class StudentServiceImpl implements IStudentService{
 			date = new Date();
 		
 		for(StudentEventRegistration ser : studentsAssistanceRegistrationList){
-			ClassDayStudent cds = new ClassDayStudent(ser.getClassDayStudentId(), ser.getStudentId(), ser.getCourseId(), ser.getGroupId(), ser.getSubjectId(), date, ser.getEventRegistrationType());
+			ClassDayStudent cds = new ClassDayStudent(ser.getClassDayStudentId(), ser.getStudentId(), ser.getCourseId(), ser.getGroupId(), ser.getSubjectId(), date,
+																	ser.getEventRegistrationType(), (BigDecimal.valueOf(ser.getValue())), ser.getComment());
 			
 			//FIXME: deberia ir save or update cuando ande
-			classDayStudentDAO.save(cds);
+			
+//			classDayStudentDAO.saveOrUpdate(cds);
+			classDayStudentDAO.update(cds);
 		}
 	}
 	

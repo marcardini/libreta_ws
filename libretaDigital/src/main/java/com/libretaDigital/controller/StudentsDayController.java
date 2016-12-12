@@ -40,8 +40,6 @@ public class StudentsDayController {
 		page.addObject("tituloPagina", "Libreta Digital - Estudiantes");
 		page.addObject("codMenu", "G2");
 		
-		
-		
 		groupCode = "1A";
 		professorId = 1;
 		
@@ -57,36 +55,7 @@ public class StudentsDayController {
 		}	
 		return page;
 	}
-//	
-//	@RequestMapping(value = "/main/saveEvent", method = RequestMethod.POST)
-//	public void SaveAbsences(@RequestBody List<AbsenceBean> events, HttpServletResponse response) {	
-//	
-//		try{
-//			List<StudentEventRegistration> studentsEventRegistrationList = new ArrayList<StudentEventRegistration> ();
-//			for (AbsenceBean aux : events) {
-//				StudentEventRegistration ser = new StudentEventRegistration();
-//				ser.setStudentId(aux.getIdStudent());
-//				ser.setCourseId(1L);
-//				ser.setGroupId(1L);
-//				ser.setSubjectId(1L);
-//				ser.setClassDayStudentId(aux.getClassDayStudentId());
-//				EventRegistrationType ert;
-//				if(aux.isLate()){
-//					ert = EventRegistrationType.MEDIA_FALTA;
-//				}else{
-//					ert = EventRegistrationType.FALTA;
-//				}
-//				ser.setEventRegistrationType(ert);
-//				studentsEventRegistrationList.add(ser);
-//			}
-//			studentServiceImpl.saveEvent(studentsEventRegistrationList, null);	
-//			response.setStatus(HttpServletResponse.SC_OK);
-//		}catch (Exception e) {
-//			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-//		}
-//			
-//	}
-//	
+
 	public List<Student> getStudentsFiles() {
 		//return studentsDayFacade.getStudentsFiles(mail, courseName, groupCode, year, subjectName)
 		return studentsDayFacade.getStudentsFiles(null, "1A", 2016, "MATEMATICAS");

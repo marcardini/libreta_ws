@@ -36,6 +36,8 @@ public class ClassDayStudent extends ClassDay implements Serializable{
 		super(classDayStudentId, date);
 		this.studentId = studentId;
 		this.courseId = courseId;
+		this.groupId = groupId;
+		this.subjectId = subjectId;
 		this.eventRegistrationType = event;
 		this.value = value;
 		this.comment = comment;

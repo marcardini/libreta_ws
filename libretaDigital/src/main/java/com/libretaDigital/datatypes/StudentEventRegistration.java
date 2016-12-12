@@ -13,8 +13,21 @@ public class StudentEventRegistration {
 	private Long groupId;
 	private Long subjectId;
 	private EventRegistrationType eventRegistrationType;
+	private Long value;
+	private String comment;
 	
 	public StudentEventRegistration(){}
+	
+	public StudentEventRegistration(Long classDayStudentId, Long studentId, Long courseId, Long groupId, Long subjectId, EventRegistrationType ert, Long value, String comment){
+		this.classDayStudentId = classDayStudentId;
+		this.studentId = studentId;
+		this.courseId = courseId;
+		this.groupId = groupId;
+		this.subjectId = subjectId;
+		this.eventRegistrationType = ert;
+		this.value = value;
+		this.comment = comment;
+	}
 	
 	public StudentEventRegistration(Long classDayStudentId, Long studentId, Long courseId, Long groupId, Long subjectId, EventRegistrationType ert){
 		this.classDayStudentId = classDayStudentId;
@@ -22,7 +35,7 @@ public class StudentEventRegistration {
 		this.courseId = courseId;
 		this.groupId = groupId;
 		this.subjectId = subjectId;
-		this.eventRegistrationType = ert;
+		this.eventRegistrationType = ert;		
 	}
 	
 	public EventRegistrationType getEventRegistrationType() {
@@ -63,4 +76,22 @@ public class StudentEventRegistration {
 	public void setClassDayStudentId(Long classDayStudentId) {
 		this.classDayStudentId = classDayStudentId;
 	}
+
+	public long getValue() {
+		return value;
+	}
+
+	public void setValue(long value) {
+		this.value = value;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+	
+	
 }

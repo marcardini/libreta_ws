@@ -33,6 +33,7 @@
 <link rel="stylesheet" href="bower_components/ng-notify/dist/ng-notify.min.css">
 <link rel="stylesheet" href="bower_components/angular-block-ui/dist/angular-block-ui.min.css">
 <link rel="stylesheet" href="bower_components/angular-percent-circle-directive/dist/percent-circle.css">
+<link rel="stylesheet" href="bower_components/angularjs-slider/dist/rzslider.min.css"/>
 <link rel="stylesheet" href="resources/css/style.css">
 
 </head>
@@ -189,7 +190,7 @@
 
 							<div class="row">
 								<div class="col-lg-12 table-nav">
-									<table st-table="qualificationsDisplayed" st-safe-src="student.qualifications" 	class="table table-striped table-hover">
+									<table st-table="student.qualifications" class="table table-striped table-hover">
 										<thead>
 											<tr>
 												<th class="sort-header" st-sort="name">Fecha</th>
@@ -199,8 +200,7 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr class="list-row" st-select-row="qualy" st-select-mode="single"
-												ng-repeat="qualy in qualificationsDisplayed" ng-click="qualySelect(qualy)">
+											<tr class="list-row" st-select-row="qualy" st-select-mode="single" ng-repeat="qualy in student.qualifications" ng-click="qualySelect(qualy)">
 												<td>{{qualy.date | date:'dd-MM-yyyy'}}</td>
 												<td>{{qualy.eventRegistrationType | capitalize}}</td>
 												<td>{{qualy.value}}</td>
@@ -252,16 +252,16 @@
         <div class="modal-body" id="modal-body">
             <form>
   				<div class="form-group">
-    				<label for="value">Nota</label>
-    				<input type="number" class="form-control" id="nota" placeholder="Nota" ng-model="qualy.value" min=1 max=12>
+    				<label for="value">Nota</label>  
+						<rzslider rz-slider-model="slider.value" rz-slider-options="slider.options"></rzslider>
  				</div>
   				<div class="form-group">  				
 					<div class="form-group">
   						 <label for="singleSelect"> Tipo </label><br>
     						<select name="type" ng-model="qualy.eventRegistrationType" class="form-control">
 								 <option value="">--- Seleccionar Tipo ---</option>
-      							<option ng-repeat="eventRegistrationType in events" value="{{eventRegistrationType}}">{{eventRegistrationType}}</option>
-    						</select
+      							<option ng-repeat="eventRegistrationType in events" value="{{eventRegistrationType}}">{{eventRegistrationType | capitalize}}</option>
+    						</select>
 					</div>
  				</div> 
 				<div class="form-group">

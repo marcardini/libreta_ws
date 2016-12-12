@@ -1,9 +1,10 @@
 //var app = angular.module("app", []);
-var app = angular.module('app', ['ui.bootstrap', 'smart-table', 'dndLists', 'percentCircle-directive', 'ngAnimate', 'ngTouch', 'mwl.calendar', 'ngNotify', 'blockUI' ]);
+var app = angular.module('app', ['ui.bootstrap', 'smart-table', 'dndLists', 'percentCircle-directive', 'ngAnimate', 'ngTouch', 'mwl.calendar', 'ngNotify', 'blockUI', 'rzModule' ]);
 
 app.filter('capitalize', function() {
 	return function(input, scope) {
 		if (input != null) {
+			input = input.replace("_", " ");
 			input = input.toLowerCase().split(' ');
 
 			for (var i = 0; i < input.length; i++) {
