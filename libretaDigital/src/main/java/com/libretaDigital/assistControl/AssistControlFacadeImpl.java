@@ -31,8 +31,8 @@ public class AssistControlFacadeImpl implements IAssistControlFacade {
 	}
 	
 	@Override
-	public List<Student> getStudentsAndTodaysAssistance(String courseName, String groupCode, String subjectName){
-		return studentDAO.getStudentsAndTodaysAssistance(courseName, groupCode, subjectName);
+	public List<Student> getStudentsAndTodaysAssistance(String groupCode, String subjectName){
+		return studentDAO.getStudentsAndTodaysAssistance(groupCode, subjectName);
 	}
 	
 	public StudentDAO getStudentDAO() {

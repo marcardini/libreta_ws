@@ -337,9 +337,9 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 	}
 	
 	
-	public List<Student> getStudentsAndTodaysAssistance(String courseName, String groupCode, String subjectName){
+	public List<Student> getStudentsAndTodaysAssistance(String groupCode, String subjectName){
 		
-		log.debug(String.format("Getting students and today's assistance. Course: " + courseName + ". Group: " + groupCode + ". Subject: " + subjectName));
+		log.debug(String.format("Getting students and today's assistance. Group: " + groupCode + ". Subject: " + subjectName));
 		
 		DateFormat dateFormat = new SimpleDateFormat("yyy-MM-dd");
 		Date date = new Date();
@@ -369,14 +369,14 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 				List<Object[]> partialResult = query.list();
 
 				if (partialResult != null && !partialResult.isEmpty())
-					result = getStudentsAndTodaysAssistanceFromPartialResult(partialResult, courseName, groupCode, subjectName);
+					result = getStudentsAndTodaysAssistanceFromPartialResult(partialResult, groupCode, subjectName);
 
 				return result;
 			}
 		});
 	}
 	
-	private List<Student> getStudentsAndTodaysAssistanceFromPartialResult(List<Object[]> partialResult, String courseName, String groupCode, String subjectName){
+	private List<Student> getStudentsAndTodaysAssistanceFromPartialResult(List<Object[]> partialResult, String groupCode, String subjectName){
 		
 		List<Student> result = new ArrayList<Student>();
 
@@ -406,13 +406,13 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 				student.setCurrentStudent(currentStudent);
 			}
 			
-			student.setCalendar(getStudentCalendarByStudentId(student.getOid(), courseName, groupCode, subjectName));			
+			student.setCalendar(getStudentCalendarByStudentId(student.getOid(), groupCode, subjectName));			
 			result.add(student);
 		}
 		return result;
 	}
 	
-	private List<ClassDayStudent> getStudentCalendarByStudentId(Long studentOid, String courseName, String groupCode, String subjectName){
+	private List<ClassDayStudent> getStudentCalendarByStudentId(Long studentOid, String groupCode, String subjectName){
 		
 		log.debug(String.format("Getting student calendar. Parameters: Student Id " + studentOid));
 		
@@ -431,7 +431,6 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 				String oQuery = "select day.class_date, day.event_registration_type, day.value, day.comment, day.oid, day.student_id "
 						+ "from class_day_student day " 
 						+ "where day.student_id = :studentOid "
-						+ "and day.course_id = (select oid from course where name = :courseName) "
 						+ "and day.group_id = (select oid from group_ where name = :groupCode) "
 						+ "and day.subject_id = (select oid from subject where name = :subjectName) "
 						+ "and day.event_registration_type in('"+ EventRegistrationType.FALTA +"', '"+ EventRegistrationType.MEDIA_FALTA +"') "
@@ -440,7 +439,6 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 				SQLQuery query = session.createSQLQuery(oQuery);
 
 				query.setLong("studentOid", studentOid);
-				query.setString("courseName", courseName);
 				query.setString("groupCode", groupCode);
 				query.setString("subjectName", subjectName);
 				query.setString("dateFrom", dateFrom);

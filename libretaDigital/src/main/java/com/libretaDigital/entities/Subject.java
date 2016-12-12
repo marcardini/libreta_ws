@@ -11,17 +11,13 @@ public class Subject implements Serializable{
 	private Long oid;
 	private String name;
 	private List<Notebook> notebooksList;
-	private List<Period> periods;
+	//private List<Period> periods;
 	
 	public Subject(){}
 	
-	public Subject(String name, Period period, Notebook notebook){
+	public Subject(String name, Notebook notebook){
 		this.notebooksList = new ArrayList<>();
 		this.notebooksList.add(notebook);
-		
-		this.periods = new ArrayList<>();
-		this.periods.add(period);
-		
 		this.name = name;
 	}
 	
@@ -51,12 +47,6 @@ public class Subject implements Serializable{
 	}
 	public void setNotebooksList(List<Notebook> notebooksList) {
 		this.notebooksList = notebooksList;
-	}
-	public List<Period> getPeriods() {
-		return periods;
-	}
-	public void setPeriods(List<Period> periods) {
-		this.periods = periods;
 	}
 
 	public Long getOid() {

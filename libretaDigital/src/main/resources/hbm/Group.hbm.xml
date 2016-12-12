@@ -20,6 +20,12 @@
 			<one-to-many class="com.libretaDigital.entities.Student" />
 		</list>
 
+<!-- 		<list name="periodsList" table="period" fetch="join" cascade="all,delete-orphan"> -->
+<!-- 			<key column="group_id" /> -->
+<!-- 			<list-index column="index_group_periods" /> -->
+<!-- 			<one-to-many class="com.libretaDigital.entities.Period" /> -->
+<!-- 		</list> -->
+		
 		<list name="subjectsList" table="subject" fetch="join" cascade="all,delete-orphan">
 			<key column="group_id" />
 			<list-index column="index_subjects" />

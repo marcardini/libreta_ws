@@ -53,7 +53,7 @@ public class AssistControlController {
 		professorId = BigInteger.ONE;
 
 		try {
-			page.addObject("students", mapper.writeValueAsString(assistControlFacade.getStudentsAndTodaysAssistance("quinto", "1A", "MATEMATICAS")));
+			page.addObject("students", mapper.writeValueAsString(assistControlFacade.getStudentsAndTodaysAssistance("1A", "MATEMATICAS")));
 			page.addObject("groups", mapper.writeValueAsString(this.getGroupsByProfessor()));
 			page.addObject("studentsAbsences", mapper.writeValueAsString(this.getStudentsAbsencesByCode()));
 		} catch (JsonProcessingException e) {

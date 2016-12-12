@@ -15,6 +15,7 @@ public class Group implements Serializable{
 	private int year;
 	private List<Student> studentsList;
 	private List<Subject> subjectsList;
+	//private List<Period> periodsList;
 	
 	public Group(){}
 	

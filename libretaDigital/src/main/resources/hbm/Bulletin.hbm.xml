@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-lazy="false">
+ 	
+	<class name="com.libretaDigital.entities.Bulletin" table="bulletin">
+	
+		<id column="oid" name="oid" type="long" unsaved-value="null">
+			<generator class="native" />
+		</id>
+		
+		<property name="studentId" column="student_id" type="long" />
+		
+		<property name="startDate" column="start_date">
+			<type name="org.hibernate.type.DateType"/>
+		</property>
+		
+		<property name="endDate" column="end_date">
+			<type name="org.hibernate.type.DateType"/>
+		</property>
+		
+		<property name="subjectId" column="subject_id" type="long" />
+		
+		<property name="grade" type="int" />
+		
+		<property name="comment" length="255" />
+		
+		<property name="finalBulletin" column="final_bulletin" type="boolean" />
+		
+	</class>
+</hibernate-mapping>

@@ -12,11 +12,11 @@
 
 		<property name="name" length="100" />
 
-		<list name="periods" table="period" fetch="join" cascade="all,delete-orphan">
-			<key column="subject_id" />
-			<list-index column="index_periods" />
-			<one-to-many class="com.libretaDigital.entities.Period" />
-		</list>
+<!-- 		<list name="periods" table="period" fetch="join" cascade="all,delete-orphan"> -->
+<!-- 			<key column="subject_id" /> -->
+<!-- 			<list-index column="index_periods" /> -->
+<!-- 			<one-to-many class="com.libretaDigital.entities.Period" /> -->
+<!-- 		</list> -->
 
 	</class>
 </hibernate-mapping>

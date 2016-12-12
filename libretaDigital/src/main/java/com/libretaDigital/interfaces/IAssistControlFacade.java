@@ -15,6 +15,6 @@ public interface IAssistControlFacade {
 	
 	List<Group> getGroupsByProfessorId(BigInteger professorId);
 	
-	List<Student> getStudentsAndTodaysAssistance(String courseName, String groupCode, String subjectName);
+	List<Student> getStudentsAndTodaysAssistance(String groupCode, String subjectName);
 	
 }

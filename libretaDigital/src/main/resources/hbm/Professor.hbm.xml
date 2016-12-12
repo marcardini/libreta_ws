@@ -42,14 +42,6 @@
 			<type name="org.hibernate.type.DateType" />
 		</property>
 
-<!-- 		<list name="coursesList" table="subject" fetch="join" -->
-<!-- 			cascade="all,delete-orphan"> -->
-<!-- 			<key column="professor_id" /> -->
-<!-- 			<list-index column="index_course" /> -->
-<!-- 			<one-to-many class="com.libretaDigital.entities.Course" /> -->
-<!-- 		</list> -->
-
-
 		<list name="groupsList" table="subject" fetch="join"
 			cascade="all,delete-orphan">
 			<key column="professor_id" />
