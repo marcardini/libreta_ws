@@ -179,7 +179,7 @@
 							</div>
 							<div class="row">
 								<div class="col-lg-12">
-									<button class="btn btn-md btn-warning btn-justify"  ng-click="" ng-disabled="editButtons">Modificar</button>
+									<button class="btn btn-md btn-warning btn-justify"  ng-click="editAbsence()" ng-disabled="editButtons">Modificar</button>
 									<button class="btn btn-md btn-danger btn-justify" confirmed-click="delete(absence)" ng-confirm-click="Esta seguro que desea eliminar esta calificación?" ng-disabled="editButtons">Eliminar</button>								
 								</div>
 							</div>
@@ -245,7 +245,7 @@
 </body>
 
 
-<script type="text/ng-template" id="myModalContent.html">
+<script type="text/ng-template" id="editQualificationModal.html">
         <div class="modal-header">
             <h3 class="modal-title" id="modal-title">{{title}}</h3>
         </div>
@@ -267,6 +267,34 @@
 				<div class="form-group">
     				<label for="type">Comentario</label>
     				<textarea  type="Comentario" class="form-control" id="type" placeholder="Comentario" ng-model="qualy.comment" rows="3"></textarea> 
+ 				 </div>   				
+  				</div>  				
+			</form>          
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="submit" ng-click="ok()">Guardar</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancelar</button>
+        </div>
+</script>
+
+<script type="text/ng-template" id="editAbsenceModal.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">{{title}}</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+            <form>  				
+  				<div class="form-group">  				
+					<div class="form-group">
+  						 <label for="singleSelect"> Tipo </label><br>
+    						<select name="type" ng-model="absence.eventRegistrationType" class="form-control">
+								 <option value="">--- Seleccionar Tipo ---</option>
+      							<option ng-repeat="event in events" value="{{event}}">{{event | capitalize}}</option>
+    						</select>
+					</div>
+ 				</div> 
+				<div class="form-group">
+    				<label for="type">Comentario</label>
+    				<textarea  type="Comentario" class="form-control" id="type" placeholder="Comentario" ng-model="absence.comment" rows="3"></textarea> 
  				 </div>   				
   				</div>  				
 			</form>          

@@ -150,8 +150,7 @@ app.controller('studentsDayCtrl', ['$scope', '$filter', '$http', 'ngNotify', 'bl
 //				blockUI.stop();
 //				ngNotify.set('Eliminado corectamente', 'success');
 //				$scope.student.calendar.splice($scope.student.calendar.indexOf(item), 1);
-//				$scope.getAbsencesAndQualifications($scope.student);	
-//				
+//				$scope.getAbsencesAndQualifications($scope.student);					
 //				$scope.$apply();
 //			    $scope.getAbsencesStudents();			   
 //			  }, function errorCallback(response) {				  
@@ -159,19 +158,18 @@ app.controller('studentsDayCtrl', ['$scope', '$filter', '$http', 'ngNotify', 'bl
 //				  ngNotify.set('ERROR - Datos no guardados', 'error');
 //			    // called asynchronously if an error occurs
 //			    // or server returns response with an error status.
-//			  });	 
-				
-			
+//			  });			
 	 };
-	 //Modal
-	 	 
+	 
+	 
+	 //Modal	 	 
 	 $scope.calificate = function () {		    
 		    var modalInstance = $uibModal.open({
 		      animation: true,
 		      ariaLabelledBy: 'modal-title',
 		      ariaDescribedBy: 'modal-body',
 		      bindToController: true,
-		      templateUrl: 'myModalContent.html',
+		      templateUrl: 'editQualificationModal.html',
 		      controller: 'ModalInstanceQualifyCtrl',
 		      controllerAs:'$scope',
 		      backdrop: 'static',
@@ -202,6 +200,45 @@ app.controller('studentsDayCtrl', ['$scope', '$filter', '$http', 'ngNotify', 'bl
 //		      console.log('Modal dismissed at: ' + new Date());		      
 		    });		    
 		  };
+		  
+			 //Modal	 	 
+			 $scope.editAbsence = function () {		    
+				    var modalInstance = $uibModal.open({
+				      animation: true,
+				      ariaLabelledBy: 'modal-title',
+				      ariaDescribedBy: 'modal-body',
+				      bindToController: true,
+				      templateUrl: 'editAbsenceModal.html',
+				      controller: 'ModalInstanceAbsenceCtrl',
+				      controllerAs:'$scope',
+				      backdrop: 'static',
+				      keyboard: true,
+				      size: 'lg',		      
+				      windowClass: 'center-modal',
+				      resolve: {
+				    	  absence: function () {
+				    		 return $scope.absence;
+				    	 },
+				    	 student:function(){
+				    		 return $scope.student;
+				    	 }
+				      }
+				    });
+
+				    modalInstance.result.then(function (response) {
+//				      $scope.editCalfButton = false;		      		      
+				      console.log(response);
+				      $scope.getAbsencesAndQualifications($scope.student);		      
+				      blockUI.stop();		      
+				      if(response){		    	  
+				    	  ngNotify.set('Guardado corectamente', 'success');			    	  
+				      }else{
+				    	  ngNotify.set('ERROR - Datos no guardados', 'error');
+				      }		      
+				    }, function () {
+//				      console.log('Modal dismissed at: ' + new Date());		      
+				    });		    
+				  };
 
 		 
 		
@@ -233,8 +270,7 @@ app.controller('ModalInstanceQualifyCtrl', function ($uibModalInstance, qualy, s
 		$scope.qualy.studentId = student.oid;		
 	}
 	
-//	console.log($scope.qualy);
-	
+
 	$scope.slider = {
 			value: $scope.qualy.value,			   		   
 		    options: {	    	
@@ -299,25 +335,25 @@ app.controller('ModalInstanceQualifyCtrl', function ($uibModalInstance, qualy, s
 	   
 });
 
-app.controller('ModalInstanceAbsenceCtrl', function ($uibModalInstance, qualy, $scope, $http) {
+app.controller('ModalInstanceAbsenceCtrl', function ($uibModalInstance, absence, student, $scope, $http) {
 	
 	$scope.title = "Justificar";
-	$scope.qualy = null;			
-	$scope.eventsRegistrationTypes = [];
+	$scope.absence = {};			
+	$scope.events = [];
 	angular.forEach(eventsRegistrationTypes, function(event){
-		if(event === "FALTA" && event === "MEDIA_FALTA" && event === "JUSTIFICADA"){
-			$scope.eventsRegistrationTypes.push(event);
+		if(event == "FALTA" || event === "MEDIA_FALTA" || event === "JUSTIFICADA"){
+			$scope.events.push(event);
 		}
 	});
+	console.log(eventsRegistrationTypes);
 	
-	if(angular.isObject($scope.qualy)){
-		$scope.qualy = qualy;
-		$scope.old = angular.copy(qualy);
+	if(angular.isObject($scope.absence)){
+		$scope.absence = absence;
+		$scope.old = angular.copy(absence);
 		$scope.title = "Modificar Falta";
 //		console.log(qualy.eventRegistrationType);
 	}else{		
-		$scope.qualy = {};
-		qualy.value = 0;
+		$scope.absence.studentId = student.oid;
 	}
 	   
 	$scope.ok = function () {
