@@ -141,24 +141,25 @@ app.controller('studentsDayCtrl', ['$scope', '$filter', '$http', 'ngNotify', 'bl
 
 	 }, true);
 	 
-	 $scope.delete = function (item){		 
-//		 $http({
-//			  method: 'POST',
-//			  url: 'main/deleteEvent',
-//			  data: absences
-//			}).success(function successCallback(response) {
-//				blockUI.stop();
-//				ngNotify.set('Eliminado corectamente', 'success');
-//				$scope.student.calendar.splice($scope.student.calendar.indexOf(item), 1);
-//				$scope.getAbsencesAndQualifications($scope.student);					
-//				$scope.$apply();
-//			    $scope.getAbsencesStudents();			   
-//			  }, function errorCallback(response) {				  
-//				  console.log(response);
-//				  ngNotify.set('ERROR - Datos no guardados', 'error');
-//			    // called asynchronously if an error occurs
-//			    // or server returns response with an error status.
-//			  });			
+	 $scope.delete = function (item){
+		 var items= [];
+		 items.push(item.oid);
+		 $http({
+			  method: 'POST',
+			  url: 'main/deleteStudentDay',
+			  data: items
+			}).success(function successCallback(response) {
+				blockUI.stop();
+				ngNotify.set('Eliminado corectamente', 'success');
+				$scope.student.calendar.splice($scope.student.calendar.indexOf(item), 1);
+				$scope.getAbsencesAndQualifications($scope.student);			
+			    $scope.gatAbsencesCount($scope.student.calendar);			   
+			  }, function errorCallback(response) {				  
+				  console.log(response);
+				  ngNotify.set('ERROR - Datos no guardados', 'error');
+			    // called asynchronously if an error occurs
+			    // or server returns response with an error status.
+			  });			
 	 };
 	 
 	 
@@ -298,7 +299,7 @@ app.controller('ModalInstanceQualifyCtrl', function ($uibModalInstance, qualy, s
 		$scope.data.push($scope.qualy);		
 		$http({
 			  method: 'POST',
-			  url: 'main/saveEvent',
+			  url: 'main/saveStudentDay',
 			  data: $scope.data
 			}).success(function successCallback(response) {					
 				if($scope.qualy.oid === null){	

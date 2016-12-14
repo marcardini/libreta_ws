@@ -49,7 +49,7 @@ public class MainController {
 		return new ModelAndView("welcome", "message", message);
 	}
 	
-	@RequestMapping(value = "/main/saveEvent", method = RequestMethod.POST)
+	@RequestMapping(value = "/main/studentDay", method = RequestMethod.POST)
 	public void SaveAbsences(@RequestBody List<StudentDayBean> events, HttpServletResponse response) {	
 		
 		//PARA PROBAR EL METODO DE LOGIN
@@ -76,12 +76,30 @@ public class MainController {
 				}					
 				studentsAssistanceRegistrationList.add(ser);
 			}
-			studentServiceImpl.saveEvent(studentsAssistanceRegistrationList, null);	
+			studentServiceImpl.saveStudentDay(studentsAssistanceRegistrationList, null);	
 			response.setStatus(HttpServletResponse.SC_OK);
 		}catch (Exception e) {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 			
 	}
-
+	
+	@RequestMapping(value = "/main/deleteStudentDay", method = RequestMethod.POST)
+	public void DeleteStudentDay(@RequestBody List<Long> items, HttpServletResponse response) {	
+		
+		//PARA PROBAR EL METODO DE LOGIN
+		Professor user = loginService.validateUser("maria.tarigo@gmail.com", "admin");
+		
+		System.out.println("El usuario " + user.getEmail() + " ha sido logueado.");
+			
+		try{			
+			studentServiceImpl.deleteStudentDay(items);	
+			response.setStatus(HttpServletResponse.SC_OK);
+		}catch (Exception e) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		}
+			
+	}
+	
+	
 }

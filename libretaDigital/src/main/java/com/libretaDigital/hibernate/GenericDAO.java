@@ -78,7 +78,9 @@ public class GenericDAO<E> extends HibernateDaoSupport implements IGenericDAO<E>
 			
 			getHibernateTemplate().setCheckWriteOperations(false);
 			long timerOn = System.currentTimeMillis();
-			getHibernateTemplate().saveOrUpdate(inst);
+			Session session = getHibernateTemplate().getSessionFactory().openSession();			
+			session.saveOrUpdate(inst);
+			session.flush();
 			long timerOff = System.currentTimeMillis();
 
 			getLogger().info("time elapsed during database interaction (ms): " + (timerOff - timerOn));
@@ -110,8 +112,11 @@ public class GenericDAO<E> extends HibernateDaoSupport implements IGenericDAO<E>
 		getLogger().debug("delete");
 
 		try {
+			getHibernateTemplate().setCheckWriteOperations(false);
 			long timerOn = System.currentTimeMillis();
-			getHibernateTemplate().delete(inst);
+			Session session = getHibernateTemplate().getSessionFactory().openSession();			
+			session.delete(inst);
+			session.flush();
 			long timerOff = System.currentTimeMillis();
 
 			getLogger().info(
@@ -127,6 +132,7 @@ public class GenericDAO<E> extends HibernateDaoSupport implements IGenericDAO<E>
 		getLogger().debug("merge");
 
 		try {
+			getHibernateTemplate().setCheckWriteOperations(false);
 			long timerOn = System.currentTimeMillis();
 			E obj = (E) getHibernateTemplate().merge(inst);
 			long timerOff = System.currentTimeMillis();
