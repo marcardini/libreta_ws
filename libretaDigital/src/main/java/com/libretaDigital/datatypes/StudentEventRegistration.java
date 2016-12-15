@@ -1,5 +1,7 @@
 package com.libretaDigital.datatypes;
 
+import java.math.BigDecimal;
+
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 
 import com.libretaDigital.utils.EventRegistrationType;
@@ -13,12 +15,12 @@ public class StudentEventRegistration {
 	private Long groupId;
 	private Long subjectId;
 	private EventRegistrationType eventRegistrationType;
-	private Long value;
+	private BigDecimal value;
 	private String comment;
 	
 	public StudentEventRegistration(){}
 	
-	public StudentEventRegistration(Long classDayStudentId, Long studentId, Long courseId, Long groupId, Long subjectId, EventRegistrationType ert, Long value, String comment){
+	public StudentEventRegistration(Long classDayStudentId, Long studentId, Long courseId, Long groupId, Long subjectId, EventRegistrationType ert, BigDecimal value, String comment){
 		this.classDayStudentId = classDayStudentId;
 		this.studentId = studentId;
 		this.courseId = courseId;
@@ -77,11 +79,11 @@ public class StudentEventRegistration {
 		this.classDayStudentId = classDayStudentId;
 	}
 
-	public long getValue() {
+	public BigDecimal getValue() {
 		return value;
 	}
 
-	public void setValue(long value) {
+	public void setValue(BigDecimal value) {
 		this.value = value;
 	}
 

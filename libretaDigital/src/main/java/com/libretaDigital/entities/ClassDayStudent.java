@@ -43,6 +43,8 @@ public class ClassDayStudent extends ClassDay implements Serializable{
 		this.comment = comment;
 	}
 	
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -37,16 +37,27 @@ public class StudentServiceImpl implements IStudentService{
 	@Override
 	public void saveStudentDay(List<StudentEventRegistration> studentsAssistanceRegistrationList, Date date){
 		
-		if(date == null)
+		if (date == null)
 			date = new Date();
 		
-		for(StudentEventRegistration ser : studentsAssistanceRegistrationList){
-			ClassDayStudent cds = new ClassDayStudent(ser.getClassDayStudentId(), ser.getStudentId(), ser.getCourseId(), ser.getGroupId(), ser.getSubjectId(), date,
-																	ser.getEventRegistrationType(), (BigDecimal.valueOf(ser.getValue())), ser.getComment());
-			
-			classDayStudentDAO.saveOrUpdate(cds);
-			
-		}
+
+			for (StudentEventRegistration ser : studentsAssistanceRegistrationList) {
+				
+				ClassDayStudent cds = new ClassDayStudent(ser.getClassDayStudentId(), 
+														  ser.getStudentId(),
+														  ser.getCourseId(),
+														  ser.getGroupId(), 
+														  ser.getSubjectId(), 
+														  date,
+														  ser.getEventRegistrationType(),
+														  ser.getValue(),
+														  ser.getComment()
+														);
+
+				classDayStudentDAO.saveOrUpdate(cds);
+
+			}
+		
 	}
 	
 	@Override

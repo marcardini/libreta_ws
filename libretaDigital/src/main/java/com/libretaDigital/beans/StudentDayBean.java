@@ -1,5 +1,7 @@
 package com.libretaDigital.beans;
 
+import java.math.BigDecimal;
+
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 
 import com.libretaDigital.utils.EventRegistrationType;
@@ -15,7 +17,7 @@ public class StudentDayBean {
 	private long subject_id;
 	private long studentId;
 	private long oid;
-	private long value;
+	private BigDecimal value;
 	private String comment;
 
 	public StudentDayBean() {
@@ -76,11 +78,11 @@ public class StudentDayBean {
 		this.justified = justified;
 	}
 
-	public long getValue() {
+	public BigDecimal getValue() {
 		return value;
 	}
 
-	public void setValue(long value) {
+	public void setValue(BigDecimal value) {
 		this.value = value;
 	}
 

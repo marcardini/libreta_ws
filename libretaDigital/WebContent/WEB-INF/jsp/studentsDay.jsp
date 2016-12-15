@@ -258,8 +258,7 @@
   				<div class="form-group">  				
 					<div class="form-group">
   						 <label for="singleSelect"> Tipo </label><br>
-    						<select name="type" ng-model="qualy.eventRegistrationType" class="form-control">
-								 <option value="">--- Seleccionar Tipo ---</option>
+    						<select name="type" ng-model="qualy.eventRegistrationType" class="form-control" required>								 
       							<option ng-repeat="event in events" value="{{event}}">{{event | capitalize}}</option>
     						</select>
 					</div>
@@ -286,8 +285,7 @@
   				<div class="form-group">  				
 					<div class="form-group">
   						 <label for="singleSelect"> Tipo </label><br>
-    						<select name="type" ng-model="absence.eventRegistrationType" class="form-control">
-								 <option value="">--- Seleccionar Tipo ---</option>
+    						<select name="type" ng-model="absence.eventRegistrationType" class="form-control">								 
       							<option ng-repeat="event in events" value="{{event}}">{{event | capitalize}}</option>
     						</select>
 					</div>

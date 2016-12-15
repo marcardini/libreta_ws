@@ -255,6 +255,7 @@ app.controller('ModalInstanceQualifyCtrl', function ($uibModalInstance, qualy, s
 	$scope.qualy.value = 1;
 	$scope.qualy.date = new Date();			
 	$scope.events = [];
+	$scope.qualy.eventRegistrationType = "ORAL";
 	angular.forEach(eventsRegistrationTypes, function(event){
 		if( event != "FALTA" && event != "MEDIA_FALTA" && event != "JUSTIFICADA" ){
 			$scope.events.push(event);
@@ -339,8 +340,8 @@ app.controller('ModalInstanceQualifyCtrl', function ($uibModalInstance, qualy, s
 app.controller('ModalInstanceAbsenceCtrl', function ($uibModalInstance, absence, student, $scope, $http) {
 	
 	$scope.title = "Justificar";
-	$scope.absence = {};			
-	$scope.events = [];
+	$scope.absence = {};	
+	$scope.events = [];	
 	angular.forEach(eventsRegistrationTypes, function(event){
 		if(event == "FALTA" || event === "MEDIA_FALTA" || event === "JUSTIFICADA"){
 			$scope.events.push(event);
@@ -358,30 +359,28 @@ app.controller('ModalInstanceAbsenceCtrl', function ($uibModalInstance, absence,
 	}
 	   
 	$scope.ok = function () {
-//		$scope.events = [];
-//		$scope.events.push($scoppe.qualy);
-//		console.log("asasasasasas");
-//		$http({
-//			  method: 'POST',
-//			  url: 'main/saveEvent',
-//			  data: $scope.events
-//			}).success(function successCallback(response) {
-//				blockUI.stop();				
-//				qualy = angular.copy($scope.qualy);				
-//				$uibModalInstance.close(true);
-//				console.log(qualy);
-//			  }, function errorCallback(response) {				  
-//				  console.log(response);
-//				  $uibModalInstance.close(false);	 
-//				  ngNotify.set('ERROR - Datos no guardados', 'error');
-//			    // called asynchronously if an error occurs
-//			    // or server returns response with an error status.
-//			  });	   
-//	   $uibModalInstance.close(false);	  
-	};
-
-	$scope.cancel = function () {		
-	   $uibModalInstance.dismiss('cancel');	  
+		$scope.data = [];		
+		$scope.data.push($scope.absence);		
+		$http({
+			  method: 'POST',
+			  url: 'main/saveStudentDay',
+			  data: $scope.data
+			}).success(function successCallback(response) {					
+				if($scope.absence.oid === null){	
+					student.calendar.push($scope.qualy);
+					$uibModalInstance.close(true);
+				}else{					
+					$uibModalInstance.close(true);
+				}			
+								
+			  }, function errorCallback(response) {				  
+				  console.log(response);				 
+				  absence.comment = $scope.old.comment;
+				  absence.eventRegistrationType = $scope.old.eventRegistrationType;
+				  $uibModalInstance.close(false);
+			    // called asynchronously if an error occurs
+			    // or server returns response with an error status.
+			  });	   	   	
 	};
 	
 	
