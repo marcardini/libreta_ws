@@ -1,5 +1,6 @@
 package com.libretaDigital.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,7 +50,7 @@ public class MainController {
 		return new ModelAndView("welcome", "message", message);
 	}
 	
-	@RequestMapping(value = "/main/saveEvent", method = RequestMethod.POST)
+	@RequestMapping(value = "/main/saveStudentDay", method = RequestMethod.POST)
 	public void SaveAbsences(@RequestBody List<StudentDayBean> events, HttpServletResponse response) {	
 		
 		//PARA PROBAR EL METODO DE LOGIN
@@ -65,21 +66,43 @@ public class MainController {
 				ser.setCourseId(1L);
 				ser.setGroupId(1L);
 				ser.setSubjectId(1L);
-				ser.setClassDayStudentId(aux.getOid());	
+				ser.setComment(aux.getComment());
+				if(aux.getOid() > 0){
+					ser.setClassDayStudentId(aux.getOid());
+				}					
 				ser.setEventRegistrationType(EventRegistrationType.valueOf(aux.getEventRegistrationType()));
 				if(ser.getEventRegistrationType() != EventRegistrationType.FALTA && 
 						ser.getEventRegistrationType() != EventRegistrationType.MEDIA_FALTA && ser.getEventRegistrationType() != EventRegistrationType.JUSTIFICADA){
-					ser.setValue(aux.getValue());
-					ser.setComment(aux.getComment());
-				}					
+						ser.setValue(aux.getValue());					
+				}else{
+					ser.setValue(BigDecimal.ZERO);
+				}
 				studentsAssistanceRegistrationList.add(ser);
 			}
-			studentServiceImpl.saveEvent(studentsAssistanceRegistrationList, null);	
+			studentServiceImpl.saveStudentDay(studentsAssistanceRegistrationList, null);	
+			response.setStatus(HttpServletResponse.SC_OK);
+		}catch (Exception e) {			
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		}
+			
+	}
+	
+	@RequestMapping(value = "/main/deleteStudentDay", method = RequestMethod.POST)
+	public void DeleteStudentDay(@RequestBody List<Long> items, HttpServletResponse response) {	
+		
+		//PARA PROBAR EL METODO DE LOGIN
+		Professor user = loginService.validateUser("maria.tarigo@gmail.com", "admin");
+		
+		System.out.println("El usuario " + user.getEmail() + " ha sido logueado.");
+			
+		try{			
+			studentServiceImpl.deleteStudentDay(items);	
 			response.setStatus(HttpServletResponse.SC_OK);
 		}catch (Exception e) {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
 			
 	}
-
+	
+	
 }

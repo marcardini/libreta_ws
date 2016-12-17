@@ -35,20 +35,40 @@ public class StudentServiceImpl implements IStudentService{
 	}
 	
 	@Override
-	public void saveEvent(List<StudentEventRegistration> studentsAssistanceRegistrationList, Date date){
+	public void saveStudentDay(List<StudentEventRegistration> studentsAssistanceRegistrationList, Date date){
 		
-		if(date == null)
+		if (date == null)
 			date = new Date();
 		
-		for(StudentEventRegistration ser : studentsAssistanceRegistrationList){
-			ClassDayStudent cds = new ClassDayStudent(ser.getClassDayStudentId(), ser.getStudentId(), ser.getCourseId(), ser.getGroupId(), ser.getSubjectId(), date,
-																	ser.getEventRegistrationType(), (BigDecimal.valueOf(ser.getValue())), ser.getComment());
-			
-			//FIXME: deberia ir save or update cuando ande
-			
-//			classDayStudentDAO.saveOrUpdate(cds);
-			classDayStudentDAO.update(cds);
-		}
+
+			for (StudentEventRegistration ser : studentsAssistanceRegistrationList) {
+				
+				ClassDayStudent cds = new ClassDayStudent(ser.getClassDayStudentId(), 
+														  ser.getStudentId(),
+														  ser.getCourseId(),
+														  ser.getGroupId(), 
+														  ser.getSubjectId(), 
+														  date,
+														  ser.getEventRegistrationType(),
+														  ser.getValue(),
+														  ser.getComment()
+														);
+
+				classDayStudentDAO.saveOrUpdate(cds);
+
+			}
+		
+	}
+	
+	@Override
+	public void deleteStudentDay(List<Long> eventsIDs) {
+		
+		for (int i = 0; i < eventsIDs.size(); i++) {		
+			ClassDayStudent cds = classDayStudentDAO.getById(eventsIDs.get(i));
+			if (cds != null) {
+				classDayStudentDAO.delete(cds);
+			}			
+		}				
 	}
 	
 	@Override
@@ -83,4 +103,6 @@ public class StudentServiceImpl implements IStudentService{
 	public void setClassDayStudentDAO(ClassDayStudentDAO classDayStudentDAO) {
 		this.classDayStudentDAO = classDayStudentDAO;
 	}
+
+	
 }

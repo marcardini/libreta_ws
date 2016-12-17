@@ -95,7 +95,7 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 		 console.log(absences)
 		 $http({
 			  method: 'POST',
-			  url: 'main/saveEvent',
+			  url: 'main/saveStudentDay',
 			  data: absences
 			}).success(function successCallback(response) {
 				blockUI.stop();

@@ -47,7 +47,10 @@
 		<div class="page-header">
 			<div class="row">
 				<div class="col-md-8">
-					<h1>Matematicas Grupo 4°A</h1>
+					<h1>Matematicas Grupo 4°A
+						<button id="btn-save" class="btn btn-lg btn-success" ng-click="calGroup()">Calificacion Grupal</button>
+					</h1>
+					
 				</div>
 				<div class="col-md-4">
 					<h1>
@@ -136,10 +139,12 @@
 								</div>
 								<div class="col-lg-6">
 									<div class="row">
-										<div class="col-lg-6">
-											<div class="porcentaje">
+										<div class="col-lg-6">										
+												
+											<div class="porcentaje">													
 												<h3 class="text-center">Promedio</h3>
-												<percent-circle percent="student.qualyPer" colors="qualyColor"></percent-circle>
+													<h1 class="text-center">{{student.qualyAvg | number:1}}</h1>
+<!-- 												<percent-circle percent="student.qualyPer" colors="qualyColor"></percent-circle> -->
 											</div>
 										</div>
 										<div class="col-lg-6">
@@ -179,7 +184,7 @@
 							</div>
 							<div class="row">
 								<div class="col-lg-12">
-									<button class="btn btn-md btn-warning btn-justify"  ng-click="" ng-disabled="editButtons">Modificar</button>
+									<button class="btn btn-md btn-warning btn-justify"  ng-click="editAbsence()" ng-disabled="editButtons">Modificar</button>
 									<button class="btn btn-md btn-danger btn-justify" confirmed-click="delete(absence)" ng-confirm-click="Esta seguro que desea eliminar esta calificación?" ng-disabled="editButtons">Eliminar</button>								
 								</div>
 							</div>
@@ -245,7 +250,7 @@
 </body>
 
 
-<script type="text/ng-template" id="myModalContent.html">
+<script type="text/ng-template" id="editQualificationModal.html">
         <div class="modal-header">
             <h3 class="modal-title" id="modal-title">{{title}}</h3>
         </div>
@@ -258,9 +263,66 @@
   				<div class="form-group">  				
 					<div class="form-group">
   						 <label for="singleSelect"> Tipo </label><br>
-    						<select name="type" ng-model="qualy.eventRegistrationType" class="form-control">
-								 <option value="">--- Seleccionar Tipo ---</option>
-      							<option ng-repeat="eventRegistrationType in events" value="{{eventRegistrationType}}">{{eventRegistrationType | capitalize}}</option>
+    						<select name="type" ng-model="qualy.eventRegistrationType" class="form-control" required>								 
+      							<option ng-repeat="event in events" value="{{event}}">{{event | capitalize}}</option>
+    						</select>
+					</div>
+ 				</div> 
+				<div class="form-group">
+    				<label for="type">Comentario</label>
+    				<textarea  type="Comentario" class="form-control" id="type" placeholder="Comentario" ng-model="qualy.comment" rows="3"></textarea> 
+ 				 </div>   				
+  				</div>  				
+			</form>          
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="submit" ng-click="ok()">Guardar</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancelar</button>
+        </div>
+</script>
+
+<script type="text/ng-template" id="editAbsenceModal.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">{{title}}</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+            <form>  				
+  				<div class="form-group">  				
+					<div class="form-group">
+  						 <label for="singleSelect"> Tipo </label><br>
+    						<select name="type" ng-model="absence.eventRegistrationType" class="form-control">								 
+      							<option ng-repeat="event in events" value="{{event}}">{{event | capitalize}}</option>
+    						</select>
+					</div>
+ 				</div> 
+				<div class="form-group">
+    				<label for="type">Comentario</label>
+    				<textarea  type="Comentario" class="form-control" id="type" placeholder="Comentario" ng-model="absence.comment" rows="3"></textarea> 
+ 				 </div>   				
+  				</div>  				
+			</form>          
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="submit" ng-click="ok()">Guardar</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancelar</button>
+        </div>
+</script>
+
+<script type="text/ng-template" id="editGroupQualificationModal.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">{{title}}</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+            <form>
+  				<div class="form-group">
+    				<label for="value">Nota</label>  
+						<rzslider rz-slider-model="slider.value" rz-slider-options="slider.options"></rzslider>
+ 				</div>
+  				<div class="form-group">  				
+					<div class="form-group">
+  						 <label for="singleSelect"> Tipo </label><br>
+    						<select name="type" ng-model="qualy.eventRegistrationType" class="form-control" required>								 
+      							<option ng-repeat="event in events" value="{{event}}">{{event | capitalize}}</option>
     						</select>
 					</div>
  				</div> 

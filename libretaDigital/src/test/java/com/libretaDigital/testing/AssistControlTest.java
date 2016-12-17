@@ -77,7 +77,7 @@ public class AssistControlTest {
 	
 	@Test
 	public void assistanceControlPersistanceTest() {
-		studentService.saveEvent(studentsAssistanceRegistrationList, new Date());
+		studentService.saveStudentDay(studentsAssistanceRegistrationList, new Date());
 	}
 
 	

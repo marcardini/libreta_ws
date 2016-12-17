@@ -13,8 +13,14 @@ public interface IStudentService {
 
 	void addStudent(Student dtStudent) throws StudentAlreadyExists, InvalidStudentInformation;
 	
-	void saveEvent(List<StudentEventRegistration> studentsAssistanceRegistrationList, Date date);
+	void saveStudentDay(List<StudentEventRegistration> studentsAssistanceRegistrationList, Date date);
+	
+	void deleteStudentDay(List<Long> eventsIDs);
 	
 	List<Student> getStudentsFiles(String mail, String groupCode, int year, String subjectName);
+
+	
+
+	
 	
 }
