@@ -32,6 +32,8 @@
 		<property name="groupDAO" ref="groupDAO" />
 		<property name="subjectDAO" ref="subjectDAO" />
 	</bean>
+	
+	<bean id="bulletinDAO" class="com.libretaDigital.DAO.BulletinDAO" parent="genericDAO" />
 
 	<bean id="studentDAO" class="com.libretaDigital.DAO.StudentDAO"
 		parent="genericDAO" />

@@ -2,7 +2,6 @@ package com.libretaDigital.entities;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.List;
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 
 @JsonAutoDetect
@@ -23,8 +22,20 @@ public class Bulletin implements Serializable{
 	private int grade;
 	private String comment;
 	private Boolean finalBulletin;
+	private double inassistances;
 	
 	public Bulletin(){}
+	
+	public Bulletin(Long studentId, Timestamp startDate, Timestamp endDate, Long subjectId, int grade, String comment, Boolean finalBulletin, double inassistances){
+		this.studentId = studentId;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.subjectId = subjectId;
+		this.grade = grade;
+		this.comment = comment;
+		this.finalBulletin = finalBulletin;
+		this.inassistances = inassistances;
+	}
 	
 	@Override
 	public boolean equals(Object other) {
@@ -93,5 +104,11 @@ public class Bulletin implements Serializable{
 	}
 	public void setFinalBulletin(Boolean finalBulletin) {
 		this.finalBulletin = finalBulletin;
+	}
+	public double getInassistances() {
+		return inassistances;
+	}
+	public void setInassistances(double inassistances) {
+		this.inassistances = inassistances;
 	}
 }

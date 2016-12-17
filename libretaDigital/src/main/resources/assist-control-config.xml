@@ -7,6 +7,7 @@
 	<bean id="assistcontrolcontroller" class="com.libretaDigital.controller.AssistControlController">
 		<property name="assistControlFacade" ref="assistControlFacade" />
 		<property name="loginService" ref="loginService" />
+		<property name="bulletinService" ref="bulletinService" />
 	</bean>
 	
 	<bean id="assistControlFacade" class="com.libretaDigital.assistControl.AssistControlFacadeImpl">
@@ -16,6 +17,10 @@
 	
 	<bean id="loginService" class="com.libretaDigital.services.LoginServiceImpl">
 		<property name="userDAO" ref="userDAO" />
+	</bean>
+	
+	<bean id="bulletinService" class="com.libretaDigital.services.BulletinServiceImpl">
+		<property name="bulletinDAO" ref="bulletinDAO" />
 	</bean>
 	
 </beans>

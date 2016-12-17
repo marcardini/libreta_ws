@@ -24,6 +24,8 @@
 		
 		<property name="grade" type="int" />
 		
+		<property name="inassistances" type="double" />
+		
 		<property name="comment" length="255" />
 		
 		<property name="finalBulletin" column="final_bulletin" type="boolean" />
