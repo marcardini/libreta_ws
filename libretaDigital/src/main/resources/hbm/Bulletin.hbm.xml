@@ -12,13 +12,9 @@
 		
 		<property name="studentId" column="student_id" type="long" />
 		
-		<property name="startDate" column="start_date">
-			<type name="org.hibernate.type.DateType"/>
-		</property>
+		<property name="startDate" column="start_date" type="timestamp" />
 		
-		<property name="endDate" column="end_date">
-			<type name="org.hibernate.type.DateType"/>
-		</property>
+		<property name="endDate" column="end_date" type="timestamp" />
 		
 		<property name="subjectId" column="subject_id" type="long" />
 		

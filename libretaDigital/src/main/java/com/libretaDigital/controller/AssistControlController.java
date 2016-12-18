@@ -2,6 +2,7 @@ package com.libretaDigital.controller;
 
 import java.math.BigInteger;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,11 +14,13 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.libretaDigital.assistControl.AssistControlFacadeImpl;
 import com.libretaDigital.beans.StudentAbsencesBean;
+import com.libretaDigital.entities.Bulletin;
 import com.libretaDigital.entities.Group;
 import com.libretaDigital.entities.Student;
 import com.libretaDigital.services.BulletinServiceImpl;
 import com.libretaDigital.services.LoginServiceImpl;
 import com.libretaDigital.services.StudentServiceImpl;
+import com.libretaDigital.utils.DateConverter;
 
 @Controller
 public class AssistControlController {
@@ -26,6 +29,8 @@ public class AssistControlController {
 	private AssistControlFacadeImpl assistControlFacade;
 	@Autowired
 	private StudentServiceImpl studentServiceImpl;
+	@Autowired
+	private DateConverter dateconverter;
 
 	
 	//ESTE BEAN ESTA ACA SOLO PARA PROBAR. BORRAR DESPUES
@@ -33,7 +38,6 @@ public class AssistControlController {
 	private LoginServiceImpl loginService;
 	@Autowired
 	private BulletinServiceImpl bulletinService;
-	
 	
 	private String groupCode;
 	private BigInteger professorId;
@@ -46,11 +50,27 @@ public class AssistControlController {
 		page.addObject("codMenu", "C1");
 		page.addObject("codMenu", "G1");
 		
-		Timestamp start_date = new Timestamp(System.currentTimeMillis());
-		Timestamp end_date = new Timestamp(System.currentTimeMillis());
 		
-		bulletinService.generateBulletin(1L, start_date, end_date, 1L, 8, "buena conducta", false, 3);
+		
+		
+		Timestamp start_date = null;
+		Timestamp end_date = null;
+		try {
+			start_date = dateconverter.createTimestamp("2016/03/01");
+			end_date = dateconverter.createTimestamp("2016/12/31");
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
+		 
+		//TEST OBTENER BOLETINES SEGUN ALUMNO Y MATERIA
+		//bulletinService.getBulletinsByStudentIdAndSubjectIdBetweenDates(1L, 1L, start_date, end_date);
+		
+		//TEST GUARDAR BOLETIN
+		//bulletinService.generateBulletin(1L, start_date, end_date, 1L, 8, "buena conducta", false, 3);
 
+		
+		
+		
 		try {
 			page.addObject("students", mapper.writeValueAsString(assistControlFacade.getStudentsAndTodaysAssistance("1A", "MATEMATICAS")));
 			page.addObject("groups", mapper.writeValueAsString(this.getGroupsByProfessor()));
@@ -139,6 +159,16 @@ public class AssistControlController {
 
 	public void setBulletinService(BulletinServiceImpl bulletinService) {
 		this.bulletinService = bulletinService;
+	}
+
+
+	public DateConverter getDateconverter() {
+		return dateconverter;
+	}
+
+
+	public void setDateconverter(DateConverter dateconverter) {
+		this.dateconverter = dateconverter;
 	}
 
 }

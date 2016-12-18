@@ -8,6 +8,7 @@
 		<property name="assistControlFacade" ref="assistControlFacade" />
 		<property name="loginService" ref="loginService" />
 		<property name="bulletinService" ref="bulletinService" />
+		<property name="dateconverter" ref="dateconverter" />
 	</bean>
 	
 	<bean id="assistControlFacade" class="com.libretaDigital.assistControl.AssistControlFacadeImpl">

@@ -74,6 +74,8 @@
 		<property name="encoder" ref="md5Encoder" />
 	</bean>
 
+	<bean id="dateconverter" class="com.libretaDigital.utils.DateConverter" />
+		
 	<util:list id="libretadigital.mapping.resources">
 		<value>hbm/ClassDayProfessor.hbm.xml</value>
 		<value>hbm/ClassDayStudent.hbm.xml</value>

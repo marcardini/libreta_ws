@@ -1,6 +1,7 @@
 package com.libretaDigital.services;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import com.libretaDigital.DAO.*;
 import com.libretaDigital.entities.Bulletin;
@@ -20,12 +21,15 @@ public class BulletinServiceImpl implements IBulletinService {
 		
 	}
 
+	@Override
+	public List<Bulletin> getBulletinsByStudentIdAndSubjectIdBetweenDates(Long studentId, Long subjectId, Timestamp start, Timestamp end) {
+		return bulletinDAO.getBulletinsByStudentIdAndSubjectIdBetweenDates(studentId, subjectId, start, end);
+	}
+	
 	public BulletinDAO getBulletinDAO() {
 		return bulletinDAO;
 	}
-
 	public void setBulletinDAO(BulletinDAO bulletinDAO) {
 		this.bulletinDAO = bulletinDAO;
 	}
-
 }

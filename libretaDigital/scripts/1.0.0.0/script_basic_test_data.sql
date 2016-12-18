@@ -88,4 +88,4 @@ go
 update professor set roleId = 1 where oid = 1
 go
 
-insert into bulletin values (1, 1, '2016-03-01 00:00:00', '2016-06-30 23:59:59', 1, 10, 'mejoro la conducta', false)
+insert into bulletin values (1, 1, '2016-03-01 00:00:00', '2016-06-30 23:59:59', 1, 10, 3, 'mejoro la conducta', false)
