@@ -12,6 +12,7 @@
 	<import resource="classpath:file-import-config.xml" />
 	<import resource="classpath:assist-control-config.xml" />
 	<import resource="classpath:students-day-config.xml" />
+	<import resource="classpath:spring-security.xml" />
 
 	<context:property-placeholder
 		location="classpath:database.properties, classpath:uploader.properties"

@@ -24,12 +24,25 @@ version="3.1">
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+
+	<!-- Spring Security -->
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
     
     
 <!--     MAPEO DE MENU -->
     <servlet-mapping>
         <servlet-name>libretaDigital</servlet-name>        
-     	<url-pattern>/home.jsp</url-pattern>
+     	<url-pattern>/login</url-pattern>
+     	<url-pattern>/logout</url-pattern>
+     	<url-pattern>/login.jsp</url-pattern>
 		<url-pattern>/fileUpload.jsp</url-pattern>
 		<url-pattern>/assistControl.jsp</url-pattern>
 		<url-pattern>/studentsDay.jsp</url-pattern>
