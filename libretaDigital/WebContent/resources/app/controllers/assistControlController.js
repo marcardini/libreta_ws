@@ -74,10 +74,10 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 	 $scope.saveAbsences = function (){			 
 		 var absences = [];		 
 		 angular.forEach($scope.models[0].items, function(item){
-			 var aux = {idStudent:"", late:false};
+		 var aux = {studentId:"", late:false};
 			 if(item.late){
-				 aux.idStudent = item.oid;
-				 aux.late = item.late;
+				 aux.studentId = item.oid;
+				 aux.eventRegistrationType = "MEDIA_FALTA";
 				 if(item.calendar[0] != null){
 					 aux.classDayStudentId = item.calendar[0].oid;
 				 }				 
@@ -85,11 +85,12 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 			 } 		 
 		 });
 		 angular.forEach($scope.models[1].items, function(item){ 
-			 var aux = {idStudent:"", late:false};
+			 var aux = {studentId:"", late:false};
+			 aux.eventRegistrationType = "FALTA";
 			 if(item.calendar[0] != null){
 				 aux.classDayStudentId = item.calendar[0].oid;
 			 }
-			 aux.idStudent = item.oid;			 	
+			 aux.studentId = item.oid;			 	
 			 absences.push(aux);			 	 
 		 });
 		 console.log(absences)
@@ -106,6 +107,9 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 				  ngNotify.set('ERROR - Datos no guardados', 'error');
 			    // called asynchronously if an error occurs
 			    // or server returns response with an error status.
+			  }).error(function (data, status, header, config) {
+				  console.log(status);
+				  ngNotify.set('ERROR - Datos no cargados', 'error');
 			  });
 	 };
 	 

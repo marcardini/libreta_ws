@@ -18,6 +18,7 @@
 		<!-- <intercept-url pattern="/about" access="permitAll" requires-channel="https"/> -->
 		<intercept-url pattern="/*" access="isAuthenticated()"  />
 		<intercept-url pattern="/**" access="isAuthenticated()"  />
+		<intercept-url pattern="/main**" access="isAuthenticated()"/>
 		<!-- <intercept-url pattern="/fileUpload.jsp" access="hasRole('ADMIN')" 
 			/> -->
 		<!-- <intercept-url pattern="/dba**" access="hasRole('ADMIN') and hasRole('DBA')" 

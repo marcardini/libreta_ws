@@ -50,6 +50,7 @@ public class MainController {
 		return new ModelAndView("welcome", "message", message);
 	}
 	
+	
 	@RequestMapping(value = "/main/saveStudentDay", method = RequestMethod.POST)
 	public void SaveAbsences(@RequestBody List<StudentDayBean> events, HttpServletResponse response) {	
 		
