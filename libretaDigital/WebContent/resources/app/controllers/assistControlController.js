@@ -79,7 +79,7 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 				 aux.studentId = item.oid;
 				 aux.eventRegistrationType = "MEDIA_FALTA";
 				 if(item.calendar[0] != null){
-					 aux.classDayStudentId = item.calendar[0].oid;
+					 aux.oid = item.calendar[0].oid;
 				 }				 
 				 absences.push(aux);
 			 } 		 
@@ -88,7 +88,7 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 			 var aux = {studentId:"", late:false};
 			 aux.eventRegistrationType = "FALTA";
 			 if(item.calendar[0] != null){
-				 aux.classDayStudentId = item.calendar[0].oid;
+				 aux.oid = item.calendar[0].oid;
 			 }
 			 aux.studentId = item.oid;			 	
 			 absences.push(aux);			 	 
