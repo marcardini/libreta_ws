@@ -67,10 +67,8 @@ public class AssistControlController {
 		
 		//TEST GUARDAR BOLETIN
 		//bulletinService.generateBulletin(1L, start_date, end_date, 1L, 8, "buena conducta", false, 3);
-
 		
-		
-		
+				
 		try {
 			page.addObject("students", mapper.writeValueAsString(assistControlFacade.getStudentsAndTodaysAssistance("1A", "MATEMATICAS")));
 			page.addObject("groups", mapper.writeValueAsString(this.getGroupsByProfessor()));

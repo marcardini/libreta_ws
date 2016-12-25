@@ -17,7 +17,8 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 	
 	$scope.date = new Date();
 	$scope.students = [];
-	$scope.studentsAbsences = [];	
+	$scope.studentsAbsences = [];
+	$scope.oidStudentsIn = [];
 	angular.copy(studentsAbsences, $scope.studentsAbsences);
 	
 	//console.log($scope.studentsAbsences);
@@ -72,6 +73,66 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 	 };
 	 
 	 $scope.saveAbsences = function (){			 
+		 var absences = $scope.getAbsencesToSave();
+		 var deletes = [];
+		 deletes = $scope.getAbsencesToDelete(absences);
+		 console.log(absences);	
+		 console.log(deletes);	
+		 $http({
+			  method: 'POST',
+			  url: 'main/deleteStudentDay',
+			  data: deletes
+			}).success(function successCallback(response) {
+				blockUI.stop();
+//				ngNotify.set('Guardado corectamente', 'success');
+				$http({
+					  method: 'POST',
+					  url: 'main/saveStudentDay',
+					  data: absences
+					}).success(function successCallback(response) {
+						blockUI.stop();
+						ngNotify.set('Guardado corectamente', 'success');
+					    $scope.getAbsencesStudents();			   
+					  }, function errorCallback(response) {				  
+						  console.log(response);
+						  ngNotify.set('ERROR - Datos no guardados', 'error');
+					    // called asynchronously if an error occurs
+					    // or server returns response with an error status.
+					  }).error(function (data, status, header, config) {
+						  console.log(status);
+						  ngNotify.set('ERROR - Datos no cargados', 'error');
+					  });
+			    $scope.getAbsencesStudents();			   
+			  }, function errorCallback(response) {				  
+				  console.log(response);
+				  ngNotify.set('ERROR - Datos no Actualizados', 'error');
+			    // called asynchronously if an error occurs
+			    // or server returns response with an error status.
+			  }).error(function (data, status, header, config) {
+				  console.log(status);
+				  ngNotify.set('ERROR - Datos no Actualizados', 'error');
+			  });
+		 
+	 };
+	 
+	 $scope.deleteAbsences = function (absences){
+		 
+		 
+	 }
+	 
+	 $scope.getAbsencesToDelete = function (absences){
+		 var deletes = [];
+		 angular.forEach($scope.oidStudentsIn, function(studentDayId){ 
+			 angular.forEach(absences, function(absence){ 
+				 if(absence.oid != studentDayId){
+					 deletes.push(studentDayId);					 
+				 }
+			 }); 
+		 });
+		 return deletes;		 
+	 }
+	 
+	 $scope.getAbsencesToSave = function (){
 		 var absences = [];		 
 		 angular.forEach($scope.models[0].items, function(item){
 		 var aux = {studentId:"", late:false};
@@ -93,25 +154,8 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 			 aux.studentId = item.oid;			 	
 			 absences.push(aux);			 	 
 		 });
-		 console.log(absences)
-		 $http({
-			  method: 'POST',
-			  url: 'main/saveStudentDay',
-			  data: absences
-			}).success(function successCallback(response) {
-				blockUI.stop();
-				ngNotify.set('Guardado corectamente', 'success');
-			    $scope.getAbsencesStudents();			   
-			  }, function errorCallback(response) {				  
-				  console.log(response);
-				  ngNotify.set('ERROR - Datos no guardados', 'error');
-			    // called asynchronously if an error occurs
-			    // or server returns response with an error status.
-			  }).error(function (data, status, header, config) {
-				  console.log(status);
-				  ngNotify.set('ERROR - Datos no cargados', 'error');
-			  });
-	 };
+		 return absences;
+	 }
 	 
 	 $scope.getAbsencesStudents = function(){		
 		 $http.get('assistControl/studentsAbsences').success(function (data, status, headers, config) {			 
@@ -264,11 +308,12 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 	    	item.label =  $filter('capitalize')(item.name) +" "+ $filter('capitalize')(item.lastName);	    	
 	    	if(item.calendar != null && item.calendar.length > 0){	    		
 	    		if(item.calendar[0].eventRegistrationType === "FALTA" ){
-		    		$scope.models[1].items.push(item);
+		    		$scope.models[1].items.push(item);		    		
 		    	}else{
 		    		item.late = true;
 		    		$scope.models[0].items.push(item);
 		    	}
+	    		$scope.oidStudentsIn.push(item.calendar[0].oid);
 	    	}else{
 	    		item.late = false;
 	    		item.calendar = [];
