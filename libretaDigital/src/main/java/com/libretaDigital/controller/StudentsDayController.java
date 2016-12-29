@@ -19,6 +19,7 @@ import com.libretaDigital.beans.StudentDayBean;
 import com.libretaDigital.datatypes.StudentEventRegistration;
 import com.libretaDigital.entities.Professor;
 import com.libretaDigital.entities.Student;
+import com.libretaDigital.services.ProfessorServiceImpl;
 import com.libretaDigital.services.StudentServiceImpl;
 import com.libretaDigital.utils.EventRegistrationType;
 
@@ -29,6 +30,8 @@ public class StudentsDayController {
 	private StudentsDayFacadeImpl studentsDayFacade;
 	@Autowired
 	private StudentServiceImpl studentServiceImpl;
+	@Autowired
+	private ProfessorServiceImpl professorServiceImpl;
 	
 	private String groupCode;
 	private long professorId;
@@ -47,6 +50,7 @@ public class StudentsDayController {
 			page.addObject("students" , mapper.writeValueAsString(this.getStudentsFiles()));
 			List<EventRegistrationType> eventsRegistrationTypes = Arrays.asList(EventRegistrationType.values());
 			page.addObject("eventsRegistrationTypes" , mapper.writeValueAsString(eventsRegistrationTypes));
+			page.addObject("professors", mapper.writeValueAsString(this.getAllProfessors()));
 //			page.addObject("groups", mapper.writeValueAsString(this.getGroupsByProfessor()));
 //			page.addObject("studentsAbsences", mapper.writeValueAsString(this.getStudentsAbsencesByCode()));
 		} catch (JsonProcessingException e) {
@@ -59,6 +63,10 @@ public class StudentsDayController {
 	public List<Student> getStudentsFiles() {
 		//return studentsDayFacade.getStudentsFiles(mail, courseName, groupCode, year, subjectName)
 		return studentsDayFacade.getStudentsFiles(null, "1A", 2016, "MATEMATICAS");
+	}
+	
+	public List<Professor> getAllProfessors(){
+		return professorServiceImpl.getAllProfessors();
 	}
 	
 	public List<Student> getStudentsByCode() {

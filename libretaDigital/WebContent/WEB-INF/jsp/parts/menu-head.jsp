@@ -1,4 +1,5 @@
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page session="true"%>
 <%
 	String codMenu = (String) request.getAttribute("codMenu");
 	if (codMenu == null) {
@@ -12,7 +13,15 @@ var codMenu = "<%=codMenu%>";
 
 </script>
 
-
+<c:url value="/j_spring_security_logout" var="logoutUrl" />
+<form action="${logoutUrl}" method="post" id="logoutForm">
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+</form>
+<script>
+	function formSubmit() {
+		document.getElementById("logoutForm").submit();
+	}
+</script>
 
 <nav class=" navbar navbar-inverse navbar-fixed-top" ng-controller="menuCtrl">
 	<div class="container-fluid">
@@ -51,8 +60,10 @@ var codMenu = "<%=codMenu%>";
 						class="caret"></span></a>
 
 					<ul class="dropdown-menu">
-						<li class=""><a href="fileUpload.jsp">Mi Perfil</a></li>
-						<li><a href="#">Salir</a></li>						
+						<li class=""><a href="">Mi Perfil</a></li>
+						<c:if test="${pageContext.request.userPrincipal.name != null}">
+						<li><a href="javascript:formSubmit()">Salir</a></li>	
+						</c:if>					
 					</ul></li>
 <!-- 				        <li><a href="#"><span class="glyphicon glyphicon-user"></span>Registrarse</a></li> -->
 <!-- 				<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li> -->

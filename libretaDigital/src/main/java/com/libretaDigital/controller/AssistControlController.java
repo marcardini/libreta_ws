@@ -15,9 +15,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.libretaDigital.assistControl.AssistControlFacadeImpl;
 import com.libretaDigital.beans.StudentAbsencesBean;
 import com.libretaDigital.entities.Group;
+import com.libretaDigital.entities.Professor;
 import com.libretaDigital.entities.Student;
 import com.libretaDigital.services.BulletinServiceImpl;
 import com.libretaDigital.services.LoginServiceImpl;
+import com.libretaDigital.services.ProfessorServiceImpl;
 import com.libretaDigital.services.StudentServiceImpl;
 import com.libretaDigital.utils.DateConverter;
 
@@ -64,12 +66,11 @@ public class AssistControlController {
 		
 		//TEST GUARDAR BOLETIN
 		//bulletinService.generateBulletin(1L, start_date, end_date, 1L, 8, "buena conducta", false, 3);
-
 		
-		
-		
+				
 		try {
 			page.addObject("students", mapper.writeValueAsString(assistControlFacade.getStudentsAndTodaysAssistance("1A", "MATEMATICAS")));
+			
 			page.addObject("groups", mapper.writeValueAsString(this.getGroupsByProfessor()));
 			page.addObject("studentsAbsences", mapper.writeValueAsString(this.getStudentsAbsencesByCode()));
 		} catch (JsonProcessingException e) {
@@ -91,6 +92,8 @@ public class AssistControlController {
 
 		return studentsAbsences;
 	}
+	
+	
 
 	public List<Student> getStudentsByCode() {
 		return assistControlFacade.getStudentsByGroupCode(groupCode);

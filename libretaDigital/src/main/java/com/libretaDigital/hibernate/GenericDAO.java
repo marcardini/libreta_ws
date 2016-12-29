@@ -6,8 +6,10 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.libretaDigital.exceptions.SystemErrorException;
 import com.libretaDigital.interfaces.IGenericDAO;
@@ -58,7 +60,7 @@ public class GenericDAO<E> extends HibernateDaoSupport implements IGenericDAO<E>
 			
 			getHibernateTemplate().setCheckWriteOperations(false);
 			long timerOn = System.currentTimeMillis();
-			session = getHibernateTemplate().getSessionFactory().openSession();		
+			session = getHibernateTemplate().getSessionFactory().openSession();			
 			session.saveOrUpdate(inst);
 			session.flush();
 			long timerOff = System.currentTimeMillis();
@@ -107,11 +109,10 @@ public class GenericDAO<E> extends HibernateDaoSupport implements IGenericDAO<E>
 
 	public E getById(Long id) throws SystemErrorException {
 		getLogger().debug("getById");
-		
 		Session session = null;
 		try {
 			long timerOn = System.currentTimeMillis();
-			//E obj = (E) getHibernateTemplate().get(getGenericClass(), id);
+//			E obj = (E) getHibernateTemplate().get(getGenericClass(), id);
 			session = getHibernateTemplate().getSessionFactory().openSession();
 			E obj = (E) session.get(getGenericClass(), id);
 			long timerOff = System.currentTimeMillis();
@@ -132,13 +133,11 @@ public class GenericDAO<E> extends HibernateDaoSupport implements IGenericDAO<E>
 
 	public void delete(E inst) throws SystemErrorException {
 		getLogger().debug("delete");
-		
 		Session session = null;
 		try {
 			getHibernateTemplate().setCheckWriteOperations(false);
 			long timerOn = System.currentTimeMillis();
-
-			session = getHibernateTemplate().getSessionFactory().openSession();		
+			session = getHibernateTemplate().getSessionFactory().openSession();			
 			session.delete(inst);
 			session.flush();
 			long timerOff = System.currentTimeMillis();
@@ -158,7 +157,6 @@ public class GenericDAO<E> extends HibernateDaoSupport implements IGenericDAO<E>
 
 	public E merge(E inst) throws SystemErrorException {
 		getLogger().debug("merge");
-		
 		Session session = null;
 		try {
 			getHibernateTemplate().setCheckWriteOperations(false);
