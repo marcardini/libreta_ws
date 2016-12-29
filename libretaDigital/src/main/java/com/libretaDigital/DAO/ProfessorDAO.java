@@ -22,7 +22,7 @@ public class ProfessorDAO extends GenericDAO<Professor> implements IProfessorDAO
 
 					public List<Professor> doInHibernate(Session oSession) throws HibernateException {
 						Criteria oCriteria = oSession.createCriteria(Professor.class);
-						oCriteria.addOrder(Order.desc("email"));
+						oCriteria.addOrder(Order.desc("email"));						
 						return oCriteria.list();
 					}
 				});

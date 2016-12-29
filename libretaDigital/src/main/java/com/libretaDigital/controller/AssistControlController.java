@@ -16,9 +16,11 @@ import com.libretaDigital.assistControl.AssistControlFacadeImpl;
 import com.libretaDigital.beans.StudentAbsencesBean;
 import com.libretaDigital.entities.Bulletin;
 import com.libretaDigital.entities.Group;
+import com.libretaDigital.entities.Professor;
 import com.libretaDigital.entities.Student;
 import com.libretaDigital.services.BulletinServiceImpl;
 import com.libretaDigital.services.LoginServiceImpl;
+import com.libretaDigital.services.ProfessorServiceImpl;
 import com.libretaDigital.services.StudentServiceImpl;
 import com.libretaDigital.utils.DateConverter;
 
@@ -71,6 +73,7 @@ public class AssistControlController {
 				
 		try {
 			page.addObject("students", mapper.writeValueAsString(assistControlFacade.getStudentsAndTodaysAssistance("1A", "MATEMATICAS")));
+			
 			page.addObject("groups", mapper.writeValueAsString(this.getGroupsByProfessor()));
 			page.addObject("studentsAbsences", mapper.writeValueAsString(this.getStudentsAbsencesByCode()));
 		} catch (JsonProcessingException e) {
@@ -94,6 +97,8 @@ public class AssistControlController {
 
 		return studentsAbsences;
 	}
+	
+	
 
 	public List<Student> getStudentsByCode() {
 		return assistControlFacade.getStudentsByGroupCode(groupCode);

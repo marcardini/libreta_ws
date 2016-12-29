@@ -24,6 +24,7 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 	//console.log($scope.studentsAbsences);
 	console.log(students);
 	
+	
 	/* LISTAS */
 	
 	 $scope.models = [

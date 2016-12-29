@@ -15,6 +15,8 @@
 	if (students == null) {
 		students = "[]";
 	}
+	
+	
 
 	String groups = (String) request.getAttribute("groups");
 	if (groups == null) {
@@ -28,7 +30,7 @@
 %>
 
 <script type="text/javascript">
-	var students = <%=students%>;
+	var students = <%=students%>;	
 	var studentsAbsences = <%=studentsAbsences%>;
 	var groups = <%=groups%>;
 </script>

@@ -19,6 +19,8 @@ app.controller('studentsDayCtrl', ['$scope', '$filter', '$http', 'ngNotify', 'bl
 	$scope.calificateButton = true;
 	$scope.editCalfButton = false;
 	
+	console.log(professors);
+	
 	$scope.students = [];	
 	angular.copy(students, $scope.students);
 	

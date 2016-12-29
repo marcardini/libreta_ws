@@ -17,6 +17,11 @@
 		students = "[]";
 	}
 	
+	String professors = (String) request.getAttribute("professors");
+	if (professors == null) {
+		professors = "[]";
+	}
+	
 	String eventsRegistrationTypes = (String) request.getAttribute("eventsRegistrationTypes");
 	if (eventsRegistrationTypes == null) {
 		eventsRegistrationTypes = "[]";
@@ -25,6 +30,7 @@
 
 <script type="text/javascript">
 	var students = <%=students%>;
+	var professors = <%=professors%>;
 	var eventsRegistrationTypes = <%=eventsRegistrationTypes%>;
 </script>
 
@@ -72,7 +78,7 @@
 						<tr>
 							<th></th>
 							<th class="sort-header" st-sort="name">Nombre</th>
-							<th class="sort-header" st-sort="lastName">Apellido</th>
+							<th class="sort-header" st-sort-default="true" st-sort="lastName">Apellido</th>
 						</tr>
 					</thead>
 					<tbody>
