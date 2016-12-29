@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Required;
 import com.libretaDigital.exceptions.BuildLineException;
 import com.libretaDigital.interfaces.IFileParser;
 import com.libretaDigital.utils.Gender;
+import com.libretaDigital.utils.Grade;
 
 public class FileUploadProfessorParser implements IFileParser {
 
@@ -20,9 +21,11 @@ public class FileUploadProfessorParser implements IFileParser {
 
 	protected int gradeFieldLenght;
 
-	public FileUploadProfessorParser() {}
+	public FileUploadProfessorParser() {
+	}
 
-	public void beforeParseFile() {}
+	public void beforeParseFile() {
+	}
 
 	@Override
 	public FileLine parseLine(String line, FileUploadBlockManager manager) throws BuildLineException {
@@ -50,13 +53,16 @@ public class FileUploadProfessorParser implements IFileParser {
 		professorUploadLine.setGender(validateAndGetGenderField(fields[i], true, i));
 		i++;
 		professorUploadLine.setEmployeeSince(validateAndGetTimestampField(fields[i], true, 8, i));
+		i++;
+		professorUploadLine.setGrade(validateAndGetGradeField(fields[i], true, i));
 
 		professorUploadLine.setUpoloadProcessorId(UploadProcessorId.PROFESSOR);
 
 		return professorUploadLine;
 	}
 
-	private String validateAndGetStringField(String field, boolean checkIsEmpty, int checkLength, int index) throws BuildLineException {
+	private String validateAndGetStringField(String field, boolean checkIsEmpty, int checkLength, int index)
+			throws BuildLineException {
 
 		if (field != null) {
 
@@ -77,7 +83,8 @@ public class FileUploadProfessorParser implements IFileParser {
 		return field;
 	}
 
-	private Timestamp validateAndGetTimestampField(String field, boolean checkIsEmpty, int checkLength, int index) throws BuildLineException {
+	private Timestamp validateAndGetTimestampField(String field, boolean checkIsEmpty, int checkLength, int index)
+			throws BuildLineException {
 
 		Timestamp createdDate = null;
 
@@ -102,16 +109,18 @@ public class FileUploadProfessorParser implements IFileParser {
 				int day = Integer.parseInt(field.substring(0, 2));
 				int month = Integer.parseInt(field.substring(2, 4));
 				int year = Integer.parseInt(field.substring(4, 8));
-				/*int hour = Integer.parseInt(field.substring(8, 10));
-				/int minute = Integer.parseInt(field.substring(10, 12));
-				/int seconds = Integer.parseInt(field.substring(12, 14));*/
+				/*
+				 * int hour = Integer.parseInt(field.substring(8, 10)); /int
+				 * minute = Integer.parseInt(field.substring(10, 12)); /int
+				 * seconds = Integer.parseInt(field.substring(12, 14));
+				 */
 
 				Calendar calendar = Calendar.getInstance();
 
 				calendar.set(Calendar.YEAR, year);
 				calendar.set(Calendar.MONTH, month - 1);
 				calendar.set(Calendar.DAY_OF_MONTH, day);
-				
+
 				calendar.set(Calendar.HOUR_OF_DAY, 00);
 				calendar.set(Calendar.MINUTE, 00);
 				calendar.set(Calendar.SECOND, 00);
@@ -127,7 +136,7 @@ public class FileUploadProfessorParser implements IFileParser {
 	}
 
 	private Gender validateAndGetGenderField(String field, boolean checkIsEmpty, int index) throws BuildLineException {
-		
+
 		Gender gender = Gender.PENDING;
 		if (field != null) {
 
@@ -136,49 +145,95 @@ public class FileUploadProfessorParser implements IFileParser {
 			// Chequea vacio
 			if (checkIsEmpty && field.equals(""))
 				throw new BuildLineException(errorMsgs.get("emptyField") + index);
-			
-			if(field.equals("M"))
+
+			if (field.equals("M"))
 				gender = Gender.MALE;
-			
-			if(field.equals("F"))
+
+			if (field.equals("F"))
 				gender = Gender.FEMALE;
 		}
 		return gender;
 	}
 
+	private Grade validateAndGetGradeField(String field, boolean checkIsEmpty, int index) throws BuildLineException {
+
+		Grade grade = Grade.UNKNOWN;
+		if (field != null) {
+
+			field = field.trim();
+
+			// Chequea vacio
+			if (checkIsEmpty && field.equals(""))
+				throw new BuildLineException(errorMsgs.get("emptyField") + index);
+
+			if (field.equals("GRADE_1") || field.equals("GRADO_1"))
+				grade = Grade.GRADE_1;
+
+			if (field.equals("GRADE_2") || field.equals("GRADO_2"))
+				grade = Grade.GRADE_2;
+			
+			if (field.equals("GRADE_3") || field.equals("GRADO_3"))
+				grade = Grade.GRADE_3;
+			
+			if (field.equals("GRADE_4") || field.equals("GRADO_4"))
+				grade = Grade.GRADE_4;
+			
+			if (field.equals("GRADE_5") || field.equals("GRADO_5"))
+				grade = Grade.GRADE_5;
+			
+			if (field.equals("GRADE_6") || field.equals("GRADO_6"))
+				grade = Grade.GRADE_6;
+			
+			if (field.equals("GRADE_7") || field.equals("GRADO_7"))
+				grade = Grade.GRADE_7;
+			
+		}
+		return grade;
+	}
+
 	public String getSplitChar() {
 		return splitChar;
 	}
+
 	@Required
 	public void setSplitChar(String splitChar) {
 		this.splitChar = splitChar;
 	}
+
 	public String getFieldsInvalidMsg() {
 		return fieldsInvalidMsg;
 	}
+
 	@Required
 	public void setFieldsInvalidMsg(String fieldsInvalidMsg) {
 		this.fieldsInvalidMsg = fieldsInvalidMsg;
 	}
+
 	public HashMap<String, String> getErrorMsgs() {
 		return errorMsgs;
 	}
+
 	public void setErrorMsgs(HashMap<String, String> errorMsgs) {
 		this.errorMsgs = errorMsgs;
 	}
+
 	public String getSubClassSplitChar() {
 		return subClassSplitChar;
 	}
+
 	public void setSubClassSplitChar(String subClassSplitChar) {
 		this.subClassSplitChar = subClassSplitChar;
 	}
+
 	@Override
 	public String getBlockSizeParameterName() {
 		return null;
 	}
+
 	public int getGradeFieldLenght() {
 		return gradeFieldLenght;
 	}
+
 	public void setGradeFieldLenght(int gradeFieldLenght) {
 		this.gradeFieldLenght = gradeFieldLenght;
 	}

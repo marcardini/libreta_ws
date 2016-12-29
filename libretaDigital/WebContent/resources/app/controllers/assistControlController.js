@@ -79,7 +79,7 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 				 aux.idStudent = item.oid;
 				 aux.late = item.late;
 				 if(item.calendar[0] != null){
-					 aux.classDayStudentId = item.calendar[0].oid;
+					 aux.oid = item.calendar[0].oid;
 				 }				 
 				 absences.push(aux);
 			 } 		 
@@ -87,7 +87,7 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 		 angular.forEach($scope.models[1].items, function(item){ 
 			 var aux = {idStudent:"", late:false};
 			 if(item.calendar[0] != null){
-				 aux.classDayStudentId = item.calendar[0].oid;
+				 aux.oid = item.calendar[0].oid;
 			 }
 			 aux.idStudent = item.oid;			 	
 			 absences.push(aux);			 	 

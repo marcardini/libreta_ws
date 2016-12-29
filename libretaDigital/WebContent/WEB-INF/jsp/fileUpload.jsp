@@ -55,9 +55,9 @@
 			</div>
 
 			<div class="col-md-8">
-				<h3>Informacion</h3>
+				<h3>Información</h3>
 				<div class="panel panel-default">
-					<div class="panel-body">Panel Content</div>
+					<div class="panel-body">Información de carga - no disponible</div>
 				</div>
 			</div>
 		</div>

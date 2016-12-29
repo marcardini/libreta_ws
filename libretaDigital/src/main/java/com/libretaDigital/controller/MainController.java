@@ -55,7 +55,6 @@ public class MainController {
 		
 		//PARA PROBAR EL METODO DE LOGIN
 		Professor user = loginService.validateUser("maria.tarigo@gmail.com", "admin");
-		
 		System.out.println("El usuario " + user.getEmail() + " ha sido logueado.");
 			
 		try{

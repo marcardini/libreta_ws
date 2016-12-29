@@ -51,7 +51,7 @@ public class AssistControlTest {
 		testGroup = new Group("testGroup", 1);
 		groupDAO.save(testGroup);
 		
-		testStudent = new Student("testStudentName", "testStudentLastName", testGroup);
+		//testStudent = new Student("testStudentName", "testStudentLastName", testGroup);
 		studentDAO.save(testStudent);
 		
 		Long studentId = studentDAO.getStudentByMail(testStudent.getEmail()).getOid().longValue();

@@ -14,13 +14,13 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.libretaDigital.assistControl.AssistControlFacadeImpl;
 import com.libretaDigital.beans.StudentAbsencesBean;
-import com.libretaDigital.entities.Bulletin;
 import com.libretaDigital.entities.Group;
 import com.libretaDigital.entities.Student;
 import com.libretaDigital.services.BulletinServiceImpl;
 import com.libretaDigital.services.LoginServiceImpl;
 import com.libretaDigital.services.StudentServiceImpl;
 import com.libretaDigital.utils.DateConverter;
+
 
 @Controller
 public class AssistControlController {
@@ -50,9 +50,6 @@ public class AssistControlController {
 		page.addObject("codMenu", "C1");
 		page.addObject("codMenu", "G1");
 		
-		
-		
-		
 		Timestamp start_date = null;
 		Timestamp end_date = null;
 		try {
@@ -76,7 +73,6 @@ public class AssistControlController {
 			page.addObject("groups", mapper.writeValueAsString(this.getGroupsByProfessor()));
 			page.addObject("studentsAbsences", mapper.writeValueAsString(this.getStudentsAbsencesByCode()));
 		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return page;
@@ -90,7 +86,6 @@ public class AssistControlController {
 		try {
 			studentsAbsences = mapper.writeValueAsString(this.getStudentsAbsencesByCode());
 		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

@@ -6,10 +6,8 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.libretaDigital.exceptions.SystemErrorException;
 import com.libretaDigital.interfaces.IGenericDAO;
@@ -24,7 +22,8 @@ public class GenericDAO<E> extends HibernateDaoSupport implements IGenericDAO<E>
 	
 	public Serializable save(E inst) throws SystemErrorException {
 		getLogger().debug("save");
-
+		
+		Session session = null;
 		if (processors != null)
 			for (PreProcessor<E> pp : processors)
 				inst = pp.process(inst);
@@ -40,12 +39,17 @@ public class GenericDAO<E> extends HibernateDaoSupport implements IGenericDAO<E>
 		} catch (DataAccessException e) {
 			getLogger().error(e.getLocalizedMessage(), e);
 			throw new SystemErrorException(e.getLocalizedMessage());
+		}finally{
+			if(session != null){
+				session.close();
+			}
 		}
 	}
 	
 	public void update(E inst) throws SystemErrorException {
 		getLogger().debug("update");
 
+		Session session = null;
 		if (processors != null)
 			for (PreProcessor<E> pp : processors)
 				inst = pp.process(inst);
@@ -54,7 +58,7 @@ public class GenericDAO<E> extends HibernateDaoSupport implements IGenericDAO<E>
 			
 			getHibernateTemplate().setCheckWriteOperations(false);
 			long timerOn = System.currentTimeMillis();
-			Session session = getHibernateTemplate().getSessionFactory().openSession();			
+			session = getHibernateTemplate().getSessionFactory().openSession();		
 			session.saveOrUpdate(inst);
 			session.flush();
 			long timerOff = System.currentTimeMillis();
@@ -63,6 +67,10 @@ public class GenericDAO<E> extends HibernateDaoSupport implements IGenericDAO<E>
 		} catch (DataAccessException e) {
 			getLogger().error(e.getLocalizedMessage(), e);
 			throw new SystemErrorException(e.getLocalizedMessage());
+		}finally{
+			if(session != null){
+				session.close();
+			}
 		}
 	}
 
@@ -70,15 +78,18 @@ public class GenericDAO<E> extends HibernateDaoSupport implements IGenericDAO<E>
 	public void saveOrUpdate(E inst) throws SystemErrorException {
 		getLogger().debug("saveOrUpdate");
 
+		Session session = null;
 		if (processors != null)
 			for (PreProcessor<E> pp : processors)
 				inst = pp.process(inst);
 
 		try {
 			
+			session = getHibernateTemplate().getSessionFactory().openSession();
 			getHibernateTemplate().setCheckWriteOperations(false);
 			long timerOn = System.currentTimeMillis();
-			Session session = getHibernateTemplate().getSessionFactory().openSession();			
+
+			session = getHibernateTemplate().getSessionFactory().openSession();			
 			session.saveOrUpdate(inst);
 			session.flush();
 			long timerOff = System.currentTimeMillis();
@@ -87,15 +98,22 @@ public class GenericDAO<E> extends HibernateDaoSupport implements IGenericDAO<E>
 		} catch (DataAccessException e) {
 			getLogger().error(e.getLocalizedMessage(), e);
 			throw new SystemErrorException(e.getLocalizedMessage());
+		}finally{
+			if(session != null){
+				session.close();
+			}
 		}
 	}
 
 	public E getById(Long id) throws SystemErrorException {
 		getLogger().debug("getById");
-
+		
+		Session session = null;
 		try {
 			long timerOn = System.currentTimeMillis();
-			E obj = (E) getHibernateTemplate().get(getGenericClass(), id);
+			//E obj = (E) getHibernateTemplate().get(getGenericClass(), id);
+			session = getHibernateTemplate().getSessionFactory().openSession();
+			E obj = (E) session.get(getGenericClass(), id);
 			long timerOff = System.currentTimeMillis();
 
 			getLogger().info(
@@ -105,16 +123,22 @@ public class GenericDAO<E> extends HibernateDaoSupport implements IGenericDAO<E>
 		} catch (DataAccessException e) {
 			getLogger().error(e.getLocalizedMessage(), e);
 			throw new SystemErrorException(e.getLocalizedMessage());
+		}finally{
+			if(session != null){
+				session.close();
+			}
 		}
 	}
 
 	public void delete(E inst) throws SystemErrorException {
 		getLogger().debug("delete");
-
+		
+		Session session = null;
 		try {
 			getHibernateTemplate().setCheckWriteOperations(false);
 			long timerOn = System.currentTimeMillis();
-			Session session = getHibernateTemplate().getSessionFactory().openSession();			
+
+			session = getHibernateTemplate().getSessionFactory().openSession();		
 			session.delete(inst);
 			session.flush();
 			long timerOff = System.currentTimeMillis();
@@ -125,16 +149,23 @@ public class GenericDAO<E> extends HibernateDaoSupport implements IGenericDAO<E>
 		} catch (DataAccessException e) {
 			getLogger().error(e.getLocalizedMessage(), e);
 			throw new SystemErrorException(e.getLocalizedMessage());
+		}finally{
+			if(session != null){
+				session.close();
+			}
 		}
 	}
 
 	public E merge(E inst) throws SystemErrorException {
 		getLogger().debug("merge");
-
+		
+		Session session = null;
 		try {
 			getHibernateTemplate().setCheckWriteOperations(false);
 			long timerOn = System.currentTimeMillis();
-			E obj = (E) getHibernateTemplate().merge(inst);
+			//E obj = (E) getHibernateTemplate().merge(inst);
+			session = getHibernateTemplate().getSessionFactory().openSession();
+			E obj = (E) session.merge(inst);
 			long timerOff = System.currentTimeMillis();
 
 			getLogger().info(
@@ -144,6 +175,10 @@ public class GenericDAO<E> extends HibernateDaoSupport implements IGenericDAO<E>
 		} catch (DataAccessException e) {
 			getLogger().error(e.getLocalizedMessage(), e);
 			throw new SystemErrorException(e.getLocalizedMessage());
+		}finally{
+			if(session != null){
+				session.close();
+			}
 		}
 	}
 

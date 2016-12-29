@@ -25,7 +25,7 @@ public class FileUploadLine extends FileLine{
 	
 	//Student
 	private Course course;
-	private Group group;
+	private Long groupId;
 	private boolean currentStudent;
 	
 	//Group
@@ -90,12 +90,6 @@ public class FileUploadLine extends FileLine{
 	public void setCourse(Course course) {
 		this.course = course;
 	}
-	public Group getGroup() {
-		return group;
-	}
-	public void setGroup(Group group) {
-		this.group = group;
-	}
 	public boolean isCurrentStudent() {
 		return currentStudent;
 	}
@@ -125,5 +119,11 @@ public class FileUploadLine extends FileLine{
 	}
 	public void setInstitutionId(Long institutionId) {
 		this.institutionId = institutionId;
+	}
+	public Long getGroupId() {
+		return groupId;
+	}
+	public void setGroupId(Long groupId) {
+		this.groupId = groupId;
 	}
 }

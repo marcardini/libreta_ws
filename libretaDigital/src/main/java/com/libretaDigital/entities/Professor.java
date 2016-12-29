@@ -39,6 +39,14 @@ public class Professor extends Person implements Serializable{
         this.employeeSince = employeeSince;
     }
 	
+	public Professor(String name, String lastName, Date birthDate, Gender gender, String email, String password, Grade grade, Date employeeSince, Role role){
+		super(name, lastName, birthDate, gender, email);
+        this.password = password;
+        this.grade = grade;
+        this.employeeSince = employeeSince;
+        this.role = role;
+    }
+	
 	public boolean validatePassword(String password) {
 		return password.length() > 4 && password.length() < 20;
 	}

@@ -35,26 +35,51 @@ public class FileUploadStudentParser implements IFileParser {
 
 	protected FileUploadLine buildStudentLine(String[] fields) throws BuildLineException {
 
-		FileUploadLine professorUploadLine = new FileUploadLine();
+		FileUploadLine studentUploadLine = new FileUploadLine();
 
 		int i = 0;
-		professorUploadLine.setName(validateAndGetStringField(fields[i], true, 255, i));
+		studentUploadLine.setName(validateAndGetStringField(fields[i], true, 255, i));
 		i++;
-		professorUploadLine.setLastName(validateAndGetStringField(fields[i], true, 255, i));
+		studentUploadLine.setLastName(validateAndGetStringField(fields[i], true, 255, i));
 		i++;
-		professorUploadLine.setBirthDate(validateAndGetTimestampField(fields[i], true, 8, i));
+		studentUploadLine.setBirthDate(validateAndGetTimestampField(fields[i], true, 8, i));
 		i++;
-		professorUploadLine.setGender(validateAndGetGenderField(fields[i], true, i));
+		studentUploadLine.setGender(validateAndGetGenderField(fields[i], true, i));
 		i++;
-		professorUploadLine.setEmail(validateAndGetStringField(fields[i], true, 255, i));
+		studentUploadLine.setEmail(validateAndGetStringField(fields[i], true, 255, i));
 		i++;
-		professorUploadLine.setCurrentStudent(validateAndGetBooleanField(fields[i], true, 1, i));
+		studentUploadLine.setCurrentStudent(validateAndGetBooleanField(fields[i], true, 1, i));
+		i++;
+		studentUploadLine.setGroupName(validateAndGetStringField(fields[i], true, 100, i));
+		i++;
+		studentUploadLine.setYear(validateAndGetYearField(fields[i], true, 4, i));
 
-		professorUploadLine.setUpoloadProcessorId(UploadProcessorId.STUDENT);
+		studentUploadLine.setUpoloadProcessorId(UploadProcessorId.STUDENT);
 
-		return professorUploadLine;
+		return studentUploadLine;
 	}
 
+	private int validateAndGetYearField(String field, boolean checkIsEmpty, int checkLength, int index) throws BuildLineException {
+
+		if (field != null) {
+
+			field = field.trim();
+
+			// Chequea vacio
+			if (checkIsEmpty && field.equals(""))
+				throw new BuildLineException(errorMsgs.get("emptyField") + index);
+			
+			// Chequea largo
+			if (checkLength > 0 && field.length() > checkLength)
+				throw new BuildLineException(errorMsgs.get("invalidLengthField") + index);
+			
+		} else {
+			throw new BuildLineException(errorMsgs.get("nullField") + index);
+		}
+
+		return Integer.parseInt(field);
+	}
+	
 	private String validateAndGetStringField(String field, boolean checkIsEmpty, int checkLength, int index) throws BuildLineException {
 
 		if (field != null) {

@@ -15,7 +15,7 @@ public class Student extends Person implements Serializable{
 	private static final long serialVersionUID = -6696037101000500210L;
 	
 	private Course course;
-	private Group group;
+	private Long groupId;
 	private List<ClassDayStudent> calendar;
 	private boolean currentStudent;
 	
@@ -25,31 +25,30 @@ public class Student extends Person implements Serializable{
 		super(name, lastName);
 	}
 	
-	public Student(String name, String lastName, Group group){
+	public Student(String name, String lastName, Long groupId){
 		super(name, lastName);
-		this.group = group;
+		this.groupId = groupId;
 	}
+	
+	public Student(String name, String lastName, Date birthDate, Image photo, Gender gender, String email){
+		super(name, lastName, birthDate, photo, gender, email);
+    }
 	
 	public Student(String name, String lastName, Date birthDate, Gender gender, String email, boolean currentStudent){
 		super(name, lastName, birthDate, gender, email);
 		this.currentStudent = currentStudent;
     }
 	
-	public Student(String name, String lastName, Date birthDate, Image photo, Gender gender, String email){
-		super(name, lastName, birthDate, photo, gender, email);
-    }
-	
-	public Student(Course course, Group group, boolean current, String name, String lastName, Date birthDate, Gender gender, String email){
+	public Student(String name, String lastName, Date birthDate, Gender gender, String email, boolean current, Long groupId){
 		super(name, lastName, birthDate, gender, email);
-		this.course = course;
-		this.group = group;
+		this.groupId = groupId;
 		this.currentStudent = current;
 	}
 	
-	public Student(Course course, Group group, boolean current, String name, String lastName, Date birthDate, Gender gender, String email, Image photo){
+	public Student(Course course, Long groupId, boolean current, String name, String lastName, Date birthDate, Gender gender, String email, Image photo){
 		super(name, lastName, birthDate, photo, gender, email);
 		this.course = course;
-		this.group = group;
+		this.groupId = groupId;
 		this.currentStudent = current;
 	}
 
@@ -61,13 +60,7 @@ public class Student extends Person implements Serializable{
 		this.course = course;
 	}
 
-	public Group getGroup() {
-		return group;
-	}
 
-	public void setGroup(Group group) {
-		this.group = group;
-	}
 
 	public List<ClassDayStudent> getCalendar() {
 		return calendar;
@@ -83,6 +76,14 @@ public class Student extends Person implements Serializable{
 
 	public void setCurrentStudent(boolean currentStudent) {
 		this.currentStudent = currentStudent;
+	}
+
+	public Long getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(Long groupId) {
+		this.groupId = groupId;
 	}
 
 }

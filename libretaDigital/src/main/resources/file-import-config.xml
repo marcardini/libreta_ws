@@ -111,7 +111,9 @@
 		 <property name="professorDAO" ref="professorDAO"/>
 		 <property name="studentDAO" ref="studentDAO"/>
 		 <property name="groupDAO" ref="groupDAO"/>
+		 <property name="roleDAO" ref="roleDAO"/>
 		 <property name="defaultPassword" value="${uploader.defaultpassword}" />
+		 <property name="defaultRoleName" value="${uploader.defaultRoleName}" />
 	</bean>
 	
 	<bean id="libretaDigital.upload.transactionProcessor" class="com.libretaDigital.fileupload.TransactionProcessorImpl">

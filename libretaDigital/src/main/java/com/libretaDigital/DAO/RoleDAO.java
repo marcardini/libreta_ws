@@ -2,7 +2,6 @@ package com.libretaDigital.DAO;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -13,12 +12,10 @@ import org.springframework.orm.hibernate5.HibernateCallback;
 
 import com.libretaDigital.hibernate.GenericDAO;
 import com.libretaDigital.interfaces.IRoleDAO;
-import com.libretaDigital.utils.Gender;
 import com.libretaDigital.entities.Permission;
 import com.libretaDigital.entities.PermissionType;
 import com.libretaDigital.entities.Privilege;
 import com.libretaDigital.entities.Role;
-import com.libretaDigital.entities.Student;
 
 public class RoleDAO extends GenericDAO<Role> implements IRoleDAO {
 
@@ -126,5 +123,33 @@ public class RoleDAO extends GenericDAO<Role> implements IRoleDAO {
 			result.add(privilege);
 		}
 		return result;
+	}
+	
+	@Override
+	public Role getRoleByName(String roleName) {
+
+		@SuppressWarnings("unchecked")
+		Role role = (Role) getHibernateTemplate().execute(new HibernateCallback<Object>() {
+
+			Role result = new Role();
+
+			public Role doInHibernate(Session oSession) throws HibernateException {
+
+				String oQuery = "select r.oid, r.name from roles r where r.name = :roleName";
+
+				SQLQuery query = oSession.createSQLQuery(oQuery);
+
+				query.setString("roleName", roleName);
+
+				List<Object[]> partialResult = query.list();
+
+				if (partialResult != null && !partialResult.isEmpty())
+					result = getRoleFromPartialResult(partialResult);
+
+				return result;
+			}
+		});
+
+		return role;
 	}
 }

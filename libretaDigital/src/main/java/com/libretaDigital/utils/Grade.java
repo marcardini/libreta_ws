@@ -2,6 +2,7 @@ package com.libretaDigital.utils;
 
 public enum Grade {
 	
+	UNKNOWN,
 	GRADE_1,
 	GRADE_2,
 	GRADE_3,

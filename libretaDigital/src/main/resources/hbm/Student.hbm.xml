@@ -30,5 +30,7 @@
 		
 		<property name="currentStudent" type="boolean" />
 		
+		<property name="groupId" column="group_id" type="long" />
+		
 	</class>
 </hibernate-mapping>

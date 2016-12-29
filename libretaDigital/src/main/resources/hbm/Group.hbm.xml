@@ -14,11 +14,11 @@
 
 		<property name="year" type="int" />
 
-		<list name="studentsList" table="student" fetch="join" cascade="all,delete-orphan">
-			<key column="group_id" />
-			<list-index column="index_students" />
-			<one-to-many class="com.libretaDigital.entities.Student" />
-		</list>
+<!-- 		<list name="studentsList" table="student" fetch="join" cascade="all,delete-orphan"> -->
+<!-- 			<key column="group_id" /> -->
+<!-- 			<list-index column="index_students" /> -->
+<!-- 			<one-to-many class="com.libretaDigital.entities.Student" /> -->
+<!-- 		</list> -->
 
 <!-- 		<list name="periodsList" table="period" fetch="join" cascade="all,delete-orphan"> -->
 <!-- 			<key column="group_id" /> -->
