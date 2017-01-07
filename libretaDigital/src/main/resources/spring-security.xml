@@ -26,10 +26,7 @@
 		<logout logout-success-url="/login?logout" logout-url="/j_spring_security_logout" />
 <!-- 			<logout logout-success-url="/login?logout" logout-url="/logout" /> -->
 		<form-login authentication-failure-url="/login?error" login-page="/login" password-parameter="password" username-parameter="username"
-		 			default-target-url="/"   login-processing-url="/j_spring_security_check"
-		 			authentication-success-handler-ref="customAuthenticationSuccessHandler"
-					authentication-failure-handler-ref="customAuthenticationFailureHandler"
-		/>
+		 			default-target-url="/"   login-processing-url="/j_spring_security_check"/>
 <!-- 		<form-login authentication-failure-url="/login?error" login-page="/login" password-parameter="password" username-parameter="username" /> -->
 		
 
@@ -42,17 +39,13 @@
 
 
 
-<!-- 	<authentication-manager> -->
-<!-- 		<authentication-provider> -->
-<!-- 			<user-service> -->
-<!-- 				<user name="user" password="pass" authorities="ADMIN" /> -->
-<!-- 			</user-service> -->
-<!-- 		</authentication-provider> -->
-<!-- 	</authentication-manager> -->
-
-<authentication-manager alias="authenticationManager">
-		<authentication-provider user-service-ref="userService"/>
-</authentication-manager>
+	<authentication-manager>
+		<authentication-provider>
+			<user-service>
+				<user name="user" password="pass" authorities="ADMIN" />
+			</user-service>
+		</authentication-provider>
+	</authentication-manager>
 
 </beans:beans>
 	 

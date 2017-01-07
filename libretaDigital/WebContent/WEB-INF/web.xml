@@ -33,7 +33,7 @@ version="3.1">
 
 	<filter-mapping>
 		<filter-name>springSecurityFilterChain</filter-name>
-		 <url-pattern>/*</url-pattern>
+		 <url-pattern>/**</url-pattern>
         <dispatcher>REQUEST</dispatcher>
 
         <!-- apply Spring Security authentication to error-pages -->
