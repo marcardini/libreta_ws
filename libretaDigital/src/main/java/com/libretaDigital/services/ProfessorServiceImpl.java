@@ -38,6 +38,17 @@ public class ProfessorServiceImpl implements IProfessorService{
 			professorDAO.save(dtProfessor);
 		}
 	}
+	
+	@Override
+	public void deleteProfessors(List<Long> items) {
+		
+		for (Long oid : items) {
+			Professor prof = professorDAO.getById(oid);
+			if(prof != null){
+				professorDAO.delete(prof);
+			}
+		}
+	}
 
 	public ProfessorDAO getProfessorDAO() {
 		return professorDAO;
@@ -54,4 +65,6 @@ public class ProfessorServiceImpl implements IProfessorService{
 	public void setEncoder(MessageDigestPasswordEncoder encoder) {
 		this.encoder = encoder;
 	}
+
+	
 }

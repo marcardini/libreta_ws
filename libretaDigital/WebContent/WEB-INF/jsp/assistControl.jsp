@@ -57,7 +57,7 @@
 				<div class="col-md-8">
 					<h1>
 						Control de Asistencias <small>Grupo 4°A : Matematicas </small>
-						<button id="btn-save" class="btn btn-lg btn-danger" ng-click="saveAbsences()">Guardar</button>
+						<button id="btn-save" class="btn btn-lg btn-success" ng-click="saveAbsences()">Guardar</button>
 					</h1>
 				</div>
 				<div class="col-md-4">

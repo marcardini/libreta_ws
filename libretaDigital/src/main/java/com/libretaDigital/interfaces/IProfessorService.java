@@ -9,5 +9,7 @@ public interface IProfessorService {
 	List<Professor> getAllProfessors();
 
 	void addProfessor(Professor dtProfessor) throws ProfessorAlreadyExists, InvalidProfessorInformation;
+
+	void deleteProfessors(List<Long> items);
 	
 }
