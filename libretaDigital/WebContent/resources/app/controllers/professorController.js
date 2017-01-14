@@ -82,24 +82,36 @@ app.controller('professorCtrl', ['$scope','$http','ngNotify','blockUI',	function
 
 			}
 
-			$scope.addProfessors = function() {
-				var esta = false;
-				for (var i = 0; i < $scope.professorss.length; i++) {
-					if ($scope.professors[i].oid == $scope.professors.id) {
-						$scope.professor.name = $scope.professor.name
-								.toUpperCase();
-						$scope.professors[i] = angular.copy($scope.professors);
-						esta = true;
-						$scope.professor = {};
-					}
-				}
-				if (!esta) {
-					$scope.professor.oid = i + 1;
-					$scope.professors.push($scope.professors);
-					$scope.professor = {};
-				}
-				$scope.reset();
-				$scope.professorsDisplayed = [].concat($scope.professors);
+			$scope.addProfessor = function() {
+				console.log($scope.Profesor);
+				var professors = [];
+				professors.push($scope.professor);
+				$http({
+					  method: 'POST',
+					  url: '/data/saveProfessors',
+					  data: professors
+					}).success(function successCallback(response) {
+						blockUI.stop();
+						ngNotify.set('Guardado corectamente', 'success');
+					    $scope.getProfessors();			   
+					  }, function errorCallback(response) {				  
+						  console.log(response);
+						  ngNotify.set('ERROR - Datos no guardados', 'error');
+					    // called asynchronously if an error occurs
+					    // or server returns response with an error status.
+					  }).error(function (data, status, header, config) {
+						  console.log(status);
+						  ngNotify.set('ERROR - Datos no cargados', 'error');
+					  });
 			}
+			
+			$scope.getProfessors = function(){		
+				 $http.get('data/profesors').success(function (data, status, headers, config) {			 
+					   conole.log(data);			   
+					  }).error(function (data, status, header, config) {
+						  console.log(status);
+						  ngNotify.set('ERROR - Datos no cargados', 'error');
+					  });
+			 };
 
 }]);

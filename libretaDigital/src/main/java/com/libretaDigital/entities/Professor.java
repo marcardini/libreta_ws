@@ -4,8 +4,13 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import com.libretaDigital.utils.*;
 
+@JsonAutoDetect
+@JsonIgnoreProperties
 public class Professor extends Person implements Serializable{
 	
 	private static final long serialVersionUID = -6377924630397322562L;

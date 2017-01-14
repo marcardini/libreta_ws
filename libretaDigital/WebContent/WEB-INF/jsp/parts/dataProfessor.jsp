@@ -19,7 +19,7 @@
 						<label for="Name">Apellido:</label>
 						<div>
 							<input type="text" name="Name" class="form-control" ng-change="clearMsg()"
-								placeholder="Apellido" ng-model="professor.name" ng-model-options="{ updateOn: 'blur' }"></input>
+								placeholder="Apellido" ng-model="professor.lastName" ng-model-options="{ updateOn: 'blur' }"></input>
 						</div>
 					</div>
 

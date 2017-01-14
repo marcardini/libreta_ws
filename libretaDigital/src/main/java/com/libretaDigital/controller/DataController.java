@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -26,7 +27,7 @@ public class DataController {
 	private ObjectMapper mapper = new ObjectMapper();
 	
 	@RequestMapping(value = "/data", method = RequestMethod.GET)
-	public ModelAndView FileUpload() {
+	public ModelAndView data() {
 		ModelAndView page = new ModelAndView("data");
 		page.addObject("tituloPagina", "Libreta Digital - Carga de Datos");
 		page.addObject("codMenu", "D2");
@@ -42,6 +43,19 @@ public class DataController {
 		return page;
 	}
 	
+	@RequestMapping(value = "/data/professors", method = RequestMethod.GET)
+	@ResponseBody
+	public String Professors() {
+		String professors = "[]";
+		try {
+			professors = mapper.writeValueAsString(this.getAllProfessors());
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+
+		return professors;
+	}
+	
 	@RequestMapping(value = "/data/deleteProfessor", method = RequestMethod.POST)
 	public void DeleteProfessor(@RequestBody List<Long> items, HttpServletResponse response) {
 		
@@ -51,8 +65,19 @@ public class DataController {
 		}catch (Exception e) {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
+	}
+	
+	@RequestMapping(value = "/data/saveProfessors", method = RequestMethod.POST)
+	public void saveProfessor(@RequestBody List<Professor> items, HttpServletResponse response) {
 		
-		
+		try{			
+			for (Professor professor : items) {
+				professorServiceImpl.addProfessor(professor);
+			}
+			response.setStatus(HttpServletResponse.SC_OK);
+		}catch (Exception e) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	
