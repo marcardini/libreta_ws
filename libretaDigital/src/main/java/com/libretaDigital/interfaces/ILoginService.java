@@ -6,4 +6,6 @@ public interface ILoginService {
 
 	Professor validateUser(String mail, String password);
 	
+	void saveUser(Professor user);
+	
 }

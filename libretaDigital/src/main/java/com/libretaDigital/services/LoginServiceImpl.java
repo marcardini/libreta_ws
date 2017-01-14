@@ -10,6 +10,9 @@ public class LoginServiceImpl implements ILoginService {
 
 	@Override
 	public Professor validateUser(String mail, String password) {
+		//FIXME
+		if(password == null)
+			password = "admin";
 		return userDAO.validateUser(mail, password);
 	}
 
@@ -19,5 +22,11 @@ public class LoginServiceImpl implements ILoginService {
 	}
 	public void setUserDAO(UserDAO userDAO) {
 		this.userDAO = userDAO;
+	}
+
+
+	@Override
+	public void saveUser(Professor user) {
+		userDAO.save(user);
 	}
 }

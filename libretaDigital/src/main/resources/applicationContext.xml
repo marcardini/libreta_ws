@@ -21,9 +21,19 @@
 	<bean name="genericDAO" class="com.libretaDigital.hibernate.GenericDAO">
 		<property name="sessionFactory" ref="hibernateSessionFactory" />
 	</bean>
-
+	
 	<bean id="professorDAO" class="com.libretaDigital.DAO.ProfessorDAO"
 		parent="genericDAO" />
+		
+	<bean name="userService" class="com.libretaDigital.services.UserServiceImpl">
+		<property name="professorDAO" ref="professorDAO" />
+		<property name="loginService" ref="loginService" />
+	</bean>
+	
+	<bean name="loginController" class="com.libretaDigital.controller.LoginController">
+		<property name="loginService" ref="loginService" />
+<!-- 		<property name="userService" ref="userService" /> -->
+	</bean>
 		
 	<bean id="roleDAO" class="com.libretaDigital.DAO.RoleDAO"
 		parent="genericDAO" />
