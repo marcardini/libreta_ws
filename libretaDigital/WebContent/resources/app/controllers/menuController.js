@@ -8,6 +8,10 @@ app.controller('menuCtrl', [ '$scope', '$http', function($scope, $http) {
 		$scope.datos = "active";
 		$scope.datos1 = "active";
 		break;
+	case "D2":
+		$scope.datos = "active";
+		$scope.datos2 = "active";
+		break;
 	case "G1":
 		$scope.group = "active";
 		$scope.group1 = "active";

@@ -17,6 +17,13 @@
 		<intercept-url pattern="/*" access="isAuthenticated()"  />
 		<intercept-url pattern="/**" access="isAuthenticated()"  />
 		<intercept-url pattern="/main**" access="isAuthenticated()"/>
+
+		<intercept-url pattern="/data**" access="isAuthenticated()"/>
+		
+		<!-- <intercept-url pattern="/fileUpload.jsp" access="hasRole('ADMIN')" 
+			/> -->
+		<!-- <intercept-url pattern="/dba**" access="hasRole('ADMIN') and hasRole('DBA')" 
+			/> -->
 		<logout logout-success-url="/login?logout" logout-url="/j_spring_security_logout" />
 		<form-login authentication-failure-url="/login?error" login-page="/login" password-parameter="password" username-parameter="username"
 		 			default-target-url="/" login-processing-url="/j_spring_security_check"/>

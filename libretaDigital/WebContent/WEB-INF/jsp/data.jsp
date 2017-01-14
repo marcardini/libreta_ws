@@ -11,7 +11,18 @@
 	if (pageTitle == null) {
 		pageTitle = "Libreta Digital";
 	}
+
+	String professors = (String) request.getAttribute("professors");
+	if (professors == null) {
+		professors = "[]";
+	}
 %>
+
+<script type="text/javascript">
+	var professors =
+<%=professors%>
+	;
+</script>
 
 <title><%=pageTitle%></title>
 <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -19,13 +30,11 @@
 <link rel="stylesheet" href="bower_components/angular-block-ui/dist/angular-block-ui.min.css">
 <link rel="stylesheet" href="bower_components/angular-percent-circle-directive/dist/percent-circle.css">
 <link rel="stylesheet" href="bower_components/angularjs-slider/dist/rzslider.min.css"/>
-<link rel="stylesheet" href="resources/css/style.css">es/css/style.css">
+<link rel="stylesheet" href="resources/css/style.css">e.css">
 
 </head>
 
-
-<body ng-controller="">
-
+<body>
 	<jsp:include page="/WEB-INF/jsp/parts/menu-head.jsp" />
 
 	<div class="container block-ui-main" block-ui="main">
@@ -34,11 +43,10 @@
 			<div class="row">
 				<div class="col-md-8">
 					<h1>
-						Gestion de Datos <small></small>						
+						Gestion de Datos <small></small>
 					</h1>
 				</div>
 				<div class="col-md-4">
-
 					<h1>
 						<small class="date-small"> {{date | date:'dd-MM-yyyy'}}</small>
 
@@ -47,21 +55,16 @@
 			</div>
 		</div>
 
-		<br> <br>
-		<div style="font-family: verdana; padding: 10px; border-radius: 10px; font-size: 12px; text-align: center;">
 
-			Spring MCV Tutorial by <a href="http://crunchify.com">Crunchify</a>. Click <a
-				href="http://crunchify.com/category/java-web-development-tutorial/" target="_blank">here</a> for all Java
-			and <a href='http://crunchify.com/category/spring-mvc/' target='_blank'>here</a> for all Spring MVC, Web
-			Development examples.<br>
+
+		<div class="content-wrapper">
+			
+				<jsp:include page="/WEB-INF/jsp/parts/dataProfessor.jsp" />
+			
 		</div>
 	</div>
+
 </body>
-
-
-
-
 <jsp:include page="/WEB-INF/jsp/parts/scripts.jsp" />
-
-
+<script src="resources/app/controllers/professorController.js"></script>
 </html>

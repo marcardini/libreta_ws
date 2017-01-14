@@ -38,10 +38,10 @@ var codMenu = "<%=codMenu%>";
 				<li class="dropdown {{datos}}"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Gestión de datos<span	class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li class="{{datos1}}"><a href="fileUpload.jsp">Carga Masiva</a></li>
-						<li><a href="#">Docentes</a></li>
-						<li><a href="#">Alumnos</a></li>
-						<li><a href="#">Grupos</a></li>
-						<li><a href="#">Programa</a></li>
+						<li class="{{datos2}}"><a href="data.jsp">Carga de Datos</a></li>
+<!-- 						<li><a href="#">Alumnos</a></li> -->
+<!-- 						<li><a href="#">Grupos</a></li> -->
+<!-- 						<li><a href="#">Programa</a></li> -->
 					</ul>
 				</li>					
 					
