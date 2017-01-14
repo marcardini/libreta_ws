@@ -88,7 +88,7 @@ app.controller('professorCtrl', ['$scope','$http','ngNotify','blockUI',	function
 				professors.push($scope.professor);
 				$http({
 					  method: 'POST',
-					  url: '/data/saveProfessors',
+					  url: 'data/saveProfessors',
 					  data: professors
 					}).success(function successCallback(response) {
 						blockUI.stop();
