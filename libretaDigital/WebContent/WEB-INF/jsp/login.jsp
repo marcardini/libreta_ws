@@ -39,7 +39,6 @@
 							
 						<button class="btn btn-lg btn-primary btn-block" type="submit" value="Login">Ingresar</button>
 
-
 						<label class="checkbox pull-left"> <input type="checkbox" value="remember-me">Recordarme
 						</label> <a href="#" class="pull-right need-help">Ayuda</a> <span class="clearfix"></span>
 					</form>

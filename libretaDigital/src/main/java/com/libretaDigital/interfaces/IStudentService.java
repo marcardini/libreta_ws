@@ -19,8 +19,6 @@ public interface IStudentService {
 	
 	List<Student> getStudentsFiles(String mail, String groupCode, int year, String subjectName);
 
-	
-
-	
+	void deleteStudents(List<Long> items);
 	
 }

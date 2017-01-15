@@ -14,15 +14,24 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.libretaDigital.entities.Group;
 import com.libretaDigital.entities.Professor;
-
+import com.libretaDigital.entities.Student;
+import com.libretaDigital.services.GroupServiceImpl;
 import com.libretaDigital.services.ProfessorServiceImpl;
+import com.libretaDigital.services.StudentServiceImpl;
 
 @Controller
 public class DataController {
 	
 	@Autowired
 	private ProfessorServiceImpl professorServiceImpl;
+	
+	@Autowired
+	private StudentServiceImpl studentServiceImpl;
+	
+	@Autowired
+	private GroupServiceImpl groupServiceImpl;
 	
 	private ObjectMapper mapper = new ObjectMapper();
 	
@@ -34,12 +43,12 @@ public class DataController {
 		
 		try {
 			page.addObject("professors", mapper.writeValueAsString(this.getAllProfessors()));
+			page.addObject("students", mapper.writeValueAsString(this.getAllStudents()));
+			page.addObject("groups", mapper.writeValueAsString(this.getAllGroups()));
 		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+	
 		return page;
 	}
 	
@@ -83,5 +92,130 @@ public class DataController {
 	
 	public List<Professor> getAllProfessors(){
 		return professorServiceImpl.getAllProfessors();
+	}
+	
+	
+	
+	
+	/*****/
+	
+	
+	
+	@RequestMapping(value = "/data/groups", method = RequestMethod.GET)
+	@ResponseBody
+	public String Groups() {
+		String groups = "[]";
+		try {
+			groups = mapper.writeValueAsString(this.getAllGroups());
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+
+		return groups;
+	}
+	
+	@RequestMapping(value = "/data/deleteGroup", method = RequestMethod.POST)
+	public void DeleteGroup(@RequestBody List<Long> items, HttpServletResponse response) {
+		
+		try{			
+			groupServiceImpl.deleteGroups(items);	
+			response.setStatus(HttpServletResponse.SC_OK);
+		}catch (Exception e) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@RequestMapping(value = "/data/saveGroups", method = RequestMethod.POST)
+	public void saveGroup(@RequestBody List<Group> items, HttpServletResponse response) {
+		
+		try{			
+			for (Group group : items) {
+				groupServiceImpl.addGroup(group);
+			}
+			response.setStatus(HttpServletResponse.SC_OK);
+		}catch (Exception e) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	
+	public List<Group> getAllGroups(){
+		return groupServiceImpl.getAllGroups();
+	}
+	
+	
+	
+	
+/*****/
+	
+	
+	
+	@RequestMapping(value = "/data/students", method = RequestMethod.GET)
+	@ResponseBody
+	public String Students() {
+		String students = "[]";
+		try {
+			students = mapper.writeValueAsString(this.getAllStudents());
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+
+		return students;
+	}
+	
+	@RequestMapping(value = "/data/deleteStudent", method = RequestMethod.POST)
+	public void DeleteStudent(@RequestBody List<Long> items, HttpServletResponse response) {
+		
+		try{			
+			studentServiceImpl.deleteStudents(items);	
+			response.setStatus(HttpServletResponse.SC_OK);
+		}catch (Exception e) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@RequestMapping(value = "/data/saveStudents", method = RequestMethod.POST)
+	public void saveStudent(@RequestBody List<Student> items, HttpServletResponse response) {
+		
+		try{			
+			for (Student student : items) {
+				studentServiceImpl.addStudent(student);
+			}
+			response.setStatus(HttpServletResponse.SC_OK);
+		}catch (Exception e) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	
+	public List<Student> getAllStudents(){
+		return studentServiceImpl.getAllStudents();
+	}
+	
+	
+	
+
+	public StudentServiceImpl getStudentServiceImpl() {
+		return studentServiceImpl;
+	}
+
+	public void setStudentServiceImpl(StudentServiceImpl studentServiceImpl) {
+		this.studentServiceImpl = studentServiceImpl;
+	}
+
+	public ProfessorServiceImpl getProfessorServiceImpl() {
+		return professorServiceImpl;
+	}
+
+	public void setProfessorServiceImpl(ProfessorServiceImpl professorServiceImpl) {
+		this.professorServiceImpl = professorServiceImpl;
+	}
+
+	public GroupServiceImpl getGroupServiceImpl() {
+		return groupServiceImpl;
+	}
+
+	public void setGroupServiceImpl(GroupServiceImpl groupServiceImpl) {
+		this.groupServiceImpl = groupServiceImpl;
 	}
 }

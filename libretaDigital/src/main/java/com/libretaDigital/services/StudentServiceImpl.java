@@ -9,6 +9,7 @@ import org.springframework.security.authentication.encoding.MessageDigestPasswor
 import com.libretaDigital.DAO.*;
 import com.libretaDigital.datatypes.StudentEventRegistration;
 import com.libretaDigital.entities.ClassDayStudent;
+import com.libretaDigital.entities.Professor;
 import com.libretaDigital.entities.Student;
 import com.libretaDigital.exceptions.*;
 import com.libretaDigital.interfaces.*;
@@ -58,6 +59,17 @@ public class StudentServiceImpl implements IStudentService{
 
 			}
 		
+	}
+	
+	@Override
+	public void deleteStudents(List<Long> items) {
+		
+		for (Long oid : items) {
+			Student stud = studentDAO.getById(oid);
+			if(stud != null){
+				studentDAO.delete(stud);
+			}
+		}
 	}
 	
 	@Override

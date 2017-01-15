@@ -79,7 +79,14 @@ version="3.1">
         <servlet-name>libretaDigital</servlet-name>       
     		<url-pattern>/data/deleteProfessor</url-pattern>  
     		<url-pattern>/data/saveProfessors</url-pattern>  
-    		<url-pattern>/data/professors</url-pattern> 		
+    		<url-pattern>/data/professors</url-pattern>
+    		<url-pattern>/data/deleteStudent</url-pattern>  
+    		<url-pattern>/data/saveStudents</url-pattern>  
+    		<url-pattern>/data/students</url-pattern>
+    		<url-pattern>/data/deleteGroup</url-pattern>  
+    		<url-pattern>/data/saveGroups</url-pattern>  
+    		<url-pattern>/data/groups</url-pattern>
+    				
     </servlet-mapping>
      
 </web-app>
