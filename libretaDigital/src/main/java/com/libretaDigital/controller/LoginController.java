@@ -74,7 +74,7 @@ public class LoginController extends SimpleUrlAuthenticationFailureHandler imple
 
 		userService.saveUser(user);
 
-		response.sendRedirect("home");
+		response.sendRedirect("index");
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)

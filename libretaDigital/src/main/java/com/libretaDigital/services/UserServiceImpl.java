@@ -17,7 +17,7 @@ import com.libretaDigital.entities.Professor;
 
 @Service("userService")
 @Transactional(readOnly = true)
-public class UserServiceImpl implements UserDetailsService{
+public class UserServiceImpl implements  UserDetailsService{
 
 	@Autowired
 	private ProfessorDAO professorDAO;
@@ -27,6 +27,7 @@ public class UserServiceImpl implements UserDetailsService{
 	
 	public UserServiceImpl(){}
 
+	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Professor user = loginService.validateUser(username, null);
 
@@ -43,7 +44,7 @@ public class UserServiceImpl implements UserDetailsService{
 		 authorities.add(new SimpleGrantedAuthority("ADMIN"));
 		 
 		 return new org.springframework.security.core.userdetails.User(professor.getEmail(), professor.getPassword(), true,
-				true, true, false, authorities);
+				true, true, true, authorities);
 		
 	}
 
@@ -53,6 +54,8 @@ public class UserServiceImpl implements UserDetailsService{
 		//user.setLastLoginDate(new Date());
 		professorDAO.save(user);
 	}
+
+	
 
 	
 	public Professor getUser(String username) {
