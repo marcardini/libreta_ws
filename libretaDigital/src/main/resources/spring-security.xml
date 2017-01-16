@@ -13,7 +13,7 @@
 		<intercept-url pattern="/logout" access="permitAll" />
 		<intercept-url pattern="/parts**" access="permitAll" />
 
-		<intercept-url pattern="/welcome.jsp" access="permitAll" />
+<!-- 		<intercept-url pattern="/welcome.jsp" access="permitAll" /> -->
 		<intercept-url pattern="/*" access="isAuthenticated()" />
 		<intercept-url pattern="/**" access="isAuthenticated()" />
 		<intercept-url pattern="/main**" access="isAuthenticated()" />
@@ -32,12 +32,12 @@
 	
 
 	<authentication-manager alias="authenticationManager">
-	<authentication-provider user-service-ref="userService"/>
+	<authentication-provider user-service-ref="userService">
 <!-- 	<authentication-provider>		 -->
 <!-- 		<user-service>			 -->
 <!-- 			<user name="user" password="pass" authorities="ADMIN" />			 -->
 <!-- 		</user-service>		 -->
-<!-- 	</authentication-provider> -->
+	</authentication-provider>
 	</authentication-manager>
 
 </beans:beans>

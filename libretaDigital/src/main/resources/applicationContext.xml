@@ -12,7 +12,9 @@
 	<import resource="classpath:file-import-config.xml" />
 	<import resource="classpath:assist-control-config.xml" />
 	<import resource="classpath:students-day-config.xml" />
+	<import resource="classpath:main-config.xml" />
 	<import resource="classpath:spring-security.xml" />
+	
 
 	<context:property-placeholder
 		location="classpath:database.properties, classpath:uploader.properties"
@@ -23,15 +25,9 @@
 	</bean>
 	
 	<bean id="professorDAO" class="com.libretaDigital.DAO.ProfessorDAO"
-		parent="genericDAO" />
-		
-	<bean name="userService" class="com.libretaDigital.services.UserServiceImpl">
-		<property name="professorDAO" ref="professorDAO" />
-		<property name="loginService" ref="loginService" />
-	</bean>
+		parent="genericDAO" />	
 	
 	<bean name="loginController" class="com.libretaDigital.controller.LoginController">
-		<property name="loginService" ref="loginService" />
 <!-- 		<property name="userService" ref="userService" /> -->
 	</bean>
 		
@@ -79,12 +75,22 @@
 		<property name="classDayStudentDAO" ref="classDayStudentDAO" />
 		<property name="encoder" ref="md5Encoder" />
 	</bean>
+	
+	<bean id="userService" class="com.libretaDigital.services.UserServiceImpl">
+		<property name="professorDAO" ref="professorDAO" />
+		<property name="userDAO" ref="userDAO" />			
+	</bean>
+	
+<!-- 	<bean id="mainController" class="com.libretaDigital.controller.MainController"> -->
+<!-- 		<property name="studentService" ref="studentService" /> -->
+<!-- 		<property name="userService" ref="userService" /> -->
+<!-- 	</bean> -->
 
 	<bean id="groupService" class="com.libretaDigital.services.GroupServiceImpl">
 		<property name="groupDAO" ref="groupDAO" />
 		<property name="encoder" ref="md5Encoder" />
 	</bean>
-
+	
 	<bean id="dateconverter" class="com.libretaDigital.utils.DateConverter" />
 		
 	<util:list id="libretadigital.mapping.resources">

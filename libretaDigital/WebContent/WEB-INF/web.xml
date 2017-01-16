@@ -52,6 +52,7 @@ version="3.1">
 		<url-pattern>/studentsDay.jsp</url-pattern>
 		<url-pattern>/data.jsp</url-pattern>
         <url-pattern>/welcome.jsp</url-pattern>
+        <url-pattern>/index.jsp</url-pattern>
     </servlet-mapping>    
     
 <!--     MAPEO DE CARGA MASIVA -->
