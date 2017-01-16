@@ -44,13 +44,14 @@
 
 	
 
-	<authentication-manager alias="authenticationManager">
-	<authentication-provider user-service-ref="userService"/>
-<!-- 	<authentication-provider>		 -->
-<!-- 		<user-service>			 -->
-<!-- 			<user name="user" password="pass" authorities="ADMIN" />			 -->
-<!-- 		</user-service>		 -->
+ 	<authentication-manager alias="authenticationManager">
+	<authentication-provider user-service-ref="userService">
+ <!-- 	<authentication-provider>		 -->
+ <!-- 		<user-service>			 -->
+ <!-- 			<user name="user" password="pass" authorities="ADMIN" />			 -->
+ <!-- 		</user-service>		 -->
+<!-- 	</authentication-provider> -->
 	</authentication-provider>
-	</authentication-manager>
+ 	</authentication-manager>
 
 </beans:beans>

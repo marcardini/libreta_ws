@@ -1,8 +1,5 @@
-<div class="panel panel-primary" ng-controller="professorCtrl">
-	<div class="panel-heading">
-		<h3 class="panel-title">PROFESORES</h3>
-	</div>
-	<div class="panel-body">
+
+	<div class="panel-body" ng-controller="professorCtrl">
 		<div class="row">
 
 			<div class="col-md-6">
@@ -85,5 +82,4 @@
 		<!-- FIN ROW  -->
 	</div>
 	<!-- FIN PANEL-BODY  -->
-</div>
-<!-- FIN PANEL -->
+
