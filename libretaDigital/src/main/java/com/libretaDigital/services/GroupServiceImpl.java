@@ -6,6 +6,7 @@ import org.springframework.security.authentication.encoding.MessageDigestPasswor
 
 import com.libretaDigital.DAO.*;
 import com.libretaDigital.entities.Group;
+import com.libretaDigital.entities.Student;
 import com.libretaDigital.exceptions.*;
 import com.libretaDigital.interfaces.*;
 
@@ -24,6 +25,17 @@ public class GroupServiceImpl implements IGroupService{
 			throw new GroupAlreadyExists();
 				
 		groupDAO.save(dtGroup);
+	}
+	
+	@Override
+	public void deleteGroups(List<Long> items) {
+		
+		for (Long oid : items) {
+			Group group = groupDAO.getById(oid);
+			if(group != null){
+				groupDAO.delete(group);
+			}
+		}
 	}
 
 	public MessageDigestPasswordEncoder getEncoder() {

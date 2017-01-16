@@ -16,11 +16,28 @@
 	if (professors == null) {
 		professors = "[]";
 	}
+	
+	String students = (String) request.getAttribute("students");
+	if (students == null) {
+		students = "[]";
+	}
+	
+	String groups = (String) request.getAttribute("groups");
+	if (groups == null) {
+		groups = "[]";
+	}
 %>
 
 <script type="text/javascript">
 	var professors =
 <%=professors%>
+	
+	var students =
+<%=students%>
+	;
+	
+	var groups =
+<%=groups%>
 	;
 </script>
 
@@ -60,6 +77,8 @@
 		<div class="content-wrapper">
 			
 				<jsp:include page="/WEB-INF/jsp/parts/dataProfessor.jsp" />
+				<jsp:include page="/WEB-INF/jsp/parts/dataStudent.jsp" />
+				<jsp:include page="/WEB-INF/jsp/parts/dataGroup.jsp" />
 			
 		</div>
 	</div>
@@ -67,4 +86,6 @@
 </body>
 <jsp:include page="/WEB-INF/jsp/parts/scripts.jsp" />
 <script src="resources/app/controllers/professorController.js"></script>
+<script src="resources/app/controllers/studentController.js"></script>
+<script src="resources/app/controllers/groupController.js"></script>
 </html>
