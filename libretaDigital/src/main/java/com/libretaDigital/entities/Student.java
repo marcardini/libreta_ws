@@ -1,6 +1,5 @@
 package com.libretaDigital.entities;
 
-import java.awt.Image;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -30,7 +29,7 @@ public class Student extends Person implements Serializable{
 		this.groupId = groupId;
 	}
 	
-	public Student(String name, String lastName, Date birthDate, Image photo, Gender gender, String email){
+	public Student(String name, String lastName, Date birthDate, byte[] photo, Gender gender, String email){
 		super(name, lastName, birthDate, photo, gender, email);
     }
 	
@@ -45,7 +44,7 @@ public class Student extends Person implements Serializable{
 		this.currentStudent = current;
 	}
 	
-	public Student(Course course, Long groupId, boolean current, String name, String lastName, Date birthDate, Gender gender, String email, Image photo){
+	public Student(Course course, Long groupId, boolean current, String name, String lastName, Date birthDate, Gender gender, String email, byte[] photo){
 		super(name, lastName, birthDate, photo, gender, email);
 		this.course = course;
 		this.groupId = groupId;
@@ -55,35 +54,25 @@ public class Student extends Person implements Serializable{
 	public Course getCourse() {
 		return course;
 	}
-
 	public void setCourse(Course course) {
 		this.course = course;
 	}
-
-
-
 	public List<ClassDayStudent> getCalendar() {
 		return calendar;
 	}
-
 	public void setCalendar(List<ClassDayStudent> calendar) {
 		this.calendar = calendar;
 	}
-
 	public boolean getCurrentStudent() {
 		return currentStudent;
 	}
-
 	public void setCurrentStudent(boolean currentStudent) {
 		this.currentStudent = currentStudent;
 	}
-
 	public Long getGroupId() {
 		return groupId;
 	}
-
 	public void setGroupId(Long groupId) {
 		this.groupId = groupId;
 	}
-
 }

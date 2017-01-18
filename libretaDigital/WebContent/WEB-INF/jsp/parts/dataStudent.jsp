@@ -28,7 +28,19 @@
 							id="email" placeholder="Email" ng-model="student.email" ng-model-options="{ updateOn: 'blur' }">
 					</div>
 
-					
+					<div class="form-group">
+						<label for="Photo">Imagen</label>
+							
+						<form action="api/upload" class="my-drop-zone drop-zone dropzone"
+							dropzone="" id="dropzone">
+							<div class="dz-default dz-message"></div>
+							<div class="dz-progress">
+								<span class="dz-upload" data-dz-uploadprogress></span>
+							</div>
+						</form>
+					</div>
+
+
 					<div class="form-group text-right">
 						<button class="btn btn-success " name="Add" value="Submit" ng-click="addStudent()" ng-disabled="studentForm.$invalid && addButton"  ng-show="!editButton">Agregar</button>
 						<button class="btn btn-md btn-warning" ng-click="addStudent()" ng-show="editButton">Modificar</button>

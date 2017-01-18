@@ -1,6 +1,5 @@
 package com.libretaDigital.entities;
 
-import java.awt.Image;
 import java.util.Date;
 
 import com.libretaDigital.utils.Gender;
@@ -11,9 +10,10 @@ public abstract class Person {
 	private String name;
 	private String lastName;
 	private Date birthDate;
-	private Image photo;
+	private byte[] photo;
 	private Gender gender;
 	private String email;
+	
 	
 	public Person(){}
 	
@@ -29,7 +29,7 @@ public abstract class Person {
 		this.gender = gender;
 	}
 	
-	public Person(String name, String lastName, Date birthDate, Image photo, Gender gender, String email){
+	public Person(String name, String lastName, Date birthDate, byte[] photo, Gender gender, String email){
 		this.name = name;
 		this.lastName = lastName;
 		this.birthDate = birthDate;
@@ -85,12 +85,6 @@ public abstract class Person {
 	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
 	}
-	public Image getPhoto() {
-		return photo;
-	}
-	public void setPhoto(Image photo) {
-		this.photo = photo;
-	}
 	public Gender getGender() {
 		return gender;
 	}
@@ -103,14 +97,16 @@ public abstract class Person {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 	public Long getOid() {
 		return oid;
 	}
-
 	public void setOid(Long oid) {
 		this.oid = oid;
 	}
-
-
+	public byte[] getPhoto() {
+		return photo;
+	}
+	public void setPhoto(byte[] photo) {
+		this.photo = photo;
+	}
 }
