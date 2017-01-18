@@ -12,25 +12,28 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import com.libretaDigital.DAO.ProfessorDAO;
+import com.libretaDigital.DAO.UserDAO;
 import com.libretaDigital.entities.Professor;
 
 @Service("userService")
-@Transactional(readOnly = true)
-public class UserServiceImpl implements  UserDetailsService{
+//@Service("customUserDetailsService")
+//@Transactional(readOnly = true)
+public class UserServiceImpl implements UserDetailsService{
 
 	@Autowired
 	private ProfessorDAO professorDAO;
 	
 	@Autowired
-	private LoginServiceImpl loginService;
+	private UserDAO userDAO;
 	
 	public UserServiceImpl(){}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Professor user = loginService.validateUser(username, null);
-
+		Professor user = this.validateUser(username, null);
+		
 		if (user == null) {
 			throw new UsernameNotFoundException("Invalid username or password");
 		}
@@ -47,25 +50,15 @@ public class UserServiceImpl implements  UserDetailsService{
 				true, true, true, authorities);
 		
 	}
-
-	@Transactional(readOnly = false)
-	public void saveLastLoginDate(String username) {
-		Professor user = professorDAO.getProfessorByMail(username);
-		//user.setLastLoginDate(new Date());
-		professorDAO.save(user);
-	}
-
-	
-
 	
 	public Professor getUser(String username) {
 		return professorDAO.getProfessorByMail(username);
 	}
 
-	@Transactional(readOnly = false)
-	public void saveUser(Professor user) {
-		professorDAO.save(user);
-	}
+//	@Transactional(readOnly = false)
+//	public void saveUser(Professor user) {
+//		professorDAO.save(user);
+//	}
 
 	public ProfessorDAO getProfessorDAO() {
 		return professorDAO;
@@ -73,13 +66,19 @@ public class UserServiceImpl implements  UserDetailsService{
 
 	public void setProfessorDAO(ProfessorDAO professorDAO) {
 		this.professorDAO = professorDAO;
+	}	
+	
+	public Professor validateUser(String mail, String password) {
+		//FIXME
+		if(password == null)
+			password = "admin";
+		return userDAO.validateUser(mail, password);
 	}
-
-	public LoginServiceImpl getLoginService() {
-		return loginService;
+	
+	public UserDAO getUserDAO() {
+		return userDAO;
 	}
-
-	public void setLoginService(LoginServiceImpl loginService) {
-		this.loginService = loginService;
+	public void setUserDAO(UserDAO userDAO) {
+		this.userDAO = userDAO;
 	}
 }

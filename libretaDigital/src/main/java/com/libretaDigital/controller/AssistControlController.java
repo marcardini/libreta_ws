@@ -18,7 +18,6 @@ import com.libretaDigital.entities.Group;
 import com.libretaDigital.entities.Professor;
 import com.libretaDigital.entities.Student;
 import com.libretaDigital.services.BulletinServiceImpl;
-import com.libretaDigital.services.LoginServiceImpl;
 import com.libretaDigital.services.ProfessorServiceImpl;
 import com.libretaDigital.services.StudentServiceImpl;
 import com.libretaDigital.utils.DateConverter;
@@ -36,8 +35,7 @@ public class AssistControlController {
 
 	
 	//ESTE BEAN ESTA ACA SOLO PARA PROBAR. BORRAR DESPUES
-	@Autowired
-	private LoginServiceImpl loginService;
+
 	@Autowired
 	private BulletinServiceImpl bulletinService;
 	
@@ -131,15 +129,7 @@ public class AssistControlController {
 		this.professorId = professorId;
 	}
 
-	public LoginServiceImpl getLoginService() {
-		return loginService;
-	}
-
-	public void setLoginService(LoginServiceImpl loginService) {
-		this.loginService = loginService;
-	}
-
-
+	
 	public StudentServiceImpl getStudentServiceImpl() {
 		return studentServiceImpl;
 	}

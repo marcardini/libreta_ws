@@ -16,12 +16,12 @@
 	if (professors == null) {
 		professors = "[]";
 	}
-	
+
 	String students = (String) request.getAttribute("students");
 	if (students == null) {
 		students = "[]";
 	}
-	
+
 	String groups = (String) request.getAttribute("groups");
 	if (groups == null) {
 		groups = "[]";
@@ -31,11 +31,10 @@
 <script type="text/javascript">
 	var professors =
 <%=professors%>
-	
 	var students =
 <%=students%>
 	;
-	
+
 	var groups =
 <%=groups%>
 	;
@@ -46,8 +45,9 @@
 <link rel="stylesheet" href="bower_components/ng-notify/dist/ng-notify.min.css">
 <link rel="stylesheet" href="bower_components/angular-block-ui/dist/angular-block-ui.min.css">
 <link rel="stylesheet" href="bower_components/angular-percent-circle-directive/dist/percent-circle.css">
-<link rel="stylesheet" href="bower_components/angularjs-slider/dist/rzslider.min.css"/>
-<link rel="stylesheet" href="resources/css/style.css">e.css">
+<link rel="stylesheet" href="bower_components/angularjs-slider/dist/rzslider.min.css" />
+<link rel="stylesheet" href="resources/css/style.css">
+e.css">
 
 </head>
 
@@ -74,17 +74,43 @@
 
 
 
-		<div class="content-wrapper">
+		<div class="content-wrapper" ng-controller="dataCtrl">
+
+			<uib-accordion close-others="oneAtATime">
 			
-				<jsp:include page="/WEB-INF/jsp/parts/dataProfessor.jsp" />
-				<jsp:include page="/WEB-INF/jsp/parts/dataStudent.jsp" />
-				<jsp:include page="/WEB-INF/jsp/parts/dataGroup.jsp" />
+				<div uib-accordion-group class="panel-primary" is-open="status.isProfessorsOpen" template-url="">
+					<uib-accordion-heading>PROFESORES<i class="pull-right glyphicon"
+						ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
+					</uib-accordion-heading>
+					<jsp:include page="/WEB-INF/jsp/parts/dataProfessor.jsp" />
+				</div>
+
+				<div uib-accordion-group class="panel-primary" is-open="status.isStudentsOpen" template-url="">
+					<uib-accordion-heading>ESTUDIANTES<i class="pull-right glyphicon"
+						ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
+					</uib-accordion-heading>
+					<jsp:include page="/WEB-INF/jsp/parts/dataStudent.jsp" />
+				</div>
+
+				<div uib-accordion-group class="panel-primary" is-open="status.isGroupsOpen" template-url="">
+					<uib-accordion-heading>GRUPOS<i class="pull-right glyphicon"
+						ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
+					</uib-accordion-heading>
+					<jsp:include page="/WEB-INF/jsp/parts/dataGroup.jsp" />
+				</div>
+
+			</uib-accordion>
+
+
 			
+			
+
 		</div>
 	</div>
 
 </body>
 <jsp:include page="/WEB-INF/jsp/parts/scripts.jsp" />
+<script src="resources/app/controllers/dataController.js"></script>
 <script src="resources/app/controllers/professorController.js"></script>
 <script src="resources/app/controllers/studentController.js"></script>
 <script src="resources/app/controllers/groupController.js"></script>
