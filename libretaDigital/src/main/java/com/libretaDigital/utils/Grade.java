@@ -1,5 +1,8 @@
 package com.libretaDigital.utils;
 
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+
+@JsonAutoDetect
 public enum Grade {
 	
 	UNKNOWN,

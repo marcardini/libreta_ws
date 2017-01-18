@@ -51,7 +51,7 @@ app.controller('professorCtrl', ['$scope','$http','ngNotify','blockUI',	function
 				items.push(item.oid);
 				$http({
 					method : 'POST',
-					url : 'main/deleteProfessor',
+					url : 'data/deleteProfessor',
 					data : items
 				}).success(function successCallback(response) {
 					blockUI.stop();

@@ -1,5 +1,8 @@
 package com.libretaDigital.utils;
 
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+
+@JsonAutoDetect
 public enum Gender {
 	
 	/*We base ourselves in the Humans rights Commission of Nueva York to develop the list of genders*/
