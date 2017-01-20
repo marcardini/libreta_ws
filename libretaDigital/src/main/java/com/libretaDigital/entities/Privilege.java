@@ -2,6 +2,11 @@ package com.libretaDigital.entities;
 
 import java.io.Serializable;
 
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+@JsonAutoDetect
+@JsonIgnoreProperties
 public class Privilege implements Serializable{
 
 	private static final long serialVersionUID = 7197375468903305761L;

@@ -3,8 +3,13 @@ package com.libretaDigital.entities;
 import java.awt.Image;
 import java.util.Date;
 
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import com.libretaDigital.utils.Gender;
 
+@JsonAutoDetect
+@JsonIgnoreProperties
 public abstract class Person {
 	
 	private Long oid;

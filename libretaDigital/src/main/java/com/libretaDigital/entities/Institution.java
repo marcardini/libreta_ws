@@ -3,6 +3,11 @@ package com.libretaDigital.entities;
 import java.io.Serializable;
 import java.util.List;
 
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+@JsonAutoDetect
+@JsonIgnoreProperties
 public class Institution implements Serializable{
 
 	private static final long serialVersionUID = -6207875716963653205L;

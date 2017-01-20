@@ -3,7 +3,11 @@ package com.libretaDigital.entities;
 import java.io.Serializable;
 import java.util.List;
 
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
+@JsonAutoDetect
+@JsonIgnoreProperties
 public class Course implements Serializable{
 
 	private static final long serialVersionUID = -7836078126820934904L;

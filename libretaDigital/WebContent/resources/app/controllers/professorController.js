@@ -92,6 +92,7 @@ app.controller('professorCtrl', ['$scope','$http','ngNotify','blockUI',	function
 					  data: professors
 					}).success(function successCallback(response) {
 						blockUI.stop();
+						console.log(response);
 						ngNotify.set('Guardado corectamente', 'success');
 					    $scope.getProfessors();			   
 					  }, function errorCallback(response) {				  
@@ -106,8 +107,10 @@ app.controller('professorCtrl', ['$scope','$http','ngNotify','blockUI',	function
 			}
 			
 			$scope.getProfessors = function(){		
-				 $http.get('data/profesors').success(function (data, status, headers, config) {			 
-					   conole.log(data);			   
+				 $http.get('data/professors').success(function (data, status, headers, config) {			 
+					 console.log("Professorss");		  
+					 console.log(data);		
+					 console.log("----------------------");	
 					  }).error(function (data, status, header, config) {
 						  console.log(status);
 						  ngNotify.set('ERROR - Datos no cargados', 'error');

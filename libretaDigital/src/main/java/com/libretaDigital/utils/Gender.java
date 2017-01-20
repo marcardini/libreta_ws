@@ -31,4 +31,10 @@ public enum Gender {
 	FLUID_SEX,
 	
 	PENDING;
+	
+	private Gender() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	
 }
