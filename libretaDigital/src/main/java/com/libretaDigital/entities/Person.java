@@ -56,7 +56,7 @@ public abstract class Person {
 	
 	@Override
 	public String toString() {
-		return this.getName() + " " + this.getLastName() + ". E-mail: " + this.getEmail();
+		return this.getEmail();
 	}
 	
 	@Override

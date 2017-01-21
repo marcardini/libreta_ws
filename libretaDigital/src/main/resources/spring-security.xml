@@ -15,22 +15,17 @@
 
 		<intercept-url pattern="/welcome.jsp" access="permitAll" />
 		
-<!-- 		<intercept-url pattern="/*" access="isAuthenticated()"  /> -->
-<!-- 		<intercept-url pattern="/**" access="isAuthenticated()"  /> -->
-<!-- 		<intercept-url pattern="/main**" access="isAuthenticated()"/> -->
-
-		
-			
-<!-- 		<intercept-url pattern="/data/*" access="permitAll" /> -->
-<!-- 		<intercept-url pattern="/data**" access="permitAll"/> -->
-<!-- 		<intercept-url pattern="/data/**" access="permitAll"/> -->
-<!-- 		<security:intercept-url pattern="/data/**" access="permitAll" /> -->
-			
-			
+		<intercept-url pattern="/data/deleteProfessor" access="permitAll" />
+		<intercept-url pattern="/data/professors" access="permitAll" />
+		<intercept-url pattern="/data/saveProfessors" access="permitAll" />
+	
 		<intercept-url pattern="/*" access="isAuthenticated()" />
 		<intercept-url pattern="/**" access="isAuthenticated()" />
 		<intercept-url pattern="/main**" access="isAuthenticated()" />
-		<intercept-url pattern="/data**" access="isAuthenticated()" />
+
+
+
+<!-- 		<intercept-url pattern="/data**" access="isAuthenticated()" /> -->
 
 		<!-- <intercept-url pattern="/fileUpload.jsp" access="hasRole('ADMIN')" 
 			/> -->

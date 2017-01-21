@@ -4,7 +4,12 @@ import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,8 +25,8 @@ import com.libretaDigital.entities.Student;
 import com.libretaDigital.services.BulletinServiceImpl;
 import com.libretaDigital.services.ProfessorServiceImpl;
 import com.libretaDigital.services.StudentServiceImpl;
+import com.libretaDigital.services.UserServiceImpl;
 import com.libretaDigital.utils.DateConverter;
-
 
 @Controller
 public class AssistControlController {
@@ -32,23 +37,31 @@ public class AssistControlController {
 	private StudentServiceImpl studentServiceImpl;
 	@Autowired
 	private DateConverter dateconverter;
-
-	
-	//ESTE BEAN ESTA ACA SOLO PARA PROBAR. BORRAR DESPUES
-
+	@Autowired
+	private UserServiceImpl userService;
 	@Autowired
 	private BulletinServiceImpl bulletinService;
+	@Autowired
+	private ProfessorServiceImpl professorServiceImpl;
 	
 	private String groupCode;
 	private BigInteger professorId;
 	private ObjectMapper mapper = new ObjectMapper();
+	private Professor loguedProfessor;
+	private String groupName;
+	private String subjectName;
 
 	@RequestMapping(value = "/assistControl", method = RequestMethod.GET)
-	public ModelAndView AssistControl() {
+	public ModelAndView AssistControl(HttpSession session) {
 		ModelAndView page = new ModelAndView("assistControl");
 		page.addObject("tituloPagina", "Libreta Digital - Control de Asistencias");
 		page.addObject("codMenu", "C1");
 		page.addObject("codMenu", "G1");
+		
+		System.out.println(this.getPrincipal());
+		session.setAttribute("loggedUser", userService.getUser(this.getPrincipal()));
+		loguedProfessor = professorServiceImpl.getByEmail(session.getAttribute("loggedUser").toString());
+		System.out.println(session.getAttribute("loggedUser"));
 		
 		Timestamp start_date = null;
 		Timestamp end_date = null;
@@ -67,7 +80,13 @@ public class AssistControlController {
 		
 				
 		try {
-			page.addObject("students", mapper.writeValueAsString(assistControlFacade.getStudentsAndTodaysAssistance("1A", "MATEMATICAS")));
+			//cargamos grupo y materia suponiendo que el profesor tiene un solo grupo y una materia. la posicion 0 de ambas listas.
+			groupName = loguedProfessor.getGroupsList().get(0).getName();
+			subjectName = loguedProfessor.getGroupsList().get(0).getSubjectsList().get(0).getName();
+			page.addObject("groupName", groupName);
+			page.addObject("subjectName", subjectName);
+			
+			page.addObject("students", mapper.writeValueAsString(assistControlFacade.getStudentsAndTodaysAssistance(groupName, subjectName)));
 			
 			page.addObject("groups", mapper.writeValueAsString(this.getGroupsByProfessor()));
 			page.addObject("studentsAbsences", mapper.writeValueAsString(this.getStudentsAbsencesByCode()));
@@ -77,6 +96,17 @@ public class AssistControlController {
 		return page;
 	}
 
+	private String getPrincipal() {
+		String userName = null;
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		if (principal instanceof UserDetails) {
+			userName = ((UserDetails) principal).getUsername();
+		} else {
+			userName = principal.toString();
+		}
+		return userName;
+	}
 	
 	@RequestMapping(value = "/assistControl/studentsAbsences", method = RequestMethod.GET)
 	@ResponseBody
@@ -157,6 +187,38 @@ public class AssistControlController {
 
 	public void setDateconverter(DateConverter dateconverter) {
 		this.dateconverter = dateconverter;
+	}
+
+	public UserServiceImpl getUserService() {
+		return userService;
+	}
+
+	public void setUserService(UserServiceImpl userService) {
+		this.userService = userService;
+	}
+
+	public ProfessorServiceImpl getProfessorServiceImpl() {
+		return professorServiceImpl;
+	}
+
+	public void setProfessorServiceImpl(ProfessorServiceImpl professorServiceImpl) {
+		this.professorServiceImpl = professorServiceImpl;
+	}
+
+	public String getGroupName() {
+		return groupName;
+	}
+
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
+	}
+
+	public String getSubjectName() {
+		return subjectName;
+	}
+
+	public void setSubjectName(String subjectName) {
+		this.subjectName = subjectName;
 	}
 
 }

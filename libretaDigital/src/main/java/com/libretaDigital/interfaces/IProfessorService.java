@@ -12,4 +12,6 @@ public interface IProfessorService {
 
 	void deleteProfessors(List<Long> items);
 	
+	Professor getByEmail(String email);
+	
 }

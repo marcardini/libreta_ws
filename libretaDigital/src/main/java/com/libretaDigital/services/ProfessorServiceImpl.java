@@ -49,22 +49,22 @@ public class ProfessorServiceImpl implements IProfessorService{
 			}
 		}
 	}
+	
+	@Override
+	public Professor getByEmail(String email) {
+		return professorDAO.getProfessorByMail(email);
+	}
 
 	public ProfessorDAO getProfessorDAO() {
 		return professorDAO;
 	}
-
 	public void setProfessorDAO(ProfessorDAO professorDAO) {
 		this.professorDAO = professorDAO;
 	}
-
 	public MessageDigestPasswordEncoder getEncoder() {
 		return encoder;
 	}
-
 	public void setEncoder(MessageDigestPasswordEncoder encoder) {
 		this.encoder = encoder;
 	}
-
-	
 }

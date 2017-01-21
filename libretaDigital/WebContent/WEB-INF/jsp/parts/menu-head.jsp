@@ -39,25 +39,19 @@ var codMenu = "<%=codMenu%>";
 					<ul class="dropdown-menu">
 						<li class="{{datos1}}"><a href="fileUpload.jsp">Carga Masiva</a></li>
 						<li class="{{datos2}}"><a href="data.jsp">Carga de Datos</a></li>
-<!-- 						<li><a href="#">Alumnos</a></li> -->
-<!-- 						<li><a href="#">Grupos</a></li> -->
-<!-- 						<li><a href="#">Programa</a></li> -->
 					</ul>
 				</li>					
-					
 					
 				<li class="dropdown {{group}}"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Grupo<span	class="caret"></span></a>
 				<ul class="dropdown-menu">
 						<li class="{{group1}}"><a href="assistControl.jsp">Control de asistencias</a></li>
 						<li class="{{group2}}"><a href="studentsDay.jsp">Estudiantes</a></li>
 				</ul></li>
-					
-<!-- 				<li><button ng-click = "test()">Test</button></li> -->
+				
 			</ul>
 			
 			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Docente Teresita Pérez<span
-						class="caret"></span></a>
+				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Docente Teresita Pérez<span class="caret"></span></a>
 
 					<ul class="dropdown-menu">
 						<li class=""><a href="">Mi Perfil</a></li>
@@ -65,8 +59,6 @@ var codMenu = "<%=codMenu%>";
 						<li><a href="javascript:formSubmit()">Salir</a></li>	
 						</c:if>					
 					</ul></li>
-<!-- 				        <li><a href="#"><span class="glyphicon glyphicon-user"></span>Registrarse</a></li> -->
-<!-- 				<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li> -->
 				
 			</ul>
 		</div>

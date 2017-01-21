@@ -16,8 +16,6 @@
 		students = "[]";
 	}
 	
-	
-
 	String groups = (String) request.getAttribute("groups");
 	if (groups == null) {
 		groups = "[]";
@@ -27,12 +25,25 @@
 	if (studentsAbsences == null) {
 		studentsAbsences = "[]";
 	}
+	
+	String groupName = (String) request.getAttribute("groupName");
+	if (groupName == null) {
+		groupName = "GRUPO DESCONOCIDO";
+	}
+	
+	String subjectName = (String) request.getAttribute("subjectName");
+	if (subjectName == null) {
+		subjectName = "MATERIA DESCONOCIDA";
+	}
+	
 %>
 
 <script type="text/javascript">
 	var students = <%=students%>;	
-	var studentsAbsences = <%=studentsAbsences%>;
 	var groups = <%=groups%>;
+	var studentsAbsences = <%=studentsAbsences%>;
+	var groupName = <%=groupName%>;
+	var subjectName = <%=subjectName%>;
 </script>
 
 
@@ -49,14 +60,12 @@
 
 	<jsp:include page="/WEB-INF/jsp/parts/menu-head.jsp" />
 
-	
-
 	<div class="container block-ui-main" block-ui="main">
 		<div class="page-header">
 			<div class="row">
 				<div class="col-md-8">
 					<h1>
-						Control de Asistencias <small>Grupo 4°A : Matematicas </small>
+							Control de Asistencias <small>{{groupName}} {{subjectName}}</small>
 						<button id="btn-save" class="btn btn-lg btn-success" ng-click="saveAbsences()">Guardar</button>
 					</h1>
 				</div>
@@ -64,7 +73,6 @@
 
 					<h1>
 						<small class="date-small"> {{date | date:'dd-MM-yyyy'}}</small>
-
 					</h1>
 				</div>
 			</div>

@@ -76,16 +76,6 @@
 		<property name="encoder" ref="md5Encoder" />
 	</bean>
 	
-	<bean id="userService" class="com.libretaDigital.services.UserServiceImpl">
-		<property name="professorDAO" ref="professorDAO" />
-		<property name="userDAO" ref="userDAO" />			
-	</bean>
-	
-<!-- 	<bean id="mainController" class="com.libretaDigital.controller.MainController"> -->
-<!-- 		<property name="studentService" ref="studentService" /> -->
-<!-- 		<property name="userService" ref="userService" /> -->
-<!-- 	</bean> -->
-
 	<bean id="groupService" class="com.libretaDigital.services.GroupServiceImpl">
 		<property name="groupDAO" ref="groupDAO" />
 		<property name="encoder" ref="md5Encoder" />

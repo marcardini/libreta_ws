@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 
 import com.libretaDigital.DAO.ProfessorDAO;
@@ -18,8 +17,6 @@ import com.libretaDigital.DAO.UserDAO;
 import com.libretaDigital.entities.Professor;
 
 @Service("userService")
-//@Service("customUserDetailsService")
-//@Transactional(readOnly = true)
 public class UserServiceImpl implements UserDetailsService{
 
 	@Autowired

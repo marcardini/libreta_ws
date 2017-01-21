@@ -8,14 +8,18 @@
 		<property name="assistControlFacade" ref="assistControlFacade" />		
 		<property name="bulletinService" ref="bulletinService" />
 		<property name="dateconverter" ref="dateconverter" />
+		<property name="userService" ref="userService" />
+	</bean>
+	
+	<bean id="userService" class="com.libretaDigital.services.UserServiceImpl">
+		<property name="professorDAO" ref="professorDAO" />
+		<property name="userDAO" ref="userDAO" />			
 	</bean>
 	
 	<bean id="assistControlFacade" class="com.libretaDigital.assistControl.AssistControlFacadeImpl">
 		<property name="studentDAO" ref="studentDAO" />
 		<property name="groupDAO" ref="groupDAO" />
 	</bean>
-	
-	
 	
 	<bean id="bulletinService" class="com.libretaDigital.services.BulletinServiceImpl">
 		<property name="bulletinDAO" ref="bulletinDAO" />

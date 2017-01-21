@@ -20,8 +20,9 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 	$scope.studentsAbsences = [];
 	$scope.oidStudentsIn = [];
 	angular.copy(studentsAbsences, $scope.studentsAbsences);
+	angular.copy(groupName, $scope.groupName);
+	angular.copy(subjectName, $scope.subjectName);
 	
-	//console.log($scope.studentsAbsences);
 	console.log(students);
 	
 	
@@ -159,7 +160,7 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 	 }
 	 
 	 $scope.getAbsencesStudents = function(){		
-		 $http.get('assistControl/studentsAbsences').success(function (data, status, headers, config) {			 
+		 $http.get('assistControl/studentsAbsences').success(function (data, status, headers, config) {
 			    $scope.studentsAbsences = data;
 			    $scope.setLabelStudentsList($scope.studentsAbsences);			   
 			  }).error(function (data, status, header, config) {
