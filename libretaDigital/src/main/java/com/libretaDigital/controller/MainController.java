@@ -33,6 +33,7 @@ public class MainController {
 	public ModelAndView index(HttpSession session) {		
 		System.out.println(this.getPrincipal());
 		session.setAttribute("loggedUser", userService.getUser(this.getPrincipal()));
+		
 		System.out.println(session.getAttribute("loggedUser"));
 		return new ModelAndView("index");
 	}

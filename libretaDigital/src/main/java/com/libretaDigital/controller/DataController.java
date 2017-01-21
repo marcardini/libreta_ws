@@ -14,12 +14,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.libretaDigital.beans.ProfessorBean;
 import com.libretaDigital.entities.Group;
 import com.libretaDigital.entities.Professor;
 import com.libretaDigital.entities.Student;
 import com.libretaDigital.services.GroupServiceImpl;
 import com.libretaDigital.services.ProfessorServiceImpl;
 import com.libretaDigital.services.StudentServiceImpl;
+import com.libretaDigital.utils.Grade;
 
 @Controller
 public class DataController {
@@ -77,10 +79,19 @@ public class DataController {
 	}
 	
 	@RequestMapping(value = "/data/saveProfessors", method = RequestMethod.POST)
-	public void saveProfessor(@RequestBody List<Professor> items, HttpServletResponse response) {
-		
+	public void saveProfessor(@RequestBody List<ProfessorBean> items, HttpServletResponse response) {
+		Professor professor = null;
 		try{			
-			for (Professor professor : items) {
+			for (ProfessorBean item : items) {
+				if(item.getOid() == null){
+					 professor = new Professor(item.getName(), item.getLastName(), item.getBirthDate(), item.getGender(), item.getEmail(), item.getPassword(),
+							Grade.valueOf(item.getGrade()),item.getEmployeeSince());
+				}else{
+					 professor = new Professor( item.getName(), item.getLastName(), item.getBirthDate(), item.getGender(), item.getEmail(), item.getPassword(),
+							Grade.valueOf(item.getGrade()),item.getEmployeeSince());
+					professor.setOid(item.getOid());
+				}
+				
 				professorServiceImpl.addProfessor(professor);
 			}
 			response.setStatus(HttpServletResponse.SC_OK);

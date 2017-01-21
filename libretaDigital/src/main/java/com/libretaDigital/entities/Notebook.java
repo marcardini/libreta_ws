@@ -2,8 +2,13 @@ package com.libretaDigital.entities;
 
 import java.io.Serializable;
 
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 import com.libretaDigital.utils.CourseType;
 
+@JsonAutoDetect
+@JsonIgnoreProperties
 public class Notebook implements Serializable{
 
 	private static final long serialVersionUID = -8924297568264691767L;

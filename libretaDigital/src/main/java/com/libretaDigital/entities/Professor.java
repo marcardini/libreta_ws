@@ -17,9 +17,8 @@ public class Professor extends Person implements Serializable{
 	private String password;
 	private Enum<Grade> grade;
 	private Date employeeSince;
-	//private List<Course> coursesList;
-	private List<Group> groupsList;
-	
+	private List<Course> coursesList;
+	private List<Group> groupsList;	
 	private Role role;
 	
 	public Professor(){}
@@ -50,6 +49,13 @@ public class Professor extends Person implements Serializable{
         this.grade = grade;
         this.employeeSince = employeeSince;
         this.role = role;
+    }
+	
+	public Professor(String name, String lastName, Date birthDate, Gender gender, String email, String password, Grade grade, Date employeeSince){
+		super(name, lastName, birthDate, gender, email);
+        this.password = password;
+        this.grade = grade;
+        this.employeeSince = employeeSince;       
     }
 	
 	public boolean validatePassword(String password) {

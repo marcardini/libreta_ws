@@ -3,6 +3,11 @@ package com.libretaDigital.entities;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+@JsonAutoDetect
+@JsonIgnoreProperties
 public class Period implements Serializable{
 
 	private static final long serialVersionUID = -4182974498972556485L;

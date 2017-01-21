@@ -23,8 +23,7 @@ public class ProfessorServiceImpl implements IProfessorService{
 		if (dtProfessor.getPassword() == null || "".equals(dtProfessor.getPassword().trim()))
 			throw new InvalidProfessorInformation(InvalidProfessorInformation.ErrorType.EMPTY_PASSWORD);
 		
-		if (professorDAO.getProfessorByMail(dtProfessor.getEmail()) != null)
-			throw new ProfessorAlreadyExists();
+		
 				
 		String password = dtProfessor.getPassword();
 		String encriptedPassword = null;
@@ -35,7 +34,7 @@ public class ProfessorServiceImpl implements IProfessorService{
 			encriptedPassword = encoder.encodePassword(password, null);
 			dtProfessor.setPassword(encriptedPassword);
 	
-			professorDAO.save(dtProfessor);
+			professorDAO.saveOrUpdate(dtProfessor);
 		}
 	}
 	

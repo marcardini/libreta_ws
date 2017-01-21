@@ -4,6 +4,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+@JsonAutoDetect
+@JsonIgnoreProperties
 public class Subject implements Serializable{
 	
 	private static final long serialVersionUID = -4934585354884721276L;

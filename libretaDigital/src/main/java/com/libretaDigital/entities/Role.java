@@ -4,14 +4,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+@JsonAutoDetect
+@JsonIgnoreProperties
 public class Role implements Serializable{
 
 	private static final long serialVersionUID = -1998976552257333683L;
-
 	private Long oid;
-
 	private String name;
-	
 	private List<Privilege> privileges;
 	
 	public Role() {
