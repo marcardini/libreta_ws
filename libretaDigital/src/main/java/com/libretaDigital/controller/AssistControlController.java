@@ -83,8 +83,8 @@ public class AssistControlController {
 			//cargamos grupo y materia suponiendo que el profesor tiene un solo grupo y una materia. la posicion 0 de ambas listas.
 			groupName = loguedProfessor.getGroupsList().get(0).getName();
 			subjectName = loguedProfessor.getGroupsList().get(0).getSubjectsList().get(0).getName();
-			page.addObject("groupName", groupName);
-			page.addObject("subjectName", subjectName);
+			page.addObject("groupName", mapper.writeValueAsString(groupName));
+			page.addObject("subjectName", mapper.writeValueAsString(subjectName));
 			
 			page.addObject("students", mapper.writeValueAsString(assistControlFacade.getStudentsAndTodaysAssistance(groupName, subjectName)));
 			
@@ -111,7 +111,7 @@ public class AssistControlController {
 	@RequestMapping(value = "/assistControl/studentsAbsences", method = RequestMethod.GET)
 	@ResponseBody
 	public String StudentsAbsences() {
-		String studentsAbsences = "[]";
+		String studentsAbsences= "[]";
 		try {
 			studentsAbsences = mapper.writeValueAsString(this.getStudentsAbsencesByCode());
 		} catch (JsonProcessingException e) {

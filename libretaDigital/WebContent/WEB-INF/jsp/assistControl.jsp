@@ -21,9 +21,9 @@
 		groups = "[]";
 	}
 
-	String studentsAbsences = (String) request.getAttribute("studentsAbsences");
+	String studentsAbsences= (String) request.getAttribute("studentsAbsences");
 	if (studentsAbsences == null) {
-		studentsAbsences = "[]";
+		studentsAbsences= "[]";
 	}
 	
 	String groupName = (String) request.getAttribute("groupName");
@@ -41,7 +41,7 @@
 <script type="text/javascript">
 	var students = <%=students%>;	
 	var groups = <%=groups%>;
-	var studentsAbsences = <%=studentsAbsences%>;
+	var studentsAbsences= <%=studentsAbsences%>;
 	var groupName = <%=groupName%>;
 	var subjectName = <%=subjectName%>;
 </script>
@@ -65,7 +65,8 @@
 			<div class="row">
 				<div class="col-md-8">
 					<h1>
-							Control de Asistencias <small>{{groupName}} {{subjectName}}</small>
+							Control de Asistencias
+							<small> <%=subjectName.replaceAll("\"", "") %> - <%=groupName.replaceAll("\"", "") %> </small>
 						<button id="btn-save" class="btn btn-lg btn-success" ng-click="saveAbsences()">Guardar</button>
 					</h1>
 				</div>
@@ -80,7 +81,6 @@
 
 		<div class=row">
 			<div class="col-md-8">
-				<!-- 				<h3>Lista</h3> -->
 
 				<div class="col-md-6" ng-repeat="list in models">
 					<div class="panel {{listType(list.listName)}}" ng-class="">
@@ -147,7 +147,7 @@
 
 						<div id="absences-list" class="col-md-12 ">
 							<ul class="media-list">
-								<li class="media " ng-repeat="student in studentsAbsences">
+								<li class="media" ng-repeat="student in studentsAbsences">
 									<div class="media-left">
 										<a href="#"> <img class="media-object media-user" src="resources/img/nophoto.png" alt="...">
 										</a>
