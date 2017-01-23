@@ -26,12 +26,24 @@
 	if (eventsRegistrationTypes == null) {
 		eventsRegistrationTypes = "[]";
 	}
+	
+	String groupName = (String) request.getAttribute("groupName");
+	if (groupName == null) {
+		groupName = "GRUPO DESCONOCIDO";
+	}
+	
+	String subjectName = (String) request.getAttribute("subjectName");
+	if (subjectName == null) {
+		subjectName = "MATERIA DESCONOCIDA";
+	}
 %>
 
 <script type="text/javascript">
 	var students = <%=students%>;
 	var professors = <%=professors%>;
 	var eventsRegistrationTypes = <%=eventsRegistrationTypes%>;
+	var groupName = <%=groupName%>;
+	var subjectName = <%=subjectName%>;
 </script>
 
 <title><%=pageTitle%></title>
@@ -53,7 +65,8 @@
 		<div class="page-header">
 			<div class="row">
 				<div class="col-md-8">
-					<h1>Matematicas Grupo 4°A
+				
+					<h1><%=subjectName.replaceAll("\"", "") %> - GRUPO <%=groupName.replaceAll("\"", "") %>
 						<button id="btn-save" class="btn btn-lg btn-success" ng-click="calGroup()">Calificacion Grupal</button>
 					</h1>
 					

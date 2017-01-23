@@ -13,7 +13,6 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 	
 	blockUI.autoInjectBodyBlock = false;
 	blockUI.message = 'Cargando...';
-
 	
 	$scope.date = new Date();
 	$scope.students = [];

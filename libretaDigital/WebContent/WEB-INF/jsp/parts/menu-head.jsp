@@ -5,12 +5,17 @@
 	if (codMenu == null) {
 		codMenu = "H0";
 	}
+	
+	String logguedUserName = (String) request.getAttribute("logguedUserName");
+	if (logguedUserName == null) {
+		logguedUserName = "'Usuario desconocido'";
+	}
 %>
 
 <script type="text/javascript">
-var codMenu = "<%=codMenu%>";
-
-
+	var codMenu = "<%=codMenu%>";
+	var logguedUserName = <%=logguedUserName%>;
+	
 </script>
 
 <c:url value="/j_spring_security_logout" var="logoutUrl" />
@@ -42,7 +47,7 @@ var codMenu = "<%=codMenu%>";
 					</ul>
 				</li>					
 					
-				<li class="dropdown {{group}}"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Grupo<span	class="caret"></span></a>
+				<li class="dropdown {{group}}"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Grupo<span class="caret"></span></a>
 				<ul class="dropdown-menu">
 						<li class="{{group1}}"><a href="assistControl.jsp">Control de asistencias</a></li>
 						<li class="{{group2}}"><a href="studentsDay.jsp">Estudiantes</a></li>
@@ -51,7 +56,10 @@ var codMenu = "<%=codMenu%>";
 			</ul>
 			
 			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Docente Teresita Pérez<span class="caret"></span></a>
+				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">
+<!-- 				Docente Teresita Pérez -->{{logguedUserName}}
+<%-- 				<%=logguedUserName.replaceAll("\"", "") %> --%>
+				<span class="caret"></span></a>
 
 					<ul class="dropdown-menu">
 						<li class=""><a href="">Mi Perfil</a></li>

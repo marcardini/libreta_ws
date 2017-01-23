@@ -24,6 +24,9 @@ app.controller('studentsDayCtrl', ['$scope', '$filter', '$http', 'ngNotify', 'bl
 	$scope.students = [];	
 	angular.copy(students, $scope.students);
 	
+	angular.copy(groupName, $scope.groupName);
+	angular.copy(subjectName, $scope.subjectName);
+	
 	$scope.student = {calendar: []};
 	$scope.student.qualyAvg = 0;
 	$scope.absence = {};

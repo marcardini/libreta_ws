@@ -35,7 +35,6 @@
 	if (subjectName == null) {
 		subjectName = "MATERIA DESCONOCIDA";
 	}
-	
 %>
 
 <script type="text/javascript">
@@ -66,7 +65,7 @@
 				<div class="col-md-8">
 					<h1>
 							Control de Asistencias
-							<small> <%=subjectName.replaceAll("\"", "") %> - <%=groupName.replaceAll("\"", "") %> </small>
+							<small> <%=subjectName.replaceAll("\"", "") %> - GRUPO <%=groupName.replaceAll("\"", "") %> </small>
 						<button id="btn-save" class="btn btn-lg btn-success" ng-click="saveAbsences()">Guardar</button>
 					</h1>
 				</div>

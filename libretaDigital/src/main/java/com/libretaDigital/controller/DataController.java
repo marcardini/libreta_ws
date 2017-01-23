@@ -3,6 +3,7 @@ package com.libretaDigital.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,10 +36,12 @@ public class DataController {
 	@Autowired
 	private GroupServiceImpl groupServiceImpl;
 	
+	private Professor loguedProfessor;
+	
 	private ObjectMapper mapper = new ObjectMapper();
 	
 	@RequestMapping(value = "/data", method = RequestMethod.GET)
-	public ModelAndView data() {
+	public ModelAndView data(HttpSession session) {
 		ModelAndView page = new ModelAndView("data");
 		page.addObject("tituloPagina", "Libreta Digital - Carga de Datos");
 		page.addObject("codMenu", "D2");
@@ -47,6 +50,8 @@ public class DataController {
 			page.addObject("professors", mapper.writeValueAsString(this.getAllProfessors()));
 			page.addObject("students", mapper.writeValueAsString(this.getAllStudents()));
 			page.addObject("groups", mapper.writeValueAsString(this.getAllGroups()));
+			loguedProfessor = professorServiceImpl.getByEmail(session.getAttribute("loggedUser").toString());
+			page.addObject("logguedUserName", mapper.writeValueAsString(loguedProfessor.getEmail().toUpperCase()));
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
@@ -228,5 +233,13 @@ public class DataController {
 
 	public void setGroupServiceImpl(GroupServiceImpl groupServiceImpl) {
 		this.groupServiceImpl = groupServiceImpl;
+	}
+
+	public Professor getLoguedProfessor() {
+		return loguedProfessor;
+	}
+
+	public void setLoguedProfessor(Professor loguedProfessor) {
+		this.loguedProfessor = loguedProfessor;
 	}
 }

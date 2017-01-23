@@ -11,7 +11,16 @@
 	if (pageTitle == null) {
 		pageTitle = "Libreta Digital";
 	}
+	
+// 	String logguedUserName = (String) request.getAttribute("logguedUserName");
+// 	if (logguedUserName == null) {
+// 		logguedUserName = "Usuario desconocido";
+// 	}
 %>
+
+<!-- <script type="text/javascript"> -->
+<%-- 	var logguedUserName = <%=logguedUserName%>; --%>
+<!-- </script>  -->
 
 <title><%=pageTitle%></title>
 <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -31,7 +40,7 @@
 					<div class="btn-group">
 						<label class="btn btn-primary btn-lg btn-calendar" ng-model="vm.calendarView" uib-btn-radio="'year'">Año</label>
 						<label class="btn btn-primary btn-lg btn-calendar" ng-model="vm.calendarView" uib-btn-radio="'month'">Mes</label>
-						<!-- 					 <label	class="btn btn-primary" ng-model="vm.calendarView" uib-btn-radio="'week'">Semana</label>					   -->
+<!--			 		<label	class="btn btn-primary" ng-model="vm.calendarView" uib-btn-radio="'week'">Semana</label>					   -->
 					</div>
 				</div>
 				<br>

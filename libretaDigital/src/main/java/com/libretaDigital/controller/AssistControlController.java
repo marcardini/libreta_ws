@@ -52,7 +52,7 @@ public class AssistControlController {
 	private String subjectName;
 
 	@RequestMapping(value = "/assistControl", method = RequestMethod.GET)
-	public ModelAndView AssistControl(HttpSession session) {
+	public ModelAndView AssistControl(HttpSession session) throws JsonProcessingException {
 		ModelAndView page = new ModelAndView("assistControl");
 		page.addObject("tituloPagina", "Libreta Digital - Control de Asistencias");
 		page.addObject("codMenu", "C1");
@@ -61,6 +61,9 @@ public class AssistControlController {
 		System.out.println(this.getPrincipal());
 		session.setAttribute("loggedUser", userService.getUser(this.getPrincipal()));
 		loguedProfessor = professorServiceImpl.getByEmail(session.getAttribute("loggedUser").toString());
+		
+		page.addObject("logguedUserName", mapper.writeValueAsString(loguedProfessor.getEmail().toUpperCase()));
+		
 		System.out.println(session.getAttribute("loggedUser"));
 		
 		Timestamp start_date = null;
