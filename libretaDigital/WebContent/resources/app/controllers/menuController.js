@@ -3,7 +3,7 @@ app.controller('menuCtrl', [ '$scope', '$http', function($scope, $http) {
 //	$scope.logguedUserName = logguedUserName;
 	$scope.logguedUserName = '';
 	$scope.logguedUserName = angular.copy(logguedUserName);
-	console.log($scope.logguedUserName);
+//	console.log($scope.logguedUserName);
 	switch (codMenu) {
 	case "H0":
 		$scope.home = "active";		
