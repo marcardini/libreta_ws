@@ -1,16 +1,26 @@
 package com.libretaDigital.controller;
 
+import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -19,6 +29,8 @@ import com.libretaDigital.beans.ProfessorBean;
 import com.libretaDigital.entities.Group;
 import com.libretaDigital.entities.Professor;
 import com.libretaDigital.entities.Student;
+import com.libretaDigital.fileupload.FileUploadFacadeImpl;
+import com.libretaDigital.fileupload.FileUtilities;
 import com.libretaDigital.services.GroupServiceImpl;
 import com.libretaDigital.services.ProfessorServiceImpl;
 import com.libretaDigital.services.StudentServiceImpl;
@@ -26,6 +38,8 @@ import com.libretaDigital.utils.Grade;
 
 @Controller
 public class DataController {
+	
+	private Logger logger = Logger.getLogger(DataController.class);
 	
 	@Autowired
 	private ProfessorServiceImpl professorServiceImpl;
@@ -36,9 +50,16 @@ public class DataController {
 	@Autowired
 	private GroupServiceImpl groupServiceImpl;
 	
+	@Autowired
+	private FileUploadFacadeImpl fileUploadFacadeImpl;
+	
 	private Professor loguedProfessor;
 	
 	private ObjectMapper mapper = new ObjectMapper();
+	
+	private static String CATALINA_HOME = System.getenv("CATALINA_HOME");
+	
+	private byte[] photo;
 	
 	@RequestMapping(value = "/data", method = RequestMethod.GET)
 	public ModelAndView data(HttpSession session) {
@@ -86,14 +107,16 @@ public class DataController {
 	@RequestMapping(value = "/data/saveProfessors", method = RequestMethod.POST)
 	public void saveProfessor(@RequestBody List<ProfessorBean> items, HttpServletResponse response) {
 		Professor professor = null;
+		
 		try{			
 			for (ProfessorBean item : items) {
 				if(item.getOid() == null){
+					 
 					 professor = new Professor(item.getName(), item.getLastName(), item.getBirthDate(), item.getGender(), item.getEmail(), item.getPassword(),
-							Grade.valueOf(item.getGrade()),item.getEmployeeSince());
+								Grade.valueOf(item.getGrade()),item.getEmployeeSince()/* photo*/);
 				}else{
-					 professor = new Professor( item.getName(), item.getLastName(), item.getBirthDate(), item.getGender(), item.getEmail(), item.getPassword(),
-							Grade.valueOf(item.getGrade()),item.getEmployeeSince());
+					 professor = new Professor(item.getName(), item.getLastName(), item.getBirthDate(), item.getGender(), item.getEmail(), item.getPassword(),
+							Grade.valueOf(item.getGrade()),item.getEmployeeSince()/*, photo*/);
 					professor.setOid(item.getOid());
 				}
 				
@@ -209,6 +232,54 @@ public class DataController {
 	}
 	
 	
+	/*
+	@SuppressWarnings("rawtypes")
+	@RequestMapping(value = "dataProfessor/uploadPhoto", method = RequestMethod.POST)
+	
+	public ResponseEntity uploadFile(MultipartHttpServletRequest request, @RequestParam(value="type", required=true) String type) {
+		try {
+			Iterator<String> itr = request.getFileNames();
+			while (itr.hasNext()) {
+				String uploadedFile = itr.next();
+				photo = request.getFile(uploadedFile);
+				
+				try {
+					if (CATALINA_HOME == null || CATALINA_HOME.equals("")) {						
+						this.clearUploadData();
+						logger.error("la variable CATALINA_HOME no esta seteada");
+						return new ResponseEntity<>("{}", HttpStatus.EXPECTATION_FAILED);						
+					} else {
+						ResourceBundle rb = ResourceBundle.getBundle("messages_es");
+						String uploadDirectory = CATALINA_HOME.replace("\\", "/") + rb.getString("upload_tomcat_directoy");							
+							try {
+								if (photo.getSize() > 0) {
+									FileUtilities.copyFile(photo, uploadDirectory);
+									String localPort = rb.getString("service.port");
+									String http_address = rb.getString("http_address");
+									String tomcat_address = http_address+":"+ localPort + "/files/";																	
+									fileUploadFacadeImpl.fileUpload(tomcat_address + photo.getName(), photo.getName(), "admin", null);										
+								} else
+									logger.error("Error archivo vacio");
+							} catch (IOException e) {
+								logger.error("Error archivo vacio");
+							}		
+						}
+				} catch(MissingResourceException e) {
+					logger.error("Hubo un error durante la carga de foto del profesor");
+					throw e;
+				}
+			}
+		} catch (Exception e) {
+			return new ResponseEntity<>("{}", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<>("{}", HttpStatus.OK);
+	}
+*/
+	
+	
+	public void clearUploadData() {
+		photo = null;
+	}
 	
 
 	public StudentServiceImpl getStudentServiceImpl() {
@@ -241,5 +312,37 @@ public class DataController {
 
 	public void setLoguedProfessor(Professor loguedProfessor) {
 		this.loguedProfessor = loguedProfessor;
+	}
+
+	public Logger getLogger() {
+		return logger;
+	}
+
+	public void setLogger(Logger logger) {
+		this.logger = logger;
+	}
+
+	public FileUploadFacadeImpl getFileUploadFacadeImpl() {
+		return fileUploadFacadeImpl;
+	}
+
+	public void setFileUploadFacadeImpl(FileUploadFacadeImpl fileUploadFacadeImpl) {
+		this.fileUploadFacadeImpl = fileUploadFacadeImpl;
+	}
+
+	public ObjectMapper getMapper() {
+		return mapper;
+	}
+
+	public void setMapper(ObjectMapper mapper) {
+		this.mapper = mapper;
+	}
+
+	public static String getCATALINA_HOME() {
+		return CATALINA_HOME;
+	}
+
+	public static void setCATALINA_HOME(String cATALINA_HOME) {
+		CATALINA_HOME = cATALINA_HOME;
 	}
 }

@@ -92,7 +92,7 @@ public class FileUploadController {
 							}		
 						}
 				} catch(MissingResourceException e) {
-					logger.error("Hubo un error durante la carga de archivo de cupones");
+					logger.error("Hubo un error durante la carga de archivo");
 					throw e;
 				}
 			}

@@ -51,9 +51,9 @@
 
 		<many-to-one name="role" column="roleId" class="com.libretaDigital.entities.Role" />
 
-		<property name="photo" type="binary">
-            <column name="photo" not-null="true" />
-        </property>
+<!-- 		<property name="photo" type="binary"> -->
+<!--             <column name="photo" not-null="true" /> -->
+<!--         </property> -->
         
 	</class>
 </hibernate-mapping>

@@ -29,9 +29,9 @@ public class Student extends Person implements Serializable{
 		this.groupId = groupId;
 	}
 	
-	public Student(String name, String lastName, Date birthDate, byte[] photo, Gender gender, String email){
+	/*public Student(String name, String lastName, Date birthDate, byte[] photo, Gender gender, String email){
 		super(name, lastName, birthDate, photo, gender, email);
-    }
+    }*/
 	
 	public Student(String name, String lastName, Date birthDate, Gender gender, String email, boolean currentStudent){
 		super(name, lastName, birthDate, gender, email);
@@ -44,12 +44,12 @@ public class Student extends Person implements Serializable{
 		this.currentStudent = current;
 	}
 	
-	public Student(Course course, Long groupId, boolean current, String name, String lastName, Date birthDate, Gender gender, String email, byte[] photo){
+	/*public Student(Course course, Long groupId, boolean current, String name, String lastName, Date birthDate, Gender gender, String email, byte[] photo){
 		super(name, lastName, birthDate, photo, gender, email);
 		this.course = course;
 		this.groupId = groupId;
 		this.currentStudent = current;
-	}
+	}*/
 
 	public Course getCourse() {
 		return course;

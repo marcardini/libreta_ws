@@ -28,6 +28,11 @@ public class GroupServiceImpl implements IGroupService{
 	}
 	
 	@Override
+	public Group getGroupByNameAndYear(String name, int year){
+		return groupDAO.getGroupByNameAndYear(name, year);
+	}
+	
+	@Override
 	public void deleteGroups(List<Long> items) {
 		
 		for (Long oid : items) {

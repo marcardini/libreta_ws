@@ -15,7 +15,7 @@ public abstract class Person {
 	private String name;
 	private String lastName;
 	private Date birthDate;
-	private byte[] photo;
+	private byte[] photo = hexStringToByteArray("e04fd020ea3a6910a2d808002b30309d");;
 	private Gender gender;
 	private String email;
 	
@@ -34,14 +34,14 @@ public abstract class Person {
 		this.gender = gender;
 	}
 	
-	public Person(String name, String lastName, Date birthDate, byte[] photo, Gender gender, String email){
+	/*public Person(String name, String lastName, Date birthDate, byte[] photo, Gender gender, String email){
 		this.name = name;
 		this.lastName = lastName;
 		this.birthDate = birthDate;
 		this.photo = photo;
 		this.gender = gender;
 		this.email = email;
-	}
+	}*/
 	
 	public Person(String name, String lastName, Date birthDate, Gender gender, String email){
 		this.name = name;
@@ -113,5 +113,15 @@ public abstract class Person {
 	}
 	public void setPhoto(byte[] photo) {
 		this.photo = photo;
+	}
+	
+	public static byte[] hexStringToByteArray(String s) {
+	    int len = s.length();
+	    byte[] data = new byte[len / 2];
+	    for (int i = 0; i < len; i += 2) {
+	        data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4)
+	                             + Character.digit(s.charAt(i+1), 16));
+	    }
+	    return data;
 	}
 }

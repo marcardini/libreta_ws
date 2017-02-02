@@ -28,6 +28,14 @@
 	}
 %>
 
+<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="bower_components/dropzone/dist/basic.css">
+<link rel="stylesheet" href="bower_components/dropzone/dist/dropzone.css">
+<link rel="stylesheet" href="bower_components/ng-notify/dist/ng-notify.min.css">
+<link rel="stylesheet" href="bower_components/angular-block-ui/dist/angular-block-ui.min.css"/>
+<link rel="stylesheet" href="resources/css/style.css">
+
+</head>
 <script type="text/javascript">
 	var professors =
 <%=professors%>
@@ -39,15 +47,6 @@
 <%=groups%>
 	;
 </script>
-
-<title><%=pageTitle%></title>
-<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="bower_components/ng-notify/dist/ng-notify.min.css">
-<link rel="stylesheet" href="bower_components/angular-block-ui/dist/angular-block-ui.min.css">
-<link rel="stylesheet" href="bower_components/angular-percent-circle-directive/dist/percent-circle.css">
-<link rel="stylesheet" href="bower_components/angularjs-slider/dist/rzslider.min.css" />
-<link rel="stylesheet" href="resources/css/style.css">
-e.css">
 
 </head>
 
@@ -110,8 +109,13 @@ e.css">
 
 </body>
 <jsp:include page="/WEB-INF/jsp/parts/scripts.jsp" />
+<script src="resources/app/controllers/fileUploadController.js"></script>
 <script src="resources/app/controllers/dataController.js"></script>
 <script src="resources/app/controllers/professorController.js"></script>
 <script src="resources/app/controllers/studentController.js"></script>
 <script src="resources/app/controllers/groupController.js"></script>
+
+<script type="text/javascript">
+	Dropzone.autoDiscover = false;
+</script>
 </html>

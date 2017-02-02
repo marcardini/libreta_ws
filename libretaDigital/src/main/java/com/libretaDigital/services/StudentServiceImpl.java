@@ -9,7 +9,6 @@ import org.springframework.security.authentication.encoding.MessageDigestPasswor
 import com.libretaDigital.DAO.*;
 import com.libretaDigital.datatypes.StudentEventRegistration;
 import com.libretaDigital.entities.ClassDayStudent;
-import com.libretaDigital.entities.Professor;
 import com.libretaDigital.entities.Student;
 import com.libretaDigital.exceptions.*;
 import com.libretaDigital.interfaces.*;
@@ -19,6 +18,16 @@ public class StudentServiceImpl implements IStudentService{
 	private StudentDAO studentDAO;
 	private ClassDayStudentDAO classDayStudentDAO;
 	private MessageDigestPasswordEncoder encoder;
+	
+	@Override
+	public Student getStudent(Student student){
+		return studentDAO.getStudentByMail(student.getEmail());
+	}
+	
+	@Override
+	public Student getStudentByEmail(String email){
+		return studentDAO.getStudentByMail(email);
+	}
 	
 	@Override
 	public List<Student> getAllStudents() {

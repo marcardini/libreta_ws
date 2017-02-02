@@ -21,4 +21,8 @@ public interface IStudentService {
 
 	void deleteStudents(List<Long> items);
 	
+	Student getStudent(Student student);
+	
+	Student getStudentByEmail(String email);
+	
 }

@@ -22,8 +22,6 @@
 
 <body ng-controller="fileUploadCtrl" ng-cloak>
 
-
-
 	<jsp:include page="/WEB-INF/jsp/parts/menu-head.jsp" />
 
 	<div class="container block-ui-main" block-ui="main">
@@ -62,81 +60,8 @@
 			</div>
 		</div>
 
-
-
-
-
-		<!-- 		<div class="row"> -->
-		<!-- 			<div class="col-md-4"> -->
-		<!-- 				<h3>Depósito de archivos</h3> -->
-		<!-- 				<div class="alert my-drop-zone drop-zone" flow-drop flow-drag-enter="class='alert-success'" flow-drag-leave="class=''" -->
-		<!-- 					ng-class="class" flow-prevent-drop flow-drag-enter="style={border: '5px solid green'}" flow-drag-leave="style={}" -->
-		<!-- 					ng-style="style"></div> -->
-		<!-- 				<br /> <span class="btn-drop" flow-btn><i class="glyphicon glyphicon-file"></i>Seleccionar Archivo</span> -->
-		<!-- 			</div> -->
-		<!-- 			<div class="col-md-8" style="margin-bottom: 40px"> -->
-		<!-- 				<h3> -->
-		<!-- 					Cola de Carga <span class="label label-info" ng-show="$flow.isUploading()">Subiendo</span> -->
-		<!-- 				</h3> -->
-
-		<!-- 				<table class="table"> -->
-		<!-- 					<thead> -->
-		<!-- 						<tr> -->
-		<!-- 							<th width="50%">Nombre</th> -->
-		<!-- 							<th>Tamaño</th> -->
-		<!-- 							<th>Progreso</th> -->
-		<!-- 							<th>Estado</th> -->
-		<!-- 							<th>Acciones</th> -->
-		<!-- 						</tr> -->
-		<!-- 					<tbody> -->
-		<!-- 						<tr ng-repeat="file in $flow.files"> -->
-		<!-- 							<td><strong>{{ file.name }}</strong></td> -->
-		<!-- 							<td nowrap>{{ file.size/1024/1024|number:2 }} MB</td> -->
-		<!-- 							<td> -->
-		<!-- 								<div class="progress" style="margin-bottom: 0;"> -->
-		<!-- 									<div class="progress-bar" role="progressbar" ng-style="{ 'width': file.progress() + '%' }"></div> -->
-		<!-- 								</div> -->
-		<!-- 							</td> -->
-		<!-- 							<td class="text-center"><span ng-show="file.isComplete()"><i class="glyphicon glyphicon-ok"></i></span> <span -->
-		<!-- 								ng-show="file.error"><i class="glyphicon glyphicon-remove"></i></span></td> -->
-		<!-- 							<td> -->
-		<!-- 								<div class="btn-group"> -->
-		<!-- 									<a class="btn btn-mini btn-warning" ng-click="file.pause()" ng-hide="file.paused"> Pause </a> <a -->
-		<!-- 										class="btn btn-mini btn-warning" ng-click="file.resume()" ng-show="file.paused"> Resume </a> <a -->
-		<!-- 										class="btn btn-mini btn-danger" ng-click="file.cancel()"> Cancel </a> <a class="btn btn-mini btn-info" -->
-		<!-- 										ng-click="file.retry()" ng-show="file.error"> Reintentar </a> -->
-		<!-- 								</div> -->
-		<!-- 							</td> -->
-		<!-- 						</tr> -->
-		<!-- 					</tbody> -->
-		<!-- 				</table> -->
-
-		<!-- 				<div> -->
-		<!-- 					<div> -->
-		<!-- 						Progreso: -->
-		<!-- 						<div class="progress" style=""> -->
-		<!-- 							<div class="progress-bar" role="progressbar" ng-style="{ 'width': file.progress() + '%' }"></div> -->
-		<!-- 						</div> -->
-		<!-- 					</div> -->
-		<!-- 					<button type="button" class="btn btn-success btn-s" ng-click="$flow.resume()"> -->
-		<!-- 						<span class="glyphicon glyphicon-upload"></span> Cargar -->
-		<!-- 					</button> -->
-		<!-- 					<button type="button" class="btn btn-warning btn-s" ng-click="$flow.pause()" ng-disabled="!$flow.paused"> -->
-		<!-- 						<span class="glyphicon glyphicon-ban-circle"></span> Pausar -->
-		<!-- 					</button> -->
-		<!-- 					<button type="button" class="btn btn-danger btn-s" ng-click="$flow.cancel()" ng-disabled="!$flow.isUploading()"> -->
-		<!-- 						<span class="glyphicon glyphicon-trash"></span> Cancelar -->
-		<!-- 					</button> -->
-		<!-- 				</div> -->
-
-		<!-- 			</div> -->
-
-		<!-- 		</div> -->
-
 	</div>
 </body>
-
-<jsp:include page="/WEB-INF/jsp/parts/scripts.jsp" />
 
 <script src="resources/app/controllers/fileUploadController.js"></script>
 

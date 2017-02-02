@@ -21,17 +21,23 @@ public class FileUploadFacadeImpl implements FileUploadFacade {
 				public void run() {
 					try {
 						
-						String url = FileUtilities.addParametersToFile(requestUrl, getFolderTempPath(), getPublishFileAddress(), selectedUploadType);
-						
-						if(selectedUploadType.equals(FileUploadType.PROFESSORS.getValue()))
-							uploaderFacade.asynchImportLocalFile(url, fileName, userName, false, getFileUploadProfessorParser());
-						
-						if(selectedUploadType.equals(FileUploadType.STUDENTS.getValue()))
-							uploaderFacade.asynchImportLocalFile(url, fileName, userName, false, getFileUploadStudentParser());
-						
-						if(selectedUploadType.equals(FileUploadType.GROUPS.getValue()))
-							uploaderFacade.asynchImportLocalFile(url, fileName, userName, false, getFileUploadGroupParser());
-						
+						if(selectedUploadType != null && !selectedUploadType.equals("")){
+							String url = FileUtilities.addParametersToFile(requestUrl, getFolderTempPath(), getPublishFileAddress(), selectedUploadType);
+							
+							if(selectedUploadType.equals(FileUploadType.PROFESSORS.getValue()))
+								uploaderFacade.asynchImportLocalFile(url, fileName, userName, false, getFileUploadProfessorParser());
+							
+							if(selectedUploadType.equals(FileUploadType.STUDENTS.getValue()))
+								uploaderFacade.asynchImportLocalFile(url, fileName, userName, false, getFileUploadStudentParser());
+							
+							if(selectedUploadType.equals(FileUploadType.GROUPS.getValue()))
+								uploaderFacade.asynchImportLocalFile(url, fileName, userName, false, getFileUploadGroupParser());
+						}else{
+							
+							//FIXME
+							//ACA LLAMO AL UPDATE DE PROFESSOR CON LA IMAGEN NUEVA
+							
+						}
 					} catch (Exception e) {
 						throw new RuntimeException(e);
 					}
