@@ -48,10 +48,10 @@ app.controller('groupCtrl', ['$scope','$http','ngNotify','blockUI',	function($sc
 
 			$scope.deleteGroup = function(item) {				
 				var items = [];
-				items.push(item.oid);
+				items.push(item);
 				$http({
 					method : 'POST',
-					url : 'main/deleteGroup',
+					url : 'data/deleteGroup',
 					data : items
 				}).success(function successCallback(response) {
 					blockUI.stop();

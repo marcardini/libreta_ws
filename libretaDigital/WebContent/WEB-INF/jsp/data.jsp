@@ -28,6 +28,7 @@
 	}
 %>
 
+
 <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="bower_components/dropzone/dist/basic.css">
 <link rel="stylesheet" href="bower_components/dropzone/dist/dropzone.css">
@@ -35,14 +36,13 @@
 <link rel="stylesheet" href="bower_components/angular-block-ui/dist/angular-block-ui.min.css"/>
 <link rel="stylesheet" href="resources/css/style.css">
 
-</head>
+
 <script type="text/javascript">
 	var professors =
 <%=professors%>
 	var students =
 <%=students%>
 	;
-
 	var groups =
 <%=groups%>
 	;
@@ -59,7 +59,7 @@
 			<div class="row">
 				<div class="col-md-8">
 					<h1>
-						Gestion de Datos <small></small>
+						Gestión de datos
 					</h1>
 				</div>
 				<div class="col-md-4">
@@ -70,8 +70,6 @@
 				</div>
 			</div>
 		</div>
-
-
 
 		<div class="content-wrapper" ng-controller="dataCtrl">
 
@@ -100,14 +98,11 @@
 
 			</uib-accordion>
 
-
-			
-			
-
 		</div>
 	</div>
 
 </body>
+
 <jsp:include page="/WEB-INF/jsp/parts/scripts.jsp" />
 <script src="resources/app/controllers/fileUploadController.js"></script>
 <script src="resources/app/controllers/dataController.js"></script>

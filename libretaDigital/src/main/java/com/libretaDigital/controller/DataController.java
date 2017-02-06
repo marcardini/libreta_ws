@@ -59,7 +59,7 @@ public class DataController {
 	
 	private static String CATALINA_HOME = System.getenv("CATALINA_HOME");
 	
-	private byte[] photo;
+	//private byte[] photo;
 	
 	@RequestMapping(value = "/data", method = RequestMethod.GET)
 	public ModelAndView data(HttpSession session) {
@@ -113,10 +113,10 @@ public class DataController {
 				if(item.getOid() == null){
 					 
 					 professor = new Professor(item.getName(), item.getLastName(), item.getBirthDate(), item.getGender(), item.getEmail(), item.getPassword(),
-								Grade.valueOf(item.getGrade()),item.getEmployeeSince()/* photo*/);
+								item.getEmployeeSince()/* photo*/);
 				}else{
 					 professor = new Professor(item.getName(), item.getLastName(), item.getBirthDate(), item.getGender(), item.getEmail(), item.getPassword(),
-							Grade.valueOf(item.getGrade()),item.getEmployeeSince()/*, photo*/);
+							item.getEmployeeSince()/*, photo*/);
 					professor.setOid(item.getOid());
 				}
 				
@@ -278,7 +278,7 @@ public class DataController {
 	
 	
 	public void clearUploadData() {
-		photo = null;
+		//photo = null;
 	}
 	
 

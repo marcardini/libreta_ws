@@ -24,7 +24,7 @@ public class GroupServiceImpl implements IGroupService{
 		if (groupDAO.getGroupByNameAndYear(dtGroup.getName(),dtGroup.getYear()) != null)
 			throw new GroupAlreadyExists();
 				
-		groupDAO.save(dtGroup);
+		groupDAO.saveOrUpdate(dtGroup);
 	}
 	
 	@Override

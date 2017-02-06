@@ -15,7 +15,7 @@ public abstract class Person {
 	private String name;
 	private String lastName;
 	private Date birthDate;
-	private byte[] photo = hexStringToByteArray("e04fd020ea3a6910a2d808002b30309d");;
+	//private byte[] photo = hexStringToByteArray("e04fd020ea3a6910a2d808002b30309d");;
 	private Gender gender;
 	private String email;
 	
@@ -108,12 +108,12 @@ public abstract class Person {
 	public void setOid(Long oid) {
 		this.oid = oid;
 	}
-	public byte[] getPhoto() {
+	/*public byte[] getPhoto() {
 		return photo;
 	}
 	public void setPhoto(byte[] photo) {
 		this.photo = photo;
-	}
+	}*/
 	
 	public static byte[] hexStringToByteArray(String s) {
 	    int len = s.length();
