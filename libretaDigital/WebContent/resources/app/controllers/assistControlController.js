@@ -77,7 +77,7 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 		 var absences = $scope.getAbsencesToSave();
 		 var deletes = [];
 		 deletes = $scope.getAbsencesToDelete(absences);
-		 console.log(absences);	
+//		 console.log(absences);	
 		 console.log(deletes);	
 		 $http({
 			  method: 'POST',
@@ -100,7 +100,7 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 					    // called asynchronously if an error occurs
 					    // or server returns response with an error status.
 					  }).error(function (data, status, header, config) {
-						  console.log(status);
+						  console.log(response);
 						  ngNotify.set('ERROR - Datos no cargados', 'error');
 					  });
 			    $scope.getAbsencesStudents();			   
@@ -110,7 +110,7 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 			    // called asynchronously if an error occurs
 			    // or server returns response with an error status.
 			  }).error(function (data, status, header, config) {
-				  console.log(status);
+				  console.log(response);
 				  ngNotify.set('ERROR - Datos no Actualizados', 'error');
 			  });
 		 
@@ -123,13 +123,22 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 	 
 	 $scope.getAbsencesToDelete = function (absences){
 		 var deletes = [];
-		 angular.forEach($scope.oidStudentsIn, function(studentDayId){ 
-			 angular.forEach(absences, function(absence){ 
-				 if(absence.oid != studentDayId){
-					 deletes.push(studentDayId);					 
-				 }
-			 }); 
-		 });
+		 for (var int = 0; int < $scope.oidStudentsIn.length; int++) {
+				var oid = $scope.oidStudentsIn[int];
+				if(absences.length <= 1){
+					 deletes.push(oid);
+				}else{
+					 var flag = false;
+					angular.forEach(absences, function(absence){						
+						 if(absence.oid == oid){
+							 flag = true;					 
+						 }
+					 }); 
+					if(flag == false){
+						deletes.push(oid);
+					}
+				}	
+			 }	
 		 return deletes;		 
 	 }
 	 
@@ -163,7 +172,7 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 			    $scope.studentsAbsences= data;
 			    $scope.setLabelStudentsList($scope.studentsAbsences);			   
 			  }).error(function (data, status, header, config) {
-				  console.log(status);
+				  //console.log(response);
 				  ngNotify.set('ERROR - Datos no cargados', 'error');
 			  });
 	 };
