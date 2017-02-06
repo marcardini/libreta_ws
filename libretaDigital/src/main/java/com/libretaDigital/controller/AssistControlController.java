@@ -74,14 +74,7 @@ public class AssistControlController {
 		} catch (ParseException e1) {
 			e1.printStackTrace();
 		}
-		 
-		//TEST OBTENER BOLETINES SEGUN ALUMNO Y MATERIA
-		//bulletinService.getBulletinsByStudentIdAndSubjectIdBetweenDates(1L, 1L, start_date, end_date);
 		
-		//TEST GUARDAR BOLETIN
-		//bulletinService.generateBulletin(1L, start_date, end_date, 1L, 8, "buena conducta", false, 3);
-		
-				
 		try {
 			//cargamos grupo y materia suponiendo que el profesor tiene un solo grupo y una materia. la posicion 0 de ambas listas.
 			groupName = loguedProfessor.getGroupsList().get(0).getName();

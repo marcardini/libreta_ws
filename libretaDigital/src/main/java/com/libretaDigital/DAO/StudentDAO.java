@@ -353,7 +353,7 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 			@SuppressWarnings("unchecked")
 			@Override
 			public List<Student> doInHibernate(Session session) throws HibernateException {
-				String oQuery = "select stu.oid, stu.name, stu.last_name, stu.birth_date, stu.gender, stu.email, stu.currentStudent, day.event_registration_type "
+				String oQuery = "select distinct(stu.oid), stu.name, stu.last_name, stu.birth_date, stu.gender, stu.email, stu.currentStudent, day.event_registration_type "
 						+ "from group_ g, subject sub, student stu "
 						+ "left join class_day_student day on (stu.oid = day.student_id and day.class_date >= :dateFrom and day.class_date <= :dateTo) "
 						+ "where stu.group_id = g.oid  "
