@@ -18,6 +18,7 @@ public abstract class Person {
 	//private byte[] photo = hexStringToByteArray("e04fd020ea3a6910a2d808002b30309d");;
 	private Gender gender;
 	private String email;
+	private String phoneNumber;
 	
 	
 	public Person(){}
@@ -123,5 +124,13 @@ public abstract class Person {
 	                             + Character.digit(s.charAt(i+1), 16));
 	    }
 	    return data;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 }

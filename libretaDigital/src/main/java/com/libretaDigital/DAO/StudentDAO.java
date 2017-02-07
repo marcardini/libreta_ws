@@ -104,7 +104,7 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
             @SuppressWarnings("unchecked")
             @Override
             public List<Student> doInHibernate(Session session) throws HibernateException {
-                String oQuery = "select stu.oid, stu.name, stu.last_name, stu.birth_date, stu.gender, stu.email, stu.currentStudent "
+                String oQuery = "select stu.oid, stu.name, stu.last_name, stu.birth_date, stu.gender, stu.email, stu.currentStudent, stu.phoneNumber "
                         + "from student stu, group_ g, subject sub, course course "
                         + "where stu.group_id = g.oid "
                         + "and upper(g.name) = upper(:groupCode) and g.year = :year and upper(sub.name) = upper(:subjectName) ";
@@ -120,7 +120,7 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
                     query.setString("mail", mail);
                 List<Object[]> partialResult = query.list();
                 if (partialResult != null && !partialResult.isEmpty())
-                    result = getStudentsFilesFromPartialResult(partialResult);
+                    result = getStudentsFilesFromPartialResult(partialResult, groupCode);
                 return result;
             }
         });
@@ -165,7 +165,7 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 		});
 	}
 
-	private List<Student> getStudentsFilesFromPartialResult(List<Object[]> partialResult) {
+	private List<Student> getStudentsFilesFromPartialResult(List<Object[]> partialResult, String groupCode) {
         List<Student> result = new ArrayList<Student>();
         
         for (Object[] oPartialResult : partialResult) {
@@ -192,6 +192,10 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
                     currentStudent = false;
                 student.setCurrentStudent(currentStudent);
             }
+            
+            student.setPhoneNumber((String)oPartialResult[7]);
+            
+            student.setGroupCode(groupCode);
             
             student.setCalendar(getStudentCalendarByStudentIdAndCourseId(student.getOid()));            
             result.add(student);

@@ -18,6 +18,8 @@ public class Student extends Person implements Serializable{
 	private List<ClassDayStudent> calendar;
 	private boolean currentStudent;
 	
+	private String groupCode;
+	
 	public Student(){}
 	
 	public Student(String name, String lastName){
@@ -74,5 +76,13 @@ public class Student extends Person implements Serializable{
 	}
 	public void setGroupId(Long groupId) {
 		this.groupId = groupId;
+	}
+
+	public String getGroupCode() {
+		return groupCode;
+	}
+
+	public void setGroupCode(String groupCode) {
+		this.groupCode = groupCode;
 	}
 }

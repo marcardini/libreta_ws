@@ -32,6 +32,8 @@
 		
 		<property name="groupId" column="group_id" type="long" />
 		
+		<property name="phoneNumber" length="20" />
+		
 <!-- 		<property name="photo" type="binary"> -->
 <!--             <column name="photo" not-null="true" /> -->
 <!--         </property> -->

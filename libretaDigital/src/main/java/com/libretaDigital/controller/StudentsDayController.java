@@ -2,7 +2,6 @@ package com.libretaDigital.controller;
 
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -53,7 +52,6 @@ public class StudentsDayController {
 		
 		System.out.println(this.getPrincipal());
 		session.setAttribute("loggedUser", userService.getUser(this.getPrincipal()));
-		loguedProfessor = professorServiceImpl.getByEmail(session.getAttribute("loggedUser").toString());
 		System.out.println(session.getAttribute("loggedUser"));
 		
 		try {			

@@ -48,6 +48,8 @@
 			<list-index column="index_group" />
 			<one-to-many class="com.libretaDigital.entities.Group" />
 		</list>
+		
+		<property name="phoneNumber" length="20" />
 
 		<many-to-one name="role" column="roleId" class="com.libretaDigital.entities.Role" />
 

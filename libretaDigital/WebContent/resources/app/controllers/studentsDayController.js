@@ -310,7 +310,7 @@ app.controller('ModalInstanceQualifyCtrl', function ($uibModalInstance, qualy, s
 	if(qualy != null && !angular.isUndefined(qualy.value)){		
 		$scope.qualy = qualy;
 		$scope.old = angular.copy(qualy);
-		$scope.title = "Modificar Calificacion";
+		$scope.title = "Modificar Calificación";
 //		console.log(qualy.eventRegistrationType);
 	}else{		
 //		console.log(student);
