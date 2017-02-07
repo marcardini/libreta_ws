@@ -48,7 +48,7 @@ app.controller('professorCtrl', ['$scope','$http','ngNotify','blockUI',	function
 
 			$scope.deleteProfessor = function(item) {				
 				var items = [];
-				items.push(item.oid);
+				items.push(item);
 				$http({
 					method : 'POST',
 					url : 'data/deleteProfessor',

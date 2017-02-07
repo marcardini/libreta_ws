@@ -21,7 +21,12 @@
 				<value>hbm/Subject.hbm.xml</value>
 				<value>hbm/Institution.hbm.xml</value>
 				<value>hbm/Notebook.hbm.xml</value>
-				<value>hbm/Period.hbm.xml</value>				
+<!-- 				<value>hbm/Period.hbm.xml</value> -->
+				<value>hbm/Bulletin.hbm.xml</value>
+				
+				<value>hbm/Permission.hbm.xml</value>
+				<value>hbm/Privilege.hbm.xml</value>
+				<value>hbm/Role.hbm.xml</value>			
 				
 			</list>
 		</property>

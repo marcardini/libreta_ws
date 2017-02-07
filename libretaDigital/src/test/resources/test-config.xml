@@ -10,12 +10,27 @@
 	<import resource="classpath:hibernate-config.xml" />
 	<import resource="classpath:dal-config.xml" />
 				
-	<bean name="genericDAO" class="com.libretaDigital.hibernate.GenericDAO">
+		<bean name="genericDAO" class="com.libretaDigital.hibernate.GenericDAO">
 		<property name="sessionFactory" ref="hibernateSessionFactory" />
 	</bean>
-
+	
 	<bean id="professorDAO" class="com.libretaDigital.DAO.ProfessorDAO"
+		parent="genericDAO" />	
+	
+	<bean name="loginController" class="com.libretaDigital.controller.LoginController">
+<!-- 		<property name="userService" ref="userService" /> -->
+	</bean>
+		
+	<bean id="roleDAO" class="com.libretaDigital.DAO.RoleDAO"
 		parent="genericDAO" />
+
+	<bean id="userDAO" class="com.libretaDigital.DAO.UserDAO" parent="genericDAO">
+		<property name="roleDAO" ref="roleDAO" />
+		<property name="groupDAO" ref="groupDAO" />
+		<property name="subjectDAO" ref="subjectDAO" />
+	</bean>
+	
+	<bean id="bulletinDAO" class="com.libretaDigital.DAO.BulletinDAO" parent="genericDAO" />
 
 	<bean id="studentDAO" class="com.libretaDigital.DAO.StudentDAO"
 		parent="genericDAO" />
@@ -28,7 +43,14 @@
 
 	<bean id="classDayStudentDAO" class="com.libretaDigital.DAO.ClassDayStudentDAO"
 		parent="genericDAO" />
-
+	
+	<bean id="subjectDAO" class="com.libretaDigital.DAO.SubjectDAO" parent="genericDAO" >
+		<property name="notebookDAO" ref="notebookDAO" />
+	</bean>
+		
+	<bean id="notebookDAO" class="com.libretaDigital.DAO.NotebookDAO" parent="genericDAO" >
+		<property name="subjectDAO" ref="subjectDAO" />
+	</bean>
 
 	<bean id="md5Encoder"
 		class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
@@ -43,18 +65,25 @@
 		<property name="classDayStudentDAO" ref="classDayStudentDAO" />
 		<property name="encoder" ref="md5Encoder" />
 	</bean>
-
+	
 	<bean id="groupService" class="com.libretaDigital.services.GroupServiceImpl">
 		<property name="groupDAO" ref="groupDAO" />
 		<property name="encoder" ref="md5Encoder" />
 	</bean>
 	
+	<bean id="dateconverter" class="com.libretaDigital.utils.DateConverter" />
+	
+	
 	<bean id="assistcontrolcontroller" class="com.libretaDigital.controller.AssistControlController">
-		<property name="assistControlFacade" ref="assistControlFacade" />
+		<property name="assistControlFacade" ref="assistControlFacade" />		
+		<property name="bulletinService" ref="bulletinService" />
+		<property name="dateconverter" ref="dateconverter" />
+		<property name="userService" ref="userService" />
 	</bean>
-
-	<bean id="assistcontroltest" class="com.libretaDigital.testing.AssistControlTest">
-		<property name="assistControlFacade" ref="assistControlFacade" />
+	
+	<bean id="userService" class="com.libretaDigital.services.UserServiceImpl">
+		<property name="professorDAO" ref="professorDAO" />
+		<property name="userDAO" ref="userDAO" />			
 	</bean>
 	
 	<bean id="assistControlFacade" class="com.libretaDigital.assistControl.AssistControlFacadeImpl">
@@ -62,5 +91,8 @@
 		<property name="groupDAO" ref="groupDAO" />
 	</bean>
 	
+	<bean id="bulletinService" class="com.libretaDigital.services.BulletinServiceImpl">
+		<property name="bulletinDAO" ref="bulletinDAO" />
+	</bean>
 
 </beans>

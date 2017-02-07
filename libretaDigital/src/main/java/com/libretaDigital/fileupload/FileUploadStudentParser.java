@@ -53,6 +53,8 @@ public class FileUploadStudentParser implements IFileParser {
 		studentUploadLine.setGroupName(validateAndGetStringField(fields[i], true, 100, i));
 		i++;
 		studentUploadLine.setYear(validateAndGetYearField(fields[i], true, 4, i));
+		i++;
+		studentUploadLine.setPhoneNumber(validateAndGetStringField(fields[i], true, 20, i));
 
 		studentUploadLine.setUpoloadProcessorId(UploadProcessorId.STUDENT);
 

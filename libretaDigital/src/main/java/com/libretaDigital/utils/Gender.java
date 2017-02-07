@@ -32,9 +32,6 @@ public enum Gender {
 	
 	PENDING;
 	
-	private Gender() {
-		// TODO Auto-generated constructor stub
-	}
-	
+	private Gender() {}
 	
 }

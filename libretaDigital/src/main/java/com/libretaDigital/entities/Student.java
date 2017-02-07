@@ -18,6 +18,8 @@ public class Student extends Person implements Serializable{
 	private List<ClassDayStudent> calendar;
 	private boolean currentStudent;
 	
+	private String groupCode;
+	
 	public Student(){}
 	
 	public Student(String name, String lastName){
@@ -29,27 +31,27 @@ public class Student extends Person implements Serializable{
 		this.groupId = groupId;
 	}
 	
-	public Student(String name, String lastName, Date birthDate, byte[] photo, Gender gender, String email){
+	/*public Student(String name, String lastName, Date birthDate, byte[] photo, Gender gender, String email){
 		super(name, lastName, birthDate, photo, gender, email);
-    }
+    }*/
 	
 	public Student(String name, String lastName, Date birthDate, Gender gender, String email, boolean currentStudent){
 		super(name, lastName, birthDate, gender, email);
 		this.currentStudent = currentStudent;
     }
 	
-	public Student(String name, String lastName, Date birthDate, Gender gender, String email, boolean current, Long groupId){
-		super(name, lastName, birthDate, gender, email);
+	public Student(String name, String lastName, Date birthDate, Gender gender, String email, boolean current, Long groupId, String phoneNumber){
+		super(name, lastName, birthDate, gender, email, phoneNumber);
 		this.groupId = groupId;
 		this.currentStudent = current;
 	}
 	
-	public Student(Course course, Long groupId, boolean current, String name, String lastName, Date birthDate, Gender gender, String email, byte[] photo){
+	/*public Student(Course course, Long groupId, boolean current, String name, String lastName, Date birthDate, Gender gender, String email, byte[] photo){
 		super(name, lastName, birthDate, photo, gender, email);
 		this.course = course;
 		this.groupId = groupId;
 		this.currentStudent = current;
-	}
+	}*/
 
 	public Course getCourse() {
 		return course;
@@ -74,5 +76,13 @@ public class Student extends Person implements Serializable{
 	}
 	public void setGroupId(Long groupId) {
 		this.groupId = groupId;
+	}
+
+	public String getGroupCode() {
+		return groupCode;
+	}
+
+	public void setGroupCode(String groupCode) {
+		this.groupCode = groupCode;
 	}
 }

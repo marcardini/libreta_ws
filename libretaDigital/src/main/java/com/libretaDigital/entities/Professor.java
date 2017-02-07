@@ -43,19 +43,25 @@ public class Professor extends Person implements Serializable{
         this.employeeSince = employeeSince;
     }
 	
-	public Professor(String name, String lastName, Date birthDate, Gender gender, String email, String password, Grade grade, Date employeeSince, Role role){
-		super(name, lastName, birthDate, gender, email);
-        this.password = password;
-        this.grade = grade;
-        this.employeeSince = employeeSince;
-        this.role = role;
-    }
-	
 	public Professor(String name, String lastName, Date birthDate, Gender gender, String email, String password, Grade grade, Date employeeSince){
 		super(name, lastName, birthDate, gender, email);
         this.password = password;
         this.grade = grade;
-        this.employeeSince = employeeSince;       
+        this.employeeSince = employeeSince;
+    }
+	
+	public Professor(String name, String lastName, Date birthDate, Gender gender, String email, String password, Date employeeSince){
+		super(name, lastName, birthDate, gender, email);
+        this.password = password;
+        this.employeeSince = employeeSince;
+    }
+	
+	public Professor(String name, String lastName, Date birthDate, Gender gender, String email, String password, Date employeeSince, Grade grade,  Role role, String phoneNumber){
+		super(name, lastName, birthDate, gender, email, phoneNumber);
+        this.password = password;
+        this.grade = grade;
+        this.employeeSince = employeeSince;
+        this.role = role;
     }
 	
 	public boolean validatePassword(String password) {

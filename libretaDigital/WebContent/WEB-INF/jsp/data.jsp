@@ -28,26 +28,25 @@
 	}
 %>
 
+
+<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="bower_components/dropzone/dist/basic.css">
+<link rel="stylesheet" href="bower_components/dropzone/dist/dropzone.css">
+<link rel="stylesheet" href="bower_components/ng-notify/dist/ng-notify.min.css">
+<link rel="stylesheet" href="bower_components/angular-block-ui/dist/angular-block-ui.min.css"/>
+<link rel="stylesheet" href="resources/css/style.css">
+
+
 <script type="text/javascript">
 	var professors =
 <%=professors%>
 	var students =
 <%=students%>
 	;
-
 	var groups =
 <%=groups%>
 	;
 </script>
-
-<title><%=pageTitle%></title>
-<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="bower_components/ng-notify/dist/ng-notify.min.css">
-<link rel="stylesheet" href="bower_components/angular-block-ui/dist/angular-block-ui.min.css">
-<link rel="stylesheet" href="bower_components/angular-percent-circle-directive/dist/percent-circle.css">
-<link rel="stylesheet" href="bower_components/angularjs-slider/dist/rzslider.min.css" />
-<link rel="stylesheet" href="resources/css/style.css">
-e.css">
 
 </head>
 
@@ -60,7 +59,7 @@ e.css">
 			<div class="row">
 				<div class="col-md-8">
 					<h1>
-						Gestion de Datos <small></small>
+						Gestión de datos
 					</h1>
 				</div>
 				<div class="col-md-4">
@@ -71,8 +70,6 @@ e.css">
 				</div>
 			</div>
 		</div>
-
-
 
 		<div class="content-wrapper" ng-controller="dataCtrl">
 
@@ -101,17 +98,19 @@ e.css">
 
 			</uib-accordion>
 
-
-			
-			
-
 		</div>
 	</div>
 
 </body>
+
 <jsp:include page="/WEB-INF/jsp/parts/scripts.jsp" />
+<script src="resources/app/controllers/fileUploadController.js"></script>
 <script src="resources/app/controllers/dataController.js"></script>
 <script src="resources/app/controllers/professorController.js"></script>
 <script src="resources/app/controllers/studentController.js"></script>
 <script src="resources/app/controllers/groupController.js"></script>
+
+<script type="text/javascript">
+	Dropzone.autoDiscover = false;
+</script>
 </html>

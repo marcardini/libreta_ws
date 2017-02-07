@@ -48,10 +48,10 @@ app.controller('studentCtrl', ['$scope','$http','ngNotify','blockUI',	function($
 
 			$scope.deleteStudent = function(item) {				
 				var items = [];
-				items.push(item.oid);
+				items.push(item);
 				$http({
 					method : 'POST',
-					url : 'main/deleteStudent',
+					url : 'data/deleteStudent',
 					data : items
 				}).success(function successCallback(response) {
 					blockUI.stop();

@@ -43,7 +43,7 @@
 				<li class="dropdown {{datos}}"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Gestión de datos<span	class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li class="{{datos1}}"><a href="fileUpload.jsp">Carga Masiva</a></li>
-						<li class="{{datos2}}"><a href="data.jsp">Carga de Datos</a></li>
+						<li class="{{datos2}}"><a href="data.jsp">Gestión de Datos</a></li>
 					</ul>
 				</li>					
 					

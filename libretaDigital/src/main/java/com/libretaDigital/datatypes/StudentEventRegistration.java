@@ -20,8 +20,7 @@ public class StudentEventRegistration {
 	
 	public StudentEventRegistration(){}
 	
-	public StudentEventRegistration(Long classDayStudentId, Long studentId, Long courseId, Long groupId, Long subjectId, EventRegistrationType ert, BigDecimal value, String comment){
-		this.classDayStudentId = classDayStudentId;
+	public StudentEventRegistration(Long studentId, Long courseId, Long groupId, Long subjectId, EventRegistrationType ert, BigDecimal value, String comment){
 		this.studentId = studentId;
 		this.courseId = courseId;
 		this.groupId = groupId;
@@ -31,8 +30,7 @@ public class StudentEventRegistration {
 		this.comment = comment;
 	}
 	
-	public StudentEventRegistration(Long classDayStudentId, Long studentId, Long courseId, Long groupId, Long subjectId, EventRegistrationType ert){
-		this.classDayStudentId = classDayStudentId;
+	public StudentEventRegistration(Long studentId, Long courseId, Long groupId, Long subjectId, EventRegistrationType ert){
 		this.studentId = studentId;
 		this.courseId = courseId;
 		this.groupId = groupId;

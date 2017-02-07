@@ -20,22 +20,28 @@ public class ProfessorServiceImpl implements IProfessorService{
 	
 	public void addProfessor(Professor dtProfessor) throws ProfessorAlreadyExists, InvalidProfessorInformation {
 
-		if (dtProfessor.getPassword() == null || "".equals(dtProfessor.getPassword().trim()))
-			throw new InvalidProfessorInformation(InvalidProfessorInformation.ErrorType.EMPTY_PASSWORD);
+		Professor existingProfessor = professorDAO.getProfessorByMail(dtProfessor.getEmail());
 		
-		
-				
-		String password = dtProfessor.getPassword();
-		String encriptedPassword = null;
-		boolean passwordValidated = dtProfessor.validatePassword(password);
-
-		if(passwordValidated){
-			//if the validation passes, the password gets encripted
-			encriptedPassword = encoder.encodePassword(password, null);
-			dtProfessor.setPassword(encriptedPassword);
+		if(existingProfessor == null)
+		{
+			if (dtProfessor.getPassword() == null || "".equals(dtProfessor.getPassword().trim())){
+				//we set a provisory password for the new user to login
+				dtProfessor.setPassword("1234");
+				//throw new InvalidProfessorInformation(InvalidProfessorInformation.ErrorType.EMPTY_PASSWORD);
+			}
+			
+			String password = dtProfessor.getPassword();
+			String encriptedPassword = null;
+			boolean passwordValidated = dtProfessor.validatePassword(password);
 	
-			professorDAO.saveOrUpdate(dtProfessor);
+			if(passwordValidated){
+				//if the validation passes, the password gets encripted
+				encriptedPassword = encoder.encodePassword(password, null);
+				dtProfessor.setPassword(encriptedPassword);
+			}
 		}
+			
+		professorDAO.saveOrUpdate(dtProfessor);
 	}
 	
 	@Override

@@ -1,25 +1,21 @@
 package com.libretaDigital.controller;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.libretaDigital.assistControl.StudentsDayFacadeImpl;
-import com.libretaDigital.beans.StudentDayBean;
-import com.libretaDigital.datatypes.StudentEventRegistration;
 import com.libretaDigital.entities.Professor;
 import com.libretaDigital.entities.Student;
 import com.libretaDigital.services.ProfessorServiceImpl;
@@ -56,11 +52,10 @@ public class StudentsDayController {
 		
 		System.out.println(this.getPrincipal());
 		session.setAttribute("loggedUser", userService.getUser(this.getPrincipal()));
-		loguedProfessor = professorServiceImpl.getByEmail(session.getAttribute("loggedUser").toString());
 		System.out.println(session.getAttribute("loggedUser"));
 		
 		try {			
-			page.addObject("students" , mapper.writeValueAsString(this.getStudentsFiles()));
+			
 			List<EventRegistrationType> eventsRegistrationTypes = Arrays.asList(EventRegistrationType.values());
 			page.addObject("eventsRegistrationTypes" , mapper.writeValueAsString(eventsRegistrationTypes));
 			page.addObject("professors", mapper.writeValueAsString(this.getAllProfessors()));
@@ -70,18 +65,18 @@ public class StudentsDayController {
 			page.addObject("groupName", mapper.writeValueAsString(groupName));
 			page.addObject("subjectName", mapper.writeValueAsString(subjectName));
 			
-//			page.addObject("groups", mapper.writeValueAsString(this.getGroupsByProfessor()));
-//			page.addObject("studentsAbsences", mapper.writeValueAsString(this.getStudentsAbsencesByCode()));
+			Calendar now = Calendar.getInstance();
+			int year = now.get(Calendar.YEAR);  
+			page.addObject("students" , mapper.writeValueAsString(this.getStudentsFiles(null, groupName, year, subjectName)));
+			
 		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
 		return page;
 	}
 
-	public List<Student> getStudentsFiles() {
-		//return studentsDayFacade.getStudentsFiles(mail, courseName, groupCode, year, subjectName)
-		return studentsDayFacade.getStudentsFiles(null, "1A", 2016, "MATEMATICAS");
+	public List<Student> getStudentsFiles(String mail, String groupCode, int year, String subjectName) {
+		return studentsDayFacade.getStudentsFiles(mail, groupCode, year, subjectName);
 	}
 	
 	public List<Professor> getAllProfessors(){
@@ -99,83 +94,63 @@ public class StudentsDayController {
 		}
 		return userName;
 	}
+
 	
 	public List<Student> getStudentsByCode() {
 		return studentsDayFacade.getStudentsByGroupCode(groupCode);
 	}
-
 	public StudentsDayFacadeImpl getStudentsDayFacade() {
 		return studentsDayFacade;
 	}
-
 	public void setStudentsDayFacade(StudentsDayFacadeImpl studentsDayFacade) {
 		this.studentsDayFacade = studentsDayFacade;
 	}
-
 	public String getSubjectName() {
 		return subjectName;
 	}
-
 	public void setSubjectName(String subjectName) {
 		this.subjectName = subjectName;
 	}
-
 	public StudentServiceImpl getStudentServiceImpl() {
 		return studentServiceImpl;
 	}
-
 	public void setStudentServiceImpl(StudentServiceImpl studentServiceImpl) {
 		this.studentServiceImpl = studentServiceImpl;
 	}
-
 	public ProfessorServiceImpl getProfessorServiceImpl() {
 		return professorServiceImpl;
 	}
-
 	public void setProfessorServiceImpl(ProfessorServiceImpl professorServiceImpl) {
 		this.professorServiceImpl = professorServiceImpl;
 	}
-
 	public String getGroupCode() {
 		return groupCode;
 	}
-
 	public void setGroupCode(String groupCode) {
 		this.groupCode = groupCode;
 	}
-
 	public long getProfessorId() {
 		return professorId;
 	}
-
 	public void setProfessorId(long professorId) {
 		this.professorId = professorId;
 	}
-
 	public String getGroupName() {
 		return groupName;
 	}
-
 	public void setGroupName(String groupName) {
 		this.groupName = groupName;
 	}
-
 	public Professor getLoguedProfessor() {
 		return loguedProfessor;
 	}
-
 	public void setLoguedProfessor(Professor loguedProfessor) {
 		this.loguedProfessor = loguedProfessor;
 	}
-
 	public UserServiceImpl getUserService() {
 		return userService;
 	}
-
 	public void setUserService(UserServiceImpl userService) {
 		this.userService = userService;
-	}
-	
-
-	
+	}	
 }

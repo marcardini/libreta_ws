@@ -4,8 +4,6 @@ import java.math.BigDecimal;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 
-import com.libretaDigital.utils.EventRegistrationType;
-
 @JsonAutoDetect
 public class StudentDayBean {
 
@@ -20,10 +18,8 @@ public class StudentDayBean {
 	private BigDecimal value;
 	private String comment;
 
-	public StudentDayBean() {
-
-	}
-
+	public StudentDayBean() {}
+	
 	public long getStudentId() {
 		return studentId;
 	}
@@ -61,39 +57,28 @@ public class StudentDayBean {
 	public void setSubject_id(long subject_id) {
 		this.subject_id = subject_id;
 	}
-
 	public long getOid() {
 		return oid;
 	}
-
 	public void setOidd(long oid) {
 		this.oid = oid;
 	}
-
 	public boolean isJustified() {
 		return justified;
 	}
-
 	public void setJustified(boolean justified) {
 		this.justified = justified;
 	}
-
 	public BigDecimal getValue() {
 		return value;
 	}
-
 	public void setValue(BigDecimal value) {
 		this.value = value;
 	}
-
 	public String getComment() {
 		return comment;
 	}
-
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-
-	
-	
 }

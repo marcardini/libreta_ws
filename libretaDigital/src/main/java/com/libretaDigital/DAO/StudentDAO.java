@@ -104,7 +104,7 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
             @SuppressWarnings("unchecked")
             @Override
             public List<Student> doInHibernate(Session session) throws HibernateException {
-                String oQuery = "select stu.oid, stu.name, stu.last_name, stu.birth_date, stu.gender, stu.email, stu.currentStudent "
+                String oQuery = "select stu.oid, stu.name, stu.last_name, stu.birth_date, stu.gender, stu.email, stu.currentStudent, stu.phoneNumber "
                         + "from student stu, group_ g, subject sub, course course "
                         + "where stu.group_id = g.oid "
                         + "and upper(g.name) = upper(:groupCode) and g.year = :year and upper(sub.name) = upper(:subjectName) ";
@@ -120,7 +120,7 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
                     query.setString("mail", mail);
                 List<Object[]> partialResult = query.list();
                 if (partialResult != null && !partialResult.isEmpty())
-                    result = getStudentsFilesFromPartialResult(partialResult);
+                    result = getStudentsFilesFromPartialResult(partialResult, groupCode);
                 return result;
             }
         });
@@ -165,7 +165,7 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 		});
 	}
 
-	private List<Student> getStudentsFilesFromPartialResult(List<Object[]> partialResult) {
+	private List<Student> getStudentsFilesFromPartialResult(List<Object[]> partialResult, String groupCode) {
         List<Student> result = new ArrayList<Student>();
         
         for (Object[] oPartialResult : partialResult) {
@@ -192,6 +192,10 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
                     currentStudent = false;
                 student.setCurrentStudent(currentStudent);
             }
+            
+            student.setPhoneNumber((String)oPartialResult[7]);
+            
+            student.setGroupCode(groupCode);
             
             student.setCalendar(getStudentCalendarByStudentIdAndCourseId(student.getOid()));            
             result.add(student);
@@ -353,7 +357,7 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 			@SuppressWarnings("unchecked")
 			@Override
 			public List<Student> doInHibernate(Session session) throws HibernateException {
-				String oQuery = "select stu.oid, stu.name, stu.last_name, stu.birth_date, stu.gender, stu.email, stu.currentStudent, day.event_registration_type "
+				String oQuery = "select distinct(stu.oid), stu.name, stu.last_name, stu.birth_date, stu.gender, stu.email, stu.currentStudent, day.event_registration_type "
 						+ "from group_ g, subject sub, student stu "
 						+ "left join class_day_student day on (stu.oid = day.student_id and day.class_date >= :dateFrom and day.class_date <= :dateTo) "
 						+ "where stu.group_id = g.oid  "
@@ -431,7 +435,7 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 				String oQuery = "select day.class_date, day.event_registration_type, day.value, day.comment, day.oid, day.student_id "
 						+ "from class_day_student day " 
 						+ "where day.student_id = :studentOid "
-						+ "and day.group_id = (select oid from group_ where name = :groupCode) "
+						+ "and day.group_id = (select oid from group_ where name = :groupCode and year = YEAR(:dateFrom)) "
 						+ "and day.subject_id = (select oid from subject where name = :subjectName) "
 						+ "and day.event_registration_type in('"+ EventRegistrationType.FALTA +"', '"+ EventRegistrationType.MEDIA_FALTA +"') "
 						+ "and day.class_date >= :dateFrom and day.class_date <= :dateTo";

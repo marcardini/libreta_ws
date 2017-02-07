@@ -67,7 +67,7 @@
 				<div class="col-md-8">
 				
 					<h1><%=subjectName.replaceAll("\"", "") %> - GRUPO <%=groupName.replaceAll("\"", "") %>
-						<button id="btn-save" class="btn btn-lg btn-success" ng-click="calGroup()">Calificacion Grupal</button>
+						<button id="btn-save" class="btn btn-lg btn-success" ng-click="calGroup()">Calificación Grupal</button>
 					</h1>
 					
 				</div>
@@ -135,23 +135,18 @@
 											</tr>
 											<tr>
 												<td>Grupo</td>
-												<td>{{student.group}}</td>
+												<td>{{student.groupCode}}</td>
 											</tr>
 											<tr>
-												<td>Genero</td>
+												<td>Género</td>
 												<td>{{student.gender | capitalize}}</td>
-											</tr>
-											<tr>
-												<td>Dirección</td>
-												<td></td>
 											</tr>
 											<tr>
 												<td>Email</td>
 												<td><a href="mailto:>{{student.email}}">{{student.email}}</a></td>
 											</tr>
-											<td>Teléfono</td>
-											<td>123-4567-890(Landline)<br>555-4567-890(Mobile)
-											</td>
+												<td>Teléfono</td>
+												<td>{{student.phoneNumber}}</td>
 											</tr>
 										</tbody>
 									</table>

@@ -1,10 +1,9 @@
-
-	<div class="panel-body" ng-controller="professorCtrl">
+	<div class="panel-body" ng-controller="professorCtrl" ng-cloak>
 		<div class="row">
 
 			<div class="col-md-6">
 
-				<form id="idform" role="form" novalidate="" name="professorForm" class="text-left">
+				<a id="idform" role="form" novalidate="" name="professorForm" class="text-left">
 					<div class="form-group ">
 						<label for="Name">Nombre:</label>
 						<div>
@@ -12,6 +11,7 @@
 								placeholder="Nombre" ng-model="professor.name" ng-model-options="{ updateOn: 'blur' }"></input>
 						</div>
 					</div>
+					
 					<div class="form-group">
 						<label for="Name">Apellido:</label>
 						<div>
@@ -25,15 +25,31 @@
 							id="email" placeholder="Email" ng-model="professor.email" ng-model-options="{ updateOn: 'blur' }">
 					</div>
 
+<!-- 					<div class="form-group"> -->
+<!-- 						<label for="Photo">Imagen</label> -->
+							
+<!-- 						<form action="api/upload" class="my-drop-zone drop-zone dropzone" dropzone="" id="dropzoneProfessor"> -->
+<!-- 							<div class="dz-default dz-message"></div> -->
+<!-- 							<div class="dz-progress"> -->
+<!-- 								<span class="dz-upload" data-dz-uploadprogress></span> -->
+<!-- 							</div> -->
+<!-- 						</form> -->
+						
+<!-- 						<div class="btn-dropzone"> -->
+<!-- 							<button class="btn btn-success btn-sm" ng-click="uploadFile()">Subir Archivo</button> -->
+<!-- 							<button class="btn btn-danger btn-sm" ng-click="reset()">Limpiar</button> -->
+<!-- 						</div> -->
+									
+<!-- 					</div> -->
 					
 					<div class="form-group text-right">
-						<button class="btn btn-success " name="Add" value="Submit" ng-click="addProfessor()" ng-disabled="professorForm.$invalid && addButton"  ng-show="!editButton">Agregar</button>
+						<button class="btn btn-success " name="Add" value="Submit" ng-click="addProfessor()" ng-disabled="professorForm.$invalid && addButton" ng-show="!editButton">Agregar</button>
 						<button class="btn btn-md btn-warning" ng-click="addProfessor()" ng-show="editButton">Modificar</button>
 						<button type="reset" class="btn btn-primary" name="reset" value="Clear" ng-click="reset(professorForm)">Limpiar</button>
 					</div>
-				</form>
-
-
+					
+				</a>
+			
 			</div>
 			<!-- FIN FORM -->
 
@@ -82,4 +98,3 @@
 		<!-- FIN ROW  -->
 	</div>
 	<!-- FIN PANEL-BODY  -->
-

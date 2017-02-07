@@ -94,6 +94,7 @@
 		<value>hbm/Professor.hbm.xml</value>
 		<value>hbm/Student.hbm.xml</value>
 		<value>hbm/Subject.hbm.xml</value>
+		<value>hbm/Role.hbm.xml</value>
 	</util:list>
 
 </beans>

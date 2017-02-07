@@ -48,12 +48,14 @@
 			<list-index column="index_group" />
 			<one-to-many class="com.libretaDigital.entities.Group" />
 		</list>
+		
+		<property name="phoneNumber" length="20" />
 
 		<many-to-one name="role" column="roleId" class="com.libretaDigital.entities.Role" />
 
-		<property name="photo" type="binary">
-            <column name="photo" not-null="true" />
-        </property>
+<!-- 		<property name="photo" type="binary"> -->
+<!--             <column name="photo" not-null="true" /> -->
+<!--         </property> -->
         
 	</class>
 </hibernate-mapping>

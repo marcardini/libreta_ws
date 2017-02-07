@@ -14,15 +14,16 @@
 %>
 <title><%=pageTitle%></title>
 <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="bower_components/ng-notify/dist/ng-notify.min.css">
-<link rel="stylesheet" href="bower_components/angular-block-ui/dist/angular-block-ui.min.css" />
+<!-- <link rel="stylesheet" href="bower_components/ng-notify/dist/ng-notify.min.css"> -->
+<!-- <link rel="stylesheet" href="bower_components/angular-block-ui/dist/angular-block-ui.min.css" /> -->
 <link rel="stylesheet" href="/resources/css/style.css">
 </head>
 
-<body ng-controller="fileUploadCtrl">
+<body ng-controller="fileUploadCtrl" nv-file-drop="" uploader="uploader"
+	filters="queueLimit, customFilter">
 	<jsp:include page="/WEB-INF/jsp/parts/menu-head.jsp" />
 
-	<div class="container block-ui-main" block-ui="main">
+	<div class="container">
 
 
 

@@ -6,7 +6,6 @@ import org.springframework.security.authentication.encoding.MessageDigestPasswor
 
 import com.libretaDigital.DAO.*;
 import com.libretaDigital.entities.Group;
-import com.libretaDigital.entities.Student;
 import com.libretaDigital.exceptions.*;
 import com.libretaDigital.interfaces.*;
 
@@ -24,7 +23,12 @@ public class GroupServiceImpl implements IGroupService{
 		if (groupDAO.getGroupByNameAndYear(dtGroup.getName(),dtGroup.getYear()) != null)
 			throw new GroupAlreadyExists();
 				
-		groupDAO.save(dtGroup);
+		groupDAO.saveOrUpdate(dtGroup);
+	}
+	
+	@Override
+	public Group getGroupByNameAndYear(String name, int year){
+		return groupDAO.getGroupByNameAndYear(name, year);
 	}
 	
 	@Override

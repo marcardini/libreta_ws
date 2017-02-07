@@ -11,4 +11,6 @@ public interface IGroupService {
 	void addGroup(Group dtGroup) throws GroupAlreadyExists, InvalidGroupInformation;
 	
 	void deleteGroups(List<Long> items);
+	
+	Group getGroupByNameAndYear(String name, int year);
 }
