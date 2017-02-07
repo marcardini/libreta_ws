@@ -97,8 +97,6 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 					  }, function errorCallback(response) {				  
 						  console.log(response);
 						  ngNotify.set('ERROR - Datos no guardados', 'error');
-					    // called asynchronously if an error occurs
-					    // or server returns response with an error status.
 					  }).error(function (data, status, header, config) {
 						  console.log(response);
 						  ngNotify.set('ERROR - Datos no cargados', 'error');
@@ -106,9 +104,7 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 			    $scope.getAbsencesStudents();			   
 			  }, function errorCallback(response) {				  
 				  console.log(response);
-				  ngNotify.set('ERROR - Datos no Actualizados', 'error');
-			    // called asynchronously if an error occurs
-			    // or server returns response with an error status.
+				  ngNotify.set('ERROR - Datos no Actualizados', 'error');			 
 			  }).error(function (data, status, header, config) {
 				  console.log(response);
 				  ngNotify.set('ERROR - Datos no Actualizados', 'error');
