@@ -52,6 +52,15 @@ public abstract class Person {
 		this.email = email;
 	}
 	
+	public Person(String name, String lastName, Date birthDate, Gender gender, String email, String phoneNumber){
+		this.name = name;
+		this.lastName = lastName;
+		this.birthDate = birthDate;
+		this.gender = gender;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+	}
+	
 	@Override
 	public boolean equals(Object other) {
 		if (!(other instanceof Person))

@@ -84,6 +84,5 @@ public class FileUploadFacadeImpl implements FileUploadFacade {
 	}
 	public void setFileUploadGroupParser(FileUploadGroupParser fileUploadGroupParser) {
 		this.fileUploadGroupParser = fileUploadGroupParser;
-	}
-	
+	}	
 }

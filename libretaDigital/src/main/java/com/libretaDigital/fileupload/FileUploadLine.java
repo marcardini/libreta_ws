@@ -17,6 +17,7 @@ public class FileUploadLine extends FileLine{
 	private Date birthDate;
 	private Gender gender;
 	private String email;
+	private String phoneNumber;
 	
 	//Professor
 	private String password;
@@ -125,5 +126,11 @@ public class FileUploadLine extends FileLine{
 	}
 	public void setGroupId(Long groupId) {
 		this.groupId = groupId;
+	}
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 }

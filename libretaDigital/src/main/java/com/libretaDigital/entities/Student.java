@@ -40,8 +40,8 @@ public class Student extends Person implements Serializable{
 		this.currentStudent = currentStudent;
     }
 	
-	public Student(String name, String lastName, Date birthDate, Gender gender, String email, boolean current, Long groupId){
-		super(name, lastName, birthDate, gender, email);
+	public Student(String name, String lastName, Date birthDate, Gender gender, String email, boolean current, Long groupId, String phoneNumber){
+		super(name, lastName, birthDate, gender, email, phoneNumber);
 		this.groupId = groupId;
 		this.currentStudent = current;
 	}

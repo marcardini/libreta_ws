@@ -31,14 +31,14 @@ public class FileUploadLineProcessor implements UploadProcessor {
 		if(line.getUpoloadProcessorId().equals(UploadProcessorId.PROFESSOR)){
 			log.info("about to insert or update Professor in FileUploadLineProcessor");	
 			Role role = roleDAO.getRoleByName(defaultRoleName);
-			Professor professor = new Professor(line.getName(), line.getLastName(), line.getBirthDate(), line.getGender(), line.getEmail(), defaultPassword, line.getEmployeeSince(), line.getGrade(), role);
-			professorDAO.save(professor);
+			Professor professor = new Professor(line.getName(), line.getLastName(), line.getBirthDate(), line.getGender(), line.getEmail(), defaultPassword, line.getEmployeeSince(), line.getGrade(), role, line.getPhoneNumber());
+			professorDAO.saveOrUpdate(professor);
 		}
 		
 		if(line.getUpoloadProcessorId().equals(UploadProcessorId.STUDENT)){
 			log.info("about to insert or update Student in FileUploadLineProcessor");
 			Long groupId = groupDAO.getGroupByNameAndYear(line.getGroupName(), line.getYear()).getOid();
-			Student student = new Student(line.getName(), line.getLastName(), line.getBirthDate(), line.getGender(), line.getEmail(), line.isCurrentStudent(), groupId);
+			Student student = new Student(line.getName(), line.getLastName(), line.getBirthDate(), line.getGender(), line.getEmail(), line.isCurrentStudent(), groupId, line.getPhoneNumber());
 			studentDAO.saveOrUpdate(student);
 			return;
 		}
@@ -46,7 +46,7 @@ public class FileUploadLineProcessor implements UploadProcessor {
 		if(line.getUpoloadProcessorId().equals(UploadProcessorId.GROUP)){
 			log.info("about to insert or update Group in FileUploadLineProcessor");
 			Group group = new Group(line.getCourse(), line.getGroupName(), line.getYear());
-			groupDAO.save(group);
+			groupDAO.saveOrUpdate(group);
 		}
 	}
 		
@@ -71,29 +71,22 @@ public class FileUploadLineProcessor implements UploadProcessor {
 	public void setGroupDAO(GroupDAO groupDAO) {
 		this.groupDAO = groupDAO;
 	}
-
 	public String getDefaultPassword() {
 		return defaultPassword;
 	}
-
 	public void setDefaultPassword(String defaultPassword) {
 		this.defaultPassword = defaultPassword;
 	}
-
 	public String getDefaultRoleName() {
 		return defaultRoleName;
 	}
-
 	public void setDefaultRoleName(String defaultRoleName) {
 		this.defaultRoleName = defaultRoleName;
 	}
-
 	public RoleDAO getRoleDAO() {
 		return roleDAO;
 	}
-
 	public void setRoleDAO(RoleDAO roleDAO) {
 		this.roleDAO = roleDAO;
 	}
-
 }

@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.libretaDigital.utils.*;
 
@@ -57,20 +56,13 @@ public class Professor extends Person implements Serializable{
         this.employeeSince = employeeSince;
     }
 	
-	public Professor(String name, String lastName, Date birthDate, Gender gender, String email, String password, Date employeeSince, Grade grade,  Role role){
-		super(name, lastName, birthDate, gender, email);
+	public Professor(String name, String lastName, Date birthDate, Gender gender, String email, String password, Date employeeSince, Grade grade,  Role role, String phoneNumber){
+		super(name, lastName, birthDate, gender, email, phoneNumber);
         this.password = password;
         this.grade = grade;
         this.employeeSince = employeeSince;
         this.role = role;
     }
-	
-	/*public Professor(String name, String lastName, Date birthDate, Gender gender, String email, String password, Grade grade, Date employeeSince, byte[] photo){
-		super(name, lastName, birthDate, photo, gender, email);
-        this.password = password;
-        this.grade = grade;
-        this.employeeSince = employeeSince;
-    }*/
 	
 	public boolean validatePassword(String password) {
 		return password.length() > 4 && password.length() < 20;
