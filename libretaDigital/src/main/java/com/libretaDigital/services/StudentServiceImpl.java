@@ -37,10 +37,10 @@ public class StudentServiceImpl implements IStudentService{
 	@Override
 	public void addStudent(Student dtStudent) throws StudentAlreadyExists, InvalidStudentInformation {
 		
-		if (studentDAO.getStudentByMail(dtStudent.getEmail()) != null)
-			throw new StudentAlreadyExists();
+//		if (studentDAO.getStudentByMail(dtStudent.getEmail()) != null)
+//			throw new StudentAlreadyExists();
 				
-		studentDAO.save(dtStudent);
+		studentDAO.saveOrUpdate(dtStudent);
 		
 	}
 	

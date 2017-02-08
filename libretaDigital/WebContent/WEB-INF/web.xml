@@ -83,6 +83,7 @@ version="3.1">
     		<url-pattern>/data/professors</url-pattern>
     		<url-pattern>/data/deleteStudent</url-pattern>  
     		<url-pattern>/data/saveStudents</url-pattern>  
+    		<url-pattern>/data/saveStudentPhoto</url-pattern> 
     		<url-pattern>/data/students</url-pattern>
     		<url-pattern>/data/deleteGroup</url-pattern>  
     		<url-pattern>/data/saveGroups</url-pattern>  
