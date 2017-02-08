@@ -439,7 +439,7 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 						+ "and day.subject_id = (select oid from subject where name = :subjectName) "
 						+ "and day.event_registration_type in('"+ EventRegistrationType.FALTA +"', '"+ EventRegistrationType.MEDIA_FALTA +"') "
 						+ "and day.class_date >= :dateFrom and day.class_date <= :dateTo";
-				
+											
 				SQLQuery query = session.createSQLQuery(oQuery);
 
 				query.setLong("studentOid", studentOid);
