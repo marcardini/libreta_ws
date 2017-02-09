@@ -218,7 +218,7 @@ public class DataController {
 
 	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "data/saveStudentPhoto", method = RequestMethod.POST)
-	public ResponseEntity uploadFile(@RequestBody MultipartFile photo,@RequestParam(value = "mail", required = true) String mail) {
+	public ResponseEntity uploadFile(@RequestBody MultipartFile photo, @RequestParam(value = "mail", required = true) String mail) {
 		try {
 			//Iterator<String> itr = request.getFileNames();
 			//while (itr.hasNext()) {

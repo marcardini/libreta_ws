@@ -94,7 +94,7 @@ app.controller('studentCtrl', ['$scope','$http','ngNotify','blockUI',	function($
 					  data: students
 					}).success(function successCallback(response) {
 						blockUI.stop();
-						$scope.savePhoto($scope.student.email);
+//						$scope.savePhoto($scope.student.email);
 						ngNotify.set('Guardado corectamente', 'success');
 					    $scope.getStudents();			   
 					  }, function errorCallback(response) {				  
@@ -113,7 +113,7 @@ app.controller('studentCtrl', ['$scope','$http','ngNotify','blockUI',	function($
 				$http({
 					  method: 'POST',
 					  url: 'data/saveStudentPhoto?mail=' + mail,
-					  data: $scope.getFile(),
+					  data: {photo: $scope.getFile()},
 					  headers: {'Content-Type': undefined}
 					}).success(function successCallback(response) {
 						blockUI.stop();

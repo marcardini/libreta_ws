@@ -36,11 +36,35 @@
 				</div>
 				<br>
 				<mwl-calendar events="vm.events" view="vm.calendarView" view-date="vm.viewDate"
-					on-view-change-click="vm.viewChangeClicked(calendarNextView)"> </mwl-calendar>
+					on-view-change-click="vm.viewChangeClicked(calendarNextView)"
+					on-timespan-click="vm.click(calendarCell)"> </mwl-calendar>
 			</div>
 		</div>
 	</div>
 </body>
+
+<script id="customMonthCell.html" type="text/ng-template">
+  <div class="cal-month-day">
+	<div class="row">
+<div class="col-md-12">
+		<span
+      		class="pull-right"
+      		data-cal-date
+      		ng-click="vm.calendarCtrl.dateClicked(day.date)"
+      		ng-bind="day.label">
+    	</span>
+</div>
+</div>
+
+	<div class="row">
+<div class="col-md-12 div-btns-calandar">
+   		<button type="button" class="btn btn-warning btn-md">Lista</button>
+   		<button type="button" class="btn btn-success btn-md">Calificar</button>
+</div>
+</div>
+	</div>
+  </div>
+</script>
 
 
 <jsp:include page="/WEB-INF/jsp/parts/scripts.jsp" />

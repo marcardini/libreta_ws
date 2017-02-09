@@ -241,6 +241,10 @@ ul[dnd-list] li.selected {
 	font-size: 3em;
 }
 
+.div-btns-calandar{
+	padding-left:5px;
+}
+
 .calendar-container {
 	width: 95%;
 }
@@ -251,10 +255,12 @@ ul[dnd-list] li.selected {
 
 .cal-day-today {
 	font-size: 2em !important;
+	cursor: pointer;
 }
 
 .cal-month-day {
 	font-size: 2em;
+	height: 110px;
 }
 
 .cal-year-box [class*="span"] {
