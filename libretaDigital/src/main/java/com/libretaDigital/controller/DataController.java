@@ -1,6 +1,8 @@
 package com.libretaDigital.controller;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.MissingResourceException;
@@ -26,6 +28,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.libretaDigital.beans.ProfessorBean;
+import com.libretaDigital.beans.StudentDayBean;
+import com.libretaDigital.datatypes.StudentEventRegistration;
 import com.libretaDigital.entities.Group;
 import com.libretaDigital.entities.Professor;
 import com.libretaDigital.entities.Student;
@@ -34,6 +38,7 @@ import com.libretaDigital.fileupload.FileUtilities;
 import com.libretaDigital.services.GroupServiceImpl;
 import com.libretaDigital.services.ProfessorServiceImpl;
 import com.libretaDigital.services.StudentServiceImpl;
+import com.libretaDigital.utils.EventRegistrationType;
 import com.libretaDigital.utils.Grade;
 
 @Controller
@@ -211,6 +216,50 @@ public class DataController {
 				studentServiceImpl.addStudent(student);
 			}			
 			response.setStatus(HttpServletResponse.SC_OK);			
+		} catch (Exception e) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@RequestMapping(value = "/main/saveStudentDay", method = RequestMethod.POST)
+	public void SaveAbsences(@RequestBody List<StudentDayBean> events, HttpServletResponse response) {
+	
+		try {
+			List<StudentEventRegistration> studentsAssistanceRegistrationList = new ArrayList<StudentEventRegistration>();
+			for (StudentDayBean aux : events) {
+				StudentEventRegistration ser = new StudentEventRegistration();
+				ser.setStudentId(aux.getStudentId());
+				ser.setCourseId(1L);
+				ser.setGroupId(1L);
+				ser.setSubjectId(1L);
+				ser.setComment(aux.getComment());
+				if (aux.getOid() > 0) {
+					ser.setClassDayStudentId(aux.getOid());
+				}
+				ser.setEventRegistrationType(EventRegistrationType.valueOf(aux.getEventRegistrationType()));
+				if (ser.getEventRegistrationType() != EventRegistrationType.FALTA
+						&& ser.getEventRegistrationType() != EventRegistrationType.MEDIA_FALTA
+						&& ser.getEventRegistrationType() != EventRegistrationType.JUSTIFICADA) {
+					ser.setValue(aux.getValue());
+				} else {
+					ser.setValue(BigDecimal.ZERO);
+				}
+				studentsAssistanceRegistrationList.add(ser);
+			}
+			studentServiceImpl.saveStudentDay(studentsAssistanceRegistrationList, null);
+			response.setStatus(HttpServletResponse.SC_OK);
+		} catch (Exception e) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		}
+
+	}
+
+	@RequestMapping(value = "/main/deleteStudentDay", method = RequestMethod.POST)
+	public void DeleteStudentDay(@RequestBody List<Long> items, HttpServletResponse response) {		
+
+		try {
+			studentServiceImpl.deleteStudentDay(items);
+			response.setStatus(HttpServletResponse.SC_OK);
 		} catch (Exception e) {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}

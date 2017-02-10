@@ -15,12 +15,13 @@
 
 <title><%=pageTitle%></title>
 <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="bower_components/angular-bootstrap-calendar/dist/css/angular-bootstrap-calendar.min.css">
-<link rel="stylesheet" href="bower_components/angular-block-ui/dist/angular-block-ui.min.css" />
+<link rel="stylesheet" href="bower_components/ng-notify/dist/ng-notify.min.css">
+<link rel="stylesheet" href="bower_components/angular-block-ui/dist/angular-block-ui.min.css">
+<link rel="stylesheet" href="bower_components/angular-percent-circle-directive/dist/percent-circle.css">
+<link rel="stylesheet" href="bower_components/angularjs-slider/dist/rzslider.min.css"/>
 <link rel="stylesheet" href="resources/css/style.css">
 
 </head>
-
 
 <body ng-controller="">
 
@@ -32,7 +33,7 @@
 			<div class="row">
 				<div class="col-md-8">
 					<h1>
-						Planificacion <small></small>						
+						Gestion de Datos <small></small>						
 					</h1>
 				</div>
 				<div class="col-md-4">
@@ -45,7 +46,14 @@
 			</div>
 		</div>
 
-		
+		<br> <br>
+		<div style="font-family: verdana; padding: 10px; border-radius: 10px; font-size: 12px; text-align: center;">
+
+			Spring MCV Tutorial by <a href="http://crunchify.com">Crunchify</a>. Click <a
+				href="http://crunchify.com/category/java-web-development-tutorial/" target="_blank">here</a> for all Java
+			and <a href='http://crunchify.com/category/spring-mvc/' target='_blank'>here</a> for all Spring MVC, Web
+			Development examples.<br>
+		</div>
 	</div>
 </body>
 
