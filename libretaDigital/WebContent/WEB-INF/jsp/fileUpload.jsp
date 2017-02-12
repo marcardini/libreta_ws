@@ -63,6 +63,7 @@
 	</div>
 </body>
 
+<jsp:include page="/WEB-INF/jsp/parts/scripts.jsp" />
 <script src="resources/app/controllers/fileUploadController.js"></script>
 
 <script type="text/javascript">

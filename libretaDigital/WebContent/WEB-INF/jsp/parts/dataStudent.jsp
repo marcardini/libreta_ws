@@ -29,7 +29,7 @@
 <!-- 					<div class="form-group"> -->
 <!-- 						<label for="Photo">Imagen</label> -->
 							
-<!-- 						<form action="api/upload" class="my-drop-zone drop-zone dropzone" id="dropzoneStudent"> -->
+<!-- 						<form action="data/uploadPhoto" class="my-drop-zone drop-zone dropzone" id="dropzoneStudent"> -->
 							
 <!-- 							<div class="dz-default dz-message"></div> -->
 <!-- 							<div class="dz-progress"> -->
@@ -95,4 +95,4 @@
 				</table>
 			</div>
 		</div>
-	</div>
+		</div>

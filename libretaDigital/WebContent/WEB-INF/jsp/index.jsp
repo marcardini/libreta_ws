@@ -36,7 +36,8 @@
 				</div>
 				<br>
 				<mwl-calendar events="vm.events" view="vm.calendarView" view-date="vm.viewDate"
-					on-view-change-click="vm.viewChangeClicked(calendarNextView)"> </mwl-calendar>
+					on-view-change-click="vm.viewChangeClicked(calendarNextView)"
+					on-timespan-click="vm.click(calendarCell)"> </mwl-calendar>
 			</div>
 		</div>
 	</div>

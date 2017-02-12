@@ -93,7 +93,8 @@ app.controller('assistControlCtrl', ['$scope', '$filter', '$http', 'ngNotify', '
 					}).success(function successCallback(response) {
 						blockUI.stop();
 						ngNotify.set('Guardado corectamente', 'success');
-					    $scope.getAbsencesStudents();			   
+//					    $scope.getAbsencesStudents();
+						location.reload();
 					  }, function errorCallback(response) {				  
 						  console.log(response);
 						  ngNotify.set('ERROR - Datos no guardados', 'error');

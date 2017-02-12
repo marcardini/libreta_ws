@@ -17,6 +17,12 @@ app.controller('calendarCtrl', ['$scope','moment', 'calendarConfig', 'blockUI', 
 	      }
 	    };
 	
+	    vm.click = function (calendarCell){
+	    	if(calendarCell.isToday){
+	    		window.location.href = "assistControl.jsp";
+	    	}
+	    	
+	    }
 	
 	
 }]);

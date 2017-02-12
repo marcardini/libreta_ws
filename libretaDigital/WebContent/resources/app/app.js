@@ -116,7 +116,11 @@ app.directive('dropzone', function($parse) {
 
             scope.resetDropzone = function() {            
                 dropzone.removeAllFiles();
-            }
+            };
+            
+            scope.getFile = function(){
+            	return scope.file;
+            };
         }
     }
 });
