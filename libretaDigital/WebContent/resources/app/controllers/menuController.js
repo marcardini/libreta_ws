@@ -24,6 +24,10 @@ app.controller('menuCtrl', [ '$scope', '$http', function($scope, $http) {
 		$scope.group = "active";
 		$scope.group2 = "active";
 		break;
+	case "G3":
+		$scope.group = "active";
+		$scope.group3 = "active";
+		break;
 	default:
 		$scope.home = "active";
 	}

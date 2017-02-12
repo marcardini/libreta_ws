@@ -1,4 +1,4 @@
-app.controller('welcomeCtrl', [ '$scope', '$http', 'ngNotify', 'blockUI', function ($scope, $http, ngNotify, blockUI) {
+app.controller('planningCtrl', [ '$scope', '$http', 'ngNotify', 'blockUI', function ($scope, $http, ngNotify, blockUI) {
 
 	ngNotify.config({
 		theme : 'pure',
