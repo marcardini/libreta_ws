@@ -14,5 +14,7 @@
 			<type name="org.hibernate.type.DateType"/>
 		</property>
 		
+		<property name="notebookId" column="notebook_id" type="long" />
+		<property name="comment" column="comment" type="string" length="255"/>
 	</class>
 </hibernate-mapping>

@@ -15,14 +15,13 @@ public class Subject implements Serializable{
 	
 	private Long oid;
 	private String name;
-	private List<Notebook> notebooksList;
+	
 	//private List<Period> periods;
 	
 	public Subject(){}
 	
-	public Subject(String name, Notebook notebook){
-		this.notebooksList = new ArrayList<>();
-		this.notebooksList.add(notebook);
+	public Subject(String name){
+		
 		this.name = name;
 	}
 	
@@ -46,13 +45,7 @@ public class Subject implements Serializable{
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
-	
-	public List<Notebook> getNotebooksList() {
-		return notebooksList;
-	}
-	public void setNotebooksList(List<Notebook> notebooksList) {
-		this.notebooksList = notebooksList;
-	}
+		
 
 	public Long getOid() {
 		return oid;

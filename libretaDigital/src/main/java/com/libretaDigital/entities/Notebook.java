@@ -1,11 +1,10 @@
 package com.libretaDigital.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-
-import com.libretaDigital.utils.CourseType;
 
 @JsonAutoDetect
 @JsonIgnoreProperties
@@ -14,30 +13,30 @@ public class Notebook implements Serializable{
 	private static final long serialVersionUID = -8924297568264691767L;
 	
 	private Long oid;
-	private int currentYear;
-	private CourseType courseType;
-	private String reformulationPlan;
+	private int currentYear;		
 	private Long professorOid;
 	private Subject subject;
 	private Long groupId;
+	private String pautaSalaDocente;
+	private String propuestaDiagnostica;
+	private String descripcionYAnalisis;
+	private List<ClassDayProfessor> desarrolloDelCurso;
+	private String programaYPautaExamen;
+	
 	
 	public Notebook(){}
 	
-	public Notebook(int currentYear, CourseType courseType, String reformulationPlan, Subject subject, Long groupId){
-		this.currentYear = currentYear;
-		this.courseType = courseType;
-		this.reformulationPlan = reformulationPlan;
+	public Notebook(int currentYear, Subject subject, Long groupId){
+		this.currentYear = currentYear;		
 		this.subject = subject;
 		this.groupId = groupId;
 	}
 	
-	public Notebook(int currentYear, CourseType courseType, String reformulationPlan, Long professorOid, Subject subject, Long groupId){
-		this.currentYear = currentYear;
-		this.courseType = courseType;
-		this.reformulationPlan = reformulationPlan;
+	public Notebook(int currentYear, Long professorOid, Subject subject, Long groupId){
+		this.currentYear = currentYear;		
 		this.professorOid = professorOid;
 		this.subject = subject;
-		this.groupId = groupId;
+		this.groupId = groupId;		
 	}
 	
 	@Override
@@ -45,8 +44,8 @@ public class Notebook implements Serializable{
 		if (!(other instanceof Notebook))
 			return false;
 		Notebook that = (Notebook) other;
-		return this.getCurrentYear() == that.getCurrentYear() && this.getCourseType().toString().equals(that.getCourseType().toString()) 
-				&& this.reformulationPlan.equals(that.getReformulationPlan()) && this.getSubject().equals(that.getSubject());
+		return this.getCurrentYear() == that.getCurrentYear()  
+				&&  this.getSubject().equals(that.getSubject());
 	}
 	
 	@Override
@@ -57,10 +56,8 @@ public class Notebook implements Serializable{
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((courseType == null) ? 0 : courseType.hashCode());
-		result = prime * result + currentYear;
-		result = prime * result + ((reformulationPlan == null) ? 0 : reformulationPlan.hashCode());
+		int result = 1;		
+		result = prime * result + currentYear;		
 		result = prime * result + ((subject == null) ? 0 : subject.hashCode());
 		return result;
 	}
@@ -71,18 +68,7 @@ public class Notebook implements Serializable{
 	public void setCurrentYear(int currentYear) {
 		this.currentYear = currentYear;
 	}
-	public CourseType getCourseType() {
-		return courseType;
-	}
-	public void setCourseType(CourseType courseType) {
-		this.courseType = courseType;
-	}
-	public String getReformulationPlan() {
-		return reformulationPlan;
-	}
-	public void setReformulationPlan(String reformulationPlan) {
-		this.reformulationPlan = reformulationPlan;
-	}
+	
 	public Subject getSubject() {
 		return subject;
 	}
@@ -112,5 +98,45 @@ public class Notebook implements Serializable{
 
 	public void setGroupId(Long groupId) {
 		this.groupId = groupId;
+	}
+
+	public String getPautaSalaDocente() {
+		return pautaSalaDocente;
+	}
+
+	public void setPautaSalaDocente(String pautaSalaDocente) {
+		this.pautaSalaDocente = pautaSalaDocente;
+	}
+
+	public String getPropuestaDiagnostica() {
+		return propuestaDiagnostica;
+	}
+
+	public void setPropuestaDiagnostica(String propuestaDiagnostica) {
+		this.propuestaDiagnostica = propuestaDiagnostica;
+	}
+
+	public String getDescripcionYAnalisis() {
+		return descripcionYAnalisis;
+	}
+
+	public void setDescripcionYAnalisis(String descripcionYAnalisis) {
+		this.descripcionYAnalisis = descripcionYAnalisis;
+	}
+
+	public List<ClassDayProfessor> getDesarrolloDelCurso() {
+		return desarrolloDelCurso;
+	}
+
+	public void setDesarrolloDelCurso(List<ClassDayProfessor> desarrolloDelCurso) {
+		this.desarrolloDelCurso = desarrolloDelCurso;
+	}
+
+	public String getProgramaYPautaExamen() {
+		return programaYPautaExamen;
+	}
+
+	public void setProgramaYPautaExamen(String programaYPautaExamen) {
+		this.programaYPautaExamen = programaYPautaExamen;
 	}
 }

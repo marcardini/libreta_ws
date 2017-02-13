@@ -11,7 +11,18 @@
 	if (pageTitle == null) {
 		pageTitle = "Libreta Digital";
 	}
+
+	String notebook = (String) request.getAttribute("notebook");
+	if (notebook == null) {
+		notebook = "[]";
+	}
 %>
+
+<script type="text/javascript">
+	var notebook =
+<%=notebook%>
+	;
+</script>
 
 <title><%=pageTitle%></title>
 <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -27,13 +38,14 @@
 
 	<jsp:include page="/WEB-INF/jsp/parts/menu-head.jsp" />
 
-	<div class="container block-ui-main" block-ui="main">
+	<div class="container block-ui-main" block-ui="main" ng-controller="planningCtrl">
 
 		<div class="page-header">
 			<div class="row">
 				<div class="col-md-8">
 					<h1>
 						Planeamiento<small></small>
+						<button id="btn-save" class="btn btn-lg btn-success" ng-click="save()">Guardar</button>
 					</h1>
 				</div>
 				<div class="col-md-4">
@@ -46,47 +58,121 @@
 			</div>
 		</div>
 
-		<div class="content-wrapper" ng-controller="planningCtrl">
+		<div class="content-wrapper">
 
-			<uib-accordion close-others="oneAtATime">
+			<uib-accordion>
 
-			<div uib-accordion-group class="panel-primary" is-open="status.isProfessorsOpen" template-url="">
-				<uib-accordion-heading>PROFESORES<i class="pull-right glyphicon"
+			<div uib-accordion-group class="panel-primary" is-open="true" template-url="">
+				<uib-accordion-heading>DESARROLLO DEL CURSO<i class="pull-right glyphicon"
 					ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
 				</uib-accordion-heading>
 
+				<div class="row">
 
-				<div class="panel-body" ng-controller="groupCtrl">
-					<div class="row">
-
-						<div class="col-md-12">
-
-							<form id="idform" role="form" novalidate="" name="groupForm" class="text-left">
-								<div class="form-group">
-									<label for="comment">Comment:</label>
-									<textarea class="form-control" rows="10" id="comment"></textarea>
-								</div>
-							</form>
-							
-						</div>
+					<div class="col-md-9">
+						<form id="idform" role="form" novalidate="" name="psdForm" class="text-left">
+							<div class="form-group">
+								<label for="descr">Descripción:</label>
+								<textarea class="form-control vresize" rows="10" id="comment" ng-model="selectedDay.text"></textarea>
+							</div>
+						</form>
 					</div>
-					<!-- FIN ROW  -->
+
+					<div class="col-md-3">
+						
+						<table st-table="desarrolloDisplayed" st-safe-src="desarrolloDelCurso" class="table table-striped table-hover">
+					<thead >
+						<tr>
+							<th colspan="6"><input st-search="" class="form-control" placeholder="búsqueda rápida ..." type="text" /></th>
+						</tr>
+						<tr>
+<!-- 							<th></th> -->
+							<th class="sort-header text-center" st-sort="date" class="text-center">Fecha</th>
+<!-- 							<th class="sort-header text-left" st-sort="text" class="text-left">Apellido</th> -->
+<!-- 							<th class="sort-header text-left" st-sort="email" class="text-left">Email</th> -->
+<!-- 							<th></th> -->
+						</tr>
+
+					</thead>
+					<tbody>
+						<tr ng-repeat="row in desarrolloDisplayed" st-select-row="row" st-select-mode="single"  class="list-row text-left"
+							ng-click="rowSelect(row)">
+<!-- 							<td><img class="media-object media-user-list media-user-medium" src="resources/img/nophoto.png" -->
+<!-- 								alt="..."></td> -->
+							<td>{{row.date}}</td>
+<!-- 							<td>{{row.lastName | capitalize}}</td> -->
+<!-- 							<td>{{row.email | capitalize}}</td> -->
+<!-- 							<td> -->
+<!-- 								<button type="button" confirmed-click="deleteStudent(row.oid)" class="btn btn-danger" ng-confirm-click="Esta seguro que desea eliminar este estudiante?"> -->
+<!--  									<i class="glyphicon glyphicon glyphicon-remove"></i> -->
+<!-- 								</button> -->
+<!-- 							</td> -->
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="5" class="text-center">
+								<div st-pagination="" st-items-by-page="10" st-displayed-pages="5"></div>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+					
+					</div>
 				</div>
-				<!-- FIN PANEL-BODY  -->
-
-
 			</div>
 
-			<!-- 				<div uib-accordion-group class="panel-primary" is-open="status.isStudentsOpen" template-url=""> -->
-			<!-- 					<uib-accordion-heading>ESTUDIANTES<i class="pull-right glyphicon" --> <!-- 						ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i> -->
-			<!-- 					</uib-accordion-heading> --> <%-- 					<jsp:include page="/WEB-INF/jsp/parts/dataStudent.jsp" /> --%>
-			<!-- 				</div> --> <!-- 				<div uib-accordion-group class="panel-primary" is-open="status.isGroupsOpen" template-url=""> -->
-			<!-- 					<uib-accordion-heading>GRUPOS<i class="pull-right glyphicon" --> <!-- 						ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i> -->
-			<!-- 					</uib-accordion-heading> --> <%-- 					<jsp:include page="/WEB-INF/jsp/parts/dataGroup.jsp" /> --%>
-			<!-- 				</div> -->
-			
-			 </uib-accordion>
+			<div uib-accordion-group class="panel-primary" is-open="" template-url="">
+				<uib-accordion-heading>PAUTA SALA DOCENTE<i class="pull-right glyphicon"
+					ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
+				</uib-accordion-heading>
+				<form id="idform" role="form" novalidate="" name="psdForm" class="text-left">
+					<div class="form-group">
+						<!-- 									<label for="comment"></label> -->
+						<textarea class="form-control vresize" rows="10" id="comment" ng-model="notebook.pautaSalaDocente"></textarea>
+					</div>
+				</form>
+			</div>
 
+			<div uib-accordion-group class="panel-primary" is-open="" template-url="">
+				<uib-accordion-heading>PROPUESTA DIAGNOSTICA<i class="pull-right glyphicon"
+					ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
+				</uib-accordion-heading>
+				<form id="pdform" role="form" novalidate="" name="pdForm" class="text-left">
+					<div class="form-group">
+						<!-- 									<label for="comment"></label> -->
+						<textarea class="form-control vresize" rows="10" id="comment" ng-model="notebook.propuestaDiagnostica"></textarea>
+					</div>
+				</form>
+			</div>
+
+			<div uib-accordion-group class="panel-primary" is-open="" template-url="">
+				<uib-accordion-heading>DESCRIPCIÓN Y ANALISIS DE RESULTADOS<i
+					class="pull-right glyphicon"
+					ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
+				</uib-accordion-heading>
+				<form id="dyaform" role="form" novalidate="" name="dyaForm" class="text-left">
+					<div class="form-group">
+						<!-- <label for="comment"></label> -->
+						<textarea class="form-control vresize" rows="10" id="comment" ng-model="notebook.descripcionYAnalisis"></textarea>
+					</div>
+				</form>
+			</div>
+
+			<div uib-accordion-group class="panel-primary" is-open="" template-url="">
+				<uib-accordion-heading>PROGRAMA Y PAUTAS PARA EL EXAMEN<i
+					class="pull-right glyphicon"
+					ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
+				</uib-accordion-heading>
+				<form id="dyaform" role="form" novalidate="" name="dyaForm" class="text-left">
+					<div class="form-group">
+						<!-- <label for="comment"></label> -->
+						<textarea class="form-control vresize" rows="10" id="comment" ng-model="notebook.programaYPautaExamen"></textarea>
+					</div>
+				</form>
+			</div>
+
+			</uib-accordion>
 		</div>
 
 

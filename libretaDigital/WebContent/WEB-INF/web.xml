@@ -93,9 +93,9 @@ version="3.1">
     </servlet-mapping>
     
     <!--     MAPEO DE PLANNING -->
-<!--     <servlet-mapping> -->
-<!--         <servlet-name>libretaDigital</servlet-name>        -->
-<!--     		<url-pattern>/planning/</url-pattern> -->
-<!--     </servlet-mapping> -->
+    <servlet-mapping>
+        <servlet-name>libretaDigital</servlet-name>       
+    		<url-pattern>/planning/saveNotebook</url-pattern>
+    </servlet-mapping>
      
 </web-app>

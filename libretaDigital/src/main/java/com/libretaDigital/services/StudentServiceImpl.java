@@ -49,8 +49,6 @@ public class StudentServiceImpl implements IStudentService{
 		
 		if (date == null)
 			date = new Date();
-		
-
 			for (StudentEventRegistration ser : studentsAssistanceRegistrationList) {
 				
 				ClassDayStudent cds = new ClassDayStudent(ser.getClassDayStudentId(), 
@@ -65,9 +63,7 @@ public class StudentServiceImpl implements IStudentService{
 														);
 
 				classDayStudentDAO.saveOrUpdate(cds);
-
-			}
-		
+			}		
 	}
 	
 	@Override

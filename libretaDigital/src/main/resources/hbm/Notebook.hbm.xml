@@ -12,25 +12,18 @@
 
 		<property name="currentYear" column="current_year" type="int" />
 
-		<property name="courseType" column="course_type">
-			<type name="org.hibernate.type.EnumType">
-				<param name="enumClass">com.libretaDigital.utils.CourseType</param>
-				<param name="type">12</param>
-				<param name="useNamed">true</param>
-			</type>
-		</property>
-
-		<property name="reformulationPlan" length="100"
-			column="reformulation_plan" />
-
+			
 		<property name="groupId" column="group_id" type="long" />
 
-		<many-to-one name="subject">
-			<column name="subject_oid" />
-		</many-to-one>
+		<many-to-one name="subject"><column name="subject_oid" /></many-to-one>
 
-		<property name="professorOid" column="professor_id" type="int" />
+		<property name="professorOid" column="professor_id" type="int" />		
 		
+		<property name="pautaSalaDocente" column="pautaSalaDocente" type="string" length="255"/>
+		<property name="propuestaDiagnostica" column="propuestaDiagnostica" type="string" length="255"/>
+		<property name="descripcionYAnalisis" column="descripcionYAnalisis" type="string" length="255"/>
+		
+		<property name="programaYPautaExamen" column="programaYPautaExamen" type="string" length="255"/>
 		
 <!-- 		<list name="professors" table="professor" fetch="join" cascade="all,delete-orphan"> -->
 <!-- 			<key column="notebook_id" /> -->

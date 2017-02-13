@@ -4,30 +4,49 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate5.HibernateCallback;
 
 import com.libretaDigital.entities.*;
 import com.libretaDigital.hibernate.GenericDAO;
 import com.libretaDigital.interfaces.*;
-import com.libretaDigital.utils.CourseType;
+
 
 public class NotebookDAO extends GenericDAO<Notebook> implements INotebookDAO {
 	
 	private SubjectDAO subjectDAO;
+	
+	
+	@SuppressWarnings("unchecked")
+	public Notebook getNotebookById(final long id) {
+		Notebook notebook = null;
+		List<Notebook> colResult = (List<Notebook>) getHibernateTemplate().execute(
+				new HibernateCallback<Object>() {
 
-	public List<Notebook> getNotebooksListFromSubjectIdAndProfessorId(Long subjectId, Long professorId){
+					public List<Notebook> doInHibernate(Session oSession) throws HibernateException {
+						Criteria oCriteria = oSession.createCriteria(Notebook.class);
+						oCriteria.add(Restrictions.eq("oid", id));
+						return oCriteria.list();
+					}
+				});
+		if (colResult.size() > 0)
+			notebook = colResult.get(0);
 		
-		return getHibernateTemplate().execute(new HibernateCallback<List<Notebook>>() {
+		return notebook;
+	}
 
+	public List<Notebook> getNotebooksListFromSubjectIdAndProfessorId(Long subjectId, Long professorId){		
+		return getHibernateTemplate().execute(new HibernateCallback<List<Notebook>>() {
 			List<Notebook> result = new ArrayList<Notebook>();
 
 			@SuppressWarnings("unchecked")
 			@Override
 			public List<Notebook> doInHibernate(Session session) throws HibernateException {
-				String oQuery = "select n.oid, n.current_year, n.course_type, n.reformulation_plan, n.group_id from notebook n where subject_oid = :subjectId and professor_id = :professorId";
+				String oQuery = "select * from notebook n where subject_oid = :subjectId and professor_id = :professorId";
 				
 				SQLQuery query = session.createSQLQuery(oQuery);
 
@@ -44,12 +63,9 @@ public class NotebookDAO extends GenericDAO<Notebook> implements INotebookDAO {
 		});
 	}
 	
-	private List<Notebook> getNotebookDataFromPartialResult(List<Object[]> partialResult, Long subjectId, Long professorId){
-		
-		List<Notebook> notebooks = new ArrayList<Notebook>();
-		
+	private List<Notebook> getNotebookDataFromPartialResult(List<Object[]> partialResult, Long subjectId, Long professorId){		
+		List<Notebook> notebooks = new ArrayList<Notebook>();		
 		for (Object[] oPartialResult : partialResult) {
-
 			Notebook notebook = new Notebook();
 			
 			if (oPartialResult[0] != null && !oPartialResult[0].equals("")) {
@@ -60,26 +76,35 @@ public class NotebookDAO extends GenericDAO<Notebook> implements INotebookDAO {
 			if (oPartialResult[1] != null && !oPartialResult[1].equals("")) {
 				int year = (int) oPartialResult[1];
 				notebook.setCurrentYear(year);
-			}
+			}		
 			
 			if (oPartialResult[2] != null && !oPartialResult[2].equals("")) {
-				String courseType = (String) oPartialResult[2];
-				notebook.setCourseType(CourseType.valueOf(courseType));
-			}
-			
-			if (oPartialResult[3] != null && !oPartialResult[3].equals("")) {
-				String reformulationPlan = (String) oPartialResult[3];
-				notebook.setReformulationPlan(reformulationPlan);
-			}
-			
-			if (oPartialResult[4] != null && !oPartialResult[4].equals("")) {
-				BigInteger groupId = (BigInteger) oPartialResult[4];
+				BigInteger groupId = (BigInteger) oPartialResult[2];
 				notebook.setGroupId(groupId.longValue());
 			}
 			
 			notebook.setSubject(subjectDAO.getById(subjectId));
-			
 			notebook.setProfessorOid(professorId);
+			
+			if (oPartialResult[5] != null && !oPartialResult[5].equals("")) {
+				String pauta = (String) oPartialResult[5];
+				notebook.setPautaSalaDocente(pauta);
+			}
+			
+			if (oPartialResult[6] != null && !oPartialResult[6].equals("")) {
+				String prop = (String) oPartialResult[6];
+				notebook.setPropuestaDiagnostica(prop);
+			}
+			
+			if (oPartialResult[7] != null && !oPartialResult[7].equals("")) {
+				String descr = (String) oPartialResult[7];
+				notebook.setDescripcionYAnalisis(descr);
+			}
+			
+			if (oPartialResult[8] != null && !oPartialResult[8].equals("")) {
+				String progr = (String) oPartialResult[8];
+				notebook.setProgramaYPautaExamen(progr);
+			}		
 			
 			notebooks.add(notebook);
 		}
