@@ -81,6 +81,10 @@
 		<property name="encoder" ref="md5Encoder" />
 	</bean>
 	
+	<bean id="notebookService" class="com.libretaDigital.services.NotebookServiceImpl">
+		<property name="notebookDAO" ref="notebookDAO" />		
+	</bean>
+	
 	<bean id="dateconverter" class="com.libretaDigital.utils.DateConverter" />
 		
 	<util:list id="libretadigital.mapping.resources">

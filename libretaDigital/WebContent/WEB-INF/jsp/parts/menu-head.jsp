@@ -51,6 +51,7 @@
 				<ul class="dropdown-menu">
 						<li class="{{group1}}"><a href="assistControl.jsp">Control de asistencias</a></li>
 						<li class="{{group2}}"><a href="studentsDay.jsp">Estudiantes</a></li>
+						<li class="{{group3}}"><a href="planning.jsp">Plan</a></li>
 				</ul></li>
 				
 			</ul>

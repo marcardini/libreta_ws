@@ -8,4 +8,5 @@ public interface INotebookDAO extends IGenericDAO<Notebook>{
 	
 	List<Notebook> getNotebooksListFromSubjectIdAndProfessorId(Long subjectId, Long professorId);
 	
+	 Notebook getNotebookById(final long id);
 }

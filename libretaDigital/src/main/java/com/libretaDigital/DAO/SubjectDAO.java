@@ -95,8 +95,7 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO{
 				String name = (String) oPartialResult[1];
 				subject.setName(name);
 			}
-			List<Notebook> notebooks = notebookDAO.getNotebooksListFromSubjectIdAndProfessorId(subject.getOid(), professorOid);
-			subject.setNotebooksList(notebooks);
+			
 
 			result.add(subject);
 		}

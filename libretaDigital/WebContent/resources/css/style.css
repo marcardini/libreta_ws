@@ -4,6 +4,10 @@
 	width: 98%;
 }
 
+.vresize {
+  resize: vertical; 
+}
+
 .page-header {
 	margin: 0 0 20px;
 }
