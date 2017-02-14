@@ -49,7 +49,9 @@ public class NotebookDAO extends GenericDAO<Notebook> implements INotebookDAO {
 			@SuppressWarnings("unchecked")
 			@Override
 			public List<Notebook> doInHibernate(Session session) throws HibernateException {
-				String oQuery = "select * from notebook n where subject_oid = :subjectId and professor_id = :professorId";
+				String oQuery = "select oid, current_year, group_id, pautaSalaDocente, "
+						+ "propuestaDiagnostica, descripcionYAnalisis, programaYPautaExamen "
+						+ " from notebook n where subject_oid = :subjectId and professor_id = :professorId";
 				
 				SQLQuery query = session.createSQLQuery(oQuery);
 
@@ -148,23 +150,23 @@ public class NotebookDAO extends GenericDAO<Notebook> implements INotebookDAO {
 			notebook.setSubject(subjectDAO.getById(subjectId));
 			notebook.setProfessorOid(professorId);
 			
-			if (oPartialResult[5] != null && !oPartialResult[5].equals("")) {
-				String pauta = (String) oPartialResult[5];
+			if (oPartialResult[3] != null && !oPartialResult[3].equals("")) {
+				String pauta = (String) oPartialResult[3];
 				notebook.setPautaSalaDocente(pauta);
 			}
 			
-			if (oPartialResult[6] != null && !oPartialResult[6].equals("")) {
-				String prop = (String) oPartialResult[6];
+			if (oPartialResult[4] != null && !oPartialResult[4].equals("")) {
+				String prop = (String) oPartialResult[4];
 				notebook.setPropuestaDiagnostica(prop);
 			}
 			
-			if (oPartialResult[7] != null && !oPartialResult[7].equals("")) {
-				String descr = (String) oPartialResult[7];
+			if (oPartialResult[5] != null && !oPartialResult[5].equals("")) {
+				String descr = (String) oPartialResult[5];
 				notebook.setDescripcionYAnalisis(descr);
 			}
 			
-			if (oPartialResult[8] != null && !oPartialResult[8].equals("")) {
-				String progr = (String) oPartialResult[8];
+			if (oPartialResult[6] != null && !oPartialResult[6].equals("")) {
+				String progr = (String) oPartialResult[6];
 				notebook.setProgramaYPautaExamen(progr);
 			}		
 			
