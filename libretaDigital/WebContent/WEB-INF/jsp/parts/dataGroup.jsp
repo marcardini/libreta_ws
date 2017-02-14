@@ -25,8 +25,8 @@
 				<div class="form-group">
 					<label for="mySelect"> Profesores: </label>
 					<div>
-						<select class="form-control" name="professors" id="professors" ng-model="professor">
-							<option ng-repeat="option in professors" value="{{option.oid}}">{{option.name + " " + option.lastName | capitalize}}</option>
+						<select class="form-control" name="professors" id="professors" ng-model="group.professorEmail">
+							<option ng-repeat="option in professors" value="{{option.email}}">{{option.name + " " + option.lastName | capitalize}}</option>
 						</select>
 					</div>
 				</div>

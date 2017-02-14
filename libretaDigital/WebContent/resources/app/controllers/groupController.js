@@ -25,7 +25,7 @@ app.controller('groupCtrl', ['$scope','$http','ngNotify','blockUI',	function($sc
 //			console.log(professors);
 //			console.log($scope.professors);
 //			console.log(groups);
-//			console.log($scope.groups);
+			console.log($scope.groups);
 
 			$scope.reset = function(form) {
 				$scope.group = {};
