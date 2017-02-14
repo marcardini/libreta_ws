@@ -16,8 +16,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.libretaDigital.assistControl.StudentsDayFacadeImpl;
+import com.libretaDigital.entities.Group;
 import com.libretaDigital.entities.Professor;
 import com.libretaDigital.entities.Student;
+import com.libretaDigital.entities.Subject;
 import com.libretaDigital.services.ProfessorServiceImpl;
 import com.libretaDigital.services.StudentServiceImpl;
 import com.libretaDigital.services.UserServiceImpl;
@@ -60,14 +62,29 @@ public class StudentsDayController {
 			page.addObject("eventsRegistrationTypes" , mapper.writeValueAsString(eventsRegistrationTypes));
 			page.addObject("professors", mapper.writeValueAsString(this.getAllProfessors()));
 			
-			groupName = loguedProfessor.getGroupsList().get(0).getName();
-			subjectName = loguedProfessor.getGroupsList().get(0).getSubjectsList().get(0).getName();
-			page.addObject("groupName", mapper.writeValueAsString(groupName));
-			page.addObject("subjectName", mapper.writeValueAsString(subjectName));
+			List<Group> groupList = loguedProfessor.getGroupsList();
+			if(groupList != null && groupList.size() > 0){
+				groupName = groupList.get(0).getName();
 			
-			Calendar now = Calendar.getInstance();
-			int year = now.get(Calendar.YEAR);  
-			page.addObject("students" , mapper.writeValueAsString(this.getStudentsFiles(null, groupName, year, subjectName)));
+				Subject subject = loguedProfessor.getGroupsList().get(0).getSubjectsList().get(0);
+				
+				if(subject != null)
+					subjectName = subject.getName();
+				
+				Calendar now = Calendar.getInstance();
+				int year = now.get(Calendar.YEAR);  
+				page.addObject("students" , mapper.writeValueAsString(this.getStudentsFiles(null, groupName, year, subjectName)));
+			}
+			
+			if(groupName != null && !groupName.equals(""))
+				page.addObject("groupName", mapper.writeValueAsString(groupName));
+			else
+				page.addObject("groupName", mapper.writeValueAsString("SIN GRUPO"));
+			
+			if(subjectName != null && !subjectName.equals(""))
+				page.addObject("subjectName", mapper.writeValueAsString(subjectName));
+			else
+				page.addObject("subjectName", mapper.writeValueAsString("SIN MATERIA"));
 			
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();

@@ -22,6 +22,7 @@ import com.libretaDigital.beans.StudentAbsencesBean;
 import com.libretaDigital.entities.Group;
 import com.libretaDigital.entities.Professor;
 import com.libretaDigital.entities.Student;
+import com.libretaDigital.entities.Subject;
 import com.libretaDigital.services.BulletinServiceImpl;
 import com.libretaDigital.services.ProfessorServiceImpl;
 import com.libretaDigital.services.StudentServiceImpl;
@@ -77,15 +78,32 @@ public class AssistControlController {
 		
 		try {
 			//cargamos grupo y materia suponiendo que el profesor tiene un solo grupo y una materia. la posicion 0 de ambas listas.
-			groupName = loguedProfessor.getGroupsList().get(0).getName();
-			subjectName = loguedProfessor.getGroupsList().get(0).getSubjectsList().get(0).getName();
-			page.addObject("groupName", mapper.writeValueAsString(groupName));
-			page.addObject("subjectName", mapper.writeValueAsString(subjectName));
+			List<Group> groupList = loguedProfessor.getGroupsList();
+			if(groupList != null && groupList.size() > 0){
+				groupName = groupList.get(0).getName();
+				page.addObject("studentsAbsences", mapper.writeValueAsString(this.getStudentsAbsencesByCode()));
 			
-			page.addObject("students", mapper.writeValueAsString(assistControlFacade.getStudentsAndTodaysAssistance(groupName, subjectName)));
+				Subject subject = loguedProfessor.getGroupsList().get(0).getSubjectsList().get(0);
+				
+				if(subject != null)
+					subjectName = subject.getName();
+			}
+			
+			if(groupName != null && !groupName.equals(""))
+				page.addObject("groupName", mapper.writeValueAsString(groupName));
+			else
+				page.addObject("groupName", mapper.writeValueAsString("SIN GRUPO"));
+			
+			if(subjectName != null && !subjectName.equals(""))
+				page.addObject("subjectName", mapper.writeValueAsString(subjectName));
+			else
+				page.addObject("subjectName", mapper.writeValueAsString("SIN MATERIA"));
+			
+			if(groupName != null && !groupName.equals("") && subjectName != null && !subjectName.equals(""))
+				page.addObject("students", mapper.writeValueAsString(assistControlFacade.getStudentsAndTodaysAssistance(groupName, subjectName)));
 			
 			page.addObject("groups", mapper.writeValueAsString(this.getGroupsByProfessor()));
-			page.addObject("studentsAbsences", mapper.writeValueAsString(this.getStudentsAbsencesByCode()));
+			
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}

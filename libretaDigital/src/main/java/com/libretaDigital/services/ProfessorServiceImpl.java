@@ -26,7 +26,7 @@ public class ProfessorServiceImpl implements IProfessorService{
 		{
 			if (dtProfessor.getPassword() == null || "".equals(dtProfessor.getPassword().trim())){
 				//we set a provisory password for the new user to login
-				dtProfessor.setPassword("1234");
+				dtProfessor.setPassword("admin");
 				//throw new InvalidProfessorInformation(InvalidProfessorInformation.ErrorType.EMPTY_PASSWORD);
 			}
 			
