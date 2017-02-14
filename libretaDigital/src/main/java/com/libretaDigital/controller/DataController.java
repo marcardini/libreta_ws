@@ -162,8 +162,22 @@ public class DataController {
 	public void saveGroup(@RequestBody List<Group> items, HttpServletResponse response) {
 
 		try {
+			
 			for (Group group : items) {
-				groupServiceImpl.addGroup(group);
+				
+				if(group.getProfessorEmail() != null && !group.getProfessorEmail().equals("")){
+				
+					Professor designatedProfessor = professorServiceImpl.getByEmail(group.getProfessorEmail());
+					
+					List<Group> groupList = new ArrayList<Group>();
+					
+					groupList.add(group);
+					
+					designatedProfessor.setGroupsList(groupList);
+					professorServiceImpl.addProfessor(designatedProfessor);
+				}
+				else
+					groupServiceImpl.addGroup(group);
 			}
 			response.setStatus(HttpServletResponse.SC_OK);
 		} catch (Exception e) {

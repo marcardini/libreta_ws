@@ -35,7 +35,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @ContextConfiguration(locations = { "classpath:test-config.xml" })
 @RunWith(SpringJUnit4ClassRunner.class)
-public class AssistControlTest {
+public class ApplicationTests {
 	
 	@Autowired
 	private AssistControlFacadeImpl assistControlFacade;
@@ -189,7 +189,7 @@ public class AssistControlTest {
 		groupService.addGroup(assistanceControlGroup);
 		
 		Student assistanceControlStudent = new Student(assistanceControlStudentName, "-", new Date(), Gender.PENDING, assistanceControlStudentMail, true, 
-				assistanceControlGroup.getOid());
+				assistanceControlGroup.getOid(), "095325652");
 		studentService.addStudent(assistanceControlStudent);
 		
 		StudentEventRegistration abscense = new StudentEventRegistration(assistanceControlStudent.getOid(), 1L, assistanceControlGroup.getOid(), 1L, EventRegistrationType.FALTA);

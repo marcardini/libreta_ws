@@ -62,7 +62,6 @@ public class FileUploadController {
 	
 	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "fileUpload/upload", method = RequestMethod.POST)
-	
 	public ResponseEntity uploadFile(MultipartHttpServletRequest request, @RequestParam(value="type", required=true) String type) {
 		try {
 			Iterator<String> itr = request.getFileNames();
@@ -83,7 +82,7 @@ public class FileUploadController {
 									String localPort = rb.getString("service.port");
 									String http_address = rb.getString("http_address");
 									String tomcat_address = http_address+":"+ localPort + "/files/";									
-									selectedFileType = FileUploadType.valueOf(type);									
+									selectedFileType = FileUploadType.valueOf(type);				
 									fileUploadFacadeImpl.fileUpload(tomcat_address + file.getName(), file.getName(), logguedUserName, selectedFileType.name());										
 								} else
 									logger.error("Error archivo vacio");
@@ -99,6 +98,8 @@ public class FileUploadController {
 		} catch (Exception e) {
 			return new ResponseEntity<>("{}", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+		
+		clearUploadData();
 		return new ResponseEntity<>("{}", HttpStatus.OK);
 	}
 	 
