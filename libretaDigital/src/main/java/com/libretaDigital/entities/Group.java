@@ -15,7 +15,8 @@ public class Group implements Serializable{
 	private int year;
 	private List<Student> studentsList;
 	private List<Subject> subjectsList;
-	//private List<Period> periodsList;
+	
+	private String professorEmail;
 	
 	public Group(){}
 	
@@ -99,6 +100,14 @@ public class Group implements Serializable{
 
 	public void setSubjectsList(List<Subject> subjectsList) {
 		this.subjectsList = subjectsList;
+	}
+
+	public String getProfessorEmail() {
+		return professorEmail;
+	}
+
+	public void setProfessorEmail(String professorEmail) {
+		this.professorEmail = professorEmail;
 	}
 
 	

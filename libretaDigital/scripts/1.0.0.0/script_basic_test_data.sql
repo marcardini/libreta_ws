@@ -13,11 +13,11 @@ insert into subject values (1, 'MATEMATICAS', null, 0)
 go
 update notebook set subject_oid = 1 where oid = 1
 go
-insert into group_ values (1,'1A',2016,null,0)
+insert into group_ values (1,'1A',2017,null,0)
 go
 update notebook set group_id = 1 where oid = 1
 go
-insert into professor values (1, 'teresita', 'gomez', '1990-06-20 00:00:00', 'FEMALE', 'teresita.gomez@gmail.com', 'admin', 'GRADE_5', '2016-01-01 00:00:00', null, 1, 0, '094555996')
+insert into professor values (1, 'ADMIN', '-', '1990-06-20 00:00:00', 'PENDING', 'admin', 'admin', '-', '2016-01-01 00:00:00', null, 1, 0, '094555996')
 go
 insert into course values (1,'primero',1,0)
 go
