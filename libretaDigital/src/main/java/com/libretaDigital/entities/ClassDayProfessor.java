@@ -14,6 +14,7 @@ public class ClassDayProfessor extends ClassDay implements Serializable {
 
 	private String comment;
 	private long notebookId;
+	 
 
 	public ClassDayProfessor(Long classDayProfessor, Date date) {
 		super(classDayProfessor, date);

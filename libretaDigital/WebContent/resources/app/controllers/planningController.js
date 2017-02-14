@@ -10,17 +10,26 @@ app.controller('planningCtrl', [ '$scope', '$http', 'ngNotify', 'blockUI', funct
 		html : false
 	});
 	
-	
 	$scope.addButton = true;
+	
+	$scope.today = function() {
+	    $scope.date = new Date();
+	};
+	$scope.today();
+	
+	$scope.options = {
+//			    customClass: getDayClass,
+			    minDate: new Date("2017-01-01"),
+			    maxDate: new Date("2017-12-31"),
+			    showWeeks: true
+			  };
 
 	blockUI.autoInjectBodyBlock = false;
 	blockUI.message = 'Cargando...';
 
-	$scope.date = new Date();
+	//$scope.date = new Date("yyyy-mm-dd");
 	console.log(notebook);
-	$scope.notebook = angular.copy(notebook);	
-	
-	$scope.selectedDay = {date: new Date(), text:"" }
+	$scope.notebook = angular.copy(notebook);
 	
 	$scope.save = function() {
 		console.log($scope.notebook);		
@@ -43,6 +52,48 @@ app.controller('planningCtrl', [ '$scope', '$http', 'ngNotify', 'blockUI', funct
 			  });
 	}
 	
+		
+	$scope.setDay = function (date){
+		$scope.day = $scope.selectDay(date);
+		console.log($scope.day);
+	}
+	
+
+	$scope.addDay = function(){	
+		console.log($scope.day);
+		var existe = false;
+		for (var int = 0; int < $scope.notebook.desarrolloDelCurso.length; int++) {
+			var aux = $scope.notebook.desarrolloDelCurso[int];	
+			var auxDate = new Date(""+ aux.date +"");
+			var dateObj = new Date(""+$scope.day.date+"");
+			if(dateObj.getYear() == auxDate.getYear() && dateObj.getMonth() == auxDate.getMonth() && dateObj.getDate() == auxDate.getDate()){
+				existe = true;
+				aux.comment = $scope.day.comment;
+			}			
+		}
+		if(!existe){
+			$scope.notebook.desarrolloDelCurso.push($scope.day);	
+		}
+		$scope.isNew = false;						
+		console.log($scope.notebook.desarrolloDelCurso);
+		
+	};
+	
+	$scope.selectDay = function (date){		
+		var day = {"date":new Date(""+date+""), "comment":"", "notebookId":$scope.notebook.oid};
+		for (var int = 0; int < $scope.notebook.desarrolloDelCurso.length; int++) {
+			var aux = $scope.notebook.desarrolloDelCurso[int];	
+			var auxDate = new Date(""+ aux.date +"");			
+			if(date.getYear() == auxDate.getYear() && date.getMonth() == auxDate.getMonth() && date.getDate() == auxDate.getDate()){
+				day = aux;
+			}			
+		}
+		$scope.isNew = (day.comment == "");
+//		console.log(day);
+		return day;		
+	}
+	
+	$scope.setDay($scope.date);
 	
 	
 

@@ -72,53 +72,22 @@
 					<div class="col-md-9">
 						<form id="idform" role="form" novalidate="" name="psdForm" class="text-left">
 							<div class="form-group">
-								<label for="descr">Descripción:</label>
-								<textarea class="form-control vresize" rows="10" id="comment" ng-model="selectedDay.text"></textarea>
+<!-- 								<label for="descr">Descripción:</label> -->
+								<textarea class="form-control vresize" rows="14" id="comment" ng-model="day.comment"></textarea>
 							</div>
 						</form>
 					</div>
 
-					<div class="col-md-3">
+					<div class="col-md-3 text-right">
+						<div style="display: inline-block;">
+							<div uib-datepicker ng-model="date" class="well well-sm" datepicker-options="options" ng-click="setDay(date)"></div>
+							<button id="btn-save text-right" class="btn btn-sm btn-success" ng-click="addDay(day)" ng-show="isNew">Agregar</button>
+							<button id="btn-save text-right" class="btn btn-sm btn-warning" ng-click="addDay(day)" ng-show="!isNew">Modificar</button>
+							<button id="btn-save text-right" class="btn btn-sm btn-danger" ng-click="deleteDay()" ng-show="!isNew">Eliminar</button>
+						</div>					
 						
-						<table st-table="desarrolloDisplayed" st-safe-src="desarrolloDelCurso" class="table table-striped table-hover">
-					<thead >
-						<tr>
-							<th colspan="6"><input st-search="" class="form-control" placeholder="búsqueda rápida ..." type="text" /></th>
-						</tr>
-						<tr>
-<!-- 							<th></th> -->
-							<th class="sort-header text-center" st-sort="date" class="text-center">Fecha</th>
-<!-- 							<th class="sort-header text-left" st-sort="text" class="text-left">Apellido</th> -->
-<!-- 							<th class="sort-header text-left" st-sort="email" class="text-left">Email</th> -->
-<!-- 							<th></th> -->
-						</tr>
-
-					</thead>
-					<tbody>
-						<tr ng-repeat="row in desarrolloDisplayed" st-select-row="row" st-select-mode="single"  class="list-row text-left"
-							ng-click="rowSelect(row)">
-<!-- 							<td><img class="media-object media-user-list media-user-medium" src="resources/img/nophoto.png" -->
-<!-- 								alt="..."></td> -->
-							<td>{{row.date}}</td>
-<!-- 							<td>{{row.lastName | capitalize}}</td> -->
-<!-- 							<td>{{row.email | capitalize}}</td> -->
-<!-- 							<td> -->
-<!-- 								<button type="button" confirmed-click="deleteStudent(row.oid)" class="btn btn-danger" ng-confirm-click="Esta seguro que desea eliminar este estudiante?"> -->
-<!--  									<i class="glyphicon glyphicon glyphicon-remove"></i> -->
-<!-- 								</button> -->
-<!-- 							</td> -->
-						</tr>
-					</tbody>
-					<tfoot>
-						<tr>
-							<td colspan="5" class="text-center">
-								<div st-pagination="" st-items-by-page="10" st-displayed-pages="5"></div>
-							</td>
-						</tr>
-					</tfoot>
-				</table>
-					
 					</div>
+
 				</div>
 			</div>
 
