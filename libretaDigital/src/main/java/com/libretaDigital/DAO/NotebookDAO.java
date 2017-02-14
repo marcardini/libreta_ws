@@ -2,8 +2,10 @@ package com.libretaDigital.DAO;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.SQLQuery;
@@ -20,6 +22,7 @@ public class NotebookDAO extends GenericDAO<Notebook> implements INotebookDAO {
 	
 	private SubjectDAO subjectDAO;
 	
+	private static Logger log = Logger.getLogger(StudentDAO.class);
 	
 	@SuppressWarnings("unchecked")
 	public Notebook getNotebookById(final long id) {
@@ -63,6 +66,65 @@ public class NotebookDAO extends GenericDAO<Notebook> implements INotebookDAO {
 		});
 	}
 	
+	private List<ClassDayProfessor> getDesarrolloDelCursoByNotebookId(Long notebookOid){
+		
+		log.debug(String.format("Getting desarrollo del curso. Parameters: Notebook Id " + notebookOid));
+
+		return getHibernateTemplate().execute(new HibernateCallback<List<ClassDayProfessor>>() {
+
+			List<ClassDayProfessor> result = new ArrayList<ClassDayProfessor>();
+
+			@SuppressWarnings("unchecked")
+			@Override
+			public List<ClassDayProfessor> doInHibernate(Session session) throws HibernateException {
+				String oQuery = "select * "
+						+ "from class_day_professor day " 
+						+ "where day.notebook_id = :notebookOid ";
+				
+				SQLQuery query = session.createSQLQuery(oQuery);
+
+				query.setLong("notebookOid", notebookOid);
+				
+				List<Object[]> partialResult = query.list();
+
+				if (partialResult != null && !partialResult.isEmpty())
+					result = getProfessorDayByPartialResult(partialResult);
+
+				return result;
+			}
+		});
+	}
+	
+	protected List<ClassDayProfessor> getProfessorDayByPartialResult(List<Object[]> partialResult) {
+		List<ClassDayProfessor> desarrollo = new ArrayList<ClassDayProfessor>();
+		for (Object[] oPartialResult : partialResult) {
+			ClassDayProfessor day = new ClassDayProfessor();
+			
+			if (oPartialResult[0] != null && !oPartialResult[0].equals("")) {
+				BigInteger id = (BigInteger) oPartialResult[0];
+				day.setOid(id.longValue());
+			}
+			
+			if(oPartialResult[1] != null && !oPartialResult[1].equals("")){
+				Date date = (Date)oPartialResult[1];
+				day.setDate(date);
+			}	
+			
+			if (oPartialResult[2] != null && !oPartialResult[2].equals("")) {
+				BigInteger notebookId = (BigInteger) oPartialResult[2];
+				day.setNotebookId(notebookId.longValue());
+			}
+			
+			if (oPartialResult[3] != null && !oPartialResult[3].equals("")) {
+				String comment = (String) oPartialResult[3];
+				day.setComment(comment);
+			}
+			desarrollo.add(day);
+		}		
+		
+		return desarrollo;
+	}
+
 	private List<Notebook> getNotebookDataFromPartialResult(List<Object[]> partialResult, Long subjectId, Long professorId){		
 		List<Notebook> notebooks = new ArrayList<Notebook>();		
 		for (Object[] oPartialResult : partialResult) {
@@ -105,6 +167,8 @@ public class NotebookDAO extends GenericDAO<Notebook> implements INotebookDAO {
 				String progr = (String) oPartialResult[8];
 				notebook.setProgramaYPautaExamen(progr);
 			}		
+			
+			notebook.setDesarrolloDelCurso(getDesarrolloDelCursoByNotebookId(notebook.getOid()));
 			
 			notebooks.add(notebook);
 		}

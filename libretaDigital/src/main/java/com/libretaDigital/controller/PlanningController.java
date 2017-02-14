@@ -16,7 +16,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.libretaDigital.entities.Notebook;
 import com.libretaDigital.entities.Professor;
-import com.libretaDigital.entities.Subject;
 import com.libretaDigital.services.NotebookServiceImpl;
 import com.libretaDigital.services.ProfessorServiceImpl;
 import com.libretaDigital.services.UserServiceImpl;
@@ -61,7 +60,7 @@ public class PlanningController {
 		page.addObject("notebook", mapper.writeValueAsString(notebookService.getNotebooksListFromSubjectIdAndProfessorId((long)1, loguedProfessor.getOid()).get(0)));
 		page.addObject("logguedUserName", mapper.writeValueAsString(loguedProfessor.getEmail().toUpperCase()));
 		page.addObject("tituloPagina", "Libreta Digital - Planning");
-		page.addObject("codMenu", "D2");
+		page.addObject("codMenu", "G3");
 		return page;
 	}
 

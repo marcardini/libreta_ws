@@ -21,7 +21,10 @@ app.controller('groupCtrl', ['$scope','$http','ngNotify','blockUI',	function($sc
 
 			$scope.groups = [];
 			angular.copy(groups, $scope.groups);
-			console.log(groups);
+			$scope.professors = angular.copy(professors);
+//			console.log(professors);
+//			console.log($scope.professors);
+//			console.log(groups);
 			console.log($scope.groups);
 
 			$scope.reset = function(form) {

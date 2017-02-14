@@ -22,8 +22,8 @@ app.controller('studentCtrl', ['$scope','$http','ngNotify','blockUI',	function($
 
 			$scope.students = [];
 			angular.copy(students, $scope.students);
-			console.log(students);
-			console.log($scope.students);
+//			console.log(students);
+//			console.log($scope.students);
 
 			$scope.reset = function(form) {
 				$scope.student = {};
