@@ -38,14 +38,9 @@
 
 
 <script type="text/javascript">
-	var professors =
-<%=professors%>
-	var students =
-<%=students%>
-	;
-	var groups =
-<%=groups%>
-	;
+	var professors =<%=professors%>;
+	var students =<%=students%>	;
+	var groups =<%=groups%>	;
 </script>
 
 </head>
