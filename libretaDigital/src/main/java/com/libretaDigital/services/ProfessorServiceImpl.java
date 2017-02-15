@@ -18,12 +18,15 @@ public class ProfessorServiceImpl implements IProfessorService{
 		return professorDAO.getAllProfessors();
 	}
 	
+	public List<Professor> getInactiveProfessors(){
+		return professorDAO.getInactiveProfessors();
+		
+	}
 	public void addProfessor(Professor dtProfessor) throws ProfessorAlreadyExists, InvalidProfessorInformation {
 
 		Professor existingProfessor = professorDAO.getProfessorByMail(dtProfessor.getEmail());
 		
-		if(existingProfessor == null)
-		{
+		if(existingProfessor == null){
 			if (dtProfessor.getPassword() == null || "".equals(dtProfessor.getPassword().trim())){
 				//we set a provisory password for the new user to login
 				dtProfessor.setPassword("admin");
@@ -31,14 +34,14 @@ public class ProfessorServiceImpl implements IProfessorService{
 			}
 			
 			String password = dtProfessor.getPassword();
-			String encriptedPassword = null;
-			boolean passwordValidated = dtProfessor.validatePassword(password);
+			//String encriptedPassword = null;
+			//boolean passwordValidated = dtProfessor.validatePassword(password);
 	
-			if(passwordValidated){
+			/*if(passwordValidated){
 				//if the validation passes, the password gets encripted
 				encriptedPassword = encoder.encodePassword(password, null);
 				dtProfessor.setPassword(encriptedPassword);
-			}
+			}*/
 		}
 			
 		professorDAO.saveOrUpdate(dtProfessor);

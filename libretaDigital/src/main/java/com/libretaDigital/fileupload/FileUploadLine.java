@@ -23,6 +23,7 @@ public class FileUploadLine extends FileLine{
 	private String password;
 	private Grade grade;
 	private Date employeeSince;
+	private String subjectName;
 	
 	//Student
 	private Course course;
@@ -132,5 +133,11 @@ public class FileUploadLine extends FileLine{
 	}
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+	public String getSubjectName() {
+		return subjectName;
+	}
+	public void setSubjectName(String subjectName) {
+		this.subjectName = subjectName;
 	}
 }

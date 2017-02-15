@@ -83,10 +83,7 @@ public class AssistControlController {
 				groupName = groupList.get(0).getName();
 				page.addObject("studentsAbsences", mapper.writeValueAsString(this.getStudentsAbsencesByCode()));
 			
-				Subject subject = loguedProfessor.getGroupsList().get(0).getSubjectsList().get(0);
-				
-				if(subject != null)
-					subjectName = subject.getName();
+				subjectName = loguedProfessor.getSubjectName();
 			}
 			
 			if(groupName != null && !groupName.equals(""))

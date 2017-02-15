@@ -7,7 +7,7 @@
 
 insert into institution values (1,'Elbio Fernandez')
 go
-insert into notebook values (1, 2016, 'NORMAL', 'ABC', null, null, null)
+insert into notebook values (1, 2017, 'NORMAL', 'ABC', null, null, null)
 go
 insert into subject values (1, 'MATEMATICAS', null, 0)
 go
@@ -17,7 +17,7 @@ insert into group_ values (1,'1A',2017,null,0)
 go
 update notebook set group_id = 1 where oid = 1
 go
-insert into professor values (1, 'ADMIN', '-', '1990-06-20 00:00:00', 'PENDING', 'admin', 'admin', '-', '2016-01-01 00:00:00', null, 1, 0, '094555996')
+insert into professor values (1, 'ADMIN', '-', '1990-06-20 00:00:00', 'PENDING', 'admin', 'admin', '-', '2017-01-01 00:00:00', null, 1, 0, '094555996')
 go
 insert into course values (1,'primero',1,0)
 go
@@ -88,4 +88,4 @@ go
 update professor set roleId = 1 where oid = 1
 go
 
-insert into bulletin values (1, 1, '2016-03-01 00:00:00', '2016-06-30 23:59:59', 1, 10, 3, 'mejoro la conducta', false)
+insert into bulletin values (1, 1, '2017-03-01 00:00:00', '2017-06-30 23:59:59', 1, 10, 3, 'mejoro la conducta', false)

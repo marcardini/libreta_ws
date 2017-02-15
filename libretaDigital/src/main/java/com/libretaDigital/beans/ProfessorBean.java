@@ -18,7 +18,8 @@ public class ProfessorBean extends Person {
 	private String grade;
 	private Date employeeSince;
 	private List<Course> coursesList;
-	private List<Group> groupsList; 
+	private List<Group> groupsList;
+	private String subjectName;
 	
 	public ProfessorBean() {
 		// TODO Auto-generated constructor stub
@@ -63,6 +64,14 @@ public class ProfessorBean extends Person {
 
 	public void setCoursesList(List<Course> coursesList) {
 		this.coursesList = coursesList;
+	}
+
+	public String getSubjectName() {
+		return subjectName;
+	}
+
+	public void setSubjectName(String subjectName) {
+		this.subjectName = subjectName;
 	}
 	
 	
