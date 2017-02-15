@@ -39,7 +39,7 @@ public class FileUploadLineProcessor implements UploadProcessor {
 		if(line.getUpoloadProcessorId().equals(UploadProcessorId.STUDENT)){
 			log.info("about to insert or update Student in FileUploadLineProcessor");
 			Long groupId = groupDAO.getGroupByNameAndYear(line.getGroupName(), line.getYear()).getOid();
-			Student student = new Student(line.getName(), line.getLastName(), line.getBirthDate(), line.getGender(), line.getEmail(), line.isCurrentStudent(), groupId, line.getPhoneNumber());
+			Student student = new Student(line.getName(), line.getLastName(), line.getBirthDate(), line.getGender(), line.getEmail(), line.isCurrentStudent(), groupId, line.getPhoneNumber(), "");
 			studentDAO.saveOrUpdate(student);
 			return;
 		}

@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.libretaDigital.beans.StudentBulletinBean;
+import com.libretaDigital.beans.StudentSubjectBulletinBean;
 import com.libretaDigital.entities.Group;
 import com.libretaDigital.entities.Notebook;
 import com.libretaDigital.entities.Professor;
@@ -24,6 +26,7 @@ import com.libretaDigital.entities.Subject;
 import com.libretaDigital.services.GroupServiceImpl;
 import com.libretaDigital.services.NotebookServiceImpl;
 import com.libretaDigital.services.ProfessorServiceImpl;
+import com.libretaDigital.services.StudentServiceImpl;
 import com.libretaDigital.services.SubjectServiceImpl;
 import com.libretaDigital.services.UserServiceImpl;
 
@@ -44,6 +47,9 @@ public class PlanningController {
 
 	@Autowired
 	private SubjectServiceImpl subjectServiceImpl;
+	
+	@Autowired
+	private StudentServiceImpl studentServiceImpl;
 	
 	private ObjectMapper mapper = new ObjectMapper();
 
@@ -71,6 +77,31 @@ public class PlanningController {
 		page.addObject("logguedUserName", mapper.writeValueAsString(loguedProfessor.getEmail().toUpperCase()));
 		page.addObject("tituloPagina", "Libreta Digital - Planning");
 		page.addObject("codMenu", "G3");
+		return page;
+	}
+	
+	@RequestMapping(value = "/bulletins", method = RequestMethod.GET)
+	public ModelAndView bulletins(HttpSession session) throws JsonProcessingException {
+
+		ModelAndView page = new ModelAndView("/planning");
+		session.setAttribute("loggedUser", userService.getUser(this.getPrincipal()));
+		session.setAttribute("logguedUserName", userService.getUser(this.getPrincipal()).getLastName());
+		loguedProfessor = professorServiceImpl.getByEmail(session.getAttribute("loggedUser").toString());		
+
+		List<Group> professorsGroup = groupServiceImpl.getProfessorsGroup(loguedProfessor);
+		List<Subject> subjectsList = new ArrayList<Subject>();
+		if(professorsGroup != null && professorsGroup.size() > 0)
+			subjectsList = subjectServiceImpl.getSubjectsByGroupIdAndProfessorId(professorsGroup.get(0).getOid(), loguedProfessor.getOid());
+		
+		long subjectId = 0L;
+		if(subjectsList != null && subjectsList.size() > 0)
+			subjectId = subjectsList.get(0).getOid();
+		
+		
+		List<StudentBulletinBean> students = new ArrayList<StudentBulletinBean> ();
+		page.addObject("logguedUserName", mapper.writeValueAsString(loguedProfessor.getEmail().toUpperCase()));
+		page.addObject("tituloPagina", "Libreta Digital - Boletines");
+		page.addObject("codMenu", "B1");
 		return page;
 	}
 	

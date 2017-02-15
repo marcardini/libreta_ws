@@ -54,6 +54,8 @@
 						<li class="{{group3}}"><a href="planning.jsp">Planeamineto y Desarrollo del curso</a></li>						
 				</ul></li>
 				
+				<li class="{{bulletins}}"><a href="bulletins.jsp">Boletines</a></li>
+				
 			</ul>
 			
 			<ul class="nav navbar-nav navbar-right">

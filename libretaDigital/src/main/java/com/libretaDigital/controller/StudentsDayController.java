@@ -20,7 +20,6 @@ import com.libretaDigital.assistControl.StudentsDayFacadeImpl;
 import com.libretaDigital.entities.Group;
 import com.libretaDigital.entities.Professor;
 import com.libretaDigital.entities.Student;
-import com.libretaDigital.entities.Subject;
 import com.libretaDigital.services.ProfessorServiceImpl;
 import com.libretaDigital.services.StudentServiceImpl;
 import com.libretaDigital.services.UserServiceImpl;

@@ -92,7 +92,7 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 		});
 	}
 
-	public List<Student> getStudentsFiles(String mail, String groupCode, int year, String subjectName) {
+	public List<Student> getStudentsFilesBySubject(String mail, String groupCode, int year, String subjectName) {
         if (mail != null && !mail.equals(""))
             log.debug(String.format("Getting a particular student file: " + mail));
         else

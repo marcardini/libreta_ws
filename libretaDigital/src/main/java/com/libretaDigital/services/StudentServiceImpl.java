@@ -91,7 +91,7 @@ public class StudentServiceImpl implements IStudentService{
 	@Override
 	public List<Student> getStudentsFiles(String mail, String groupCode, int year, String subjectName){
 		
-		return studentDAO.getStudentsFiles(mail, groupCode, year, subjectName);
+		return studentDAO.getStudentsFilesBySubject(mail, groupCode, year, subjectName);
 		
 	}
 	
