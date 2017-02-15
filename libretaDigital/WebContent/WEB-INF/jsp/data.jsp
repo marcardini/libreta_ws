@@ -16,6 +16,11 @@
 	if (professors == null) {
 		professors = "[]";
 	}
+	
+	String inactiveProfessors = (String) request.getAttribute("inactiveProfessors");
+	if (inactiveProfessors == null) {
+		inactiveProfessors = "[]";
+	}
 
 	String students = (String) request.getAttribute("students");
 	if (students == null) {
@@ -41,6 +46,7 @@
 	var professors =<%=professors%>;
 	var students =<%=students%>	;
 	var groups =<%=groups%>	;
+	var inactiveProfessors =<%=inactiveProfessors%>	;
 </script>
 
 </head>

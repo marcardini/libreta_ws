@@ -50,6 +50,8 @@
 		</list>
 		
 		<property name="phoneNumber" length="20" />
+		
+		<property name="subjectName" length="20" />
 
 		<many-to-one name="role" column="roleId" class="com.libretaDigital.entities.Role" />
 

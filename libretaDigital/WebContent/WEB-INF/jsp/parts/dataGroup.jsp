@@ -21,17 +21,14 @@
 					</div>
 				</div>
 
-
 				<div class="form-group">
 					<label for="mySelect"> Profesores: </label>
 					<div>
-						<select class="form-control" name="professors" id="professors" ng-model="group.professorEmail">
-							<option ng-repeat="option in professors" value="{{option.email}}">{{option.name + " " + option.lastName | capitalize}}</option>
+						<select class="form-control" name="inactiveProfessors" id="inactiveProfessors" ng-model="group.professorEmail">
+							<option ng-repeat="option in inactiveProfessors" value="{{option.email}}">{{option.name + " " + option.lastName | capitalize}}</option>
 						</select>
 					</div>
 				</div>
-
-
 
 				<div class="form-group text-right">
 					<button class="btn btn-success " name="Add" value="Submit" ng-click="addGroup()"
@@ -40,7 +37,6 @@
 					<button type="reset" class="btn btn-primary" name="reset" value="Clear" ng-click="reset(groupForm)">Limpiar</button>
 				</div>
 			</form>
-
 
 		</div>
 		<!-- FIN FORM -->

@@ -1,5 +1,6 @@
 package com.libretaDigital.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
@@ -65,11 +66,8 @@ public class StudentsDayController {
 			List<Group> groupList = loguedProfessor.getGroupsList();
 			if(groupList != null && groupList.size() > 0){
 				groupName = groupList.get(0).getName();
-			
-				Subject subject = loguedProfessor.getGroupsList().get(0).getSubjectsList().get(0);
 				
-				if(subject != null)
-					subjectName = subject.getName();
+				subjectName = loguedProfessor.getSubjectName();
 				
 				Calendar now = Calendar.getInstance();
 				int year = now.get(Calendar.YEAR);  

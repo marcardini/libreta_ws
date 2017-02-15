@@ -32,6 +32,7 @@ public class FileUploadLineProcessor implements UploadProcessor {
 			log.info("about to insert or update Professor in FileUploadLineProcessor");	
 			Role role = roleDAO.getRoleByName(defaultRoleName);
 			Professor professor = new Professor(line.getName(), line.getLastName(), line.getBirthDate(), line.getGender(), line.getEmail(), defaultPassword, line.getEmployeeSince(), line.getGrade(), role, line.getPhoneNumber());
+			professor.setSubjectName(line.getSubjectName());
 			professorDAO.saveOrUpdate(professor);
 		}
 		

@@ -57,6 +57,8 @@ public class FileUploadProfessorParser implements IFileParser {
 		professorUploadLine.setGrade(validateAndGetGradeField(fields[i], true, i));
 		i++;
 		professorUploadLine.setPhoneNumber(validateAndGetStringField(fields[i], true, 20, i));
+		i++;
+		professorUploadLine.setSubjectName(validateAndGetStringField(fields[i], true, 255, i));
 
 		professorUploadLine.setUpoloadProcessorId(UploadProcessorId.PROFESSOR);
 

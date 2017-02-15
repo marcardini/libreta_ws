@@ -2,6 +2,7 @@ package com.libretaDigital.controller;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -32,6 +33,7 @@ import com.libretaDigital.services.GroupServiceImpl;
 import com.libretaDigital.services.ProfessorServiceImpl;
 import com.libretaDigital.services.StudentServiceImpl;
 import com.libretaDigital.utils.EventRegistrationType;
+import com.libretaDigital.utils.Gender;
 import com.libretaDigital.utils.Grade;
 
 @Controller
@@ -70,6 +72,7 @@ public class DataController {
 			page.addObject("professors", mapper.writeValueAsString(this.getAllProfessors()));
 			page.addObject("students", mapper.writeValueAsString(this.getAllStudents()));
 			page.addObject("groups", mapper.writeValueAsString(this.getAllGroups()));
+			page.addObject("inactiveProfessors", mapper.writeValueAsString(this.getInactiveProfessors()));
 			loguedProfessor = professorServiceImpl.getByEmail(session.getAttribute("loggedUser").toString());
 			page.addObject("logguedUserName", mapper.writeValueAsString(loguedProfessor.getEmail().toUpperCase()));
 		} catch (JsonProcessingException e) {
@@ -111,13 +114,27 @@ public class DataController {
 			for (ProfessorBean item : items) {
 				if (item.getOid() == null) {
 
+					if(item.getGender() == null || !item.getGender().equals(""))
+						item.setGender(Gender.PENDING);
+					
+					if(item.getGrade() == null || !item.getGrade().equals(""))
+						item.setGrade("UNKNOWN");
+					
+					item.setEmployeeSince(new Date());
+					
 					professor = new Professor(item.getName(), item.getLastName(), item.getBirthDate(), item.getGender(),
-							item.getEmail(), item.getPassword(), item.getEmployeeSince()/* photo */);
+							item.getEmail(), item.getPassword(), item.getEmployeeSince(), Grade.UNKNOWN/* photo */);
+					
+					professor.setSubjectName(item.getSubjectName());
 				} else {
 					professor = new Professor(item.getName(), item.getLastName(), item.getBirthDate(), item.getGender(),
 							item.getEmail(), item.getPassword(),
 							item.getEmployeeSince()/* , photo */);
+					
+					professor.setSubjectName(item.getSubjectName());
+					
 					professor.setOid(item.getOid());
+					
 				}
 
 				professorServiceImpl.addProfessor(professor);
@@ -130,6 +147,10 @@ public class DataController {
 
 	public List<Professor> getAllProfessors() {
 		return professorServiceImpl.getAllProfessors();
+	}
+	
+	public List<Professor> getInactiveProfessors(){
+		return professorServiceImpl.getInactiveProfessors();
 	}
 
 	/*****/

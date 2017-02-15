@@ -79,7 +79,7 @@ public class PlanningController {
 		if(subjectsList != null && subjectsList.size() > 0)
 			subjectId = subjectsList.get(0).getOid();
 		
-		page.addObject("notebook", mapper.writeValueAsString(notebookService.getNotebooksListFromSubjectIdAndProfessorId(subjectId, loguedProfessor.getOid()).get(0)));
+		page.addObject("notebook", mapper.writeValueAsString(notebookService.getNotebooksListFromSubjectIdAndProfessorId(subjectId, loguedProfessor.getOid())));
 		page.addObject("logguedUserName", mapper.writeValueAsString(loguedProfessor.getEmail().toUpperCase()));
 		page.addObject("tituloPagina", "Libreta Digital - Planning");
 		page.addObject("codMenu", "G3");

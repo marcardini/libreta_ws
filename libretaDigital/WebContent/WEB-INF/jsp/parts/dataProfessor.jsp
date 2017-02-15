@@ -24,6 +24,22 @@
 						<label for="Email">Correo Electrónico</label> <input type="email" class="form-control"  ng-change="clearMsg()"
 							id="email" placeholder="Email" ng-model="professor.email" ng-model-options="{ updateOn: 'blur' }">
 					</div>
+										
+					<div class="form-group">
+						<label for="mySelect"> Seleccionar materia: </label>
+						<div>
+							<select class="form-control" name="subjects" ng-model="professor.subjectName">
+								<option value="MATEMATICAS">Matemáticas</option>
+								<option value="HISTORIA">Historia</option>
+								<option value="FISICA">Fisica</option>
+								<option value="QUIMICA">Quimica</option>
+								<option value="LITERATURA">Literatura</option>
+							</select>
+						</div>
+					</div>
+
+
+
 
 <!-- 					<div class="form-group"> -->
 <!-- 						<label for="Photo">Imagen</label> -->

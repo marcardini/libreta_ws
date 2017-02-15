@@ -20,6 +20,7 @@ public class Professor extends Person implements Serializable{
 	private List<Course> coursesList;
 	private List<Group> groupsList;	
 	private Role role;
+	private String subjectName;
 	
 	public Professor(){}
 	
@@ -54,6 +55,13 @@ public class Professor extends Person implements Serializable{
 		super(name, lastName, birthDate, gender, email);
         this.password = password;
         this.employeeSince = employeeSince;
+    }
+	
+	public Professor(String name, String lastName, Date birthDate, Gender gender, String email, String password, Date employeeSince, Grade grade){
+		super(name, lastName, birthDate, gender, email);
+        this.password = password;
+        this.employeeSince = employeeSince;
+        this.grade = grade;
     }
 	
 	public Professor(String name, String lastName, Date birthDate, Gender gender, String email, String password, Date employeeSince, Grade grade,  Role role, String phoneNumber){
@@ -107,4 +115,13 @@ public class Professor extends Person implements Serializable{
 	public void setGroupsList(List<Group> groupsList) {
 		this.groupsList = groupsList;
 	}
+
+	public String getSubjectName() {
+		return subjectName;
+	}
+
+	public void setSubjectName(String subjectName) {
+		this.subjectName = subjectName;
+	}
+
 }

@@ -22,6 +22,8 @@ app.controller('groupCtrl', ['$scope','$http','ngNotify','blockUI',	function($sc
 			$scope.groups = [];
 			angular.copy(groups, $scope.groups);
 			$scope.professors = angular.copy(professors);
+			$scope.inactiveProfessors = angular.copy(inactiveProfessors);
+			
 //			console.log(professors);
 //			console.log($scope.professors);
 //			console.log(groups);
