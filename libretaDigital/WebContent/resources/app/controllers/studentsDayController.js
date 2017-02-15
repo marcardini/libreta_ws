@@ -95,7 +95,7 @@ app.controller('studentsDayCtrl', ['$scope', '$filter', '$http', 'ngNotify', 'bl
 			}else if(calendar[int].eventRegistrationType === "MEDIA_FALTA"){
 				count = count + 0.5;
 			}else if(calendar[int].eventRegistrationType === "JUSTIFICADA"){
-				count = count + 0.5;
+				count = count + 0.5;			
 			}
 		}
 		return count;
@@ -112,6 +112,9 @@ app.controller('studentsDayCtrl', ['$scope', '$filter', '$http', 'ngNotify', 'bl
 				}
 				student.absences.push(student.calendar[int]);
 			}else{
+				if(student.calendar[int].eventRegistrationType === "JUICIO_DOCENTE" || student.calendar[int].eventRegistrationType === "JUICIO_FINAL"){
+					student.calendar[int].value = "";					
+				}
 				student.qualifications.push(student.calendar[int]);
 			}
 		}
@@ -301,43 +304,105 @@ app.controller('ModalInstanceQualifyCtrl', function ($uibModalInstance, qualy, s
 	$scope.qualy.date = new Date();			
 	$scope.events = [];
 	$scope.qualy.eventRegistrationType = "ORAL";
+	$scope.verSugerencia = false;
+	$scope.verSlider = true;
+	$scope.sugerencia = 1;
 	angular.forEach(eventsRegistrationTypes, function(event){
 		if( event != "FALTA" && event != "MEDIA_FALTA" && event != "JUSTIFICADA" ){
-			$scope.events.push(event);
+			$scope.events.push(event);			
 		}
 	});
 		
 	if(qualy != null && !angular.isUndefined(qualy.value)){		
 		$scope.qualy = qualy;
 		$scope.old = angular.copy(qualy);
-		$scope.title = "Modificar Calificación";
+		$scope.title = "Modificar Calificacion";
 //		console.log(qualy.eventRegistrationType);
 	}else{		
 //		console.log(student);
 		$scope.qualy.studentId = student.oid;		
 	}
 	
+	 $scope.changeEvent = function (type){
+//		 console.log(student.qualifications);
+		 var count = 1; var sum = 1;
+		 $scope.verSlider = true;
+		 if(type == "PROMEDIO_PRACTICO" || type === "PROMEDIO_FINAL_PRACTICO"){								
+				for (var int = 0; int < student.qualifications.length; int++) {
+					var event = student.qualifications[int];
+//					console.log(event);
+					if(event.eventRegistrationType === "ESCRITO" || event.eventRegistrationType === "PARCIAL"
+						|| event.eventRegistrationType === "PROMEDIO_FINAL_PRACTICO" || event.eventRegistrationType === "PROMEDIO_PRACTICO"){
+						count++;
+						sum = sum + event.value;
+					}					
+				}				
+		 }else if(type == "PROMEDIO_TEORICO" || type === "PROMEDIO_FINAL_TEORICO"){
+			 $scope.verSugerencia = true;				
+				for (var int = 0; int < student.qualifications.length; int++) {
+					var event = student.qualifications[int];
+//					console.log(event);
+					if(event.eventRegistrationType === "ORAL" || event.eventRegistrationType === "PROMEDIO_FINAL_TEORICO" || event.eventRegistrationType === "PROMEDIO_TEORICO"){
+						count++;
+						sum = sum + event.value;
+					}					
+				}
+		 }else if(type == "PROMEDIO" || type === "PROMEDIO_FINAL_PRACTICO" || type === "PROMEDIO_FINAL_TEORICO"){
+			 $scope.verSugerencia = true;				
+				for (var int = 0; int < student.qualifications.length; int++) {
+					var event = student.qualifications[int];
+//					console.log(event);
+					if(event.eventRegistrationType === "PROMEDIO_PRACTICO" || event.eventRegistrationType === "PROMEDIO_TEORICO" || event.eventRegistrationType === "PROMEDIO"
+						|| event.eventRegistrationType === "PROMEDIO_FINAL_TEORICO" || event.eventRegistrationType === "PROMEDIO_FINAL_PRACTICO"){
+						count++;
+						sum = sum + event.value;
+					}					
+				}
+		 }else if(type == "PROMEDIO_FINAL"){
+			 $scope.verSugerencia = true;				
+				for (var int = 0; int < student.qualifications.length; int++) {
+					var event = student.qualifications[int];
+//					console.log(event);
+					if(event.eventRegistrationType === "PROMEDIO" || event.eventRegistrationType === "PRIMER_EVALUACIÓN_ESPECIAL"
+							|| event.eventRegistrationType === "SEGUNDA_EVALUACIÓN_ESPECIAL"){
+						count++;
+						sum = sum + event.value;
+					}					
+				}
+		 }else if(type == "JUICIO_DOCENTE" || type == "JUICIO_DOCENTE"){
+			$scope.verSlider = false;
+			$scope.qualy.value = 0;
+		 }
+		 
+		 
+		 
+		 $scope.verSugerencia = false;
+		 $scope.sugerencia = Math.round(sum/count);
+		 if($scope.sugerencia > 1){
+			 $scope.verSugerencia = true;
+		 }
+//		 console.log($scope.sugerencia);
+	 };
+	
 
 	$scope.slider = {
-			value: $scope.qualy.value,			   		   
+			value: $scope.qualy.value,			
 		    options: {	    	
-		        showSelectionBar: true,
+		        showSelectionBar: true,		        
 		        showTicks: true,
 		        floor: 1,
-		        ceil: 12,
-		        minValue: 1,
+		        ceil: 12,		        	        
+		        minValue: 0,
 		        maxValue: 12,
 		        getSelectionBarColor: function(value) {
 		            if (value <= 5)
-		                return 'red';
-		            if (value <= 6)
-		                return 'orange';
-		            if (value <= 8)
-		                return 'yellow';
+		                return '#F5A9A9';
+		            
 		            return '#2AE02A';
 		        }
 		    }
 		};
+		
 	   
 	$scope.ok = function () {
 		$scope.data = [];

@@ -4,7 +4,7 @@ var app = angular.module('app', ['ui.bootstrap', 'smart-table', 'dndLists', 'per
 app.filter('capitalize', function() {
 	return function(input, scope) {
 		if (input != null) {
-			input = input.replace("_", " ");
+			input = input.replace(/_/g, ' ');;
 			input = input.toLowerCase().split(' ');
 
 			for (var i = 0; i < input.length; i++) {

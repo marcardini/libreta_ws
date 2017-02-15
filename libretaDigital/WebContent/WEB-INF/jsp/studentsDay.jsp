@@ -222,7 +222,7 @@
 											<tr class="list-row" st-select-row="qualy" st-select-mode="single" ng-repeat="qualy in student.qualifications" ng-click="qualySelect(qualy)">
 												<td>{{qualy.date | date:'dd-MM-yyyy'}}</td>
 												<td>{{qualy.eventRegistrationType | capitalize}}</td>
-												<td>{{qualy.value}}</td>
+												<td >{{qualy.value}}</td>
 												<td>{{qualy.comment | capitalize}}</td>
 											</tr>
 										</tbody>
@@ -239,8 +239,44 @@
 								</div>
 							</div>
 
-							</uib-tab> </uib-tabset>
+							</uib-tab> 
+							
+<!-- 							<uib-tab heading="Boletin"> -->
 
+<!-- 							<div class="row"> -->
+<!-- 								<div class="col-lg-12 table-nav"> -->
+<!-- 									<table st-table="student.notasBoletines" class="table table-striped table-hover"> -->
+<!-- 										<thead> -->
+<!-- 											<tr> -->
+<!-- 												<th class="sort-header" st-sort="name">Fecha</th> -->
+<!-- 												<th class="sort-header" st-sort="lastName">Tipo</th> -->
+<!-- 												<th class="sort-header" st-sort="value">Nota</th> -->
+<!-- 												<th>Comentario</th> -->
+<!-- 											</tr> -->
+<!-- 										</thead> -->
+<!-- 										<tbody> -->
+<!-- 											<tr class="list-row" st-select-row="qualy" st-select-mode="single" ng-repeat="qualy in student.notasBoletines" ng-click="qualySelect(qualy)"> -->
+<!-- 												<td>{{qualy.date | date:'dd-MM-yyyy'}}</td> -->
+<!-- 												<td>{{qualy.eventRegistrationType | capitalize}}</td> -->
+<!-- 												<td>{{qualy.value}}</td> -->
+<!-- 												<td>{{qualy.comment | capitalize}}</td> -->
+<!-- 											</tr> -->
+<!-- 										</tbody> -->
+<!-- 									</table> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+
+
+<!-- 							<div class="row"> -->
+<!-- 								<div class="col-lg-12"> -->
+<!-- 									<button class="btn btn-md btn-success btn-justify" ng-click="calificate()" ng-disabled="calificateButton" ng-show="!editCalfButton">Guardar</button> -->
+<!-- 									<button class="btn btn-md btn-warning btn-justify" ng-click="calificate()" ng-show="editCalfButton">Modificar</button> -->
+<!-- 									<button class="btn btn-md btn-danger btn-justify"  confirmed-click="delete(qualy)" ng-confirm-click="Esta seguro que desea eliminar esta calificación?" ng-disabled="!editCalfButton">Eliminar</button>									 -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+
+<!-- 							</uib-tab>  -->
+							</uib-tabset>
 
 							<!-- 								<a href="#" class="btn btn-primary">My Sales Performance</a> <a href="#" class="btn btn-primary">Team -->
 							<!-- 									Sales Performance</a> -->
@@ -265,35 +301,50 @@
 
 
 <script type="text/ng-template" id="editQualificationModal.html">
-        <div class="modal-header">
-            <h3 class="modal-title" id="modal-title">{{title}}</h3>
-        </div>
-        <div class="modal-body" id="modal-body">
-            <form>
-  				<div class="form-group">
-    				<label for="value">Nota</label>  
-						<rzslider rz-slider-model="slider.value" rz-slider-options="slider.options"></rzslider>
- 				</div>
-  				<div class="form-group">  				
-					<div class="form-group">
-  						 <label for="singleSelect"> Tipo </label><br>
-    						<select name="type" ng-model="qualy.eventRegistrationType" class="form-control" required>								 
-      							<option ng-repeat="event in events" value="{{event}}">{{event | capitalize}}</option>
-    						</select>
-					</div>
- 				</div> 
+<div class="modal-header">
+	<h3 class="modal-title" id="modal-title">{{title}}</h3>
+</div>
+<div class="modal-body" id="modal-body">
+	<form>
+		<div class="form-group">
+			<div class="form-group">
+				<label for="singleSelect"> Tipo </label><br> <select name="type" ng-model="qualy.eventRegistrationType"
+					class="form-control" ng-change="changeEvent(qualy.eventRegistrationType)" required>
+					<option ng-repeat="event in events" value="{{event}}">{{event | capitalize}}</option>
+				</select>
+			</div>
+		</div>
+		<div class="row" ng-show="verSugerencia">
+			<div class="col-md-9">
 				<div class="form-group">
-    				<label for="type">Comentario</label>
-    				<textarea  type="Comentario" class="form-control" id="type" placeholder="Comentario" ng-model="qualy.comment" rows="3"></textarea> 
- 				 </div>   				
-  				</div>  				
-			</form>          
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary" type="submit" ng-click="ok()">Guardar</button>
-            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancelar</button>
-        </div>
-</script>
+					<label for="value">Nota</label>
+					<rzslider rz-slider-model="slider.value" rz-slider-options="slider.options"></rzslider>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="porcentaje">
+					<h5 class="text-center">Promedio Sugerido</h3>
+					<h1 class="text-center">{{sugerencia}}</h1>				
+				</div>
+			</div>
+		</div>
+		<div class="form-group" ng-show="!verSugerencia && verSlider">
+					<label for="value">Nota</label>
+					<rzslider rz-slider-model="slider.value" rz-slider-options="slider.options"></rzslider>
+		</div>
+				<div class="form-group">
+					<label for="type">Comentario</label>
+					<textarea type="Comentario" class="form-control" id="type" placeholder="Comentario"
+						ng-model="qualy.comment" rows="3"></textarea>				
+				</div>
+		
+	</form>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary" type="submit" ng-click="ok()">Guardar</button>
+	<button class="btn btn-warning" type="button" ng-click="cancel()">Cancelar</button>
+</div>
+ </script> 
 
 <script type="text/ng-template" id="editAbsenceModal.html">
         <div class="modal-header">
@@ -326,20 +377,20 @@
         <div class="modal-header">
             <h3 class="modal-title" id="modal-title">{{title}}</h3>
         </div>
-        <div class="modal-body" id="modal-body">
-            <form>
-  				<div class="form-group">
-    				<label for="value">Nota</label>  
-						<rzslider rz-slider-model="slider.value" rz-slider-options="slider.options"></rzslider>
- 				</div>
-  				<div class="form-group">  				
+		<div class="form-group">  				
 					<div class="form-group">
   						 <label for="singleSelect"> Tipo </label><br>
     						<select name="type" ng-model="qualy.eventRegistrationType" class="form-control" required>								 
       							<option ng-repeat="event in events" value="{{event}}">{{event | capitalize}}</option>
     						</select>
 					</div>
- 				</div> 
+ 				</div>
+        <div class="modal-body" id="modal-body">
+            <form>
+  				<div class="form-group">
+    				<label for="value">Nota</label>  
+						<rzslider rz-slider-model="slider.value" rz-slider-options="slider.options"></rzslider>
+ 				</div>  				 
 				<div class="form-group">
     				<label for="type">Comentario</label>
     				<textarea  type="Comentario" class="form-control" id="type" placeholder="Comentario" ng-model="qualy.comment" rows="3"></textarea> 

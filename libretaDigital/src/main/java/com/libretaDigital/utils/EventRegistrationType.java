@@ -9,14 +9,27 @@ public enum EventRegistrationType {
 	MEDIA_FALTA("Media falta"),
 	JUSTIFICADA("Justificada"),
 	
-	PARCIAL("Parcial"),
-	EXAMEN("Exámen"),
+	OBSERVACION("Observación"),
+	SUSPENSIÓN("Suspensión"),
+	
+	PARTICIPACION_CLASE("Participación de clase"),	
 	ORAL("Oral"),
+	ESCRITO("Escrito"),
+	PARCIAL("Parcial"),	
 	EXAMEN_ORAL("Exámen oral"),
 	EXAMEN_ESCRITO("Exámen escrito"),
-	PARTICIPACION_CLASE("Participación de clase"),
-	OBSERVACION("Observación"),
-	SUSPENSIÓN("Suspensión");
+	EXAMEN("Exámen"),
+		
+	PRIMER_EVALUACIÓN_ESPECIAL("1era Evaluacion Especial"),	
+	PROMEDIO_TEORICO("Promedio Teórico"),
+	PROMEDIO_PRACTICO("Promedio Práctico"),
+	PROMEDIO("Promedio"),
+	SEGUNDA_EVALUACIÓN_ESPECIAL("2da Evaluacion Especial"),
+	PROMEDIO_FINAL_PRACTICO("Promedio Final Práctico"),
+	PROMEDIO_FINAL_TEORICO("Promedio Final Teórico"),	
+	PROMEDIO_FINAL("Promedio Final"),	
+	JUICIO_DOCENTE("Observación"),
+	JUICIO_FINAL("Observación");
 	
 	private final String value;
 
