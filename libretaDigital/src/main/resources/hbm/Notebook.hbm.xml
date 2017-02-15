@@ -17,7 +17,7 @@
 
 		<many-to-one name="subject"><column name="subject_oid" /></many-to-one>
 
-		<property name="professorOid" column="professor_id" type="int" />		
+		<property name="professorOid" column="professor_id" type="long" />		
 		
 		<property name="pautaSalaDocente" column="pautaSalaDocente" type="string" length="255"/>
 		<property name="propuestaDiagnostica" column="propuestaDiagnostica" type="string" length="255"/>
