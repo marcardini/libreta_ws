@@ -1,6 +1,9 @@
 package com.libretaDigital.controller;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -14,10 +17,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.libretaDigital.entities.Group;
 import com.libretaDigital.entities.Notebook;
 import com.libretaDigital.entities.Professor;
+import com.libretaDigital.entities.Subject;
+import com.libretaDigital.services.GroupServiceImpl;
 import com.libretaDigital.services.NotebookServiceImpl;
 import com.libretaDigital.services.ProfessorServiceImpl;
+import com.libretaDigital.services.SubjectServiceImpl;
 import com.libretaDigital.services.UserServiceImpl;
 
 @Controller
@@ -31,7 +38,13 @@ public class PlanningController {
 
 	@Autowired
 	private ProfessorServiceImpl professorServiceImpl;
+	
+	@Autowired
+	private GroupServiceImpl groupServiceImpl;
 
+	@Autowired
+	private SubjectServiceImpl subjectServiceImpl;
+	
 	private ObjectMapper mapper = new ObjectMapper();
 
 	private Professor loguedProfessor;
@@ -57,7 +70,16 @@ public class PlanningController {
 //		notebook.setPropuestaDiagnostica("Propuesta Diagnostica");
 //		notebook.setSubject(new Subject("MATEMATICAS"));
 
-		page.addObject("notebook", mapper.writeValueAsString(notebookService.getNotebooksListFromSubjectIdAndProfessorId((long)1, loguedProfessor.getOid()).get(0)));
+		List<Group> professorsGroup = groupServiceImpl.getProfessorsGroup(loguedProfessor);
+		List<Subject> subjectsList = new ArrayList<Subject>();
+		if(professorsGroup != null && professorsGroup.size() > 0)
+			subjectsList = subjectServiceImpl.getSubjectsByGroupIdAndProfessorId(professorsGroup.get(0).getOid(), loguedProfessor.getOid());
+		
+		long subjectId = 0L;
+		if(subjectsList != null && subjectsList.size() > 0)
+			subjectId = subjectsList.get(0).getOid();
+		
+		page.addObject("notebook", mapper.writeValueAsString(notebookService.getNotebooksListFromSubjectIdAndProfessorId(subjectId, loguedProfessor.getOid()).get(0)));
 		page.addObject("logguedUserName", mapper.writeValueAsString(loguedProfessor.getEmail().toUpperCase()));
 		page.addObject("tituloPagina", "Libreta Digital - Planning");
 		page.addObject("codMenu", "G3");
