@@ -103,6 +103,33 @@ public class SubjectDAO extends GenericDAO<Subject> implements ISubjectDAO{
 		return result;
 		
 	}
+	
+	public List<Subject> getSubjectsByGroupIdAndProfessorId(Long groupId, Long professorId){
+		
+		return getHibernateTemplate().execute(new HibernateCallback<List<Subject>>() {
+
+			List<Subject> result = new ArrayList<Subject>();
+
+			@SuppressWarnings("unchecked")
+			@Override
+			public List<Subject> doInHibernate(Session session) throws HibernateException {
+				String oQuery = "select s.oid, s.name, s.group_id from subject s, group_ g, professor p where s.group_id = g.oid and p.oid = g.professor_id "
+								+ "and g.professor_id = :professorId and g.oid = :groupId";
+
+				SQLQuery query = session.createSQLQuery(oQuery);
+				
+				query.setLong("professorId", professorId);
+				query.setLong("groupId", groupId);
+
+				List<Object[]> partialResult = query.list();
+
+				if (partialResult != null && !partialResult.isEmpty())
+					result = getSubjectsOfProfessorFromPartialResult(partialResult, professorId);
+
+				return result;
+			}
+		});
+	}
 
 	public NotebookDAO getNotebookDAO() {
 		return notebookDAO;

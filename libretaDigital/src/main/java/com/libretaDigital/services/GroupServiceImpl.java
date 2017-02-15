@@ -1,5 +1,6 @@
 package com.libretaDigital.services;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import org.springframework.security.authentication.encoding.MessageDigestPasswor
 
 import com.libretaDigital.DAO.*;
 import com.libretaDigital.entities.Group;
+import com.libretaDigital.entities.Professor;
 import com.libretaDigital.entities.Subject;
 import com.libretaDigital.exceptions.*;
 import com.libretaDigital.interfaces.*;
@@ -53,6 +55,10 @@ public class GroupServiceImpl implements IGroupService{
 				groupDAO.delete(group);
 			}
 		}
+	}
+	
+	public List<Group> getProfessorsGroup(Professor professor){
+		return groupDAO.getGroupsByProfessorId(BigInteger.valueOf(professor.getOid()));
 	}
 
 	public MessageDigestPasswordEncoder getEncoder() {

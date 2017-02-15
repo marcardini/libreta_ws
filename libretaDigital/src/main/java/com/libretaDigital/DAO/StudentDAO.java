@@ -435,8 +435,8 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 				String oQuery = "select day.class_date, day.event_registration_type, day.value, day.comment, day.oid, day.student_id "
 						+ "from class_day_student day " 
 						+ "where day.student_id = :studentOid "
-						+ "and day.group_id = (select oid from group_ where name = :groupCode and year = YEAR(:dateFrom)) "
-						+ "and day.subject_id = (select oid from subject where name = :subjectName) "
+						+ "and day.group_id in (select oid from group_ where name = :groupCode and year = YEAR(:dateFrom)) "
+						+ "and day.subject_id in (select oid from subject where name = :subjectName) "
 						+ "and day.event_registration_type in('"+ EventRegistrationType.FALTA +"', '"+ EventRegistrationType.MEDIA_FALTA +"') "
 						+ "and day.class_date >= :dateFrom and day.class_date <= :dateTo";
 											
