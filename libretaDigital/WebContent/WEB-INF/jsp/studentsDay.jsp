@@ -145,8 +145,13 @@
 												<td>Email</td>
 												<td><a href="mailto:>{{student.email}}">{{student.email}}</a></td>
 											</tr>
+											<tr>
 												<td>Teléfono</td>
 												<td>{{student.phoneNumber}}</td>
+											</tr>
+											<tr>
+												<td>Antecedentes</td>
+												<td>{{student.record}}</td>
 											</tr>
 										</tbody>
 									</table>

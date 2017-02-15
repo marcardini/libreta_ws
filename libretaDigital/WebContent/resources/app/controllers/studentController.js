@@ -71,7 +71,7 @@ app.controller('studentCtrl', ['$scope','$http','ngNotify','blockUI',	function($
 
 			$scope.rowSelect = function(row) {
 //				console.log($scope);
-				console.log($scope.getFile());
+//				console.log($scope.getFile());
 				if (!row.isSelected) {
 					$scope.student = {};
 					$scope.addButton = true;
@@ -96,7 +96,7 @@ app.controller('studentCtrl', ['$scope','$http','ngNotify','blockUI',	function($
 						blockUI.stop();
 //						$scope.savePhoto($scope.student.email);
 						ngNotify.set('Guardado corectamente', 'success');
-					    $scope.getStudents();			   
+						$scope.students = $scope.getStudents();			   
 					  }, function errorCallback(response) {				  
 						  console.log(response);
 						  ngNotify.set('ERROR - Datos no guardados', 'error');
@@ -108,31 +108,32 @@ app.controller('studentCtrl', ['$scope','$http','ngNotify','blockUI',	function($
 					  });
 			}
 			
-			$scope.savePhoto = function(mail){
-				console.log($scope.getFile());
-				$http({
-					  method: 'POST',
-					  url: 'data/saveStudentPhoto?mail=' + mail,
-					  data: {photo: $scope.getFile()},
-					  headers: {'Content-Type': undefined}
-					}).success(function successCallback(response) {
-						blockUI.stop();
-						ngNotify.set('Guardado corectamente', 'success');
-					    $scope.getStudents();			   
-					  }, function errorCallback(response) {				  
-						  console.log(response);
-						  ngNotify.set('ERROR - Datos no guardados', 'error');
-					    // called asynchronously if an error occurs
-					    // or server returns response with an error status.
-					  }).error(function (data, status, header, config) {
-						  console.log(status);
-						  ngNotify.set('ERROR - Datos no cargados', 'error');
-					  });
-			}
+//			$scope.savePhoto = function(mail){
+//				console.log($scope.getFile());
+//				$http({
+//					  method: 'POST',
+//					  url: 'data/saveStudentPhoto?mail=' + mail,
+//					  data: {photo: $scope.getFile()},
+//					  headers: {'Content-Type': undefined}
+//					}).success(function successCallback(response) {
+//						blockUI.stop();
+//						ngNotify.set('Guardado corectamente', 'success');
+//					    $scope.getStudents();			   
+//					  }, function errorCallback(response) {				  
+//						  console.log(response);
+//						  ngNotify.set('ERROR - Datos no guardados', 'error');
+//					    // called asynchronously if an error occurs
+//					    // or server returns response with an error status.
+//					  }).error(function (data, status, header, config) {
+//						  console.log(status);
+//						  ngNotify.set('ERROR - Datos no cargados', 'error');
+//					  });
+//			}
 			
 			$scope.getStudents = function(){
 				 $http.get('data/students').success(function (data, status, headers, config) {			 
-					   console.log(data);			   
+					   console.log(data);
+					   return data;
 					  }).error(function (data, status, header, config) {
 						  console.log(status);
 						  ngNotify.set('ERROR - Datos no cargados', 'error');

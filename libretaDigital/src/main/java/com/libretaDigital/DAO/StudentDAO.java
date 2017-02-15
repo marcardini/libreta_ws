@@ -104,7 +104,7 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
             @SuppressWarnings("unchecked")
             @Override
             public List<Student> doInHibernate(Session session) throws HibernateException {
-                String oQuery = "select stu.oid, stu.name, stu.last_name, stu.birth_date, stu.gender, stu.email, stu.currentStudent, stu.phoneNumber "
+                String oQuery = "select stu.oid, stu.name, stu.last_name, stu.birth_date, stu.gender, stu.email, stu.currentStudent, stu.phoneNumber, stu.record "
                         + "from student stu, group_ g, subject sub, course course "
                         + "where stu.group_id = g.oid "
                         + "and upper(g.name) = upper(:groupCode) and g.year = :year and upper(sub.name) = upper(:subjectName) ";
@@ -194,6 +194,7 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
             }
             
             student.setPhoneNumber((String)oPartialResult[7]);
+            student.setRecord((String)oPartialResult[8]);
             
             student.setGroupCode(groupCode);
             
@@ -360,7 +361,7 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 				String oQuery = "select distinct(stu.oid), stu.name, stu.last_name, stu.birth_date, stu.gender, stu.email, stu.currentStudent, day.event_registration_type "
 						+ "from group_ g, subject sub, student stu "
 						+ "left join class_day_student day on (stu.oid = day.student_id and day.class_date >= :dateFrom and day.class_date <= :dateTo) "
-						+ "where stu.group_id = g.oid  "
+						+ "where stu.group_id = g.oid "
 						+ "and upper(g.name) = upper(:groupCode) and upper(sub.name) = upper(:subjectName) ";
 
 				SQLQuery query = session.createSQLQuery(oQuery);

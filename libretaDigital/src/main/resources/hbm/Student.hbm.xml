@@ -34,6 +34,8 @@
 		
 		<property name="phoneNumber" length="20" />
 		
+		<property name="record" length="255" />
+		
 <!-- 		<property name="photo" type="binary"> -->
 <!--             <column name="photo" not-null="true" /> -->
 <!--         </property> -->

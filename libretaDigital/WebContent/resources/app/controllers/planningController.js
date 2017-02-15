@@ -28,11 +28,12 @@ app.controller('planningCtrl', [ '$scope', '$http', 'ngNotify', 'blockUI', funct
 	blockUI.message = 'Cargando...';
 
 	//$scope.date = new Date("yyyy-mm-dd");
-	console.log(notebook);
-	$scope.notebook = angular.copy(notebook);
+	$scope.notebook = { desarrolloDelCurso:[]};
+	$scope.notebook = angular.copy(notebook[0]);
+//	console.log($scope.notebook);
 	
 	$scope.save = function() {
-		console.log($scope.notebook);		
+//		console.log($scope.notebook);		
 		$http({
 			  method: 'POST',
 			  url: 'planning/saveNotebook',
@@ -54,13 +55,14 @@ app.controller('planningCtrl', [ '$scope', '$http', 'ngNotify', 'blockUI', funct
 	
 		
 	$scope.setDay = function (date){
+		console.log($scope.notebook);
 		$scope.day = $scope.selectDay(date);
 		console.log($scope.day);
 	}
 	
 
 	$scope.addDay = function(){	
-		console.log($scope.day);
+//		console.log($scope.day);
 		var existe = false;
 		for (var int = 0; int < $scope.notebook.desarrolloDelCurso.length; int++) {
 			var aux = $scope.notebook.desarrolloDelCurso[int];	
@@ -79,8 +81,9 @@ app.controller('planningCtrl', [ '$scope', '$http', 'ngNotify', 'blockUI', funct
 		
 	};
 	
-	$scope.selectDay = function (date){		
-		var day = {"date":new Date(""+date+""), "comment":"", "notebookId":$scope.notebook.oid};
+	$scope.selectDay = function (date){			
+//		console.log($scope.notebook);
+		var day = {"date":new Date(""+date+""), "comment":"", "notebookId":$scope.notebook.oid};	
 		for (var int = 0; int < $scope.notebook.desarrolloDelCurso.length; int++) {
 			var aux = $scope.notebook.desarrolloDelCurso[int];	
 			var auxDate = new Date(""+ aux.date +"");			
@@ -93,6 +96,7 @@ app.controller('planningCtrl', [ '$scope', '$http', 'ngNotify', 'blockUI', funct
 		return day;		
 	}
 	
+//	console.log($scope.notebook);
 	$scope.setDay($scope.date);
 	
 	

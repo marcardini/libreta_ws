@@ -17,6 +17,7 @@ public class Student extends Person implements Serializable{
 	private Long groupId;
 	private List<ClassDayStudent> calendar;
 	private boolean currentStudent;
+	private String record;
 	
 	private String groupCode;
 	
@@ -40,10 +41,11 @@ public class Student extends Person implements Serializable{
 		this.currentStudent = currentStudent;
     }
 	
-	public Student(String name, String lastName, Date birthDate, Gender gender, String email, boolean current, Long groupId, String phoneNumber){
+	public Student(String name, String lastName, Date birthDate, Gender gender, String email, boolean current, Long groupId, String phoneNumber, String record){
 		super(name, lastName, birthDate, gender, email, phoneNumber);
 		this.groupId = groupId;
 		this.currentStudent = current;
+		this.record = record;
 	}
 	
 	/*public Student(Course course, Long groupId, boolean current, String name, String lastName, Date birthDate, Gender gender, String email, byte[] photo){
@@ -84,5 +86,13 @@ public class Student extends Person implements Serializable{
 
 	public void setGroupCode(String groupCode) {
 		this.groupCode = groupCode;
+	}
+
+	public String getRecord() {
+		return record;
+	}
+
+	public void setRecord(String record) {
+		this.record = record;
 	}
 }

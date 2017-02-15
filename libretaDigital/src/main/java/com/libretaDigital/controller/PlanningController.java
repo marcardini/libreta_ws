@@ -56,19 +56,7 @@ public class PlanningController {
 		ModelAndView page = new ModelAndView("/planning");
 		session.setAttribute("loggedUser", userService.getUser(this.getPrincipal()));
 		session.setAttribute("logguedUserName", userService.getUser(this.getPrincipal()).getLastName());
-		loguedProfessor = professorServiceImpl.getByEmail(session.getAttribute("loggedUser").toString());
-		
-//		Notebook notebook = new Notebook();
-//		notebook.setCurrentYear(2017);
-//		notebook.setGroupId((long) 1);
-//		notebook.setOid((long) 1);
-//		notebook.setProfessorOid((long) 1);
-//		notebook.setDesarrolloDelCurso(null);
-//		notebook.setDescripcionYAnalisis("dESCR Y ANALISIS");
-//		notebook.setPautaSalaDocente("Pauta docente");
-//		notebook.setProgramaYPautaExamen("Programa y pauta Ex");
-//		notebook.setPropuestaDiagnostica("Propuesta Diagnostica");
-//		notebook.setSubject(new Subject("MATEMATICAS"));
+		loguedProfessor = professorServiceImpl.getByEmail(session.getAttribute("loggedUser").toString());		
 
 		List<Group> professorsGroup = groupServiceImpl.getProfessorsGroup(loguedProfessor);
 		List<Subject> subjectsList = new ArrayList<Subject>();
@@ -85,7 +73,7 @@ public class PlanningController {
 		page.addObject("codMenu", "G3");
 		return page;
 	}
-
+	
 	private String getPrincipal() {
 		String userName = null;
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
