@@ -22,6 +22,7 @@ import com.libretaDigital.beans.StudentSubjectBulletinBean;
 import com.libretaDigital.entities.Group;
 import com.libretaDigital.entities.Notebook;
 import com.libretaDigital.entities.Professor;
+import com.libretaDigital.entities.Student;
 import com.libretaDigital.entities.Subject;
 import com.libretaDigital.services.GroupServiceImpl;
 import com.libretaDigital.services.NotebookServiceImpl;
@@ -80,10 +81,10 @@ public class PlanningController {
 		return page;
 	}
 	
-	@RequestMapping(value = "/bulletins", method = RequestMethod.GET)
+	@RequestMapping(value = "/bulletin", method = RequestMethod.GET)
 	public ModelAndView bulletins(HttpSession session) throws JsonProcessingException {
 
-		ModelAndView page = new ModelAndView("/planning");
+		ModelAndView page = new ModelAndView("/bulletin");
 		session.setAttribute("loggedUser", userService.getUser(this.getPrincipal()));
 		session.setAttribute("logguedUserName", userService.getUser(this.getPrincipal()).getLastName());
 		loguedProfessor = professorServiceImpl.getByEmail(session.getAttribute("loggedUser").toString());		
@@ -98,7 +99,31 @@ public class PlanningController {
 			subjectId = subjectsList.get(0).getOid();
 		
 		
-		List<StudentBulletinBean> students = new ArrayList<StudentBulletinBean> ();
+		List<Student> students = studentServiceImpl.getStudentByGroup(professorsGroup.get(0).getName());
+		List<StudentBulletinBean>  studentNotas = new ArrayList<StudentBulletinBean>();
+		for (Student student : students) {
+			StudentBulletinBean aux = new StudentBulletinBean();
+			aux.setCourse(student.getCourse());
+			aux.setBirthDate(student.getBirthDate());
+			aux.setGroupId(student.getGroupId());
+			aux.setGroupCode(student.getGroupCode());
+			aux.setOid(student.getOid());
+			aux.setLastName(student.getLastName());
+			aux.setName(student.getName());			
+			studentNotas.add(aux);
+		}
+		
+		List<Subject> allSubjects = subjectServiceImpl.getSubjectDAO().getAllSubjects();		
+		for (StudentBulletinBean studentBulletinBean : studentNotas) {
+			for (Subject subject : allSubjects) {						
+					StudentSubjectBulletinBean studentSub = new StudentSubjectBulletinBean();
+					studentSub.setSubjectName(subject.getName());
+					studentSub.setCalendar(studentServiceImpl.getStudentDAO().getStudentCalendarByStudentId(studentBulletinBean.getOid(), studentBulletinBean.getGroupCode(), subject.getName()));
+					studentBulletinBean.getSubjects().add(studentSub);
+				
+			}
+		}
+		page.addObject("studentNotas", mapper.writeValueAsString(studentNotas));
 		page.addObject("logguedUserName", mapper.writeValueAsString(loguedProfessor.getEmail().toUpperCase()));
 		page.addObject("tituloPagina", "Libreta Digital - Boletines");
 		page.addObject("codMenu", "B1");

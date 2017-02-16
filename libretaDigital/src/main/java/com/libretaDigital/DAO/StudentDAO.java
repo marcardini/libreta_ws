@@ -70,22 +70,23 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 			@SuppressWarnings("unchecked")
 			@Override
 			public List<Student> doInHibernate(Session session) throws HibernateException {
-				String oQuery = "select s.oid, s.name, s.last_name  " + "from student s, group_ g "
-						+ "where s.group_id = g.oid ";
-				boolean hasParameter = false;
-				if (groupCode != null && !groupCode.equals("")) {
-					oQuery = oQuery.concat("and upper(g.name) = ? ");
-					hasParameter = !hasParameter;
-				}
+				String oQuery = "select stu.oid, stu.name, stu.last_name, stu.birth_date, stu.gender, stu.email, "
+						+ "stu.currentStudent, stu.phoneNumber, stu.record, stu.group_id "
+						+ "from student stu, group_ g "
+						+ "where stu.group_id = g.oid ";
+				
+				if (groupCode != null && !groupCode.equals(""))
+					oQuery = oQuery.concat("and upper(g.name) = upper(:groupCode) ");
 
 				SQLQuery query = session.createSQLQuery(oQuery);
-				if (hasParameter)
-					query.setString(0, groupCode);
+				
+				if (groupCode != null && !groupCode.equals("")) 
+					query.setString("groupCode", groupCode);
 
 				List<Object[]> partialResult = query.list();
 
 				if (partialResult != null && !partialResult.isEmpty())
-					result = getStudentsByGroupCodeFromPartialResult(partialResult);
+					result = getStudentsByGroupCodeFromPartialResult(partialResult, groupCode);
 
 				return result;
 			}
@@ -105,8 +106,8 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
             @Override
             public List<Student> doInHibernate(Session session) throws HibernateException {
                 String oQuery = "select stu.oid, stu.name, stu.last_name, stu.birth_date, stu.gender, stu.email, stu.currentStudent, stu.phoneNumber, stu.record "
-                        + "from student stu, group_ g, subject sub, course course "
-                        + "where stu.group_id = g.oid "
+                        + "from student stu, group_ g, subject sub "
+                        + "where stu.group_id = g.oid and sub.group_id = g.oid "
                         + "and upper(g.name) = upper(:groupCode) and g.year = :year and upper(sub.name) = upper(:subjectName) ";
                 if (mail != null && !mail.equals(""))
                     oQuery = oQuery.concat("and upper(stu.email) = upper(:mail)");
@@ -215,7 +216,7 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 			@SuppressWarnings("unchecked")
 			@Override
 			public List<ClassDayStudent> doInHibernate(Session session) throws HibernateException {
-				String oQuery = "select day.class_date, day.event_registration_type, day.value, day.comment, day.oid, day.student_id  "
+				String oQuery = "select day.class_date, day.event_registration_type, day.value, day.comment, day.oid, day.student_id "
 						+ "from class_day_student day " 
 						+ "where day.student_id = :studentOid ";
 				
@@ -268,7 +269,7 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 		return result;
 	}
 
-	private List<Student> getStudentsByGroupCodeFromPartialResult(List<Object[]> partialResult) {
+	private List<Student> getStudentsByGroupCodeFromPartialResult(List<Object[]> partialResult, String groupCode) {
 
 		List<Student> result = new ArrayList<Student>();
 
@@ -290,7 +291,13 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 				String lastName = (String) oPartialResult[2];
 				student.setLastName(lastName);
 			}
-
+			if (oPartialResult[3] != null && !oPartialResult[3].equals("")) {
+				Date birthDate = (Date) oPartialResult[3];
+				student.setBirthDate(birthDate);
+			}
+							
+			student.setGroupCode(groupCode);			
+			
 			result.add(student);
 		}
 
@@ -363,7 +370,7 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 						+ "left join class_day_student day on (stu.oid = day.student_id and day.class_date >= :dateFrom and day.class_date <= :dateTo) "
 						+ "where stu.group_id = g.oid "
 						+ "and upper(g.name) = upper(:groupCode) and upper(sub.name) = upper(:subjectName) ";
-
+					
 				SQLQuery query = session.createSQLQuery(oQuery);
 
 				query.setString("groupCode", groupCode);
@@ -411,13 +418,13 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 				student.setCurrentStudent(currentStudent);
 			}
 			
-			student.setCalendar(getStudentCalendarByStudentId(student.getOid(), groupCode, subjectName));			
+			//student.setCalendar(getStudentCalendarByStudentId(student.getOid(), groupCode, subjectName));			
 			result.add(student);
 		}
 		return result;
 	}
 	
-	private List<ClassDayStudent> getStudentCalendarByStudentId(Long studentOid, String groupCode, String subjectName){
+	public List<ClassDayStudent> getStudentCalendarByStudentId(Long studentOid, String groupCode, String subjectName){
 		
 		log.debug(String.format("Getting student calendar. Parameters: Student Id " + studentOid));
 		
@@ -437,9 +444,8 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 						+ "from class_day_student day " 
 						+ "where day.student_id = :studentOid "
 						+ "and day.group_id in (select oid from group_ where name = :groupCode and year = YEAR(:dateFrom)) "
-						+ "and day.subject_id in (select oid from subject where name = :subjectName) "
-						+ "and day.event_registration_type in('"+ EventRegistrationType.FALTA +"', '"+ EventRegistrationType.MEDIA_FALTA +"') "
-						+ "and day.class_date >= :dateFrom and day.class_date <= :dateTo";
+						+ "and day.subject_id in (select oid from subject where name = :subjectName) "	;					
+//						+ "and day.class_date >= :dateFrom and day.class_date <= :dateTo";
 											
 				SQLQuery query = session.createSQLQuery(oQuery);
 
@@ -447,7 +453,7 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 				query.setString("groupCode", groupCode);
 				query.setString("subjectName", subjectName);
 				query.setString("dateFrom", dateFrom);
-				query.setString("dateTo", dateTo);
+//				query.setString("dateTo", dateTo);
 				
 				List<Object[]> partialResult = query.list();
 
@@ -458,5 +464,49 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 			}
 		});
 	}
+	
+	public List<ClassDayStudent> getStudentCalendarBySubjectGroup(Long studentOid, String groupCode, String subjectName){
+		
+		log.debug(String.format("Getting student calendar. Parameters: Student Id " + studentOid));
+		
+		DateFormat dateFormat = new SimpleDateFormat("yyy-MM-dd");
+		Date date = new Date();
+		String dateFrom = dateFormat.format(date).concat(" 00:00:00");
+//		String dateTo = dateFormat.format(date).concat(" 23:59:59");
+
+		return getHibernateTemplate().execute(new HibernateCallback<List<ClassDayStudent>>() {
+
+			List<ClassDayStudent> result = new ArrayList<ClassDayStudent>();
+
+			@SuppressWarnings("unchecked")
+			@Override
+			public List<ClassDayStudent> doInHibernate(Session session) throws HibernateException {
+				String oQuery = "select day.class_date, day.event_registration_type, day.value, day.comment, day.oid, day.student_id "
+						+ "from class_day_student day " 
+						+ "where day.student_id = :studentOid "
+						+ "and day.group_id in (select oid from group_ where name = :groupCode and year = YEAR(:dateFrom)) "
+						+ "and day.subject_id in (select oid from subject where name = :subjectName) ";
+//						+ "and day.event_registration_type in('"+ EventRegistrationType.FALTA +"', '"+ EventRegistrationType.MEDIA_FALTA +"') "
+//						+ "and day.class_date >= :dateFrom and day.class_date <= :dateTo";
+											
+				SQLQuery query = session.createSQLQuery(oQuery);
+
+				query.setLong("studentOid", studentOid);
+				query.setString("groupCode", groupCode);
+				query.setString("subjectName", subjectName);
+				query.setString("dateFrom", dateFrom);
+//				query.setString("dateTo", dateTo);
+				
+				List<Object[]> partialResult = query.list();
+
+				if (partialResult != null && !partialResult.isEmpty())
+					result = getDayEventsByPartialResult(partialResult);
+
+				return result;
+			}
+		});
+	}
+	
+
 
 }

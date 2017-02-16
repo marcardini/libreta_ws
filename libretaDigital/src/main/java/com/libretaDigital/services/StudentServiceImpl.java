@@ -35,6 +35,11 @@ public class StudentServiceImpl implements IStudentService{
 	}
 	
 	@Override
+	public List<Student> getStudentByGroup(String groupCode){
+		return studentDAO.getStudentsByGroupCode(groupCode);
+	}
+	
+	@Override
 	public void addStudent(Student dtStudent) throws StudentAlreadyExists, InvalidStudentInformation {
 		
 //		if (studentDAO.getStudentByMail(dtStudent.getEmail()) != null)

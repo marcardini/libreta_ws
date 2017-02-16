@@ -23,13 +23,16 @@ public enum EventRegistrationType {
 	PRIMER_EVALUACIÓN_ESPECIAL("1era Evaluacion Especial"),	
 	PROMEDIO_TEORICO("Promedio Teórico"),
 	PROMEDIO_PRACTICO("Promedio Práctico"),
-	PROMEDIO("Promedio"),
+	PRIMER_PROMEDIO("Primer Promedio"),
+	SEGUNDO_PROMEDIO("Segundo Promedio"),
 	SEGUNDA_EVALUACIÓN_ESPECIAL("2da Evaluacion Especial"),
 	PROMEDIO_FINAL_PRACTICO("Promedio Final Práctico"),
 	PROMEDIO_FINAL_TEORICO("Promedio Final Teórico"),	
 	PROMEDIO_FINAL("Promedio Final"),	
-	JUICIO_DOCENTE("Observación"),
-	JUICIO_FINAL("Observación");
+	PRIMER_JUICIO_DOCENTE("Primer Juicio Docente"),
+	SEGUNDO_JUICIO_DOCENTE("Segundo Juicio Docente"),
+	JUICIO_REUNION("Juicio Reunion"),
+	JUICIO_FINAL("Juicio Final");
 	
 	private final String value;
 

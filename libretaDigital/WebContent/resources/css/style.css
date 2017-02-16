@@ -142,6 +142,17 @@
 .list-row{
 	cursor: pointer;
 }
+.img-bulletin{
+	max-width: 60%;
+}
+
+.col-bulletin{
+	padding-right: 0px;
+    padding-left: 10px;
+}
+ .panel-bulletin{
+ 	margin-top:20px; 
+ }
 
 .sort-header:after {
     font-family: 'Glyphicons Halflings';

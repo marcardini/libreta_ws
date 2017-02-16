@@ -22,17 +22,26 @@ import com.libretaDigital.utils.Grade;
 public class ProfessorDAO extends GenericDAO<Professor> implements IProfessorDAO{
 
 	public List<Professor> getAllProfessors() {
-		@SuppressWarnings({ "unchecked" })
-		List<Professor> colResult = (List<Professor>) getHibernateTemplate().execute(
-				new HibernateCallback<Object>() {
+		return getHibernateTemplate().execute(new HibernateCallback<List<Professor>>() {
+			
+			List<Professor> result = new ArrayList<Professor>();
 
-					public List<Professor> doInHibernate(Session oSession) throws HibernateException {
-						Criteria oCriteria = oSession.createCriteria(Professor.class);
-						oCriteria.addOrder(Order.desc("email"));						
-						return oCriteria.list();
-					}
-				});
-		return colResult;
+			@SuppressWarnings("unchecked")
+			@Override
+			public List<Professor> doInHibernate(Session session) throws HibernateException {
+				String oQuery = "select p.oid, p.name, p.last_name, p.birth_date, p.gender, p.email, p.grade, p.employee_since, p.phoneNumber, p.subjectName " 
+						+ "from professor p ";
+
+				SQLQuery query = session.createSQLQuery(oQuery);
+
+				List<Object[]> partialResult = query.list();
+
+				if (partialResult != null && !partialResult.isEmpty())
+					result = getActiveProfessorsFromPartialResult(partialResult);
+
+				return result;
+			}
+		});
 	}
 
 	public List<Professor> getInactiveProfessors(){
@@ -56,7 +65,7 @@ public class ProfessorDAO extends GenericDAO<Professor> implements IProfessorDAO
 				@SuppressWarnings("unchecked")
 				@Override
 				public List<Professor> doInHibernate(Session session) throws HibernateException {
-					String oQuery = "select p.oid, p.name, p.last_name, p.birth_date, p.gender, p.email, p.grade, p.employee_since, p.phoneNumber " 
+					String oQuery = "select p.oid, p.name, p.last_name, p.birth_date, p.gender, p.email, p.grade, p.employee_since, p.phoneNumber,  p.subjectName " 
 							+ "from professor p, group_ g "
 							+ "where p.oid = g.professor_id ";
 	
@@ -104,6 +113,7 @@ public class ProfessorDAO extends GenericDAO<Professor> implements IProfessorDAO
             }
             
             professor.setPhoneNumber((String)oPartialResult[8]);
+            professor.setSubjectName((String)oPartialResult[9]);
             
             result.add(professor);
         }

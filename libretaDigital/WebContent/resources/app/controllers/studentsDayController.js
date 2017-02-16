@@ -324,7 +324,8 @@ app.controller('ModalInstanceQualifyCtrl', function ($uibModalInstance, qualy, s
 		var int = 0;		
 		var esta = false;
 		if( event === "PROMEDIO_FINAL_PRACTICO" || event === "PROMEDIO_PRACTICO" ||  event == "PROMEDIO_TEORICO" ||event === "PROMEDIO_FINAL_TEORICO" 
-			||  event === "PRIMER_EVALUACIÓN_ESPECIAL" ||  event === "PROMEDIO_FINAL" || event === "JUICIO_DOCENTE" ||  event === "JUICIO_FINAL"){			
+			||  event === "PRIMER_EVALUACIÓN_ESPECIAL" ||  event === "PROMEDIO_FINAL" || event === "JUICIO_DOCENTE" ||  event === "JUICIO_FINAL" 
+				||  event === "PRIMER_PROMEDIO" ||  event === "SEGUNDO_PROMEDIO"){			
 			while(int < student.qualifications.length && esta == false){					
 				if(event === student.qualifications[int].eventRegistrationType){
 					esta = true;	
@@ -372,12 +373,22 @@ app.controller('ModalInstanceQualifyCtrl', function ($uibModalInstance, qualy, s
 						sum = sum + event.value;
 					}					
 				}
-		 }else if(type == "PROMEDIO" || type === "PROMEDIO_FINAL_PRACTICO" || type === "PROMEDIO_FINAL_TEORICO"){
+		 }else if(type == "PRIMER_PROMEDIO"){
 			 $scope.verSugerencia = true;				
 				for (var int = 0; int < student.qualifications.length; int++) {
 					var event = student.qualifications[int];
 // console.log(event);
-					if(event.eventRegistrationType === "PROMEDIO_PRACTICO" || event.eventRegistrationType === "PROMEDIO_TEORICO" || event.eventRegistrationType === "PROMEDIO"
+					if(event.eventRegistrationType === "PROMEDIO_PRACTICO" || event.eventRegistrationType === "PROMEDIO_TEORICO"){
+						count++;
+						sum = sum + event.value;
+					}					
+				}
+		 }else if(type == "SEGUNDO_PROMEDIO" || type === "PROMEDIO_FINAL_PRACTICO" || type === "PROMEDIO_FINAL_TEORICO"){
+			 $scope.verSugerencia = true;				
+				for (var int = 0; int < student.qualifications.length; int++) {
+					var event = student.qualifications[int];
+// console.log(event);
+					if(event.eventRegistrationType === "PROMEDIO_PRACTICO" || event.eventRegistrationType === "PROMEDIO_TEORICO" || event.eventRegistrationType === "PRIMER_PROMEDIO"
 						|| event.eventRegistrationType === "PROMEDIO_FINAL_TEORICO" || event.eventRegistrationType === "PROMEDIO_FINAL_PRACTICO"){
 						count++;
 						sum = sum + event.value;
@@ -388,13 +399,13 @@ app.controller('ModalInstanceQualifyCtrl', function ($uibModalInstance, qualy, s
 				for (var int = 0; int < student.qualifications.length; int++) {
 					var event = student.qualifications[int];
 // console.log(event);
-					if(event.eventRegistrationType === "PROMEDIO" || event.eventRegistrationType === "PRIMER_EVALUACIÓN_ESPECIAL"
+					if(event.eventRegistrationType === "SEGUNDO_PROMEDIO" || event.eventRegistrationType === "PRIMER_EVALUACIÓN_ESPECIAL"
 							|| event.eventRegistrationType === "SEGUNDA_EVALUACIÓN_ESPECIAL"){
 						count++;
 						sum = sum + event.value;
 					}					
 				}
-		 }else if(type == "JUICIO_DOCENTE" || type == "JUICIO_DOCENTE"){
+		 }else if(type == "PRIMER_JUICIO_DOCENTE" || type == "SEGUNDO_JUICIO_DOCENTE" || type == "JUICIO_FINAL"){
 			$scope.verSlider = false;
 			$scope.qualy.value = 0;
 		 }

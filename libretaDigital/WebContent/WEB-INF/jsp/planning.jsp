@@ -16,6 +16,8 @@
 	if (notebook == null) {
 		notebook = "[]";
 	}
+	
+	
 %>
 
 <script type="text/javascript">
