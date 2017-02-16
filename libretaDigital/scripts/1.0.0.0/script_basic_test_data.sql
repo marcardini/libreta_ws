@@ -7,9 +7,17 @@
 
 insert into institution values (1,'Elbio Fernandez')
 go
-insert into notebook values (1, 2017, 'NORMAL', 'ABC', null, null, null)
+insert into notebook values (1, 2017, 'NORMAL', 'ABC', null, null, null,  null, null, null, null)
 go
 insert into subject values (1, 'MATEMATICAS', null, 0)
+go
+INSERT INTO `libreta_digital`.`subject` (`oid`, `name`, `group_id`, `index_subjects`) VALUES ('3', 'HISTORIA', '1', '0')
+GO
+INSERT INTO `libreta_digital`.`subject` (`oid`, `name`, `group_id`, `index_subjects`) VALUES ('3', 'FISICA', '1', '0')
+go
+INSERT INTO `libreta_digital`.`subject` (`oid`, `name`, `group_id`, `index_subjects`) VALUES ('4', 'QUIMICA', '1', '0')
+go
+INSERT INTO `libreta_digital`.`subject` (`oid`, `name`, `group_id`, `index_subjects`) VALUES ('5', 'LITERATURA', '1', '0')
 go
 update notebook set subject_oid = 1 where oid = 1
 go
@@ -17,7 +25,9 @@ insert into group_ values (1,'1A',2017,null,0)
 go
 update notebook set group_id = 1 where oid = 1
 go
-insert into professor values (1, 'ADMIN', '-', '1990-06-20 00:00:00', 'PENDING', 'admin', 'admin', '-', '2017-01-01 00:00:00', null, 1, 0, '094555996')
+insert into professor values (1, 'ADMIN', '-', '1990-06-20 00:00:00', 'PENDING', 'admin', 'admin', '-', '2017-01-01 00:00:00', null, 1, 0, '094555996', 'MATEMATICAS')
+go
+INSERT INTO `libreta_digital`.`professor` VALUES ('2', 'juan', 'lopez', '1978-02-06', 'MALE', 'mail2@mail', 'admin', 'GRADE_5', '2016-01-01', '1234568', '1', '0', '0', 'HISTORIA')
 go
 insert into course values (1,'primero',1,0)
 go
@@ -41,31 +51,29 @@ insert into class_day_student values(1,'2017-02-06 00:00:00', 'FALTA', 1,1,1,1,n
 go
 insert into class_day_student values(2,'2017-02-07 00:00:00', 'MEDIA_FALTA', 1,1,1,1,null,null)
 go
-insert into class_day_student values(3,'2017-02-06 00:00:00', 'FALTA', 1,1,1,1,null,null)
+insert into class_day_student values(3,'2017-02-06 00:00:00', 'FALTA', 2,1,1,1,null,null)
 go
-insert into class_day_student values(4,'2017-02-07 00:00:00', 'MEDIA_FALTA', 1,1,1,1,null,null);
+insert into class_day_student values(4,'2017-02-07 00:00:00', 'MEDIA_FALTA', 2,1,1,1,null,null);
 go
-insert into class_day_student values(5,'2017-02-06 00:00:00', 'FALTA', 1,1,1,1,null,null);
+insert into class_day_student values(5,'2017-02-06 00:00:00', 'FALTA', 3,1,1,1,null,null);
 go
-insert into class_day_student values(6,'2017-02-07 00:00:00', 'MEDIA_FALTA', 1,1,1,1,null,null);
-go
-insert into class_day_student values(7,'2017-02-06 00:00:00', 'FALTA', 1,1,1,1,null,null);
-go
-insert into class_day_student values(8,'2017-02-07 00:00:00', 'MEDIA_FALTA', 1,1,1,1,null,null);
-go
-insert into class_day_student values(9,'2017-02-06 00:00:00', 'FALTA', 1,1,1,1,null,null);
-go
-insert into class_day_student values(10,'2017-02-07 00:00:00', 'MEDIA_FALTA', 1,1,1,1,null,null);
+insert into class_day_student values(6,'2017-02-07 00:00:00', 'MEDIA_FALTA', 3,1,1,1,null,null);
 go
 insert into class_day_student values(11,'2017-02-06 00:00:00', 'EXAMEN', 1,1,1,1,6,'pobre')
 go
-insert into class_day_student values(12,'2017-02-07 00:00:00', 'EXAMEN', 1,1,1,1,7,'pobre')
+insert into class_day_student values(12,'2017-02-07 00:00:00', 'PARCIAL', 1,1,1,1,7,'pobre')
 go
-insert into class_day_student values(13,'2017-02-06 00:00:00', 'EXAMEN', 1,1,1,1,8,'pobre')
+insert into class_day_student values(13,'2017-02-06 00:00:00', 'PROMEDIO_TEORICO', 1,1,1,1,8,'pobre')
 go
-insert into class_day_student values(14,'2017-02-07 00:00:00', 'EXAMEN', 1,1,1,1,9,'bien')
+insert into class_day_student values(14,'2017-02-07 00:00:00', 'PRIMER_PROMEDIO', 1,1,1,1,9,'bien')
 go
-insert into class_day_student values(15,'2017-02-06 00:00:00', 'EXAMEN', 1,1,1,1,10,'excelente')
+insert into class_day_student values(15,'2017-02-06 00:00:00', 'PRIMER_EVALUACIÓN_ESPECIAL', 1,1,1,1,10,'excelente')
+go
+INSERT INTO `libreta_digital`.`class_day_professor` (`oid`, `class_date`, `notebook_id`, `comment`) VALUES ('1', '2017-02-14', '1', 'Nota del curso')
+go
+INSERT INTO `libreta_digital`.`class_day_professor` (`oid`, `class_date`, `notebook_id`, `comment`) VALUES ('2', '2017-02-15', '1', 'Otra Nota')
+go
+INSERT INTO `libreta_digital`.`class_day_professor` (`oid`, `class_date`, `notebook_id`, `comment`) VALUES ('3', '2017-02-16', '1', 'La ultima')
 go
 insert into roles values(1, 'ADMIN')
 go
@@ -87,5 +95,4 @@ insert into privileges values(4,4,'WRITE',1,3)
 go
 update professor set roleId = 1 where oid = 1
 go
-
 insert into bulletin values (1, 1, '2017-03-01 00:00:00', '2017-06-30 23:59:59', 1, 10, 3, 'mejoro la conducta', false)

@@ -52,6 +52,7 @@
 						<!-- 							<th></th> -->
 						<th class="sort-header text-left" st-sort="name" class="text-left">Nombre</th>
 						<th class="sort-header text-left" st-sort="year" class="text-left">Año</th>
+						<th class="sort-header text-left" st-sort="year" class="text-left">Materia</th>
 						<th></th>
 					</tr>
 
@@ -61,6 +62,7 @@
 						class="list-row text-left" ng-click="rowSelect(row)">
 						<td>{{row.name | capitalize}}</td>
 						<td>{{row.year}}</td>
+						<td>{{row.subjectsList[0].name}}</td>
 						<td>
 							<button type="button" confirmed-click="deleteGroup(row.oid)" class="btn btn-danger"
 								ng-confirm-click="Esta seguro que desea eliminar este grupo?">

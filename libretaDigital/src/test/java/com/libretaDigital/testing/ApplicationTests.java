@@ -189,7 +189,7 @@ public class ApplicationTests {
 		groupService.addGroup(assistanceControlGroup);
 		
 		Student assistanceControlStudent = new Student(assistanceControlStudentName, "-", new Date(), Gender.PENDING, assistanceControlStudentMail, true, 
-				assistanceControlGroup.getOid(), "095325652");
+				assistanceControlGroup.getOid(), "095325652", "");
 		studentService.addStudent(assistanceControlStudent);
 		
 		StudentEventRegistration abscense = new StudentEventRegistration(assistanceControlStudent.getOid(), 1L, assistanceControlGroup.getOid(), 1L, EventRegistrationType.FALTA);

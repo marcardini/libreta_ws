@@ -1,6 +1,7 @@
 package com.libretaDigital.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 
@@ -13,8 +14,8 @@ public class Group implements Serializable{
 	private Course course;
 	private String name;
 	private int year;
-	private List<Student> studentsList;
-	private List<Subject> subjectsList;
+	private List<Student> studentsList = new ArrayList<Student>();
+	private List<Subject> subjectsList = new ArrayList<Subject>();
 	
 	private String professorEmail;
 	
