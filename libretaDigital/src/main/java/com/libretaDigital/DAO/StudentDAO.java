@@ -349,14 +349,48 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 	}
 	
 	
-	public List<Student> getStudentsAndTodaysAssistance(String groupCode, String subjectName){
+//	public List<Student> getStudentsAndTodaysAssistance(String groupCode, String subjectName){
+//		
+//		log.debug(String.format("Getting students and today's assistance. Group: " + groupCode + ". Subject: " + subjectName));
+//		
+//		DateFormat dateFormat = new SimpleDateFormat("yyy-MM-dd");
+//		Date date = new Date();
+//		String dateFrom = dateFormat.format(date).concat(" 00:00:00");
+//		String dateTo = dateFormat.format(date).concat(" 23:59:59");
+//		
+//		return getHibernateTemplate().execute(new HibernateCallback<List<Student>>() {
+//
+//			List<Student> result = new ArrayList<Student>();
+//
+//			@SuppressWarnings("unchecked")
+//			@Override
+//			public List<Student> doInHibernate(Session session) throws HibernateException {
+//				String oQuery = "select distinct(stu.oid), stu.name, stu.last_name, stu.birth_date, stu.gender, stu.email, stu.currentStudent, day.event_registration_type "
+//						+ "from group_ g, subject sub, student stu "
+//						+ "left join class_day_student day on (stu.oid = day.student_id and day.class_date >= :dateFrom and day.class_date <= :dateTo) "
+//						+ "where stu.group_id = g.oid "
+//						+ "and upper(g.name) = upper(:groupCode) and upper(sub.name) = upper(:subjectName) ";
+//					
+//				SQLQuery query = session.createSQLQuery(oQuery);
+//
+//				query.setString("groupCode", groupCode);
+//				query.setString("subjectName", subjectName);
+//				query.setString("dateFrom", dateFrom);
+//				query.setString("dateTo", dateTo);
+//				
+//				List<Object[]> partialResult = query.list();
+//
+//				if (partialResult != null && !partialResult.isEmpty())
+//					result = getStudentsAndTodaysAssistanceFromPartialResult(partialResult, groupCode, subjectName);
+//
+//				return result;
+//			}
+//		});
+//	}
+	
+public List<Student> getStudentsAndTodaysAssistance(String groupCode, String subjectName){
 		
 		log.debug(String.format("Getting students and today's assistance. Group: " + groupCode + ". Subject: " + subjectName));
-		
-		DateFormat dateFormat = new SimpleDateFormat("yyy-MM-dd");
-		Date date = new Date();
-		String dateFrom = dateFormat.format(date).concat(" 00:00:00");
-		String dateTo = dateFormat.format(date).concat(" 23:59:59");
 		
 		return getHibernateTemplate().execute(new HibernateCallback<List<Student>>() {
 
@@ -365,9 +399,8 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 			@SuppressWarnings("unchecked")
 			@Override
 			public List<Student> doInHibernate(Session session) throws HibernateException {
-				String oQuery = "select distinct(stu.oid), stu.name, stu.last_name, stu.birth_date, stu.gender, stu.email, stu.currentStudent, day.event_registration_type "
-						+ "from group_ g, subject sub, student stu "
-						+ "left join class_day_student day on (stu.oid = day.student_id and day.class_date >= :dateFrom and day.class_date <= :dateTo) "
+				String oQuery = "select distinct(stu.oid), stu.name, stu.last_name, stu.birth_date, stu.gender, stu.email, stu.currentStudent "
+						+ "from group_ g, subject sub, student stu "						
 						+ "where stu.group_id = g.oid "
 						+ "and upper(g.name) = upper(:groupCode) and upper(sub.name) = upper(:subjectName) ";
 					
@@ -375,8 +408,6 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 
 				query.setString("groupCode", groupCode);
 				query.setString("subjectName", subjectName);
-				query.setString("dateFrom", dateFrom);
-				query.setString("dateTo", dateTo);
 				
 				List<Object[]> partialResult = query.list();
 
@@ -418,10 +449,52 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 				student.setCurrentStudent(currentStudent);
 			}
 			
-			//student.setCalendar(getStudentCalendarByStudentId(student.getOid(), groupCode, subjectName));			
+			student.setCalendar(getStudentCalendarTodayAssistance(student.getOid(), groupCode, subjectName));			
 			result.add(student);
 		}
 		return result;
+	}
+	
+public List<ClassDayStudent> getStudentCalendarTodayAssistance(Long studentOid, String groupCode, String subjectName){
+		
+		log.debug(String.format("Getting student calendar. Parameters: Student Id " + studentOid));
+		
+		DateFormat dateFormat = new SimpleDateFormat("yyy-MM-dd");
+		Date date = new Date();
+		String dateFrom = dateFormat.format(date).concat(" 00:00:00");
+		String dateTo = dateFormat.format(date).concat(" 23:59:59");
+
+		return getHibernateTemplate().execute(new HibernateCallback<List<ClassDayStudent>>() {
+
+			List<ClassDayStudent> result = new ArrayList<ClassDayStudent>();
+
+			@SuppressWarnings("unchecked")
+			@Override
+			public List<ClassDayStudent> doInHibernate(Session session) throws HibernateException {
+				String oQuery = "select day.class_date, day.event_registration_type, day.value, day.comment, day.oid, day.student_id "
+						+ "from class_day_student day " 
+						+ "where day.student_id = :studentOid "
+						+ "and day.group_id in (select oid from group_ where name = :groupCode and year = YEAR(:dateFrom)) "
+						+ "and day.subject_id in (select oid from subject where name = :subjectName) "
+						+ "and day.event_registration_type in ('FALTA', 'MEDIA_FALTA') "	
+						+ "and day.class_date >= :dateFrom and day.class_date <= :dateTo";
+											
+				SQLQuery query = session.createSQLQuery(oQuery);
+
+				query.setLong("studentOid", studentOid);
+				query.setString("groupCode", groupCode);
+				query.setString("subjectName", subjectName);
+				query.setString("dateFrom", dateFrom);
+				query.setString("dateTo", dateTo);
+				
+				List<Object[]> partialResult = query.list();
+
+				if (partialResult != null && !partialResult.isEmpty())
+					result = getDayEventsByPartialResult(partialResult);
+
+				return result;
+			}
+		});
 	}
 	
 	public List<ClassDayStudent> getStudentCalendarByStudentId(Long studentOid, String groupCode, String subjectName){
@@ -464,6 +537,8 @@ public class StudentDAO extends GenericDAO<Student> implements IStudentDAO {
 			}
 		});
 	}
+	
+	
 	
 	public List<ClassDayStudent> getStudentCalendarBySubjectGroup(Long studentOid, String groupCode, String subjectName){
 		
