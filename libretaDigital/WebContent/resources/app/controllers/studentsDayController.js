@@ -528,6 +528,14 @@ app.controller('ModalInstanceAbsenceCtrl', function ($uibModalInstance, absence,
 			    // or server returns response with an error status.
 			  });	   	   	
 	};
+	
+	$scope.cancel = function () {
+		if(angular.isObject($scope.old)){
+			absence.value = $scope.old.value;			
+			absence.eventRegistrationType = $scope.old.eventRegistrationType;
+		}		
+		$uibModalInstance.dismiss('cancel');	  
+	};
 		   
 });
 

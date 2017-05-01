@@ -19,11 +19,11 @@
 
 		<property name="professorOid" column="professor_id" type="long" />		
 		
-		<property name="pautaSalaDocente" column="pautaSalaDocente" type="string" length="255"/>
-		<property name="propuestaDiagnostica" column="propuestaDiagnostica" type="string" length="255"/>
-		<property name="descripcionYAnalisis" column="descripcionYAnalisis" type="string" length="255"/>
+		<property name="pautaSalaDocente" column="pautaSalaDocente" type="string" length="5000"/>
+		<property name="propuestaDiagnostica" column="propuestaDiagnostica" type="string" length="5000"/>
+		<property name="descripcionYAnalisis" column="descripcionYAnalisis" type="string" length="5000"/>
 		
-		<property name="programaYPautaExamen" column="programaYPautaExamen" type="string" length="255"/>
+		<property name="programaYPautaExamen" column="programaYPautaExamen" type="string" length="5000"/>
 		
 <!-- 		<list name="professors" table="professor" fetch="join" cascade="all,delete-orphan"> -->
 <!-- 			<key column="notebook_id" /> -->

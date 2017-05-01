@@ -15,6 +15,6 @@
 		</property>
 		
 		<property name="notebookId" column="notebook_id" type="long" />
-		<property name="comment" column="comment" type="string" length="255"/>
+		<property name="comment" column="comment" type="string" length="5000"/>
 	</class>
 </hibernate-mapping>
